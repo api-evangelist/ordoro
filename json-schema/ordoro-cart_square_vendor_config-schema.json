@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-cart_square_vendor_config-schema.json",
+  "title": "cart_square_vendor_config",
+  "type": "object",
+  "definitions": {
+    "required_to_create": {
+      "required": [
+        "access_token",
+        "refresh_token",
+        "merchant_id"
+      ]
+    },
+    "required_in_response": {
+      "required": [
+        "access_token",
+        "refresh_token",
+        "merchant_id",
+        "locations"
+      ]
+    }
+  },
+  "description": "Square configuration information",
+  "properties": {
+    "access_token": {
+      "type": "string"
+    },
+    "refresh_token": {
+      "type": "string"
+    },
+    "merchant_id": {
+      "type": "string"
+    },
+    "locations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      }
+    }
+  }
+}

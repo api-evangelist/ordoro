@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-supplier_shipping_method_map-schema.json",
+  "title": "Supplier shipping method map",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "active": {
+      "description": "Toggle to enable use of this shipping method map",
+      "type": "boolean"
+    },
+    "created": {
+      "description": "The date this was created",
+      "type": "string"
+    },
+    "id": {
+      "description": "internal reference identifier for the supplier shipping method map",
+      "type": "integer"
+    },
+    "requested_shipping_method": {
+      "default": "",
+      "description": "User defined requested shipping method on an Order to be mapped to a determinate shipping method",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "mapped_shipping_method": {
+      "description": "FBA defined shipping methods will only be one of the following: ['Expedited', 'Priority', 'Standard']. All others can be freeform to suit the supplier",
+      "type": "string"
+    },
+    "mapped_shipping_account": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "mapped_shipping_carrier": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "supplier_id": {
+      "description": "Integer indicating the supplier for which this mapping is tied.",
+      "type": "integer"
+    },
+    "updated": {
+      "description": "The latest updated date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "active",
+    "created",
+    "id",
+    "requested_shipping_method",
+    "mapped_shipping_method",
+    "mapped_shipping_account",
+    "mapped_shipping_carrier",
+    "supplier_id",
+    "updated"
+  ]
+}

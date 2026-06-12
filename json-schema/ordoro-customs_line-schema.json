@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-customs_line-schema.json",
+  "title": "Customs Line Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "country": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "value": {
+      "description": "Dollar value of customs line",
+      "format": "double",
+      "type": "number"
+    },
+    "weight": {
+      "description": "Weight of customs line in ounces",
+      "type": "number"
+    },
+    "harmonization_code": {
+      "description": "The 6 character international nomenclature for the classification of products",
+      "type": "string"
+    },
+    "sku": {
+      "type": "string"
+    },
+    "unit_of_measure": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "harmonization_code_country": {
+      "description": "The country of harmonization_code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "description",
+    "quantity",
+    "value",
+    "weight",
+    "country"
+  ]
+}

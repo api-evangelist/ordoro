@@ -1,0 +1,262 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_ups_label-schema.json",
+  "title": "UPS Label Request Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "additional_handling": {
+      "type": "boolean"
+    },
+    "certificate_origin": {
+      "default": false,
+      "type": "boolean"
+    },
+    "customs_info": {
+      "items": {
+        "$ref": "#/components/schemas/customs_line"
+      },
+      "type": "array"
+    },
+    "delivery_confirmation": {
+      "description": "['0' - None, '1' - Confirm, '2' - Signature, '3' - Adult Signature, '4' - USPS for use with Mail Innovations]",
+      "type": "string"
+    },
+    "direct_delivery": {
+      "type": "boolean"
+    },
+    "dry_ice_regulation_set": {
+      "description": "indicates dry ice shipment option [CFR = For HazMat regulated by US Dept of Transportation within the U.S. or ground shipments to Canada, IATA = For Worldwide Air movement]",
+      "type": "string"
+    },
+    "insurance_type": {
+      "type": "string"
+    },
+    "insured_value": {
+      "default": 0,
+      "type": "number"
+    },
+    "notify_bill_to": {
+      "default": false,
+      "type": "boolean"
+    },
+    "notify_ship_to": {
+      "default": false,
+      "type": "boolean"
+    },
+    "box_shape": {
+      "description": "ups box options [01 - UPS Letter, 02 - Customer Supplied Package, 03 - Tube, 04 - PAK, 2a - Small Express Box, 2b - Medium Express Box, 2c - Large Express Box, 24 - UPS 25KG Box, 25 - UPS 10KG Box]",
+      "type": "string"
+    },
+    "declared_value": {
+      "description": "Package level declared value for UPS",
+      "type": "number"
+    },
+    "description": {
+      "description": "Package level description, required for return shipments",
+      "type": "string"
+    },
+    "dry_ice_weight": {
+      "description": "Dry ice weight in ounces, required for dry ice shipments",
+      "type": "number"
+    },
+    "height": {
+      "description": "Height in inches",
+      "type": "number"
+    },
+    "length": {
+      "description": "Length in inches",
+      "type": "number"
+    },
+    "weight": {
+      "description": "weight of the package in ounces",
+      "type": "number"
+    },
+    "width": {
+      "description": "Width in inches",
+      "type": "number"
+    },
+    "packages": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "additional_handling": {
+            "type": "boolean"
+          },
+          "box_shape": {
+            "description": "ups box options [01 - UPS Letter, 02 - Customer Supplied Package, 03 - Tube, 04 - PAK, 2a - Small Express Box, 2b - Medium Express Box, 2c - Large Express Box, 24 - UPS 25KG Box, 25 - UPS 10KG Box]",
+            "type": "string"
+          },
+          "declared_value": {
+            "description": "Package level declared value for UPS",
+            "type": "number"
+          },
+          "description": {
+            "description": "Package level description, required for return shipments",
+            "type": "string"
+          },
+          "dry_ice_regulation_set": {
+            "description": "indicates dry ice shipment option [CFR = For HazMat regulated by US Dept of Transportation within the U.S. or ground shipments to Canada, IATA = For Worldwide Air movement]",
+            "type": "string"
+          },
+          "dry_ice_weight": {
+            "description": "Dry ice weight in ounces, required for dry ice shipments",
+            "type": "number"
+          },
+          "hazmat_items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/hazmat_item"
+            }
+          },
+          "height": {
+            "description": "Height in inches",
+            "type": "number"
+          },
+          "length": {
+            "description": "Length in inches",
+            "type": "number"
+          },
+          "reference_number": {
+            "description": "Package level reference, not always necessarily a number",
+            "type": "string"
+          },
+          "weight": {
+            "description": "weight of the package in ounces",
+            "type": "number"
+          },
+          "width": {
+            "description": "Width in inches",
+            "type": "number"
+          }
+        },
+        "required": [
+          "box_shape"
+        ]
+      }
+    },
+    "package_bill_type": {
+      "description": "required for shoptimeintransit rates: document, non-document, wwef pallet, or domestic pallet. describes the contents of the package.",
+      "type": "string",
+      "enum": [
+        "02",
+        "03",
+        "04",
+        "07"
+      ]
+    },
+    "packing_list_id": {
+      "description": "id for packing list for profile template associated with this label",
+      "type": "integer"
+    },
+    "payment_type": {
+      "default": "BillShipper",
+      "description": "payor for the shipment [BillShipper, BillReceiver, BillThirdParty]",
+      "type": "string"
+    },
+    "payment_account": {
+      "description": "account number for payment type",
+      "type": "string"
+    },
+    "payment_zip": {
+      "description": "postal code of the payor, required for payment_type: BillThirdParty",
+      "type": "string"
+    },
+    "payment_country": {
+      "description": "2 character country code of the payor, required for payment_type: BillThirdParty",
+      "type": "string"
+    },
+    "duties_payment_type": {
+      "default": "BillShipper",
+      "description": "payor for the shipment [BillShipper, BillReceiver, BillThirdParty]",
+      "type": "string"
+    },
+    "duties_payment_account": {
+      "description": "account number for payment type",
+      "type": "string"
+    },
+    "duties_payment_zip": {
+      "description": "postal code of the payor, required for payment_type: BillThirdParty",
+      "type": "string"
+    },
+    "duties_payment_country": {
+      "description": "2 character country code of the payor, required for payment_type: BillThirdParty",
+      "type": "string"
+    },
+    "purchase_order_number": {
+      "description": "Customs level purchase order number reference",
+      "type": "string"
+    },
+    "reason_for_export": {
+      "type": "string"
+    },
+    "receiver_tax_info": {
+      "$ref": "#/components/schemas/tax_info"
+    },
+    "recipient_address_is_residential": {
+      "type": "boolean"
+    },
+    "reference_number": {
+      "description": "Customer supplied internal reference for the order",
+      "type": "string"
+    },
+    "return": {
+      "type": "boolean"
+    },
+    "saturday_delivery": {
+      "default": false,
+      "type": "boolean"
+    },
+    "sender_tax_info": {
+      "$ref": "#/components/schemas/tax_info"
+    },
+    "shipper_id": {
+      "type": "integer"
+    },
+    "shipper_type": {
+      "type": "string"
+    },
+    "shipping_method": {
+      "description": "options: ['01' - Next Day, '02' - Second Day, '03' - Ground, '07' - Worldwide Express, '08' - Worldwide Expedited, '11' - Standard, '12' - Three Day Select, '13' - Next Day Air Saver, '14' - Next Day AM, '54' - Worldwide Express Plus, '59' - Second Day AM, '65' - Saver, '92' - SurePost Less Than 1 lb, '93' - SurePost Greater Than 1lb, '94' - SurePost BPM, '95' - SurePost Media; The following service types are used with UPS Mail Innovations: 'M2' - USPS First Class Mail, 'M3' - USPS Priority Mail, 'M4' - Expedited Mail Innovations, 'M5' - Priority Mail Innovations, 'M6' - Economy Mail Innovations]",
+      "type": "string"
+    },
+    "shipper_release": {
+      "type": "boolean"
+    },
+    "shipper_return_to_address": {
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "ship_from": {
+      "description": "The ship_from address is used as the originating address of the rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "ship_to": {
+      "description": "The to address is used as the destination address of a return order rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "reference_id": {
+      "description": "Identifier for a Return Order",
+      "type": "string"
+    },
+    "usps_endorsement": {
+      "description": "Required for UPS Mail Innovations shipments",
+      "type": "string"
+    },
+    "warehouse_id": {
+      "description": "Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.",
+      "type": "integer"
+    },
+    "cost_center": {
+      "description": "The Cost Center code for UPS Mail Innovations shipments",
+      "type": "string",
+      "maxLength": 30
+    }
+  },
+  "required": [
+    "shipper_id",
+    "shipping_method"
+  ]
+}

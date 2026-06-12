@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_order_line-schema.json",
+  "title": "POST Order Line Request Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "quantity": {
+      "type": "integer",
+      "default": 1
+    },
+    "item_price": {
+      "type": "number"
+    },
+    "total_price": {
+      "type": "number"
+    },
+    "discount_amount": {
+      "type": "number"
+    },
+    "product_name": {
+      "type": "string"
+    },
+    "product_serial_numbers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sku": {
+      "type": "string"
+    },
+    "details": {
+      "type": "string"
+    },
+    "sales_channel_location_id": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cart_orderitem_id": {
+      "type": "string"
+    },
+    "cart_order_id": {
+      "type": "string"
+    },
+    "cart_shipment_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "sku"
+  ]
+}

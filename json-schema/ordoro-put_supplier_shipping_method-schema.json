@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_supplier_shipping_method-schema.json",
+  "title": "Update a shipping method mapped to a supplier method",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "active": {
+      "type": "boolean"
+    },
+    "requested_shipping_method": {
+      "description": "The requested shipping method on an Order to be mapped to a determinate shipping method",
+      "type": "string"
+    },
+    "mapped_shipping_method": {
+      "description": "For FBA, must be one of the following: ['Expedited', 'Priority', 'Standard']",
+      "type": "string"
+    },
+    "mapped_shipping_account": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "mapped_shipping_carrier": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-packing_list_list-schema.json",
+  "title": "packing_list_list",
+  "type": "object",
+  "properties": {
+    "limit": {
+      "type": "integer"
+    },
+    "offset": {
+      "type": "integer"
+    },
+    "count": {
+      "type": "integer"
+    },
+    "packing_list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/packing_list"
+      }
+    }
+  },
+  "required": [
+    "limit",
+    "offset",
+    "count",
+    "packing_list"
+  ]
+}

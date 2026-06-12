@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-goods_receipt_list-schema.json",
+  "title": "goods_receipt_list",
+  "type": "object",
+  "properties": {
+    "limit": {
+      "type": "integer"
+    },
+    "offset": {
+      "type": "integer"
+    },
+    "count": {
+      "type": "integer"
+    },
+    "goods_receipt": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/goods_receipt"
+      }
+    }
+  },
+  "required": [
+    "limit",
+    "offset",
+    "count",
+    "goods_receipt"
+  ]
+}

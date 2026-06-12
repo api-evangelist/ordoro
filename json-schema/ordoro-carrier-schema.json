@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-carrier-schema.json",
+  "title": "Shipper Carrier Response",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "archive_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "autorefill_config": {
+      "type": "object"
+    },
+    "company_id": {
+      "type": "integer"
+    },
+    "created": {
+      "type": "string"
+    },
+    "hidden_shipping_methods": {
+      "type": "array",
+      "items": {}
+    },
+    "id": {
+      "type": "integer"
+    },
+    "link": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "updated": {
+      "type": "string"
+    },
+    "vendor": {
+      "type": "string"
+    },
+    "vendor_config": {
+      "type": "object"
+    },
+    "transaction_fee": {
+      "type": "number"
+    },
+    "index": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "link"
+  ]
+}

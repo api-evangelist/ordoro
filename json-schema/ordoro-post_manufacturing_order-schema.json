@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_manufacturing_order-schema.json",
+  "title": "Create a Manufacturing Order",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "reference_id": {
+      "type": "string"
+    },
+    "warehouse_id": {
+      "type": "integer"
+    },
+    "manufacturer_notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "internal_notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sku": {
+            "type": "string"
+          },
+          "requested_quantity": {
+            "type": "number"
+          },
+          "manufacturer_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "internal_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "sku"
+        ]
+      }
+    }
+  },
+  "required": [
+    "reference_id"
+  ]
+}

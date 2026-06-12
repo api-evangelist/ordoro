@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_goods_receipt-schema.json",
+  "title": "Post Goods Receipt Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "po_id": {
+      "type": "string"
+    },
+    "goods_receipt_id": {
+      "type": "string"
+    },
+    "received_lines": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/goods_receipt_item"
+      }
+    }
+  },
+  "required": [
+    "po_id",
+    "received_lines"
+  ]
+}

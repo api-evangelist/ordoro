@@ -1,0 +1,154 @@
+aid: ordoro
+name: Ordoro API Vocabulary
+description: Key terms, properties, and concepts used in the Ordoro API
+
+tags:
+  - name: Address
+  - name: Api Key
+  - name: Authenticated
+  - name: Cart
+  - name: Company
+  - name: Goods Receipt
+  - name: Integration
+  - name: Label
+  - name: Manufacturing Order
+  - name: Order
+  - name: Packing List
+  - name: Postage Account
+  - name: Product
+  - name: Purchase Order
+  - name: Rate
+  - name: Return Label
+  - name: Return Order
+  - name: Return Order Label
+  - name: Return Order Rate
+  - name: Return Tracking
+  - name: Rule
+  - name: Shipper
+  - name: Supplier
+  - name: Tag
+  - name: Tracking
+  - name: User
+  - name: Warehouse
+
+properties:
+  - name: name
+    occurrences: 37
+  - name: warehouse_id
+    occurrences: 25
+  - name: id
+    occurrences: 21
+  - name: shipping_method
+    occurrences: 20
+  - name: insured_value
+    occurrences: 20
+  - name: shipper_id
+    occurrences: 20
+  - name: reference_id
+    occurrences: 19
+  - name: ship_from
+    occurrences: 19
+  - name: packages
+    occurrences: 19
+  - name: count
+    occurrences: 18
+  - name: limit
+    occurrences: 18
+  - name: offset
+    occurrences: 18
+  - name: ship_date
+    occurrences: 18
+  - name: insurance_type
+    occurrences: 18
+  - name: delivery_confirmation
+    occurrences: 17
+  - name: reference_number
+    occurrences: 17
+  - name: ship_to
+    occurrences: 17
+  - name: return
+    occurrences: 16
+  - name: internal_notes
+    occurrences: 14
+  - name: quantity
+    occurrences: 14
+  - name: customs_info
+    occurrences: 14
+  - name: email
+    occurrences: 13
+  - name: _link
+    occurrences: 13
+  - name: notify_bill_to
+    occurrences: 13
+  - name: notify_ship_to
+    occurrences: 13
+  - name: packing_list_id
+    occurrences: 12
+  - name: reason_for_export
+    occurrences: 12
+  - name: created
+    occurrences: 11
+  - name: weight
+    occurrences: 11
+  - name: discount_amount
+    occurrences: 11
+  - name: phone
+    occurrences: 10
+  - name: updated
+    occurrences: 10
+  - name: status
+    occurrences: 10
+  - name: declared_value
+    occurrences: 10
+  - name: company_id
+    occurrences: 9
+  - name: length
+    occurrences: 9
+  - name: width
+    occurrences: 9
+  - name: height
+    occurrences: 9
+  - name: username
+    occurrences: 8
+  - name: password
+    occurrences: 8
+  - name: access_token
+    occurrences: 8
+  - name: sku
+    occurrences: 8
+  - name: tags
+    occurrences: 8
+  - name: box_shape
+    occurrences: 8
+  - name: url
+    occurrences: 7
+  - name: cart
+    occurrences: 7
+  - name: cost
+    occurrences: 7
+  - name: lines
+    occurrences: 7
+  - name: receiver_tax_info
+    occurrences: 7
+  - name: country
+    occurrences: 6
+  - name: address
+    occurrences: 6
+  - name: archive_date
+    occurrences: 6
+  - name: vendor
+    occurrences: 6
+  - name: color
+    occurrences: 6
+  - name: po_id
+    occurrences: 6
+  - name: comments
+    occurrences: 6
+  - name: link
+    occurrences: 6
+  - name: created_date
+    occurrences: 6
+  - name: requested_shipping_method
+    occurrences: 6
+  - name: sender_tax_info
+    occurrences: 6

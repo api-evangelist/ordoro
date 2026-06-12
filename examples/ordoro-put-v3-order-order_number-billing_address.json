@@ -1,0 +1,14 @@
+{
+  "description": "Update an Order's Billing Address",
+  "method": "PUT",
+  "path": "/v3/order/{order_number}/billing_address",
+  "contentType": "application/json",
+  "example": {
+    "example": {
+      "value": {
+        "name": "Tommy Tutone",
+        "zip": "00000"
+      }
+    }
+  }
+}

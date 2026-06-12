@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_cart_base-schema.json",
+  "title": "put_cart_base",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "description": "The display name of this cart.",
+      "type": "string"
+    },
+    "archived_date": {
+      "description": "date at which time this cart is archived",
+      "type": "string"
+    },
+    "gdpr_pii_removal_requested_date": {
+      "description": "date of the cart received a request to delete or redact its data. the request will be processed 30 days from this date",
+      "type": "string"
+    },
+    "autosync_activities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "export_products_to_cart",
+          "import_awd_inventory",
+          "import_fba_inventory",
+          "import_orders_from_cart"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-balance-schema.json",
+  "title": "Account Balance Response Schema",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "apv_balance": {
+      "type": "number"
+    },
+    "balance": {
+      "type": "number"
+    },
+    "daily_purchase_limit": {
+      "type": "number"
+    },
+    "ledger_balance": {
+      "type": "number"
+    },
+    "todays_purchases": {
+      "type": "number"
+    },
+    "payment_account_number": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "balance"
+  ]
+}

@@ -1,0 +1,246 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_user-schema.json",
+  "title": "User Update Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "description": "Full Name",
+      "type": "string",
+      "maxLength": 60
+    },
+    "email": {
+      "description": "Email Address",
+      "type": "string",
+      "maxLength": 75,
+      "format": "email"
+    },
+    "password": {
+      "description": "Password",
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 128
+    },
+    "warehouse_ids": {
+      "description": "Assigned Warehouses",
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "otp_seed": {
+      "description": "The seed with which to create an OTP",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "otp": {
+      "description": "Used to verify otp_seed",
+      "type": "string",
+      "minLength": 6,
+      "maxLength": 6
+    },
+    "permissions": {
+      "description": "Permissions",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "order": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "import_from_cart": {
+                  "type": "boolean"
+                },
+                "force_verify_packing": {
+                  "type": "boolean"
+                },
+                "create_label_without_contents_verified_tag": {
+                  "type": "boolean"
+                },
+                "manage_tag": {
+                  "type": "boolean"
+                },
+                "manage_tag_on_order": {
+                  "type": "boolean"
+                },
+                "manage_revision": {
+                  "type": "boolean"
+                },
+                "financials": {
+                  "type": "boolean"
+                },
+                "manage_filter_config": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "return_order": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "manage_tag": {
+                  "type": "boolean"
+                },
+                "manage_tag_on_return_order": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "manufacturing_order": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "manage_tag": {
+                  "type": "boolean"
+                },
+                "manage_tag_on_manufacturing_order": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "product": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "import_from_cart": {
+                  "type": "boolean"
+                },
+                "writeback_inventory": {
+                  "type": "boolean"
+                },
+                "manage_tag": {
+                  "type": "boolean"
+                },
+                "manage_tag_on_product": {
+                  "type": "boolean"
+                },
+                "update_inventory": {
+                  "type": "boolean"
+                },
+                "financials": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "purchase_order": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "manage_tag": {
+                  "type": "boolean"
+                },
+                "manage_tag_on_purchase_order": {
+                  "type": "boolean"
+                },
+                "financials": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "stocktake": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "manage_tag": {
+                  "type": "boolean"
+                },
+                "manage_tag_on_stocktake": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "analytics": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "financial": {
+                  "type": "boolean"
+                },
+                "shipping": {
+                  "type": "boolean"
+                },
+                "inventory": {
+                  "type": "boolean"
+                },
+                "product": {
+                  "type": "boolean"
+                },
+                "customer": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "settings": {
+          "type": "boolean"
+        },
+        "reports": {
+          "type": "boolean"
+        },
+        "can_manage_user": {
+          "type": "boolean"
+        }
+      }
+    },
+    "settings": {
+      "description": "Settings",
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

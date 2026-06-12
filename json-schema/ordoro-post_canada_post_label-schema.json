@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_canada_post_label-schema.json",
+  "title": "Canada Post Label Request Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "shipper_type": {
+      "description": "unused with maryann carrier implementation",
+      "type": "string"
+    },
+    "shipper_id": {
+      "type": "integer"
+    },
+    "shipping_method": {
+      "description": "Domestic - [DOM.RP - Regular Parcel, DOM.EP - Expedited Parcel, DOM.XP - Xpresspost, DOM.PC - Priority], USA - [USA.PW.ENV - Priority Worldwide Envelope USA, USA.PW.PAK - Priority Worldwide pak USA, USA.PW.PARCEL - Priority Worldwide Parcel USA, USA.XP - Xpresspost USA, USA.EP - Expedited Parcel USA, USA.SP.AIR - Small Packet USA Air, USA.TP - Tracked Packet - USA], International - [INT.IP.AIR - International Parcel Air, INT.IP.SURF International Parcel Surface, INT.PW.ENV - Priority Worldwide Envelope Int'l, INT.PW.PAK - Priority Worldwide pak Int'l, INT.PW.PARCEL - Priority Worldwide parcel Int'l, INT.XP - Xpresspost International, INT.SP.AIR - Small Packet International Air, INT.SP.SURF - Small Packet International Surface, INT.TP - Tracked Packet - International]",
+      "type": "string"
+    },
+    "notify_bill_to": {
+      "type": "boolean",
+      "default": false
+    },
+    "notify_ship_to": {
+      "type": "boolean",
+      "default": false
+    },
+    "packages": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "box_shape": {
+            "type": "string",
+            "enum": [
+              "Parcel",
+              "Tube"
+            ]
+          },
+          "length": {
+            "description": "Length in inches",
+            "type": "number"
+          },
+          "width": {
+            "description": "Width in inches",
+            "type": "number"
+          },
+          "height": {
+            "description": "Height in inches",
+            "type": "number"
+          },
+          "weight": {
+            "description": "Currently not used, Order weight is used instead. Weight in ounces.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "box_shape"
+        ]
+      }
+    },
+    "packing_list_id": {
+      "description": "id for packing list for profile template associated with this label",
+      "type": "integer"
+    },
+    "reference_id": {
+      "description": "Identifier for a Return Order",
+      "type": "string"
+    },
+    "reference_number": {
+      "description": "Customer supplied internal reference for the order",
+      "type": "string"
+    },
+    "reason_for_export": {
+      "type": "string",
+      "enum": [
+        "SOG",
+        "DOC",
+        "SAM",
+        "REP",
+        "OTH"
+      ]
+    },
+    "nondelivery_option": {
+      "type": "string",
+      "enum": [
+        "RASE",
+        "RTS",
+        "ABAN"
+      ]
+    },
+    "delivery_confirmation": {
+      "type": "string",
+      "enum": [
+        "SO",
+        "PA18",
+        "PA19"
+      ]
+    },
+    "service_option": {
+      "type": "string"
+    },
+    "insurance_type": {
+      "type": "string",
+      "enum": [
+        "canada_post"
+      ]
+    },
+    "insured_value": {
+      "type": "number",
+      "default": 0
+    },
+    "invoice_number": {
+      "description": "Used for customs information: If required by customs at the destination, the commercial invoice number.",
+      "type": "string",
+      "maxLength": 10
+    },
+    "customs_info": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/customs_line"
+      }
+    },
+    "ship_from": {
+      "description": "The ship_from address is used as the originating address of the rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "ship_to": {
+      "description": "The to address is used as the destination address of a return order rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "return": {
+      "type": "boolean"
+    },
+    "warehouse_id": {
+      "description": "Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "shipper_id",
+    "shipping_method"
+  ]
+}

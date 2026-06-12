@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-cart_shopify_vendor_config-schema.json",
+  "title": "cart_shopify_vendor_config",
+  "type": "object",
+  "definitions": {
+    "required_to_create": {
+      "required": [
+        "shop_url",
+        "access_token",
+        "plan_name"
+      ]
+    },
+    "required_in_response": {
+      "required": [
+        "shop_url",
+        "access_token",
+        "plan_name",
+        "multi_location_enabled",
+        "locations",
+        "primary_location",
+        "use_shopify_notify_customer"
+      ]
+    }
+  },
+  "description": "Shopify configuration information",
+  "properties": {
+    "shop_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "access_token": {
+      "type": "string"
+    },
+    "plan_name": {
+      "type": "string"
+    },
+    "multi_location_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "locations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      }
+    },
+    "primary_location": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "syncs_shipped_orders": {
+      "description": "allow fulfilled order updates from shopify to mark order as Shipped in Ordoro",
+      "type": "boolean"
+    },
+    "use_shopify_notify_customer": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-v3_tag-schema.json",
+  "title": "V3 Tag Schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "color"
+  ]
+}

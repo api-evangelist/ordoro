@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-purchase_order-schema.json",
+  "title": "Purchase Order Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "company_id": {
+      "type": "integer"
+    },
+    "po_id": {
+      "type": "string"
+    },
+    "shipping_method": {
+      "type": "string"
+    },
+    "payment_method": {
+      "type": "string"
+    },
+    "instructions": {
+      "type": "string"
+    },
+    "sent": {
+      "format": "date-time",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "estimated_delivery_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "shipping_amount": {
+      "type": "number"
+    },
+    "tax_amount": {
+      "type": "number"
+    },
+    "discount_amount": {
+      "type": "number"
+    },
+    "_link": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "unit_price": {
+            "type": "number"
+          },
+          "discount_amount": {
+            "type": "number"
+          },
+          "_link": {
+            "type": "string"
+          },
+          "product": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/product_base"
+              },
+              {
+                "properties": {
+                  "supplier": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "sku": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "number"
+                      },
+                      "unit_price": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "warehouse": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "location_in_warehouse": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "to_be_shipped": {
+            "type": "number"
+          },
+          "available_on_hand": {
+            "type": "number"
+          },
+          "quantity_received": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "supplier": {
+      "type": "object",
+      "$ref": "#/components/schemas/supplier"
+    },
+    "warehouse": {
+      "type": "object",
+      "$ref": "#/components/schemas/warehouse"
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/comment"
+      }
+    },
+    "goods_receipts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/goods_receipt"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/v3_tag"
+      }
+    }
+  }
+}

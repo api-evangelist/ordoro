@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_product_supplier-schema.json",
+  "title": "Update a Product Supplier Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "supplier_price": {
+      "type": "number"
+    },
+    "is_default": {
+      "type": "boolean"
+    },
+    "supplier_sku": {
+      "type": "string"
+    },
+    "min_order_qty": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "supplier_price",
+    "is_default"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_packing_list-schema.json",
+  "title": "Put Packing List Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "branded_tracking": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "custom_text": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "footer": {
+      "type": "string"
+    },
+    "return_email_subject": {
+      "type": "string"
+    },
+    "return_email_content": {
+      "type": "string"
+    },
+    "ship_from_alias_name": {
+      "type": "string"
+    },
+    "customer_notes_label": {
+      "type": "string"
+    },
+    "is_default": {
+      "type": "boolean"
+    },
+    "logo_hash": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "mime_type": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

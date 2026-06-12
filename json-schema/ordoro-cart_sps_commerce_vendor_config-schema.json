@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-cart_sps_commerce_vendor_config-schema.json",
+  "title": "cart_sps_commerce_vendor_config",
+  "type": "object",
+  "definitions": {
+    "required_to_create": {
+      "required": [
+        "host",
+        "port",
+        "username",
+        "password"
+      ]
+    },
+    "required_in_response": {
+      "required": [
+        "host",
+        "port",
+        "username",
+        "password"
+      ]
+    }
+  },
+  "description": "SPS Commerce configuration information",
+  "properties": {
+    "host": {
+      "type": "string"
+    },
+    "port": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    }
+  }
+}

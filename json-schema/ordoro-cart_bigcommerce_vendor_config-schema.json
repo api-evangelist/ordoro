@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-cart_bigcommerce_vendor_config-schema.json",
+  "title": "cart_bigcommerce_vendor_config",
+  "type": "object",
+  "definitions": {
+    "required_to_create": {
+      "required": [
+        "access_token"
+      ]
+    },
+    "required_in_response": {
+      "required": [
+        "username",
+        "password",
+        "api_path",
+        "access_token",
+        "context",
+        "bigc_v1_migrated"
+      ]
+    }
+  },
+  "description": "BigCommerce configuration information",
+  "properties": {
+    "username": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "password": {
+      "type": "string"
+    },
+    "api_path": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "access_token": {
+      "type": "string"
+    },
+    "context": {
+      "type": "string"
+    },
+    "bigc_v1_migrated": {
+      "type": "boolean"
+    }
+  }
+}

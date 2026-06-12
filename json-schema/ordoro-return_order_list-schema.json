@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-return_order_list-schema.json",
+  "title": "return_order_list",
+  "type": "object",
+  "properties": {
+    "limit": {
+      "type": "integer",
+      "default": 10,
+      "minimum": 1,
+      "maximum": 100
+    },
+    "offset": {
+      "type": "integer",
+      "default": 0
+    },
+    "count": {
+      "type": "integer"
+    },
+    "return_order": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/return_order"
+      }
+    }
+  },
+  "required": [
+    "limit",
+    "offset",
+    "count",
+    "return_order"
+  ]
+}

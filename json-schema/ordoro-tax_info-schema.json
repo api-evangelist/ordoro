@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-tax_info-schema.json",
+  "title": "Tax Info Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "tax_id_number": {
+      "type": "string"
+    },
+    "tax_id_type": {
+      "type": "string"
+    },
+    "tax_issuer_country": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "tax_id_number",
+    "tax_id_type"
+  ]
+}

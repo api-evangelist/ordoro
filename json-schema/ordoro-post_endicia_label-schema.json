@@ -1,0 +1,172 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_endicia_label-schema.json",
+  "title": "Endicia Label Request",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "reference": {
+      "description": "package level customer reference value",
+      "type": "string"
+    },
+    "packages": {
+      "description": "This should always be an array of 1, as USPS does not allow for multiple package shipments at this time",
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "box_shape": {
+            "enum": [
+              "SmallFlatRateBox",
+              "MediumFlatRateBox",
+              "LargeFlatRateBox",
+              "Parcel",
+              "Softpack",
+              "Card",
+              "Flat",
+              "Letter",
+              "FlatRateEnvelope",
+              "FlatRateLegalEnvelope",
+              "FlatRatePaddedEnvelope",
+              "SmallFlatRateEnvelope",
+              "RegionalRateBoxA",
+              "RegionalRateBoxB"
+            ],
+            "type": "string"
+          },
+          "height": {
+            "description": "Height in inches",
+            "type": "number"
+          },
+          "length": {
+            "description": "Length in inches",
+            "type": "number"
+          },
+          "reference": {
+            "description": "package level customer reference value",
+            "type": "string"
+          },
+          "weight": {
+            "description": "Currently not used, Order weight is used instead. Weight in ounces.",
+            "type": "number"
+          },
+          "width": {
+            "description": "Width in inches",
+            "type": "number"
+          }
+        },
+        "required": [
+          "box_shape"
+        ]
+      }
+    },
+    "packing_list_id": {
+      "description": "id for packing list for profile template associated with this label",
+      "type": "integer"
+    },
+    "contents_type": {
+      "description": "to be deprecated in favor of higher use reason_for_export",
+      "type": "string"
+    },
+    "reason_for_export": {
+      "type": "string"
+    },
+    "contents_explanation": {
+      "type": "string"
+    },
+    "customs_info": {
+      "items": {
+        "$ref": "#/components/schemas/customs_line"
+      },
+      "type": "array"
+    },
+    "delivery_confirmation": {
+      "default": "None",
+      "enum": [
+        "None",
+        "DeliveryConfirmation",
+        "SignatureConfirmation",
+        "AdultSignature",
+        "AdultSignatureRestrictedDelivery",
+        "RestrictedDelivery"
+      ],
+      "type": "string"
+    },
+    "hold_for_pickup": {
+      "type": "boolean"
+    },
+    "insurance_type": {
+      "enum": [
+        "discounted_insurance",
+        "endicia"
+      ],
+      "type": "string"
+    },
+    "insured_value": {
+      "default": 0,
+      "type": "number"
+    },
+    "mailing_zip_code": {
+      "description": "mailing post office zip code if different than from address zip code",
+      "type": "string"
+    },
+    "nondelivery_option": {
+      "default": "Return",
+      "enum": [
+        "Return",
+        "Abandon"
+      ],
+      "type": "string"
+    },
+    "notify_bill_to": {
+      "default": false,
+      "type": "boolean"
+    },
+    "notify_ship_to": {
+      "default": false,
+      "type": "boolean"
+    },
+    "reference_id": {
+      "description": "Identifier for a Return Order",
+      "type": "string"
+    },
+    "reference_number": {
+      "description": "Customer supplied internal reference for the order",
+      "type": "string"
+    },
+    "return": {
+      "type": "boolean"
+    },
+    "ship_date": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "shipper_id": {
+      "type": "integer"
+    },
+    "shipping_method": {
+      "type": "string"
+    },
+    "stealth": {
+      "type": "boolean"
+    },
+    "ship_from": {
+      "description": "The ship_from address is used as the originating address of the rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "ship_to": {
+      "description": "The to address is used as the destination address of a return order rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "warehouse_id": {
+      "description": "Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "shipper_id",
+    "shipping_method"
+  ]
+}

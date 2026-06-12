@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-supplier-schema.json",
+  "title": "Supplier Schema",
+  "additionalProperties": false,
+  "properties": {
+    "_link": {
+      "type": "string"
+    },
+    "address": {
+      "$ref": "#/components/schemas/address"
+    },
+    "archive_date": {
+      "format": "date-time",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "automatically_show_ship_to_email": {
+      "type": "boolean"
+    },
+    "automatically_show_supplier_price": {
+      "type": "boolean"
+    },
+    "company_id": {
+      "type": "integer"
+    },
+    "created": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "default_shipping_account": {
+      "type": "string"
+    },
+    "default_shipping_carrier": {
+      "type": "string"
+    },
+    "default_shipping_method": {
+      "type": "string"
+    },
+    "dropship_prefer_cart_order_line_names": {
+      "type": "integer"
+    },
+    "dropshipment_routing_address": {
+      "type": "string"
+    },
+    "dropshipment_routing_channel": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "po_routing_address": {
+      "type": "string"
+    },
+    "po_routing_channel": {
+      "type": "string"
+    },
+    "shipping_method_maps": {
+      "items": {
+        "$ref": "#/components/schemas/supplier_shipping_method_map"
+      },
+      "type": "array"
+    },
+    "updated": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "vendor_config": {
+      "type": "object"
+    },
+    "warehouse_id": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "company_id",
+    "warehouse_id",
+    "created",
+    "updated",
+    "archive_date",
+    "automatically_show_supplier_price",
+    "dropship_prefer_cart_order_line_names",
+    "address",
+    "vendor_config"
+  ],
+  "type": "object"
+}

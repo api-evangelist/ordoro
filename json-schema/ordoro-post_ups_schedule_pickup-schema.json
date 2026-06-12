@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_ups_schedule_pickup-schema.json",
+  "title": "UPS Pickup Request Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "shipper_id": {
+      "type": "integer"
+    },
+    "close_time": {
+      "type": "string"
+    },
+    "overweight_packages": {
+      "type": "boolean",
+      "default": false
+    },
+    "pickup_address_same_as_account": {
+      "type": "boolean"
+    },
+    "pickup_datetime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "pickup_pieces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "container_type": {
+            "description": "['01' - package, '02' - letter, '03' - pallet]",
+            "type": "string",
+            "enum": [
+              "01",
+              "02",
+              "03"
+            ]
+          },
+          "destination_country": {
+            "description": "destination country covered in this package pickup request",
+            "type": "string"
+          },
+          "service_type": {
+            "description": "service type of the packages being picked up",
+            "type": "string"
+          },
+          "quantity": {
+            "description": "number of packages in this pickup request, one request per service type, destination country, and container type combination",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "service_type",
+          "quantity",
+          "destination_country",
+          "container_type"
+        ]
+      }
+    },
+    "shipper_country": {
+      "type": "string"
+    },
+    "warehouse_id": {
+      "description": "warehouse for the pickup address",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "close_time",
+    "pickup_address_same_as_account",
+    "pickup_datetime",
+    "pickup_pieces",
+    "shipper_id",
+    "warehouse_id"
+  ]
+}

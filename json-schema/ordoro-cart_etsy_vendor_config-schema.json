@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-cart_etsy_vendor_config-schema.json",
+  "title": "cart_etsy_vendor_config",
+  "type": "object",
+  "definitions": {
+    "required_to_create": {
+      "required": [
+        "url",
+        "oauth_access_token",
+        "oauth_access_token_secret"
+      ]
+    },
+    "required_in_response": {
+      "required": [
+        "url",
+        "oauth_access_token",
+        "oauth_access_token_secret",
+        "store_ids"
+      ]
+    }
+  },
+  "description": "Etsy configuration information",
+  "properties": {
+    "url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "oauth_access_token": {
+      "type": "string"
+    },
+    "oauth_access_token_secret": {
+      "type": "string"
+    },
+    "store_ids": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    }
+  }
+}

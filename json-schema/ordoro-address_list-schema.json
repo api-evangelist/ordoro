@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-address_list-schema.json",
+  "title": "Address List Schema",
+  "type": "object",
+  "properties": {
+    "count": {
+      "type": "integer",
+      "example": 35
+    },
+    "limit": {
+      "type": "integer",
+      "default": 1
+    },
+    "offset": {
+      "type": "integer",
+      "default": 0,
+      "example": 0
+    },
+    "address": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/address"
+      }
+    }
+  },
+  "required": [
+    "count",
+    "limit",
+    "offset",
+    "address"
+  ]
+}

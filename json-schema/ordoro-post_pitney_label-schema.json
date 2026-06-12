@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_pitney_label-schema.json",
+  "title": "Pitney Label Request Schema",
+  "additionalProperties": false,
+  "properties": {
+    "alternate_return_to_address": {
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "customs_info": {
+      "items": {
+        "$ref": "#/components/schemas/customs_line"
+      },
+      "type": "array"
+    },
+    "delivery_confirmation": {
+      "enum": [
+        "DelCon",
+        "Sig",
+        "ADSIG",
+        "ADSIGRD",
+        "SigRD"
+      ],
+      "type": "string"
+    },
+    "hazmat_type": {
+      "description": "USPS hazmat input type options",
+      "type": "string"
+    },
+    "hazmat_electronics": {
+      "description": " USPS hazmat option for electronics",
+      "type": "boolean"
+    },
+    "insurance_type": {
+      "enum": [
+        "discounted_insurance"
+      ],
+      "type": "string"
+    },
+    "insured_value": {
+      "type": "number"
+    },
+    "mailing_zip_code": {
+      "description": "mailing post office zip code if different than from address zip code",
+      "type": "string"
+    },
+    "non_delivery": {
+      "enum": [
+        "return",
+        "abandon",
+        "redirect"
+      ],
+      "type": "string"
+    },
+    "notify_bill_to": {
+      "default": false,
+      "type": "boolean"
+    },
+    "notify_ship_to": {
+      "default": false,
+      "type": "boolean"
+    },
+    "packages": {
+      "description": "This should always be an array of 1, as USPS does not allow for multiple package shipments at this time",
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "box_shape": {
+            "type": "string"
+          },
+          "height": {
+            "description": "Height in inches",
+            "type": "number"
+          },
+          "length": {
+            "description": "Length in inches",
+            "type": "number"
+          },
+          "weight": {
+            "description": "Weight in ounces",
+            "type": "number"
+          },
+          "width": {
+            "description": "Width in inches",
+            "type": "number"
+          }
+        },
+        "required": [
+          "box_shape",
+          "weight"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "parcel_characteristics": {
+      "description": "For nonstandard packages",
+      "type": "string"
+    },
+    "packing_list_id": {
+      "description": "id for packing list for profile template associated with this label",
+      "type": "integer"
+    },
+    "pitney_rate_type": {
+      "type": "string"
+    },
+    "rate_cost": {
+      "type": "number"
+    },
+    "reason_for_export": {
+      "enum": [
+        "GIFT",
+        "COMMERCIAL_SAMPLE",
+        "MERCHANDISE",
+        "DOCUMENTS",
+        "RETURNED_GOODS",
+        "OTHER"
+      ],
+      "type": "string"
+    },
+    "reason_for_export_explanation": {
+      "type": "string"
+    },
+    "sender_tax_info": {
+      "$ref": "#/components/schemas/tax_info"
+    },
+    "reference_id": {
+      "description": "Identifier for a Return Order",
+      "type": "string"
+    },
+    "reference_number": {
+      "type": "string"
+    },
+    "return": {
+      "type": "boolean"
+    },
+    "ship_date": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "ship_from": {
+      "description": "The ship_from address is used as the originating address of the rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "ship_to": {
+      "description": "The to address is used as the destination address of a return order rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "shipper_id": {
+      "type": "integer"
+    },
+    "shipping_method": {
+      "$ref": "#/components/schemas/pitney_shipping_methods"
+    },
+    "warehouse_id": {
+      "description": "Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "shipper_id",
+    "shipping_method"
+  ],
+  "type": "object"
+}

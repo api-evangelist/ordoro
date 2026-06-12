@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_user-schema.json",
+  "title": "Create User Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "description": "Full Name",
+      "type": "string",
+      "maxLength": 60
+    },
+    "email": {
+      "description": "Email Address",
+      "type": "string",
+      "maxLength": 75,
+      "format": "email"
+    },
+    "password": {
+      "description": "Password",
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 128
+    },
+    "warehouse_ids": {
+      "description": "Assigned Warehouses",
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    }
+  },
+  "required": [
+    "email"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_fedex_schedule_pickup-schema.json",
+  "title": "Fedex Pickup Request Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "close_time": {
+      "type": "string"
+    },
+    "pickup_address_same_as_account": {
+      "description": "Deprecated: Indicates whether to use the address associated with the Fedex account, or a different address",
+      "type": "boolean"
+    },
+    "oversize_package_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "package_location": {
+      "type": "string",
+      "enum": [
+        "FRONT",
+        "NONE",
+        "REAR",
+        "SIDE"
+      ]
+    },
+    "pickup_datetime": {
+      "type": "string"
+    },
+    "pickup_date_type": {
+      "type": "string",
+      "enum": [
+        "SAME_DAY",
+        "FUTURE_DAY"
+      ]
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "total_weight": {
+      "description": "total weight of packages in pounds (LB)",
+      "type": "number"
+    },
+    "service_category": {
+      "type": "string",
+      "enum": [
+        "SAME_DAY",
+        "SAME_DAY_CITY",
+        "FEDEX_DISTANCE_DEFERRED",
+        "FEDEX_NEXT_DAY_EARLY_MORNING",
+        "FEDEX_NEXT_DAY_MID_MORNING",
+        "FEDEX_NEXT_DAY_AFTERNOON",
+        "FEDEX_NEXT_DAY_END_OF_DAY",
+        "FEDEX_NEXT_DAY_FREIGHT"
+      ]
+    },
+    "carrier_code": {
+      "description": "Describes the fedex carrier for the pickup: ['FDXG' - Fedex Ground, 'FDXE' - Fedex Express]",
+      "type": "string",
+      "enum": [
+        "FDXG",
+        "FDXE"
+      ]
+    },
+    "remarks": {
+      "description": "Identifies comments the customer wants to convey to the FedEx courier regarding the package pickup.",
+      "type": "string"
+    },
+    "shipper_id": {
+      "type": "integer"
+    },
+    "warehouse_id": {
+      "description": "warehouse for the pickup address",
+      "type": "integer"
+    },
+    "commodity_description": {
+      "description": "Provides area for any additional commodity description",
+      "type": "string"
+    },
+    "domestic_or_international": {
+      "description": "Describes the country relationship (domestic and/or international) among the shipments being picked up",
+      "type": "string",
+      "default": "DOMESTIC",
+      "enum": [
+        "DOMESTIC",
+        "INTERNATIONAL"
+      ]
+    }
+  },
+  "required": [
+    "close_time",
+    "pickup_datetime",
+    "quantity",
+    "shipper_id",
+    "total_weight"
+  ]
+}

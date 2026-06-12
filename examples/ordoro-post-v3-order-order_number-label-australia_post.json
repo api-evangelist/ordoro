@@ -1,0 +1,22 @@
+{
+  "description": "Create an Australia Post label for an order",
+  "method": "POST",
+  "path": "/v3/order/{order_number}/label/australia_post",
+  "contentType": "application/json",
+  "example": {
+    "example": {
+      "value": {
+        "shipment_id": "ship_1234",
+        "service_token": "service_1234",
+        "packages": [
+          {
+            "weight": 5,
+            "length": 9,
+            "width": 5,
+            "height": 6
+          }
+        ]
+      }
+    }
+  }
+}

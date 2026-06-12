@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-purchase_order_counts-schema.json",
+  "title": "Purchase Order Counts Response Schema",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "all": {
+      "type": "integer"
+    },
+    "unsent": {
+      "type": "integer"
+    },
+    "sent": {
+      "type": "integer"
+    },
+    "partial": {
+      "type": "integer"
+    },
+    "received": {
+      "type": "integer"
+    },
+    "cancelled": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "all",
+    "unsent",
+    "sent",
+    "partial",
+    "received",
+    "cancelled"
+  ]
+}

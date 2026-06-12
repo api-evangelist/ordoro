@@ -1,0 +1,195 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-cart_base-schema.json",
+  "title": "Cart Schema",
+  "type": "object",
+  "definitions": {
+    "required_in_response": {
+      "required": [
+        "name",
+        "_link",
+        "vendor",
+        "vendor_display",
+        "id",
+        "is_demo",
+        "worker_machinga",
+        "archived_date",
+        "gdpr_pii_removal_requested_date",
+        "import_min_order_placed_date",
+        "default_packing_list_id",
+        "prevent_write_back_settings_adjustment",
+        "vendor_config",
+        "index",
+        "proxy_requests",
+        "cart_download_order_statuses",
+        "autosync_activities",
+        "autosync_enabled"
+      ]
+    }
+  },
+  "properties": {
+    "_link": {
+      "type": "string",
+      "description": "A relative link to this cart"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the cart"
+    },
+    "vendor": {
+      "type": "string",
+      "description": "Short name of the vendor.",
+      "enum": [
+        "amazon",
+        "amazon_ca",
+        "amazon_uk",
+        "bigcommerce",
+        "channeladvisor",
+        "custom_integration",
+        "ebay",
+        "ecwid",
+        "etsy",
+        "magento",
+        "magento_v2",
+        "miva",
+        "reverb",
+        "shopify",
+        "shopsite",
+        "sps_commerce",
+        "square",
+        "squarespace",
+        "stripe",
+        "threedcart",
+        "volusion_v1",
+        "walmart",
+        "wayfair",
+        "woocommerce"
+      ]
+    },
+    "vendor_display": {
+      "type": "string",
+      "description": "The corresponding display name of the `vendor` property.",
+      "enum": [
+        "Amazon",
+        "Amazon CA",
+        "Amazon UK",
+        "BigCommerce",
+        "ChannelAdvisor",
+        "Custom Integration",
+        "eBay",
+        "Ecwid",
+        "Etsy",
+        "Magento",
+        "Magento 2.0",
+        "Miva",
+        "Reverb",
+        "Shopify",
+        "Shopsite",
+        "SpsCommerce",
+        "Square",
+        "Squarespace",
+        "Stripe",
+        "3dcart",
+        "Vendor Portal",
+        "Walmart",
+        "Wayfair",
+        "WooCommerce"
+      ]
+    },
+    "id": {
+      "type": "integer",
+      "description": "The identifier used as the main reference to this cart.",
+      "default": 1
+    },
+    "is_demo": {
+      "type": "boolean",
+      "description": "Used internally.",
+      "default": false
+    },
+    "worker_machinga": {
+      "description": "Used internally.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "archived_date": {
+      "description": "If this cart has been archived, this will contain the datetime that the cart was archived. Otherwise it will be null.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "gdpr_pii_removal_requested_date": {
+      "description": "This cart received a GDPR account deletion or redaction request from the sales channel integration and will be processed 30 days from this date.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "import_min_order_placed_date": {
+      "description": "Orders older than this will not be imported.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "default_packing_list_id": {
+      "type": "integer",
+      "description": "The default packing list template ID.",
+      "default": 1
+    },
+    "prevent_write_back_settings_adjustment": {
+      "type": "boolean",
+      "description": "This is true true if inventory writeback is locked to prevent accidental changes."
+    },
+    "index": {
+      "type": "integer",
+      "description": "The index of the cart in this company. Starts at 1 and increases with each additional cart.",
+      "default": 1
+    },
+    "vendor_config": {
+      "type": "object",
+      "description": "Vendor-specific configuration information."
+    },
+    "proxy_requests": {
+      "type": "boolean",
+      "description": "This cart uses a consistent outbound IP address for making requests to the sales channel URL."
+    },
+    "cart_download_order_statuses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of statuses that will be imported from the sales channel."
+    },
+    "autosync_activities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Used internally.",
+      "default": []
+    },
+    "autosync_enabled": {
+      "type": "boolean",
+      "description": "Used internally."
+    }
+  }
+}

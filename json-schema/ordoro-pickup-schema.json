@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-pickup-schema.json",
+  "title": "Pickup Response",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "pickup_address": {
+      "$ref": "#/components/schemas/update_address"
+    },
+    "pickup_address_same_as_account": {
+      "type": "boolean"
+    },
+    "pickup_datetime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "close_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "location": {
+      "type": "string"
+    },
+    "pickup_number": {
+      "type": "string"
+    },
+    "cost": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "carrier": {
+      "type": "string",
+      "enum": [
+        "ups",
+        "fedex"
+      ]
+    },
+    "carrier_options": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "pickup_number",
+    "carrier"
+  ]
+}

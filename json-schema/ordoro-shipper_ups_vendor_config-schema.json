@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-shipper_ups_vendor_config-schema.json",
+  "title": "shipper_ups_vendor_config",
+  "type": "object",
+  "definitions": {
+    "required_to_create": {
+      "required": [
+        "access_token",
+        "token_type",
+        "expires",
+        "refresh_token",
+        "refresh_token_expires"
+      ]
+    },
+    "required_in_response": {
+      "required": [
+        "access_token",
+        "token_type",
+        "expires",
+        "refresh_token",
+        "refresh_token_expires",
+        "shipper_number",
+        "access_license_key",
+        "use_metric_units",
+        "cost_center",
+        "billing_email",
+        "uses_discounted_rates"
+      ]
+    }
+  },
+  "description": "UPS Shipper configuration information",
+  "properties": {
+    "access_token": {
+      "type": "string"
+    },
+    "token_type": {
+      "type": "string"
+    },
+    "expires": {
+      "type": "string"
+    },
+    "refresh_token": {
+      "type": "string"
+    },
+    "refresh_token_expires": {
+      "type": "string"
+    },
+    "shipper_number": {
+      "type": "string"
+    },
+    "access_license_key": {
+      "type": "string"
+    },
+    "use_metric_units": {
+      "type": "boolean",
+      "default": false
+    },
+    "cost_center": {
+      "type": "string"
+    },
+    "billing_email": {
+      "type": "string"
+    },
+    "uses_discounted_rates": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

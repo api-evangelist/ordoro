@@ -50,6 +50,8 @@ apis:
         url: https://forums.ordoro.com/
       - type: GitHubRepository
         url: https://github.com/ordoro/api-examples
+      - type: OpenAPI
+        url: openapi/ordoro-ordoro-api-openapi.yml
 common:
   - type: Website
     url: https://www.ordoro.com/
@@ -77,6 +79,10 @@ common:
     url: rate-limits/ordoro-rate-limits.yml
   - type: FinOps
     url: finops/ordoro-finops.yml
+  - type: Vocabulary
+    url: vocabulary/ordoro-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/ordoro-context.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

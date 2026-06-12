@@ -1,0 +1,151 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_dhl_rate-schema.json",
+  "title": "DHL Rate POST Request schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "shipper_id": {
+      "type": "integer"
+    },
+    "packages": {
+      "maxItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "weight": {
+            "description": "Weight in ounces",
+            "type": "number"
+          },
+          "length": {
+            "description": "Length in inches",
+            "type": "number"
+          },
+          "width": {
+            "description": "Width in inches",
+            "type": "number"
+          },
+          "height": {
+            "description": "Height in inches",
+            "type": "number"
+          },
+          "declared_value": {
+            "description": "Package Level Declared Value for Dutiable International Shipments",
+            "type": "number"
+          },
+          "box_shape": {
+            "description": "optional box type [FLY=Flyer/Smalls - pieces that are too small, thin or light to be sorted on a standard conveyor, or for which it makes sense to group pieces into larger units for sort purposes. COY=Parcels/Conveyables - pieces that can be handled onto a system, less than 31.5 kg and up to 60*60*120cm. NCY=Non-conveyables - Pieces that cannot on their own be sorted on standard conveyor. PAL=Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. DBL=Double Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. BOX=Parcels that are conveyable have the shape of a box. Up to 70kg.]",
+            "type": "string",
+            "enum": [
+              "FLY",
+              "COY",
+              "NCY",
+              "PAL",
+              "DBL",
+              "BOX"
+            ]
+          }
+        },
+        "required": [
+          "length",
+          "width",
+          "height",
+          "weight"
+        ]
+      }
+    },
+    "declared_value": {
+      "description": "Shipment Level Declared Value for Dutiable International Shipments",
+      "type": "number"
+    },
+    "insured_value": {
+      "type": "number"
+    },
+    "insurance_type": {
+      "type": "string",
+      "enum": [
+        "dhl"
+      ]
+    },
+    "ship_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reference_number": {
+      "type": "string"
+    },
+    "pickup": {
+      "description": "pickup date time to schedule for the carrier",
+      "type": "string",
+      "format": "date-time"
+    },
+    "signature_service": {
+      "description": "signature service option. Signature services are included in international shipments. Use `SX` for no signature required",
+      "type": "string",
+      "enum": [
+        "SX"
+      ]
+    },
+    "nonstandard_day": {
+      "description": "options are [AA - Saturday Delivery, AB - Saturday Pickup, AC - Holiday Delivery, AD - Holiday Pickup, AG - Domestic Saturday Delivery]",
+      "type": "string",
+      "enum": [
+        "AA",
+        "AB",
+        "AC",
+        "AD",
+        "AG"
+      ]
+    },
+    "nonstandard_contents": {
+      "description": "options are [HB - Lithium Ion PI965 Section II, HC - Dry Ice UN1845, HD - Lithium Ion PI965-966 Section II, HE - Dangerous Goods, HG - Perishable Cargo, HH - Excepted Quantity, HI - Spill Cleaning, HK - Consumer Commodities, HL - Limited Quantities ADR, HM - Lithium Metal PI969 Section II, HN - ADR Load Exemption, HV - Lithium Ion PI967-Section II, HW - Lithium Metal PI970-Section II, HY - Biological UN3373]",
+      "type": "string",
+      "enum": [
+        "HB",
+        "HC",
+        "HD",
+        "HE",
+        "HG",
+        "HH",
+        "HI",
+        "HK",
+        "HL",
+        "HM",
+        "HN",
+        "HV",
+        "HW",
+        "HY"
+      ]
+    },
+    "is_dutiable": {
+      "type": "boolean",
+      "default": true
+    },
+    "ship_from": {
+      "description": "The ship_from address is used as the originating address of the rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "ship_to": {
+      "description": "The to address is used as the destination address of a return order rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "reference_id": {
+      "description": "Identifier for a Return Order",
+      "type": "string"
+    },
+    "return": {
+      "description": "For orders, determines whether the originating and destination addresses will be swapped for a return label request",
+      "type": "boolean",
+      "default": false
+    },
+    "warehouse_id": {
+      "description": "DEPRECATED: ignored. Previously used for updating a warehouse for the ship_from address on an order.",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "shipper_id"
+  ]
+}

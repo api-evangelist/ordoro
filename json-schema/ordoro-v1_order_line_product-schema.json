@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-v1_order_line_product-schema.json",
+  "title": "Core API Order Line Product Schema",
+  "type": "object",
+  "properties": {
+    "cart": {
+      "type": "integer"
+    },
+    "sku": {
+      "type": "string"
+    },
+    "original_sku": {
+      "type": "string"
+    },
+    "variant_sku": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "weight": {
+      "description": "Weight in Pounds",
+      "type": "number"
+    },
+    "price": {
+      "type": "number"
+    },
+    "physical_on_hand": {
+      "type": "integer"
+    },
+    "cost": {
+      "type": "number"
+    },
+    "low_stock_threshold": {
+      "type": "integer"
+    },
+    "out_of_stock_threshold": {
+      "type": "integer"
+    },
+    "amazon_extra_info": {
+      "type": "object",
+      "properties": {
+        "asin": {
+          "type": "string"
+        },
+        "listing_id": {
+          "type": "string"
+        },
+        "pending_quantity": {
+          "type": "integer"
+        },
+        "item_is_marketplace": {
+          "type": "string"
+        },
+        "item_condition": {
+          "type": "integer"
+        },
+        "fulfillment_channel": {
+          "type": "string"
+        },
+        "item_note": {
+          "type": "string"
+        }
+      }
+    },
+    "ebay_extra_info": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "listing_type": {
+            "type": "string"
+          },
+          "item_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "channeladvisor_extra_info": {
+      "type": "object",
+      "properties": {
+        "distribution_center_code": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "sku",
+    "name"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "description": "Update an Order Line",
+  "method": "PUT",
+  "path": "/v3/order/{order_number}/line/{order_line_id}",
+  "contentType": "application/json",
+  "example": {
+    "example": {
+      "value": {
+        "quantity": 3,
+        "item_price": 3.5,
+        "details": "Size:Small"
+      }
+    }
+  }
+}

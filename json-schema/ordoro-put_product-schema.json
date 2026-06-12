@@ -1,0 +1,158 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_product-schema.json",
+  "title": "Product Post Schema",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "hs_code": {
+      "type": "string"
+    },
+    "country_of_origin": {
+      "type": "string"
+    },
+    "customs_description": {
+      "type": "string"
+    },
+    "declared_value": {
+      "type": "number"
+    },
+    "price": {
+      "type": "number"
+    },
+    "weight": {
+      "type": "number"
+    },
+    "length": {
+      "type": "integer"
+    },
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    },
+    "taxable": {
+      "type": "string"
+    },
+    "cost": {
+      "type": "number"
+    },
+    "type": {
+      "type": "string"
+    },
+    "upc": {
+      "type": "string"
+    },
+    "asin": {
+      "type": "string"
+    },
+    "internal_notes": {
+      "type": "string"
+    },
+    "cart": {
+      "type": "integer"
+    },
+    "sync": {
+      "type": "boolean"
+    },
+    "original_sku": {
+      "type": "string"
+    },
+    "variant_sku": {
+      "type": "string"
+    },
+    "inventory_changed": {
+      "type": "boolean"
+    },
+    "max_export_qty": {
+      "type": "integer"
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/components/schemas/product_image"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/components/schemas/v3_tag"
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "title": "Amazon Extra Info",
+      "properties": {
+        "amazon_extra_info": {
+          "$ref": "#/components/schemas/extra_info_amazon"
+        }
+      }
+    },
+    {
+      "title": "ChannelAdvisor Extra Info",
+      "properties": {
+        "channeladvisor_extra_info": {
+          "$ref": "#/components/schemas/extra_info_channeladvisor"
+        }
+      }
+    },
+    {
+      "title": "Ebay Extra Info",
+      "properties": {
+        "ebay_extra_info": {
+          "$ref": "#/components/schemas/extra_info_ebay"
+        }
+      }
+    },
+    {
+      "title": "Etsy Extra Info",
+      "properties": {
+        "etsy_extra_info": {
+          "$ref": "#/components/schemas/extra_info_etsy"
+        }
+      }
+    },
+    {
+      "title": "Shopify Extra Info",
+      "properties": {
+        "shopify_extra_info": {
+          "$ref": "#/components/schemas/extra_info_shopify"
+        }
+      }
+    },
+    {
+      "title": "Square Extra Info",
+      "properties": {
+        "square_extra_info": {
+          "$ref": "#/components/schemas/extra_info_square"
+        }
+      }
+    },
+    {
+      "title": "Walmart Extra Info",
+      "properties": {
+        "walmart_extra_info": {
+          "$ref": "#/components/schemas/extra_info_walmart"
+        }
+      }
+    },
+    {
+      "title": "Wayfair Extra Info",
+      "properties": {
+        "wayfair_extra_info": {
+          "$ref": "#/components/schemas/extra_info_wayfair"
+        }
+      }
+    }
+  ]
+}

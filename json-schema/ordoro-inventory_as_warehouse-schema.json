@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-inventory_as_warehouse-schema.json",
+  "title": "Inventory as Warehouse Schema",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "low_stock_threshold": {
+      "type": "integer"
+    },
+    "out_of_stock_threshold": {
+      "type": "integer"
+    },
+    "location_in_warehouse": {
+      "type": "string"
+    },
+    "on_hand": {
+      "type": "number"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "always_dropship": {
+      "type": "boolean"
+    },
+    "address": {
+      "$ref": "#/components/schemas/address"
+    },
+    "cart": {
+      "type": "string"
+    },
+    "is_configured_for_shipping": {
+      "type": "boolean"
+    },
+    "is_default_location": {
+      "type": "boolean"
+    },
+    "physical_on_hand": {
+      "type": "number"
+    },
+    "available": {
+      "type": "number"
+    },
+    "committed": {
+      "type": "number"
+    },
+    "allocated": {
+      "type": "number"
+    },
+    "unallocated": {
+      "type": "number"
+    },
+    "po_committed": {
+      "type": "number"
+    }
+  }
+}

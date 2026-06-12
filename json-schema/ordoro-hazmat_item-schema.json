@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-hazmat_item-schema.json",
+  "title": "Hazmat Item Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "additional_description": {
+      "type": "string"
+    },
+    "class_division_number": {
+      "type": "string"
+    },
+    "commodity_regulated_level_code": {
+      "type": "string",
+      "enum": [
+        "EQ",
+        "FR",
+        "LR",
+        "LQ"
+      ]
+    },
+    "emergency_contact": {
+      "type": "string"
+    },
+    "emergency_phone": {
+      "type": "string"
+    },
+    "hazard_label_required": {
+      "type": "string"
+    },
+    "id_number": {
+      "type": "string"
+    },
+    "packaging_instruction_code": {
+      "type": "string"
+    },
+    "packaging_group_type": {
+      "type": "string",
+      "enum": [
+        null,
+        "",
+        "I",
+        "II",
+        "III"
+      ]
+    },
+    "packaging_type": {
+      "type": "string"
+    },
+    "packaging_type_quantity": {
+      "type": "string"
+    },
+    "proper_shipping_name": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "string"
+    },
+    "regulation_set": {
+      "type": "string",
+      "enum": [
+        "ADR",
+        "CFR",
+        "IATA",
+        "TDG"
+      ]
+    },
+    "reportable_quantity": {
+      "type": "string"
+    },
+    "sub_risk_class": {
+      "type": "string"
+    },
+    "technical_name": {
+      "type": "string"
+    },
+    "transport_category": {
+      "description": "A category that ranges from 0 to 4 in the ADR regulation set which indicates the amount of points assigned to a dangerous goods package to be in compliance with the fully regulated vehicle load exemption (ADR 1.1.3.6)",
+      "type": "string",
+      "enum": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    "transportation_mode": {
+      "type": "string",
+      "enum": [
+        "Cargo Aircraft Only",
+        "Ground",
+        "Highway",
+        "Passenger Aircraft"
+      ]
+    },
+    "tunnel_restriction_code": {
+      "description": "A No restriction for hazardous goods; B Prohibited for the transport of hazardous substances which could cause a very large explosion; C The same restriction as for B, plus hazardous goods which could cause a large explosion or the extensive release of toxic substances; D The same restrictions as for C plus hazardous goods which could cause a large fire; E Prohibited for the transport of all hazardous substances. There are some exceptions for certain radioactive substances, clinical waste and samples.",
+      "type": "string",
+      "enum": [
+        "(B)",
+        "(B/D)",
+        "(B/E)",
+        "(C)",
+        "(C/D)",
+        "(C/E)",
+        "(D)",
+        "(D/E)",
+        "(E)"
+      ]
+    },
+    "uom": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "commodity_regulated_level_code",
+    "regulation_set",
+    "transportation_mode"
+  ]
+}

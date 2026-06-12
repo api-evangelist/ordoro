@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_purchase_order-schema.json",
+  "title": "Update a Purchase Order",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "warehouse": {
+      "type": "string"
+    },
+    "supplier": {
+      "type": "string"
+    },
+    "po_id": {
+      "type": "string"
+    },
+    "shipping_method": {
+      "type": "string"
+    },
+    "instructions": {
+      "type": "string"
+    },
+    "sent": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "estimated_delivery_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "payment_method": {
+      "type": "string"
+    },
+    "discount_amount": {
+      "type": "number"
+    },
+    "shipping_amount": {
+      "type": "number"
+    },
+    "tax_amount": {
+      "type": "number"
+    }
+  }
+}

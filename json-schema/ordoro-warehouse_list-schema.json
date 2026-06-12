@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-warehouse_list-schema.json",
+  "title": "warehouse_list",
+  "type": "object",
+  "properties": {
+    "limit": {
+      "type": "integer"
+    },
+    "offset": {
+      "type": "integer"
+    },
+    "count": {
+      "type": "integer"
+    },
+    "warehouse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/warehouse"
+      }
+    }
+  },
+  "required": [
+    "limit",
+    "offset",
+    "count",
+    "warehouse"
+  ]
+}

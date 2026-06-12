@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-cart_walmart_vendor_config-schema.json",
+  "title": "cart_walmart_vendor_config",
+  "type": "object",
+  "definitions": {
+    "required_to_create": {
+      "required": []
+    },
+    "required_in_response": {
+      "required": [
+        "client_id",
+        "client_secret",
+        "vendor_id",
+        "fulfillment_latency"
+      ]
+    }
+  },
+  "description": "Walmart configuration information",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "client_secret": {
+      "type": "string"
+    },
+    "vendor_id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "fulfillment_latency": {
+      "anyOf": [
+        {
+          "type": "int",
+          "minimum": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

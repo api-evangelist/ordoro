@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-shipper_australia_post_vendor_config-schema.json",
+  "title": "shipper_australia_post_vendor_config",
+  "type": "object",
+  "definitions": {
+    "required_to_create": {
+      "required": [
+        "account_number",
+        "api_key",
+        "api_secret"
+      ]
+    },
+    "required_in_response": {
+      "required": [
+        "account_number",
+        "api_key",
+        "api_secret",
+        "print_as_you_go",
+        "easypost_carrier_id"
+      ]
+    }
+  },
+  "description": "Australia Post Shipper configuration information",
+  "properties": {
+    "account_number": {
+      "type": "string"
+    },
+    "api_key": {
+      "type": "string"
+    },
+    "api_secret": {
+      "type": "string"
+    },
+    "print_as_you_go": {
+      "type": "boolean"
+    },
+    "easypost_carrier_id": {
+      "description": "Australia Post is served via easypost, this is the internal identifier within the easypost system",
+      "type": "string"
+    }
+  }
+}

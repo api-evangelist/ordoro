@@ -1,0 +1,13 @@
+{
+  "description": "Mark an order as dropshipped",
+  "method": "POST",
+  "path": "/v3/order/{order_number}/mark_as_dropshipped",
+  "contentType": "application/json",
+  "example": {
+    "example": {
+      "value": {
+        "supplier_id": 1234
+      }
+    }
+  }
+}

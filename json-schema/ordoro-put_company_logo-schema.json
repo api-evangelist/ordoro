@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_company_logo-schema.json",
+  "title": "PUT Company Logo Schema",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Your Cool Company"
+    },
+    "data": {
+      "type": "string",
+      "example": "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAO6SURBVGhD7Zk9aFNRGIaT0J9Y+pP0hxJa2kig1UKK0sVssZPSQR2lRXTTTTft5KRjx+LURXDs2FE3R3FyUnGqmyBKHbTxfUMOfB7e5Ny/Sgv54CnNl3PP9773nnvuuSe5VqtVOMv0DSg2NjYqMzMzT4vF4mtSKpV219bWLqu2acncwNLS0vVCofAtl8u1fGZnZ5+oY9KQqQGe+Xw+f6TEO2q12i11bFIyNTA9Pf1cibYMDw+/VccmJVMDQ0ND76zYkZGRnampqbs2RzY3N8vq+CRkasAfPuvr6yXk87gnPtt8s9k87x+blEwNWJEEkSd9Az3oG7BYkQTRNxCib8BiRRJE30CIVAb4ROUCDU/cA646rUiCkAbQ9g3bc+mR1kxiA51V56EV5oOQBix8ei8sLNxz/cYlkQGuOiFKLpktCGfgi/resrq62nD9xyGRgYmJiT0lwgfRNoAImh0YGPjohiJfhhqNxkVXrxeJDPirThTdLZfL922OINoG8P8vmx8bG3up2ls4tCqVyiNXsxuJDPjF3KrTzzPXyR/bPF4v66q9YmVl5SraSh0kEwMIJzRSHjNPVeUVoRegU2VADUUOJbSVOsh/MYD4avJ/tra2ip32P0z+uMdQlDpIbAOcQkUBJ/STyX93+cnJyTv4/BP8xll+4fKYdZ4h174/MDHsuzw/WxBSC4llAEJ2/M47BfgH/+ZuAE6ZR+Pj44+RawtyuDNs4dXw8+zTgpB6SCQDXDJwfvY7diDaBoAUFBfRv9RFIhnoduYdiLb4rBD9S10kaCDKZhVCCkmK6F9qI0EDfKzbzmDmEGub9/Yz2kkhSbH1CEJqI0EDo6Oj+7YzrIMeYgl9E8K73qxpsfUIQmojQQNYZH2wndVqtUvIZ3KzdsPWIwipjQQNIP5Z8y8vL19AXhbOCluPIKQ2EjTgT59YIV5DXhbOCluPIKQ2EjTAHydsZ9ywRV4WzgpbjyCkNhI0wP182xlnnZMa+w5bjyCkNhI0sL29fc5/DmBY7eE7WTwtnBxsLYKQ2kjQAPGfBeSk7oXFxcUrtg5nQeSlLhLJAK+C/xrJ54CbUrNkcHDwwNbhcwh5qYtEMkD4K6M/lGiCZwzfSzFx4UPS9k9CWy6RDRA1lAhnpnq93n7LigvH/Pz8fBNX+JXfL6dwtJFaHLEMkMCWSs9FXxx4taNsrcQ2QKL8GpkGbppVq9XbqrZPIgMkytZiErgLEWe/NLEBwtmJN5m/4IsLZzgOzbm5uQeqTi9SGTgNnHEDrcJfnQjmF7ZAUcwAAAAASUVORK5CYII="
+    },
+    "mime_type": {
+      "type": "string",
+      "example": "image/png"
+    }
+  }
+}

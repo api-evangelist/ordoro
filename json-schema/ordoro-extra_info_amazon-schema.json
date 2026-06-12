@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-extra_info_amazon-schema.json",
+  "title": "Amazon Extra Info Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "item_is_marketplace": {
+      "type": "string"
+    },
+    "fulfillment_channel": {
+      "type": "string",
+      "enum": [
+        "DEFAULT",
+        "AMAZON_NA",
+        "AMAZON_EU",
+        "AMAZON_CA",
+        "AMAZON_JP",
+        "AMAZON_CN",
+        "AMAZON_UK"
+      ]
+    },
+    "fulfillment_latency": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "pending_quantity": {
+      "type": "number"
+    },
+    "listing_id": {
+      "type": "string"
+    },
+    "asin": {
+      "type": "string"
+    },
+    "item_condition": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "category": {
+      "type": "string"
+    },
+    "item_note": {
+      "type": "string"
+    }
+  }
+}

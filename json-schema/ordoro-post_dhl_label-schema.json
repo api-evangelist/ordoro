@@ -1,0 +1,316 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_dhl_label-schema.json",
+  "title": "DHL Label Request schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "shipper_id": {
+      "type": "integer"
+    },
+    "weight": {
+      "description": "Weight in ounces",
+      "type": "number"
+    },
+    "length": {
+      "description": "Length in inches",
+      "type": "integer"
+    },
+    "width": {
+      "description": "Width in inches",
+      "type": "integer"
+    },
+    "height": {
+      "description": "Height in inches",
+      "type": "integer"
+    },
+    "box_shape": {
+      "description": "optional box type [FLY=Flyer/Smalls - pieces that are too small, thin or light to be sorted on a standard conveyor, or for which it makes sense to group pieces into larger units for sort purposes. COY=Parcels/Conveyables - pieces that can be handled onto a system, less than 31.5 kg and up to 60*60*120cm. NCY=Non-conveyables - Pieces that cannot on their own be sorted on standard conveyor. PAL=Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. DBL=Double Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. BOX=Parcels that are conveyable have the shape of a box. Up to 70kg.]",
+      "type": "string",
+      "enum": [
+        "FLY",
+        "COY",
+        "NCY",
+        "PAL",
+        "DBL",
+        "BOX"
+      ]
+    },
+    "packages": {
+      "maxItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "weight": {
+            "description": "Weight in ounces",
+            "type": "number"
+          },
+          "length": {
+            "description": "Length in inches",
+            "type": "number"
+          },
+          "width": {
+            "description": "Width in inches",
+            "type": "number"
+          },
+          "height": {
+            "description": "Height in inches",
+            "type": "number"
+          },
+          "declared_value": {
+            "description": "Package Level Declared Value for Dutiable International Shipments",
+            "type": "number"
+          },
+          "box_shape": {
+            "description": "optional box type [FLY=Flyer/Smalls - pieces that are too small, thin or light to be sorted on a standard conveyor, or for which it makes sense to group pieces into larger units for sort purposes. COY=Parcels/Conveyables - pieces that can be handled onto a system, less than 31.5 kg and up to 60*60*120cm. NCY=Non-conveyables - Pieces that cannot on their own be sorted on standard conveyor. PAL=Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. DBL=Double Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. BOX=Parcels that are conveyable have the shape of a box. Up to 70kg.]",
+            "type": "string",
+            "enum": [
+              "FLY",
+              "COY",
+              "NCY",
+              "PAL",
+              "DBL",
+              "BOX"
+            ]
+          }
+        },
+        "required": [
+          "length",
+          "width",
+          "height",
+          "weight"
+        ]
+      }
+    },
+    "packing_list_id": {
+      "description": "id for packing list for profile template associated with this label",
+      "type": "integer"
+    },
+    "customs_info": {
+      "items": {
+        "$ref": "#/components/schemas/customs_line"
+      },
+      "type": "array"
+    },
+    "reason_for_export": {
+      "description": "[P - Permanent, T - Temporary, R - Re-Export] It is required for dutiable shipment.",
+      "type": "string",
+      "default": "P"
+    },
+    "reason_for_export_explanation": {
+      "type": "string"
+    },
+    "declared_value": {
+      "description": "Shipment Level Declared Value for Dutiable International Shipments",
+      "type": "number"
+    },
+    "insured_value": {
+      "type": "number"
+    },
+    "insurance_type": {
+      "type": "string",
+      "enum": [
+        "dhl"
+      ]
+    },
+    "shipping_method": {
+      "$ref": "#/components/schemas/dhl_service_types"
+    },
+    "notify_bill_to": {
+      "type": "boolean",
+      "default": false
+    },
+    "notify_ship_to": {
+      "type": "boolean",
+      "default": false
+    },
+    "ship_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "pickup": {
+      "description": "pickup date time to schedule for the carrier",
+      "type": "string",
+      "format": "date-time"
+    },
+    "signature_service": {
+      "description": "signature service option. Signature services are included in international shipments. Use `SX` for no signature required",
+      "type": "string",
+      "enum": [
+        "SX"
+      ]
+    },
+    "nonstandard_day": {
+      "description": "options are [AA - Saturday Delivery, AB - Saturday Pickup, AC - Holiday Delivery, AD - Holiday Pickup, AG - Domestic Saturday Delivery]",
+      "type": "string",
+      "enum": [
+        "AA",
+        "AB",
+        "AC",
+        "AD",
+        "AG"
+      ]
+    },
+    "nonstandard_contents": {
+      "description": "options are [HB - Lithium Ion PI965 Section II, HC - Dry Ice UN1845, HD - Lithium Ion PI965-966 Section II, HE - Dangerous Goods, HG - Perishable Cargo, HH - Excepted Quantity, HI - Spill Cleaning, HK - Consumer Commodities, HL - Limited Quantities ADR, HM - Lithium Metal PI969 Section II, HN - ADR Load Exemption, HV - Lithium Ion PI967-Section II, HW - Lithium Metal PI970-Section II, HY - Biological UN3373]",
+      "type": "string",
+      "enum": [
+        "HB",
+        "HC",
+        "HD",
+        "HE",
+        "HG",
+        "HH",
+        "HI",
+        "HK",
+        "HL",
+        "HM",
+        "HN",
+        "HV",
+        "HW",
+        "HY"
+      ]
+    },
+    "is_dutiable": {
+      "type": "boolean",
+      "default": true
+    },
+    "federal_tax_id": {
+      "description": "Mandatory for domestic shipment of country code = BR",
+      "type": "string",
+      "maxLength": 20
+    },
+    "state_tax_id": {
+      "description": "Mandatory for domestic shipment of country code = BR",
+      "type": "string",
+      "maxLength": 20
+    },
+    "duty_payment_type": {
+      "type": "string",
+      "description": "Duties may be paid via Shipper [S], Recipient [R], or Third Party [T]",
+      "default": "R",
+      "enum": [
+        "S",
+        "R",
+        "T"
+      ]
+    },
+    "reference_id": {
+      "description": "Identifier for a Return Order",
+      "type": "string"
+    },
+    "reference_number": {
+      "type": "string"
+    },
+    "sender_tax_info": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tax_id_number": {
+          "type": "string"
+        },
+        "tax_id_type": {
+          "type": "string"
+        },
+        "tax_issuer_country": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tax_id_number",
+        "tax_id_type",
+        "tax_issuer_country"
+      ]
+    },
+    "receiver_tax_info": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tax_id_number": {
+          "type": "string"
+        },
+        "tax_id_type": {
+          "type": "string"
+        },
+        "tax_issuer_country": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tax_id_number",
+        "tax_id_type",
+        "tax_issuer_country"
+      ]
+    },
+    "ship_from": {
+      "description": "The ship_from address is used as the originating address of the rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "ship_to": {
+      "description": "The to address is used as the destination address of a return order rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "return": {
+      "type": "boolean",
+      "default": false
+    },
+    "warehouse_id": {
+      "description": "Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.",
+      "type": "integer"
+    },
+    "shipping_payment_type": {
+      "type": "string",
+      "description": "Shipping may be paid via Shipper [S], Recipient [R], or Third Party [T]",
+      "default": "S",
+      "enum": [
+        "S",
+        "R",
+        "T"
+      ]
+    },
+    "shipping_payment_account": {
+      "type": "string",
+      "description": "Shipment bill to account"
+    },
+    "duty_payment_account": {
+      "type": "string",
+      "description": "Duty bill to account"
+    },
+    "foreign_trade_regulation": {
+      "type": "string",
+      "description": "Foreign trade regulation code",
+      "enum": [
+        "30.2(d)(2)",
+        "30.36",
+        "30.37(a)",
+        "30.37(b)",
+        "30.37(e)",
+        "30.37(f)",
+        "30.37(g)",
+        "30.37(h)",
+        "30.37(i)",
+        "30.37(k)",
+        "30.37(o)",
+        "30.37(q)",
+        "30.37(r)",
+        "30.39",
+        "30.40(a)",
+        "30.40(b)",
+        "30.40(c)",
+        "30.40(d)"
+      ]
+    },
+    "internal_transaction_number": {
+      "type": "string",
+      "description": "Internal transaction number provided by the US Customs AES System",
+      "minLength": 14,
+      "maxLength": 14
+    }
+  },
+  "required": [
+    "shipper_id",
+    "shipping_method"
+  ]
+}

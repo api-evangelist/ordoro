@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_order_dropship-schema.json",
+  "title": "Order dropship request schema",
+  "type": "object",
+  "properties": {
+    "supplier_id": {
+      "type": "integer"
+    },
+    "shipping_method": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "shipping_account": {
+      "type": "string"
+    },
+    "shipping_carrier": {
+      "type": "string"
+    },
+    "instructions": {
+      "type": "string"
+    },
+    "show_images_email": {
+      "type": "boolean",
+      "default": false
+    },
+    "show_images_packing_list": {
+      "type": "boolean",
+      "default": false
+    },
+    "show_price": {
+      "type": "boolean",
+      "default": false
+    },
+    "show_ship_to_email": {
+      "type": "boolean",
+      "default": false
+    },
+    "packing_list_id": {
+      "type": "integer"
+    },
+    "override_shipping_mappings": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "supplier_id"
+  ]
+}

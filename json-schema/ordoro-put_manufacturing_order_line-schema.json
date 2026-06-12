@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_manufacturing_order_line-schema.json",
+  "title": "Update a Manufacturing Order Line",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "requested_quantity": {
+      "type": "number"
+    },
+    "finished_quantity": {
+      "type": "number"
+    },
+    "manufacturer_notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "internal_notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

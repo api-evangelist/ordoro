@@ -1,0 +1,204 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-parent_order-schema.json",
+  "title": "Parent Order Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "order_number": {
+      "type": "string"
+    },
+    "order_placed_date": {
+      "type": "string"
+    },
+    "created_date": {
+      "type": "string"
+    },
+    "updated_date": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "shippability": {
+      "type": "string"
+    },
+    "shipping_address": {
+      "$ref": "#/components/schemas/address"
+    },
+    "billing_address": {
+      "$ref": "#/components/schemas/address"
+    },
+    "alternate_ship_from_address": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/address"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "integer"
+          },
+          "item_price": {
+            "type": "number"
+          },
+          "supplier_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sku": {
+            "type": "string"
+          },
+          "product_name": {
+            "type": "string"
+          },
+          "order_line_product_name": {
+            "type": "string"
+          },
+          "product_link": {
+            "type": "string"
+          },
+          "shippability": {
+            "type": "object",
+            "properties": {
+              "shippability": {
+                "type": "string"
+              },
+              "supplier_id": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "is_dropship": {
+                "type": "boolean"
+              }
+            }
+          },
+          "details": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "quantity",
+          "item_price",
+          "supplier_price",
+          "product_name",
+          "product_link",
+          "sku",
+          "shippability",
+          "details"
+        ]
+      }
+    },
+    "notes_from_customer": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "internal_notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "requested_shipping_method": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sales_channel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "link": {
+          "type": "string"
+        }
+      }
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/tag"
+      }
+    },
+    "financial": {
+      "$ref": "#/components/schemas/order_financial"
+    },
+    "link": {
+      "type": "string"
+    },
+    "child_order_numbers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ready": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "billing_address",
+    "shipping_address",
+    "ready"
+  ]
+}

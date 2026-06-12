@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_manufacturing_order-schema.json",
+  "title": "Update a Manufacturing Order",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "initiated",
+        "active",
+        "finished",
+        "cancelled"
+      ]
+    },
+    "manufacturer_notes": {
+      "type": "string"
+    },
+    "internal_notes": {
+      "type": "string"
+    },
+    "warehouse_id": {
+      "type": "integer"
+    }
+  }
+}

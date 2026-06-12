@@ -1,0 +1,14 @@
+{
+  "description": "Add funds to postage account",
+  "method": "POST",
+  "path": "/v3/account/add_funds",
+  "contentType": "application/json",
+  "example": {
+    "example": {
+      "value": {
+        "amount": 42,
+        "description": "add funds for postage, low balance"
+      }
+    }
+  }
+}

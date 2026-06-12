@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_amazon_label-schema.json",
+  "title": "Amazon Label Request Schema",
+  "type": "object",
+  "properties": {
+    "shipper_id": {
+      "type": "integer"
+    },
+    "delivery_confirmation": {
+      "type": "string",
+      "enum": [
+        "DeliveryConfirmationWithAdultSignature",
+        "DeliveryConfirmationWithoutSignature",
+        "DeliveryConfirmationWithSignature",
+        "NoPreference",
+        "NoTracking"
+      ]
+    },
+    "weight": {
+      "description": "Weight in ounces",
+      "type": "number"
+    },
+    "length": {
+      "description": "Length in inches",
+      "type": "number"
+    },
+    "width": {
+      "description": "Width in inches",
+      "type": "number"
+    },
+    "height": {
+      "description": "Height in inches",
+      "type": "number"
+    },
+    "box_shape": {
+      "type": "string"
+    },
+    "packages": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "weight": {
+            "description": "Weight in ounces",
+            "type": "number"
+          },
+          "length": {
+            "description": "Length in inches",
+            "type": "number"
+          },
+          "width": {
+            "description": "Width in inches",
+            "type": "number"
+          },
+          "height": {
+            "description": "Height in inches",
+            "type": "number"
+          },
+          "box_shape": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "weight"
+        ]
+      }
+    },
+    "packing_list_id": {
+      "description": "id for packing list for profile template associated with this label",
+      "type": "integer"
+    },
+    "shipping_method": {
+      "type": "string"
+    },
+    "ship_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "arrive_by_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notify_bill_to": {
+      "type": "boolean",
+      "default": false
+    },
+    "notify_ship_to": {
+      "type": "boolean",
+      "default": false
+    },
+    "carrier_pickup": {
+      "type": "boolean"
+    },
+    "ship_from": {
+      "description": "The ship_from address is used as the source of the shipment label. This can be a warehouse or a supplier address.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "insurance_type": {
+      "type": "string",
+      "enum": [
+        "amazon"
+      ]
+    },
+    "insured_value": {
+      "type": "number",
+      "default": 0
+    },
+    "warehouse_id": {
+      "description": "Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "delivery_confirmation",
+    "shipper_id",
+    "shipping_method"
+  ],
+  "additionalProperties": false
+}

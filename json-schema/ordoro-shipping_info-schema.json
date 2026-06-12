@@ -1,0 +1,369 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-shipping_info-schema.json",
+  "title": "Shipping Info Schema",
+  "type": "object",
+  "properties": {
+    "delivery_confirmation": {
+      "description": "delivery or signature confirmation requested to the carrier at the time of label creation. Should be of type string."
+    },
+    "tracking_number": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "package_tracking": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tracking_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cost": {
+      "type": "number"
+    },
+    "transaction_fee": {
+      "type": "number"
+    },
+    "link": {
+      "type": "string"
+    },
+    "shipping_method": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "display_shipping_method": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ship_date": {
+      "format": "date-time",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "has_label": {
+      "type": "boolean"
+    },
+    "has_additional_docs": {
+      "type": "boolean"
+    },
+    "created_date": {
+      "type": "string"
+    },
+    "carrier_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "carrier": {
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "link": {
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "estimated_delivery_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "box_shape": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "length": {
+      "description": "deprecated: Length in inches, see packages",
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "width": {
+      "description": "deprecated: Width in inches, see packages",
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "height": {
+      "description": "deprecated: Height in inches, see packages",
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "insurance": {
+      "description": "Insurance data if Ordoro discounted Shipsurance is used",
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "insured_value": {
+      "description": "value of the package if it was insured using Ordoro discounted Shipsurance",
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "customs_info": {
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "country": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "quantity": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "value": {
+            "description": "Dollar value of customs line",
+            "format": "double",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "weight": {
+            "description": "Weight of customs line in ounces",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "anyOf": [
+        {
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ship_from": {
+      "description": "optionally exists if a ship_from address was used to create a label or tracking",
+      "$ref": "#/components/schemas/address"
+    },
+    "reference_number": {
+      "description": "reference number sent to the carrier for the shipment",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "return_to": {
+      "$ref": "#/components/schemas/address"
+    },
+    "ship_to": {
+      "description": "optionally exists if a ship_to address was used to create a label or tracking",
+      "$ref": "#/components/schemas/address"
+    },
+    "status": {
+      "description": "tracking status if available from USPS carrier",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "carrier_updated_date": {
+      "description": "the last date that the carrier updated the tracking status, currently only used for USPS shipments",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "presets": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "packages": {
+      "items": {
+        "type": "object"
+      },
+      "anyOf": [
+        {
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "packing_list_id": {
+      "description": "id of packing list profile template used to create this label",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "print_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "label_image_link": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "void": {
+      "type": "boolean"
+    },
+    "zone": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

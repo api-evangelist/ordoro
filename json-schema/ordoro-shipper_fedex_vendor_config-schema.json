@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-shipper_fedex_vendor_config-schema.json",
+  "title": "shipper_fedex_vendor_config",
+  "type": "object",
+  "definitions": {
+    "required_to_create": {
+      "required": [
+        "account_number",
+        "child_key",
+        "child_secret"
+      ]
+    },
+    "required_in_response": {
+      "required": [
+        "account_number",
+        "child_key",
+        "child_secret",
+        "smart_post_hub",
+        "use_metric_units"
+      ]
+    }
+  },
+  "description": "Fedex Shipper configuration information",
+  "properties": {
+    "account_number": {
+      "type": "string"
+    },
+    "child_key": {
+      "type": "string"
+    },
+    "child_secret": {
+      "type": "string"
+    },
+    "smart_post_hub": {
+      "type": "string"
+    },
+    "use_metric_units": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_priority_alert": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-manufacturing_order-schema.json",
+  "title": "Manufacturing Order Schema",
+  "type": "object",
+  "properties": {
+    "reference_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "warehouse_id": {
+      "type": "integer"
+    },
+    "manufacturer_notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "internal_notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "_link": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "bom_sku": {
+            "type": "string"
+          },
+          "manufacturer_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "internal_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "requested_quantity": {
+            "type": "number"
+          },
+          "finished_quantity": {
+            "type": "number"
+          },
+          "created_date": {
+            "type": "string"
+          },
+          "updated_date": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "sku",
+          "bom_sku",
+          "manufacturer_notes",
+          "internal_notes",
+          "requested_quantity",
+          "finished_quantity",
+          "created_date",
+          "updated_date"
+        ]
+      }
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/comment"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/v3_tag"
+      }
+    },
+    "created_date": {
+      "type": "string"
+    },
+    "updated_date": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "reference_id",
+    "status",
+    "warehouse_id",
+    "manufacturer_notes",
+    "internal_notes",
+    "lines",
+    "tags",
+    "created_date",
+    "updated_date"
+  ]
+}

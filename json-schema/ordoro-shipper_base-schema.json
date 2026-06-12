@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-shipper_base-schema.json",
+  "title": "Shipper Base Schema",
+  "type": "object",
+  "definitions": {
+    "required_in_response": {
+      "required": [
+        "_link",
+        "archive_date",
+        "created",
+        "hidden_shipping_methods",
+        "id",
+        "name",
+        "updated",
+        "vendor",
+        "vendor_config"
+      ]
+    }
+  },
+  "properties": {
+    "_link": {
+      "type": "string",
+      "description": "A relative link to this shipper"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the shipper"
+    },
+    "vendor": {
+      "type": "string",
+      "description": "Short name of the vendor.",
+      "enum": [
+        "amazon",
+        "australia_post",
+        "canada_post",
+        "dhl",
+        "endicia",
+        "fedex",
+        "pitney",
+        "pitney_merchant",
+        "pitney_presort",
+        "sendle",
+        "ups"
+      ]
+    },
+    "hidden_shipping_methods": {
+      "description": "A list of shipping methods per shipper type that can be excluded from retrieved rates",
+      "items": {},
+      "type": "array"
+    },
+    "id": {
+      "type": "integer",
+      "description": "The identifier used as the main reference to this shipper.",
+      "default": 1
+    },
+    "archive_date": {
+      "description": "If this shipper has been archived, this will contain the datetime that the shipper was archived. Otherwise it will be null.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "vendor_config": {
+      "type": "object",
+      "description": "Vendor-specific configuration information."
+    }
+  }
+}

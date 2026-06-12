@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-extra_info_ebay-schema.json",
+  "title": "Ebay Extra Info Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "item_id": {
+      "type": "string"
+    },
+    "listing_type": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  }
+}

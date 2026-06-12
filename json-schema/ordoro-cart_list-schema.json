@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-cart_list-schema.json",
+  "title": "cart_list",
+  "type": "object",
+  "properties": {
+    "limit": {
+      "type": "integer"
+    },
+    "offset": {
+      "type": "integer"
+    },
+    "count": {
+      "type": "integer"
+    },
+    "cart": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/any_of_cart_type"
+      }
+    }
+  },
+  "required": [
+    "limit",
+    "offset",
+    "count",
+    "cart"
+  ]
+}

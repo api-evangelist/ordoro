@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_product_cart_bridge-schema.json",
+  "title": "Update Product Cart Bridge Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "sync": {
+      "type": "boolean"
+    },
+    "inventory_changed": {
+      "type": "boolean"
+    },
+    "reserve_export_qty": {
+      "type": "integer"
+    },
+    "percent_export_qty": {
+      "type": "integer"
+    },
+    "max_export_qty": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "min_export_qty": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "amazon_extra_info": {
+      "ref": "object/amazon_extra_info.json"
+    },
+    "walmart_extra_info": {
+      "ref": "object/walmart_extra_info.json"
+    }
+  }
+}

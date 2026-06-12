@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_product_warehouse-schema.json",
+  "title": "Update a Product Warehouse Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "type": "object",
+      "title": "Set On Hand",
+      "description": "Set the on hand quantity to a specific value",
+      "properties": {
+        "on_hand": {
+          "type": "number"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "title": "Adjust by Amount",
+      "description": "Adjust the on hand quantity by adjustment amount",
+      "properties": {
+        "adjustment": {
+          "type": "number"
+        }
+      }
+    }
+  ],
+  "properties": {
+    "low_stock_threshold": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "out_of_stock_threshold": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "location_in_warehouse": {
+      "type": "string"
+    }
+  }
+}

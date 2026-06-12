@@ -1,0 +1,20 @@
+{
+  "description": "Add Shipping Information to an Order",
+  "method": "POST",
+  "path": "/v3/order/{order_number}/shipping_info",
+  "contentType": "application/json",
+  "example": {
+    "example": {
+      "value": {
+        "tracking_number": "1234-lkjd",
+        "cost": 7,
+        "ship_date": "2016-03-07T06:06:06.123456-06:00",
+        "shipping_method": "rail",
+        "carrier_name": "DHL",
+        "notify_bill_to": false,
+        "notify_ship_to": true,
+        "notify_cart": true
+      }
+    }
+  }
+}

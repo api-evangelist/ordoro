@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_order_shipping_info-schema.json",
+  "title": "Shipping Info Request Schema",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "tracking_number": {
+      "type": "string"
+    },
+    "package_tracking": {
+      "type": "string"
+    },
+    "cost": {
+      "type": "number"
+    },
+    "ship_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "display_shipping_method": {
+      "type": "string"
+    },
+    "shipping_cost": {
+      "type": "number"
+    },
+    "shipping_method": {
+      "type": "string"
+    },
+    "carrier_name": {
+      "type": "string"
+    },
+    "insured_value": {
+      "type": "number"
+    },
+    "notify_bill_to": {
+      "type": "boolean",
+      "default": false
+    },
+    "notify_ship_to": {
+      "type": "boolean",
+      "default": false
+    },
+    "notify_cart": {
+      "type": "boolean",
+      "default": false
+    },
+    "tracking_url": {
+      "type": "string"
+    },
+    "zone": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "tracking_number",
+    "ship_date",
+    "carrier_name"
+  ]
+}

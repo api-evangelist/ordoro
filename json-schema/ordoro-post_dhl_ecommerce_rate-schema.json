@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_dhl_ecommerce_rate-schema.json",
+  "title": "DHL eCommerce Label Request schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "shipper_id": {
+      "type": "integer"
+    },
+    "packages": {
+      "maxItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "weight": {
+            "description": "Weight in ounces",
+            "type": "number"
+          },
+          "length": {
+            "description": "Length in inches",
+            "type": "number"
+          },
+          "width": {
+            "description": "Width in inches",
+            "type": "number"
+          },
+          "height": {
+            "description": "Height in inches",
+            "type": "number"
+          },
+          "declared_value": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "box_shape": {
+            "description": "ignored",
+            "type": "string"
+          }
+        },
+        "required": [
+          "length",
+          "width",
+          "height",
+          "weight",
+          "description"
+        ]
+      }
+    },
+    "packing_list_id": {
+      "description": "id for packing list for profile template associated with this label",
+      "type": "integer"
+    },
+    "dangerous_goods": {
+      "type": "string"
+    },
+    "delivery_confirmation": {
+      "enum": [
+        "DELCON",
+        "SIGCON"
+      ],
+      "type": "string"
+    },
+    "customs_info": {
+      "items": {
+        "$ref": "#/components/schemas/customs_line"
+      },
+      "type": "array"
+    },
+    "declared_value": {
+      "type": "number"
+    },
+    "insured_value": {
+      "type": "number"
+    },
+    "insurance_type": {
+      "type": "string",
+      "enum": [
+        "dhl_ecommerce"
+      ]
+    },
+    "notify_bill_to": {
+      "type": "boolean",
+      "default": false
+    },
+    "notify_ship_to": {
+      "type": "boolean",
+      "default": false
+    },
+    "ship_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "receiver_tax_info": {
+      "$ref": "#/components/schemas/tax_info"
+    },
+    "reference_number": {
+      "type": "string"
+    },
+    "ship_from": {
+      "description": "The ship_from address is used as the originating address of the rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "ship_to": {
+      "description": "The to address is used as the destination address of a return order rate and label request.",
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "return": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "shipper_id"
+  ]
+}

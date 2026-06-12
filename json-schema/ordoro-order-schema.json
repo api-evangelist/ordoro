@@ -1,0 +1,420 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-order-schema.json",
+  "title": "Order Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "order_number": {
+      "type": "string"
+    },
+    "barcode": {
+      "type": "string"
+    },
+    "order_placed_date": {
+      "type": "string"
+    },
+    "created_date": {
+      "type": "string"
+    },
+    "updated_date": {
+      "type": "string"
+    },
+    "cancelled_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "obscured_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "type": "string"
+    },
+    "shippability": {
+      "type": "string"
+    },
+    "shipping_address": {
+      "$ref": "#/components/schemas/address"
+    },
+    "billing_address": {
+      "$ref": "#/components/schemas/address"
+    },
+    "alternate_ship_from_address": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/address"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "label_infos": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "link": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "item_price": {
+            "type": "number"
+          },
+          "supplier_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sku": {
+            "type": "string"
+          },
+          "product_name": {
+            "type": "string"
+          },
+          "product_is_kit_parent": {
+            "type": "boolean"
+          },
+          "product_serial_numbers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "order_line_product_name": {
+            "type": "string"
+          },
+          "product_link": {
+            "type": "string"
+          },
+          "product_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cart_order_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cart_orderitem_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cart_shipment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cogs": {
+            "type": "number"
+          },
+          "shippability": {
+            "type": "object",
+            "properties": {
+              "shippability": {
+                "type": "string"
+              },
+              "supplier_id": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "is_dropship": {
+                "type": "boolean"
+              }
+            }
+          },
+          "details": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "upc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sales_channel_location_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "is_allocated": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "quantity",
+          "item_price",
+          "supplier_price",
+          "link",
+          "product_name",
+          "product_link",
+          "sku",
+          "shippability",
+          "details",
+          "upc"
+        ]
+      }
+    },
+    "weight": {
+      "description": "Weight in ounces",
+      "type": "number"
+    },
+    "notes_from_customer": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "internal_notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "requested_shipping_method": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "deliver_by_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ship_by_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sales_channel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "link": {
+          "type": "string"
+        }
+      }
+    },
+    "warehouse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "link": {
+          "type": "string"
+        }
+      }
+    },
+    "shipping_info": {
+      "$ref": "#/components/schemas/shipping_info"
+    },
+    "return_shipping_info": {
+      "$ref": "#/components/schemas/shipping_info"
+    },
+    "dropshipping_info": {
+      "$ref": "#/components/schemas/dropshipping_info"
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/tag"
+      }
+    },
+    "financial": {
+      "$ref": "#/components/schemas/order_financial"
+    },
+    "link": {
+      "type": "string"
+    },
+    "additional_cart_info": {
+      "type": "object",
+      "properties": {
+        "is_prime": {
+          "type": "boolean"
+        }
+      }
+    },
+    "is_order_parent": {
+      "type": "boolean"
+    },
+    "parent_order_number": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sibling_order_numbers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "audit_label": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "return_order_reference_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "similar_open_addresses_count": {
+      "type": "integer"
+    },
+    "allocation_status": {
+      "type": "string"
+    },
+    "batch_reference_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "batch": {
+      "type": "object"
+    },
+    "has_revision": {
+      "type": "boolean"
+    },
+    "revision_locked_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "billing_address",
+    "shipping_address"
+  ]
+}

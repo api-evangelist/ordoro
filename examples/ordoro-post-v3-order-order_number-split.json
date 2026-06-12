@@ -1,0 +1,46 @@
+{
+  "description": "Split an Order",
+  "method": "POST",
+  "path": "/v3/order/{order_number}/split",
+  "contentType": "application/json",
+  "example": {
+    "example": {
+      "value": {
+        "split_orders": [
+          {
+            "lines": [
+              {
+                "line_id": 1234,
+                "quantity": 1
+              },
+              {
+                "line_id": 987,
+                "quantity": 0
+              },
+              {
+                "line_id": 777,
+                "quantity": 3
+              }
+            ]
+          },
+          {
+            "lines": [
+              {
+                "line_id": 1234,
+                "quantity": 1
+              },
+              {
+                "line_id": 987,
+                "quantity": 0
+              },
+              {
+                "line_id": 777,
+                "quantity": 3
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

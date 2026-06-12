@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-cart_shopsite_vendor_config-schema.json",
+  "title": "cart_shopsite_vendor_config",
+  "type": "object",
+  "definitions": {
+    "required_to_create": {
+      "required": [
+        "url",
+        "username",
+        "password"
+      ]
+    },
+    "required_in_response": {
+      "required": [
+        "url",
+        "username",
+        "password",
+        "parse_options_as_new_sku",
+        "ftp_path",
+        "ftp_username",
+        "ftp_password"
+      ]
+    }
+  },
+  "description": "Shopsite configuration information",
+  "properties": {
+    "url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "parse_options_as_new_sku": {
+      "type": "boolean",
+      "default": false
+    },
+    "ftp_path": {
+      "type": "string",
+      "format": "uri",
+      "default": "/"
+    },
+    "ftp_username": {
+      "default": null,
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ftp_password": {
+      "type": "string"
+    }
+  }
+}

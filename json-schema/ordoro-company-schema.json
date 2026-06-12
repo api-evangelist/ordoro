@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-company-schema.json",
+  "title": "Company Schema",
+  "type": "object",
+  "properties": {
+    "_link": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "contact": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "fax": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "billing_email": {
+      "type": "string"
+    },
+    "currency_symbol": {
+      "type": "string"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "features": {
+      "type": "object"
+    },
+    "stripe_customer_id": {
+      "type": "string"
+    },
+    "shipper_currency": {
+      "type": "string"
+    },
+    "footer": {
+      "type": "string"
+    },
+    "mail_sender": {
+      "type": "string"
+    },
+    "activated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "deactivated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "plan": {
+      "type": "string"
+    },
+    "pitney_rate_type": {
+      "type": "string"
+    },
+    "autosync_frequency": {
+      "type": "string"
+    },
+    "app_message": {
+      "type": "string"
+    },
+    "api_locked": {
+      "type": "boolean"
+    },
+    "print_node": {
+      "type": "object"
+    },
+    "vendor_connect": {
+      "type": "boolean"
+    },
+    "payment_details": {
+      "type": "object"
+    },
+    "trusted": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    }
+  }
+}

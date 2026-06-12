@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-cart_miva_vendor_config-schema.json",
+  "title": "cart_miva_vendor_config",
+  "type": "object",
+  "definitions": {
+    "required_to_create": {
+      "required": [
+        "api_token",
+        "signature_key",
+        "store_code",
+        "store_url"
+      ]
+    },
+    "required_in_response": {
+      "required": [
+        "api_token",
+        "signature_key",
+        "store_code",
+        "store_url"
+      ]
+    }
+  },
+  "description": "Miva configuration information",
+  "properties": {
+    "api_token": {
+      "type": "string"
+    },
+    "signature_key": {
+      "type": "string"
+    },
+    "store_code": {
+      "type": "string"
+    },
+    "store_url": {
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}

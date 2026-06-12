@@ -1,0 +1,166 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_order_v1-schema.json",
+  "title": "Core API Order Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "cart": {
+      "description": "id for cart",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "order_id": {
+      "description": "User defined identifier for an order. Will be prepended with a cart or sales channel index after creation",
+      "type": "string"
+    },
+    "cart_order_id": {
+      "description": "distinct order id from cart or marketplace, useful when syncing tracking information back from Ordoro",
+      "type": "string"
+    },
+    "warehouse_id": {
+      "type": "integer"
+    },
+    "order_date": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "deliver_by_date": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "ship_by_date": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "awaiting_fulfillment",
+        "shipped"
+      ]
+    },
+    "shipping_type": {
+      "type": "string"
+    },
+    "notes_from_customer": {
+      "type": "string"
+    },
+    "internal_notes": {
+      "type": "string"
+    },
+    "product_amount": {
+      "type": "number"
+    },
+    "shipping_amount": {
+      "type": "number"
+    },
+    "tax_amount": {
+      "type": "number"
+    },
+    "grand_total": {
+      "type": "number"
+    },
+    "discount_amount": {
+      "type": "number"
+    },
+    "cart_shipment_id": {
+      "type": "string"
+    },
+    "credit_card_issuer": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "billing_address": {
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "shipping_address": {
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "alternate_ship_from_address": {
+      "$ref": "#/components/schemas/v1_address"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "title": "Core API Order Line Schema",
+        "type": "object",
+        "properties": {
+          "cart_orderitem_id": {
+            "type": "string"
+          },
+          "product_name": {
+            "type": "string"
+          },
+          "item_price": {
+            "description": "single item price, will not display in app, for calculated value in app use total_price",
+            "type": "number"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "selected_option": {
+            "type": "string"
+          },
+          "total_price": {
+            "description": "total calculated value for item",
+            "type": "number"
+          },
+          "tax_lines": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "rate": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "product": {
+            "$ref": "#/components/schemas/v1_order_line_product"
+          }
+        }
+      }
+    },
+    "additional_cart_info": {
+      "type": "object",
+      "properties": {
+        "is_prime": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "required": [
+    "billing_address",
+    "shipping_address",
+    "order_id",
+    "lines"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_company-schema.json",
+  "title": "Address Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "contact": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "fax": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "billing_email": {
+      "type": "string"
+    },
+    "footer": {
+      "type": "string"
+    },
+    "mail_sender": {
+      "type": "string"
+    },
+    "shipper_currency": {
+      "type": "string"
+    },
+    "currency_symbol": {
+      "type": "string"
+    }
+  }
+}

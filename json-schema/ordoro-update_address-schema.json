@@ -1,0 +1,200 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-update_address-schema.json",
+  "title": "Update Address Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "company": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "street1": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "street2": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "city": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "state": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "zip": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "country": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "email": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "phone": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "validate": {
+      "type": "boolean"
+    },
+    "set_revision_lock": {
+      "type": "boolean"
+    },
+    "validation": {
+      "title": "Validation status of an Address",
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "unvalidated",
+            "validated",
+            "warning",
+            "error"
+          ]
+        },
+        "suggested": {
+          "type": "array",
+          "items": {
+            "title": "Suggested Address",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "is_commercial": {
+                "default": false,
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "street1": {
+                "type": "string"
+              },
+              "street2": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "zip": {
+                "type": "string"
+              },
+              "country_code": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city",
+              "state",
+              "zip",
+              "street1"
+            ]
+          }
+        },
+        "additional_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "is_error": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "additional_text",
+        "suggested"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

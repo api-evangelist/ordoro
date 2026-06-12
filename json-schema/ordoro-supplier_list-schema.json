@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-supplier_list-schema.json",
+  "title": "Supplier List Schema",
+  "type": "object",
+  "properties": {
+    "count": {
+      "type": "integer"
+    },
+    "supplier": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/supplier"
+      }
+    },
+    "limit": {
+      "type": "integer",
+      "default": 10
+    },
+    "offset": {
+      "type": "integer",
+      "default": 0
+    }
+  },
+  "required": [
+    "count",
+    "supplier",
+    "limit",
+    "offset"
+  ]
+}

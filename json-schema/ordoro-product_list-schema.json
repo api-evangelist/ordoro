@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-product_list-schema.json",
+  "title": "Product List Response schema",
+  "type": "object",
+  "properties": {
+    "limit": {
+      "type": "integer",
+      "example": 1
+    },
+    "offset": {
+      "type": "integer",
+      "example": 0
+    },
+    "count": {
+      "type": "integer",
+      "example": 46
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/product_base"
+          },
+          {
+            "properties": {
+              "warehouses": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/inventory_as_warehouse"
+                }
+              },
+              "kit_components": {
+                "type": "array",
+                "items": {
+                  "FIXME": "object"
+                }
+              },
+              "carts": {
+                "type": "array",
+                "items": {
+                  "FIXME": "object"
+                }
+              },
+              "suppliers": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/supplier"
+                }
+              },
+              "to_be_shipped": {
+                "type": "number"
+              },
+              "available_on_hand": {
+                "type": "number"
+              },
+              "on_pos": {
+                "type": "number"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

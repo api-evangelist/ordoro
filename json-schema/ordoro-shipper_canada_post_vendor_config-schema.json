@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-shipper_canada_post_vendor_config-schema.json",
+  "title": "shipper_canada_post_vendor_config",
+  "type": "object",
+  "definitions": {
+    "required_to_create": {
+      "required": [
+        "customer_number",
+        "username",
+        "password"
+      ]
+    },
+    "required_in_response": {
+      "required": [
+        "customer_number",
+        "username",
+        "password",
+        "contract_id",
+        "payment_method"
+      ]
+    }
+  },
+  "description": "Canada Post Shipper configuration information",
+  "properties": {
+    "customer_number": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "contract_id": {
+      "type": "boolean"
+    },
+    "payment_method": {
+      "type": "string",
+      "enum": [
+        "Account",
+        "CreditCard"
+      ],
+      "default": "Account"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-cart_volusion_v1_vendor_config-schema.json",
+  "title": "cart_volusion_v1_vendor_config",
+  "type": "object",
+  "definitions": {
+    "required_to_create": {
+      "required": [
+        "username",
+        "encrypted_password"
+      ]
+    },
+    "required_in_response": {
+      "required": [
+        "username",
+        "encrypted_password",
+        "store_url"
+      ]
+    }
+  },
+  "description": "Volusion V1 configuration information",
+  "properties": {
+    "username": {
+      "type": "string"
+    },
+    "encrypted_password": {
+      "type": "string"
+    },
+    "store_url": {
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}

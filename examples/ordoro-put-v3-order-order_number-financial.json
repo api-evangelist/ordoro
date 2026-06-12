@@ -1,0 +1,18 @@
+{
+  "description": "Update an Order's financial information",
+  "method": "PUT",
+  "path": "/v3/order/{order_number}/financial",
+  "contentType": "application/json",
+  "example": {
+    "example": {
+      "value": {
+        "grand_total": 123.45,
+        "tax_amount": 1.23,
+        "product_amount": 100.1,
+        "shipping_amount": 0,
+        "credit_card_issuer": "Veeza",
+        "discount_amount": 0
+      }
+    }
+  }
+}

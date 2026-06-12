@@ -1,0 +1,15 @@
+{
+  "description": "Add an Order Line",
+  "method": "POST",
+  "path": "/v3/order/{order_number}/line",
+  "contentType": "application/json",
+  "example": {
+    "example": {
+      "value": {
+        "sku": "phil-collins-skuskudio",
+        "quantity": 1,
+        "item_price": 1.23
+      }
+    }
+  }
+}

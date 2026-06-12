@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-integration_quickbooks_vendor_config-schema.json",
+  "title": "integration_quickbooks_vendor_config",
+  "type": "object",
+  "properties": {
+    "access_token": {
+      "type": "string"
+    },
+    "access_token_expiration": {
+      "type": "string"
+    },
+    "refresh_token": {
+      "type": "string"
+    },
+    "realm_id": {
+      "type": "string"
+    },
+    "refresh_token_expiration": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "access_token",
+    "access_token_expiration",
+    "refresh_token",
+    "refresh_token_expiration",
+    "realm_id"
+  ]
+}

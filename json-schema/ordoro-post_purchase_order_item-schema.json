@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-post_purchase_order_item-schema.json",
+  "title": "Create a Purchase Order Item",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "sku": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "unit_price": {
+      "type": "number"
+    },
+    "discount_amount": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "sku"
+  ]
+}

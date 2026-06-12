@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/json-schema/ordoro-put_order-schema.json",
+  "title": "Order Update Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "notes_from_customer": {
+      "description": "Customer notes",
+      "type": "string"
+    },
+    "internal_notes": {
+      "description": "Staff notes",
+      "type": "string"
+    },
+    "batch_reference_id": {
+      "description": "Batch ID",
+      "type": "string"
+    },
+    "ship_by_date": {
+      "description": "The date the order must be shipped by",
+      "format": "date-time",
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "deliver_by_date": {
+      "description": "The date the order must be delivered by",
+      "format": "date-time",
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  }
+}

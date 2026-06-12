@@ -1,0 +1,82 @@
+aid: ordoro
+name: Ordoro
+description: >
+  Ordoro is a multi-channel order management and ecommerce logistics platform designed for
+  small and medium-sized businesses. It provides a REST API for syncing orders across sales
+  channels, managing inventory in multiple warehouses, creating shipping labels from major
+  carriers, and handling dropshipping workflows with suppliers. The API supports operations
+  including order retrieval and creation, product and inventory management, purchase orders,
+  manufacturing orders, and shipment tracking. API access is available on Premium-level plans
+  and above, using Basic HTTP Authentication with API keys.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Order Management
+  - Inventory Management
+  - Shipping
+  - Dropshipping
+  - Ecommerce
+  - Multi-Channel
+  - Fulfillment
+  - Logistics
+url: https://raw.githubusercontent.com/api-evangelist/ordoro/refs/heads/main/apis.yml
+created: '2026-06-12'
+modified: '2026-06-12'
+specificationVersion: '0.19'
+apis:
+  - aid: ordoro:ordoro-api
+    name: Ordoro API
+    description: >
+      The Ordoro REST API provides programmatic access to orders, products, inventory,
+      shipments, purchase orders, suppliers, warehouses, and dropshipping workflows.
+      It uses Basic HTTP Authentication with API keys and communicates via JSON.
+      All endpoints are available at the base URL https://api.ordoro.com/ with a
+      rate limit of 500 requests per minute.
+    humanURL: https://docs.ordoro.com/
+    baseURL: https://api.ordoro.com/
+    tags:
+      - Orders
+      - Products
+      - Inventory
+      - Shipments
+      - Purchase Orders
+      - Dropshipping
+      - Warehouses
+      - Suppliers
+    properties:
+      - type: Documentation
+        url: https://docs.ordoro.com/
+      - type: Forum
+        url: https://forums.ordoro.com/
+      - type: GitHubRepository
+        url: https://github.com/ordoro/api-examples
+common:
+  - type: Website
+    url: https://www.ordoro.com/
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Developer
+    url: https://www.ordoro.com/developer
+  - type: GitHubOrganization
+    url: https://github.com/ordoro
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/ordoro-inc
+  - type: X
+    url: https://twitter.com/ordoro
+  - type: Blog
+    url: https://blog.ordoro.com/
+  - type: Forum
+    url: https://forums.ordoro.com/
+  - type: Pricing
+    url: https://www.ordoro.com/pricing
+  - type: StatusPage
+    url: https://ordoro.statuspage.io/
+  - type: Plans
+    url: plans/ordoro-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/ordoro-rate-limits.yml
+  - type: FinOps
+    url: finops/ordoro-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,90 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+provider: Ordoro
+providerId: ordoro
+created: '2026-06-12'
+modified: '2026-06-12'
+description: >
+  FinOps profile for Ordoro API usage cost management. Ordoro pricing is
+  subscription-based with usage-based overages tied to order and label volume.
+  API access is gated to Premium-tier plans. Cost optimization centers on
+  right-sizing the subscription tier to actual order/label volume and monitoring
+  overage triggers.
+
+billingModel: subscription-plus-overage
+
+focusColumns:
+  - ServiceName: Ordoro
+  - ServiceCategory: Order Management / Shipping / Inventory
+  - ChargeType: Usage
+  - BilledCurrency: USD
+  - BillingPeriod: Monthly
+  - PricingUnit: subscription, labels, orders, dropshipments
+
+meters:
+  - name: Shipping Labels
+    metric: labels
+    unit: labels per month
+    tiers:
+      - upTo: 100
+        price: 0.00
+        planName: Shipping Essential
+      - upTo: 3000
+        price: 59.00
+        planName: Shipping Advanced
+      - upTo: unlimited
+        price: 149.00
+        planName: Shipping Premium
+    overageRate: 30.00
+    overageUnit: per 1000 additional labels
+    overageAppliesTo: Shipping Advanced only
+
+  - name: Inventory Orders
+    metric: orders per month
+    unit: orders
+    tiers:
+      - upTo: 1000
+        price: 349.00
+        planName: Inventory Advanced
+      - upTo: 1000
+        price: 499.00
+        planName: Inventory Premium
+    overageRate: 100.00
+    overageUnit: per 1000 additional orders
+
+  - name: Dropshipments
+    metric: dropshipments per month
+    unit: dropshipments
+    tiers:
+      - upTo: 1000
+        price: 299.00
+        planName: Dropshipping Advanced
+      - upTo: custom
+        price: 0.00
+        planName: Dropshipping Premium (custom)
+    overageRate: 100.00
+    overageUnit: per 1000 additional dropshipments
+
+principles:
+  - name: Visibility
+    description: >
+      Monitor monthly order, label, and dropshipment volumes relative to plan limits
+      to anticipate overage charges. Use Ordoro's advanced analytics features (available
+      on Advanced and Premium plans) to track API-driven activity. The Ordoro status page
+      at ordoro.statuspage.io provides uptime visibility.
+    actions:
+      - Track label count vs. 100/3,000 tier limits for Shipping plans
+      - Track order count vs. 1,000 limit for Inventory/Dropshipping plans
+      - Monitor for 429 rate-limit errors to detect high-frequency API usage
+
+  - name: Optimization
+    description: >
+      Right-size plan selection based on actual monthly volume. Batch API requests
+      where possible to stay within the 500 req/min rate limit and avoid throttling
+      delays. Evaluate bundled multi-app pricing versus individual app costs when
+      using more than one Ordoro product.
+    actions:
+      - Upgrade from Shipping Advanced to Premium only when label volume consistently exceeds 3,000/month
+      - Evaluate bundled pricing when using two or more Ordoro apps
+      - Use pagination (limit/offset) efficiently to minimize request volume on list endpoints
+      - Implement exponential backoff on 429 responses to avoid wasteful retry storms

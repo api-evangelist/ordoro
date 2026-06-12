@@ -1,0 +1,208 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+provider: Ordoro
+providerId: ordoro
+created: '2026-06-12'
+modified: '2026-06-12'
+reconciled: true
+description: >
+  Ordoro offers three separate app products — Shipping, Inventory, and Dropshipping —
+  each with their own pricing tiers. API access is included on Premium-level plans.
+  All plans include a 15-day free trial with no credit card required.
+
+plans:
+  # Shipping App Plans
+  - name: Shipping Essential
+    type: free
+    description: Free shipping plan for small-volume merchants. Includes 100 labels per month, 1 sales channel, 1 ship-from location, and 1 user. No API access.
+    url: https://www.ordoro.com/shipping-and-order-management-pricing
+    entries:
+      - name: Monthly Labels
+        type: quota
+        metric: labels
+        limit: 100
+        timeFrame: month
+        price: 0.00
+        currency: USD
+      - name: Sales Channels
+        type: quota
+        metric: channels
+        limit: 1
+        price: 0.00
+        currency: USD
+      - name: Users
+        type: quota
+        metric: users
+        limit: 1
+        price: 0.00
+        currency: USD
+      - name: API Access
+        type: boolean
+        value: false
+
+  - name: Shipping Advanced
+    type: paid
+    description: Mid-tier shipping plan with 3,000 labels per month, 5 sales channels, 5 ship-from locations, unlimited users, automation rules, advanced analytics, and batch processing. Overages charged at $30 per additional 1,000 labels.
+    url: https://www.ordoro.com/shipping-and-order-management-pricing
+    entries:
+      - name: Monthly Plan Fee
+        type: metered
+        metric: subscription
+        price: 59.00
+        currency: USD
+        timeFrame: month
+      - name: Monthly Labels
+        type: quota
+        metric: labels
+        limit: 3000
+        timeFrame: month
+      - name: Overage Labels
+        type: metered
+        metric: labels
+        price: 30.00
+        currency: USD
+        unit: per 1000 additional labels
+      - name: Sales Channels
+        type: quota
+        metric: channels
+        limit: 5
+      - name: Users
+        type: quota
+        metric: users
+        limit: unlimited
+      - name: API Access
+        type: boolean
+        value: false
+
+  - name: Shipping Premium
+    type: paid
+    description: Full-featured shipping plan with unlimited labels, unlimited sales channels, unlimited ship-from locations, unlimited users, returns management, kitting, QuickBooks integration, branded tracking pages, and API access.
+    url: https://www.ordoro.com/shipping-and-order-management-pricing
+    entries:
+      - name: Monthly Plan Fee
+        type: metered
+        metric: subscription
+        price: 149.00
+        currency: USD
+        timeFrame: month
+      - name: Monthly Labels
+        type: quota
+        metric: labels
+        limit: unlimited
+        timeFrame: month
+      - name: Sales Channels
+        type: quota
+        metric: channels
+        limit: unlimited
+      - name: Users
+        type: quota
+        metric: users
+        limit: unlimited
+      - name: API Access
+        type: boolean
+        value: true
+
+  # Inventory App Plans
+  - name: Inventory Advanced
+    type: paid
+    description: Inventory management plan with 1,000 orders per month, unlimited warehouses, unlimited sales channels, unlimited users, kitting, automation rules, advanced analytics, QuickBooks integration, and API access. Overages at $100 per additional 1,000 orders.
+    url: https://www.ordoro.com/inventory-management-pricing
+    entries:
+      - name: Monthly Plan Fee
+        type: metered
+        metric: subscription
+        price: 349.00
+        currency: USD
+        timeFrame: month
+      - name: Monthly Orders
+        type: quota
+        metric: orders
+        limit: 1000
+        timeFrame: month
+      - name: Overage Orders
+        type: metered
+        metric: orders
+        price: 100.00
+        currency: USD
+        unit: per 1000 additional orders
+      - name: Warehouses
+        type: quota
+        metric: warehouses
+        limit: unlimited
+      - name: API Access
+        type: boolean
+        value: true
+
+  - name: Inventory Premium
+    type: paid
+    description: Full inventory plan with 1,000 orders per month, all Advanced features plus purchase orders, bill of materials, manufacturing orders, stocktakes, and custom forecasting reports.
+    url: https://www.ordoro.com/inventory-management-pricing
+    entries:
+      - name: Monthly Plan Fee
+        type: metered
+        metric: subscription
+        price: 499.00
+        currency: USD
+        timeFrame: month
+      - name: Monthly Orders
+        type: quota
+        metric: orders
+        limit: 1000
+        timeFrame: month
+      - name: Overage Orders
+        type: metered
+        metric: orders
+        price: 100.00
+        currency: USD
+        unit: per 1000 additional orders
+      - name: API Access
+        type: boolean
+        value: true
+
+  # Dropshipping App Plans
+  - name: Dropshipping Advanced
+    type: paid
+    description: Dropshipping management plan with 1,000 dropshipments per month, unlimited sales channels, unlimited dropship locations, unlimited users, order routing, automation rules, advanced analytics, QuickBooks integration, and API access. Overages at $100 per additional 1,000 dropshipments.
+    url: https://www.ordoro.com/dropshipping-management-pricing
+    entries:
+      - name: Monthly Plan Fee
+        type: metered
+        metric: subscription
+        price: 299.00
+        currency: USD
+        timeFrame: month
+      - name: Monthly Dropshipments
+        type: quota
+        metric: dropshipments
+        limit: 1000
+        timeFrame: month
+      - name: Overage Dropshipments
+        type: metered
+        metric: dropshipments
+        price: 100.00
+        currency: USD
+        unit: per 1000 additional dropshipments
+      - name: API Access
+        type: boolean
+        value: true
+
+  - name: Dropshipping Premium
+    type: enterprise
+    description: High-volume dropshipping plan with custom pricing, all Advanced features plus supplier feeds and vendor portals. Contact Ordoro sales for pricing.
+    url: https://www.ordoro.com/dropshipping-management-pricing
+    entries:
+      - name: Monthly Plan Fee
+        type: metered
+        metric: subscription
+        price: 0.00
+        currency: USD
+        note: Custom pricing, contact sales
+      - name: API Access
+        type: boolean
+        value: true
+      - name: Supplier Feeds
+        type: boolean
+        value: true
+      - name: Vendor Portals
+        type: boolean
+        value: true

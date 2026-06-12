@@ -1,0 +1,33 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+provider: Ordoro
+providerId: ordoro
+created: '2026-06-12'
+modified: '2026-06-12'
+description: >
+  Ordoro enforces a rate limit of 500 requests per minute at the account level.
+  This limit applies across all API keys and users attached to the same account,
+  regardless of HTTP method (GET, POST, PUT, DELETE). Requests that exceed this
+  threshold receive a 429 HTTP status code. There are no documented daily limits.
+  Background processes operated by Ordoro itself are exempt from user rate limits.
+source: https://forums.ordoro.com/t/api-request-limit/711
+
+throttled: 429
+retryAfter: Retry-After
+
+limits:
+  - scope: account
+    metric: requests
+    limit: 500
+    timeFrame: minute
+    description: >
+      Account-wide limit of 500 requests per minute. Applies to all API keys and
+      users associated with the account. All HTTP methods count toward this total.
+      Multiple applications or credentials on the same account share this limit.
+    enforcement: hard
+    errorCode: 429
+    notes:
+      - All HTTP methods (GET, POST, PUT, DELETE) count equally toward the limit
+      - Multiple API keys on the same account share the same quota
+      - Ordoro internal background processes are exempt
+      - No documented daily or monthly request cap beyond the per-minute limit

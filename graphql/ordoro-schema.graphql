@@ -1,0 +1,1070 @@
+"""
+Ordoro GraphQL Schema
+Conceptual GraphQL schema for the Ordoro multi-channel order management
+and ecommerce logistics platform. Derived from the Ordoro REST API.
+https://docs.ordoro.com/
+"""
+
+# -------------------------------------------------------------------
+# Scalars
+# -------------------------------------------------------------------
+
+scalar DateTime
+scalar Decimal
+scalar JSON
+
+# -------------------------------------------------------------------
+# Enums
+# -------------------------------------------------------------------
+
+enum OrderStatusEnum {
+  AWAITING_FULFILLMENT
+  AWAITING_SHIPMENT
+  PARTIALLY_SHIPPED
+  SHIPPED
+  CANCELLED
+  ON_HOLD
+  BACKORDERED
+}
+
+enum ShipmentStatusEnum {
+  PENDING
+  LABEL_PURCHASED
+  IN_TRANSIT
+  OUT_FOR_DELIVERY
+  DELIVERED
+  EXCEPTION
+  VOIDED
+}
+
+enum POStatusEnum {
+  DRAFT
+  SENT
+  PARTIALLY_RECEIVED
+  RECEIVED
+  CANCELLED
+}
+
+enum ReturnStatusEnum {
+  REQUESTED
+  IN_TRANSIT
+  RECEIVED
+  REFUNDED
+  RESTOCKED
+  REJECTED
+}
+
+enum WeightUnit {
+  OZ
+  LB
+  G
+  KG
+}
+
+enum DimensionUnit {
+  IN
+  CM
+}
+
+enum AdjustmentReason {
+  RECEIVED
+  DAMAGED
+  LOST
+  MANUAL
+  RETURN
+  TRANSFER
+}
+
+# -------------------------------------------------------------------
+# Order Domain
+# -------------------------------------------------------------------
+
+"""Top-level order record linking a customer purchase to a sales channel."""
+type Order {
+  id: ID!
+  orderNumber: String!
+  status: OrderStatus!
+  channel: OrderChannel
+  salesChannel: SalesChannel
+  details: OrderDetails
+  lines: [OrderLine!]!
+  shipments: [Shipment!]!
+  tags: [Tag!]!
+  returns: [Return!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended metadata for an order including dates, notes, and status history."""
+type OrderDetails {
+  id: ID!
+  orderId: ID!
+  customerName: String
+  customerEmail: String
+  shippingAddress: Address
+  billingAddress: Address
+  notes: String
+  internalNotes: String
+  subtotal: Decimal
+  shippingCost: Decimal
+  taxAmount: Decimal
+  discountAmount: Decimal
+  grandTotal: Decimal
+  currency: String
+  requestedShippingService: String
+  giftMessage: String
+  placedAt: DateTime
+}
+
+"""Status type representing the lifecycle state of an order."""
+type OrderStatus {
+  value: OrderStatusEnum!
+  label: String!
+  updatedAt: DateTime
+}
+
+"""The originating channel for an order (e.g., Shopify, Amazon, manual)."""
+type OrderChannel {
+  id: ID!
+  name: String!
+  platform: String!
+  externalOrderId: String
+}
+
+"""A configured sales channel integration in Ordoro."""
+type SalesChannel {
+  id: ID!
+  name: String!
+  platform: String!
+  details: ChannelDetails
+  isActive: Boolean!
+  createdAt: DateTime!
+}
+
+"""Configuration and credentials details for a sales channel."""
+type ChannelDetails {
+  id: ID!
+  channelId: ID!
+  storeName: String
+  storeUrl: String
+  syncEnabled: Boolean!
+  lastSyncedAt: DateTime
+  settings: JSON
+}
+
+# -------------------------------------------------------------------
+# Line Items
+# -------------------------------------------------------------------
+
+"""A single line entry on an order referencing product and quantity."""
+type OrderLine {
+  id: ID!
+  orderId: ID!
+  product: Product
+  variant: Variant
+  sku: String!
+  name: String!
+  quantity: LineItemQuantity!
+  details: LineItemDetails
+}
+
+"""Detailed line item with pricing, discounts, and fulfillment state."""
+type LineItem {
+  id: ID!
+  orderId: ID!
+  sku: String!
+  name: String!
+  unitPrice: Decimal!
+  discount: Decimal
+  taxAmount: Decimal
+  totalPrice: Decimal!
+  isFulfilled: Boolean!
+  quantity: LineItemQuantity!
+  details: LineItemDetails
+}
+
+"""Extended attributes on a line item."""
+type LineItemDetails {
+  id: ID!
+  lineItemId: ID!
+  externalLineItemId: String
+  weight: ProductWeight
+  dimensions: ProductDimensions
+  customFields: JSON
+}
+
+"""Quantity breakdowns for a line item."""
+type LineItemQuantity {
+  ordered: Int!
+  shipped: Int!
+  returned: Int!
+  cancelled: Int!
+  remaining: Int!
+}
+
+# -------------------------------------------------------------------
+# Products
+# -------------------------------------------------------------------
+
+"""A sellable product record with name, description, and associated SKUs."""
+type Product {
+  id: ID!
+  name: String!
+  description: String
+  sku: ProductSKU!
+  barcodes: [ProductBarcode!]!
+  weight: ProductWeight
+  dimensions: ProductDimensions
+  variants: [Variant!]!
+  details: ProductDetails
+  inventory: [InventoryLevel!]!
+  tags: [Tag!]!
+  suppliers: [Supplier!]!
+  isActive: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended product metadata including images, categories, and custom fields."""
+type ProductDetails {
+  id: ID!
+  productId: ID!
+  imageUrl: String
+  additionalImages: [String!]!
+  category: String
+  brand: String
+  manufacturer: String
+  countryOfOrigin: String
+  harmonizedCode: String
+  customFields: JSON
+}
+
+"""A specific stock-keeping unit identifier tied to a product."""
+type ProductSKU {
+  id: ID!
+  value: String!
+  productId: ID!
+  isDefault: Boolean!
+}
+
+"""Barcode value associated with a product or variant."""
+type ProductBarcode {
+  id: ID!
+  productId: ID!
+  type: String!
+  value: String!
+}
+
+"""Weight value and unit for a product used in shipping calculations."""
+type ProductWeight {
+  value: Decimal!
+  unit: WeightUnit!
+}
+
+"""Length, width, height, and unit for a product."""
+type ProductDimensions {
+  length: Decimal!
+  width: Decimal!
+  height: Decimal!
+  unit: DimensionUnit!
+}
+
+# -------------------------------------------------------------------
+# Variants
+# -------------------------------------------------------------------
+
+"""A specific combination of product options (size, color, etc.)."""
+type Variant {
+  id: ID!
+  productId: ID!
+  sku: String!
+  name: String!
+  options: [VariantOption!]!
+  details: VariantDetails
+  barcodes: [ProductBarcode!]!
+  weight: ProductWeight
+  dimensions: ProductDimensions
+  inventory: [InventoryLevel!]!
+  isActive: Boolean!
+  createdAt: DateTime!
+}
+
+"""Extended metadata for a variant."""
+type VariantDetails {
+  id: ID!
+  variantId: ID!
+  imageUrl: String
+  price: Decimal
+  compareAtPrice: Decimal
+  customFields: JSON
+}
+
+"""A single option dimension on a variant."""
+type VariantOption {
+  id: ID!
+  name: String!
+  value: String!
+}
+
+# -------------------------------------------------------------------
+# Inventory
+# -------------------------------------------------------------------
+
+"""Aggregate inventory record for a product or variant."""
+type Inventory {
+  id: ID!
+  product: Product!
+  variant: Variant
+  totalOnHand: Int!
+  totalReserved: Int!
+  totalAvailable: Int!
+  levels: [InventoryLevel!]!
+  recentAdjustments: [InventoryAdjustment!]!
+}
+
+"""Detailed inventory state including reserved and available quantities."""
+type InventoryDetails {
+  id: ID!
+  inventoryId: ID!
+  reorderPoint: Int
+  reorderQuantity: Int
+  targetStock: Int
+  notes: String
+}
+
+"""Inventory quantity at a specific warehouse location."""
+type InventoryLevel {
+  id: ID!
+  productId: ID!
+  variantId: ID
+  warehouse: Warehouse!
+  bin: Bin
+  onHand: Int!
+  reserved: Int!
+  available: Int!
+  updatedAt: DateTime!
+}
+
+"""A recorded change to inventory quantity with reason and timestamp."""
+type InventoryAdjustment {
+  id: ID!
+  productId: ID!
+  variantId: ID
+  warehouseId: ID!
+  quantityDelta: Int!
+  previousQuantity: Int!
+  newQuantity: Int!
+  reason: AdjustmentReason!
+  notes: String
+  createdAt: DateTime!
+  createdBy: String
+}
+
+# -------------------------------------------------------------------
+# Warehouses
+# -------------------------------------------------------------------
+
+"""A physical or virtual storage facility configured in Ordoro."""
+type Warehouse {
+  id: ID!
+  name: String!
+  code: String
+  details: WarehouseDetails
+  locations: [WarehouseLocation!]!
+  bins: [Bin!]!
+  isDefault: Boolean!
+  isActive: Boolean!
+  createdAt: DateTime!
+}
+
+"""Address, contact, and configuration details for a warehouse."""
+type WarehouseDetails {
+  id: ID!
+  warehouseId: ID!
+  address: Address!
+  contactName: String
+  contactEmail: String
+  contactPhone: String
+  isThirdParty: Boolean!
+  thirdPartyAccountNumber: String
+}
+
+"""A named location zone within a warehouse."""
+type WarehouseLocation {
+  id: ID!
+  warehouseId: ID!
+  name: String!
+  zone: String
+  aisle: String
+  bins: [Bin!]!
+}
+
+"""A specific bin or shelf slot within a warehouse location."""
+type Bin {
+  id: ID!
+  warehouseId: ID!
+  locationId: ID
+  details: BinDetails
+  label: String!
+}
+
+"""Position, capacity, and contents metadata for a bin."""
+type BinDetails {
+  id: ID!
+  binId: ID!
+  row: String
+  column: String
+  level: String
+  capacity: Int
+  notes: String
+}
+
+# -------------------------------------------------------------------
+# Shipments
+# -------------------------------------------------------------------
+
+"""A shipment record grouping packages sent to fulfill order lines."""
+type Shipment {
+  id: ID!
+  orderId: ID!
+  status: ShipmentStatus!
+  carrier: ShipmentCarrier
+  trackingNumbers: [TrackingNumber!]!
+  label: ShipmentLabel
+  packages: [Package!]!
+  details: ShipmentDetails
+  createdAt: DateTime!
+  shippedAt: DateTime
+  deliveredAt: DateTime
+}
+
+"""Carrier, service, dimensions, weight, and cost for a shipment."""
+type ShipmentDetails {
+  id: ID!
+  shipmentId: ID!
+  serviceCode: String
+  serviceName: String
+  estimatedDeliveryDate: DateTime
+  shippingCost: Decimal
+  insuranceAmount: Decimal
+  signatureRequired: Boolean!
+  returnLabel: Boolean!
+  shipFromAddress: Address
+  shipToAddress: Address!
+}
+
+"""Lifecycle state of a shipment."""
+type ShipmentStatus {
+  value: ShipmentStatusEnum!
+  label: String!
+  updatedAt: DateTime
+}
+
+"""The carrier assigned to a shipment."""
+type ShipmentCarrier {
+  id: ID!
+  carrier: Carrier!
+  serviceCode: String!
+  serviceName: String!
+  accountNumber: String
+}
+
+"""A carrier-issued tracking identifier for a shipment."""
+type TrackingNumber {
+  id: ID!
+  shipmentId: ID!
+  value: String!
+  carrier: String!
+  trackingUrl: String
+  isActive: Boolean!
+}
+
+"""The label generated for a shipment package."""
+type ShipmentLabel {
+  id: ID!
+  shipmentId: ID!
+  label: Label!
+  isPrimary: Boolean!
+  createdAt: DateTime!
+}
+
+# -------------------------------------------------------------------
+# Labels
+# -------------------------------------------------------------------
+
+"""A shipping label record with image URL and associated metadata."""
+type Label {
+  id: ID!
+  imageUrl: String!
+  format: String!
+  details: LabelDetails
+  isVoided: Boolean!
+  createdAt: DateTime!
+}
+
+"""Cost, format, dimensions, and carrier details for a label."""
+type LabelDetails {
+  id: ID!
+  labelId: ID!
+  cost: Decimal!
+  currency: String!
+  carrier: String!
+  serviceCode: String!
+  trackingNumber: String
+  zplData: String
+  pdfUrl: String
+}
+
+# -------------------------------------------------------------------
+# Carriers and Rates
+# -------------------------------------------------------------------
+
+"""A shipping carrier (UPS, FedEx, USPS, DHL, etc.) configured in Ordoro."""
+type Carrier {
+  id: ID!
+  name: String!
+  code: String!
+  details: CarrierDetails
+  rates(packageDetails: PackageInput, destination: AddressInput): [CarrierRate!]!
+  isActive: Boolean!
+}
+
+"""Account credentials and service options for a carrier."""
+type CarrierDetails {
+  id: ID!
+  carrierId: ID!
+  accountNumber: String
+  apiKey: String
+  nickname: String
+  services: [String!]!
+  isTestMode: Boolean!
+}
+
+"""A quoted rate from a carrier for a given package and destination."""
+type CarrierRate {
+  id: ID!
+  carrier: Carrier!
+  serviceCode: String!
+  serviceName: String!
+  shippingRate: ShippingRate!
+  estimatedDeliveryDays: Int
+  isGuaranteed: Boolean!
+}
+
+"""A normalized rate result including transit time and cost."""
+type ShippingRate {
+  id: ID!
+  carrierId: ID!
+  serviceCode: String!
+  baseCharge: Decimal!
+  fuelSurcharge: Decimal
+  additionalFees: Decimal
+  totalCharge: Decimal!
+  currency: String!
+  transitDays: Int
+}
+
+"""A physical package definition with weight and dimensions."""
+type Package {
+  id: ID!
+  shipmentId: ID
+  weight: ProductWeight!
+  dimensions: ProductDimensions
+  details: PackageDetails
+  trackingNumber: TrackingNumber
+}
+
+"""Packaging type, material, and dimensional details."""
+type PackageDetails {
+  id: ID!
+  packageId: ID!
+  packageType: String
+  material: String
+  isCarrierPackage: Boolean!
+  referenceNumber: String
+}
+
+# -------------------------------------------------------------------
+# Suppliers and Purchase Orders
+# -------------------------------------------------------------------
+
+"""A supplier or vendor record for dropshipping or restocking."""
+type Supplier {
+  id: ID!
+  name: String!
+  details: SupplierDetails
+  purchaseOrders: [PurchaseOrder!]!
+  products: [Product!]!
+  isActive: Boolean!
+  createdAt: DateTime!
+}
+
+"""Contact, lead time, and account information for a supplier."""
+type SupplierDetails {
+  id: ID!
+  supplierId: ID!
+  contactName: String
+  contactEmail: String
+  contactPhone: String
+  address: Address
+  accountNumber: String
+  leadTimeDays: Int
+  minimumOrderAmount: Decimal
+  notes: String
+}
+
+"""A purchase order sent to a supplier to restock inventory."""
+type PurchaseOrder {
+  id: ID!
+  poNumber: String!
+  supplier: Supplier!
+  status: POStatus!
+  lines: [POLineItem!]!
+  details: PODetails
+  tags: [Tag!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Line items, costs, and expected receipt dates for a purchase order."""
+type PODetails {
+  id: ID!
+  poId: ID!
+  expectedReceiptDate: DateTime
+  receivedDate: DateTime
+  shippingCost: Decimal
+  taxAmount: Decimal
+  totalCost: Decimal
+  notes: String
+  internalNotes: String
+  shipToWarehouse: Warehouse
+}
+
+"""A single product line on a purchase order with quantity and cost."""
+type POLineItem {
+  id: ID!
+  poId: ID!
+  product: Product!
+  variant: Variant
+  sku: String!
+  name: String!
+  quantityOrdered: Int!
+  quantityReceived: Int!
+  unitCost: Decimal!
+  totalCost: Decimal!
+}
+
+"""Lifecycle state of a purchase order."""
+type POStatus {
+  value: POStatusEnum!
+  label: String!
+  updatedAt: DateTime
+}
+
+# -------------------------------------------------------------------
+# Returns
+# -------------------------------------------------------------------
+
+"""A return record associated with an original order."""
+type Return {
+  id: ID!
+  orderId: ID!
+  order: Order
+  status: ReturnStatus!
+  items: [ReturnItem!]!
+  details: ReturnDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Reason, condition, and resolution details for a return."""
+type ReturnDetails {
+  id: ID!
+  returnId: ID!
+  reason: String
+  customerNotes: String
+  internalNotes: String
+  refundAmount: Decimal
+  refundMethod: String
+  trackingNumber: String
+  returnLabelUrl: String
+}
+
+"""A specific product or variant being returned."""
+type ReturnItem {
+  id: ID!
+  returnId: ID!
+  product: Product
+  variant: Variant
+  sku: String!
+  name: String!
+  quantityReturned: Int!
+  condition: String
+  restocked: Boolean!
+  warehouseId: ID
+}
+
+"""State of a return."""
+type ReturnStatus {
+  value: ReturnStatusEnum!
+  label: String!
+  updatedAt: DateTime
+}
+
+# -------------------------------------------------------------------
+# Platform Types
+# -------------------------------------------------------------------
+
+"""A user-defined label applied to orders, products, or other resources."""
+type Tag {
+  id: ID!
+  name: String!
+  details: TagDetails
+  createdAt: DateTime!
+}
+
+"""Color, description, and usage metadata for a tag."""
+type TagDetails {
+  id: ID!
+  tagId: ID!
+  color: String
+  description: String
+  usageCount: Int!
+}
+
+"""An API credential key for authenticating to the Ordoro API."""
+type APIKey {
+  id: ID!
+  label: String!
+  keyPrefix: String!
+  createdAt: DateTime!
+  lastUsedAt: DateTime
+  isActive: Boolean!
+}
+
+"""A session or access token issued for API access."""
+type Token {
+  id: ID!
+  token: String!
+  expiresAt: DateTime
+  createdAt: DateTime!
+  isActive: Boolean!
+}
+
+"""A configured webhook endpoint for receiving event notifications."""
+type Webhook {
+  id: ID!
+  url: String!
+  secret: String
+  events: [String!]!
+  isActive: Boolean!
+  createdAt: DateTime!
+  lastTriggeredAt: DateTime
+}
+
+"""A specific event payload delivered to a webhook endpoint."""
+type WebhookEvent {
+  id: ID!
+  webhookId: ID!
+  eventType: String!
+  payload: JSON!
+  deliveredAt: DateTime!
+  responseStatusCode: Int
+  attemptCount: Int!
+}
+
+# -------------------------------------------------------------------
+# Shared Types
+# -------------------------------------------------------------------
+
+"""A physical mailing address."""
+type Address {
+  name: String
+  company: String
+  street1: String!
+  street2: String
+  city: String!
+  state: String!
+  postalCode: String!
+  country: String!
+  phone: String
+  email: String
+}
+
+# -------------------------------------------------------------------
+# Input Types
+# -------------------------------------------------------------------
+
+input AddressInput {
+  name: String
+  company: String
+  street1: String!
+  street2: String
+  city: String!
+  state: String!
+  postalCode: String!
+  country: String!
+  phone: String
+  email: String
+}
+
+input PackageInput {
+  weightValue: Decimal!
+  weightUnit: WeightUnit!
+  length: Decimal
+  width: Decimal
+  height: Decimal
+  dimensionUnit: DimensionUnit
+}
+
+input OrderInput {
+  channelId: ID
+  customerName: String!
+  customerEmail: String
+  shippingAddress: AddressInput!
+  billingAddress: AddressInput
+  lines: [OrderLineInput!]!
+  notes: String
+  requestedShippingService: String
+}
+
+input OrderLineInput {
+  sku: String!
+  quantity: Int!
+  unitPrice: Decimal!
+}
+
+input InventoryAdjustmentInput {
+  productId: ID!
+  variantId: ID
+  warehouseId: ID!
+  quantityDelta: Int!
+  reason: AdjustmentReason!
+  notes: String
+}
+
+input ShipmentInput {
+  orderId: ID!
+  carrierId: ID!
+  serviceCode: String!
+  packages: [PackageInput!]!
+  shipFromWarehouseId: ID
+  signatureRequired: Boolean
+  insuranceAmount: Decimal
+}
+
+input POInput {
+  supplierId: ID!
+  lines: [POLineInput!]!
+  expectedReceiptDate: DateTime
+  shipToWarehouseId: ID
+  notes: String
+}
+
+input POLineInput {
+  productId: ID!
+  variantId: ID
+  quantityOrdered: Int!
+  unitCost: Decimal!
+}
+
+input POReceiptLine {
+  poLineItemId: ID!
+  quantityReceived: Int!
+}
+
+input ReturnInput {
+  orderId: ID!
+  items: [ReturnItemInput!]!
+  reason: String
+  notes: String
+}
+
+input ReturnItemInput {
+  sku: String!
+  quantityReturned: Int!
+  condition: String
+}
+
+input WebhookInput {
+  url: String!
+  secret: String
+  events: [String!]!
+}
+
+# -------------------------------------------------------------------
+# Query Root
+# -------------------------------------------------------------------
+
+type Query {
+  """Fetch a single order by ID."""
+  order(id: ID!): Order
+
+  """List orders with optional filters."""
+  orders(
+    status: OrderStatusEnum
+    channel: String
+    tag: String
+    limit: Int
+    offset: Int
+  ): [Order!]!
+
+  """Fetch a single product by ID."""
+  product(id: ID!): Product
+
+  """List products with optional filters."""
+  products(
+    sku: String
+    tag: String
+    supplierId: ID
+    limit: Int
+    offset: Int
+  ): [Product!]!
+
+  """Get inventory levels for a product."""
+  inventory(productId: ID!, warehouseId: ID): Inventory
+
+  """Fetch a single warehouse by ID."""
+  warehouse(id: ID!): Warehouse
+
+  """List all warehouses."""
+  warehouses: [Warehouse!]!
+
+  """Fetch a single shipment by ID."""
+  shipment(id: ID!): Shipment
+
+  """List shipments with optional filters."""
+  shipments(
+    orderId: ID
+    status: ShipmentStatusEnum
+    carrierId: ID
+    limit: Int
+    offset: Int
+  ): [Shipment!]!
+
+  """Fetch a carrier configuration by ID."""
+  carrier(id: ID!): Carrier
+
+  """List all configured carriers."""
+  carriers: [Carrier!]!
+
+  """Get shipping rates for a package."""
+  shippingRates(
+    originWarehouseId: ID!
+    destination: AddressInput!
+    package: PackageInput!
+  ): [CarrierRate!]!
+
+  """Fetch a supplier by ID."""
+  supplier(id: ID!): Supplier
+
+  """List all suppliers."""
+  suppliers: [Supplier!]!
+
+  """Fetch a purchase order by ID."""
+  purchaseOrder(id: ID!): PurchaseOrder
+
+  """List purchase orders with optional filters."""
+  purchaseOrders(
+    supplierId: ID
+    status: POStatusEnum
+    limit: Int
+    offset: Int
+  ): [PurchaseOrder!]!
+
+  """Fetch a return record by ID."""
+  return(id: ID!): Return
+
+  """List returns with optional filters."""
+  returns(
+    orderId: ID
+    status: ReturnStatusEnum
+    limit: Int
+    offset: Int
+  ): [Return!]!
+
+  """List all tags."""
+  tags: [Tag!]!
+
+  """List configured webhooks."""
+  webhooks: [Webhook!]!
+
+  """List API keys."""
+  apiKeys: [APIKey!]!
+}
+
+# -------------------------------------------------------------------
+# Mutation Root
+# -------------------------------------------------------------------
+
+type Mutation {
+  """Create a new manual order."""
+  createOrder(input: OrderInput!): Order!
+
+  """Update an order's status."""
+  updateOrderStatus(id: ID!, status: OrderStatusEnum!): Order!
+
+  """Apply a tag to an order."""
+  addTagToOrder(orderId: ID!, tagId: ID!): Order!
+
+  """Remove a tag from an order."""
+  removeTagFromOrder(orderId: ID!, tagId: ID!): Order!
+
+  """Record an inventory adjustment."""
+  adjustInventory(input: InventoryAdjustmentInput!): InventoryAdjustment!
+
+  """Transfer inventory between warehouses."""
+  transferInventory(
+    productId: ID!
+    variantId: ID
+    fromWarehouseId: ID!
+    toWarehouseId: ID!
+    quantity: Int!
+  ): InventoryAdjustment!
+
+  """Create a new shipment."""
+  createShipment(input: ShipmentInput!): Shipment!
+
+  """Purchase a shipping label for a shipment."""
+  purchaseLabel(
+    shipmentId: ID!
+    carrierId: ID!
+    serviceCode: String!
+  ): Label!
+
+  """Void a previously purchased label."""
+  voidLabel(labelId: ID!): Label!
+
+  """Create a purchase order."""
+  createPurchaseOrder(input: POInput!): PurchaseOrder!
+
+  """Send a purchase order to the supplier."""
+  sendPurchaseOrder(id: ID!): PurchaseOrder!
+
+  """Mark purchase order lines as received."""
+  receivePurchaseOrder(id: ID!, lines: [POReceiptLine!]!): PurchaseOrder!
+
+  """Cancel a purchase order."""
+  cancelPurchaseOrder(id: ID!): PurchaseOrder!
+
+  """Initiate a return for an order."""
+  createReturn(input: ReturnInput!): Return!
+
+  """Update return status."""
+  updateReturnStatus(id: ID!, status: ReturnStatusEnum!): Return!
+
+  """Create a tag."""
+  createTag(name: String!, color: String): Tag!
+
+  """Delete a tag."""
+  deleteTag(id: ID!): Boolean!
+
+  """Register a webhook endpoint."""
+  createWebhook(input: WebhookInput!): Webhook!
+
+  """Update a webhook."""
+  updateWebhook(id: ID!, input: WebhookInput!): Webhook!
+
+  """Remove a webhook."""
+  deleteWebhook(id: ID!): Boolean!
+}

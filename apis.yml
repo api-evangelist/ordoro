@@ -49,7 +49,7 @@ apis:
   properties:
   - type: Documentation
     url: https://docs.ordoro.com/
-  - type: Forum
+  - type: Forums
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
@@ -72,7 +72,7 @@ common:
   url: https://twitter.com/ordoro
 - type: Blog
   url: https://blog.ordoro.com/
-- type: Forum
+- type: Forums
   url: https://forums.ordoro.com/
 - type: Pricing
   url: https://www.ordoro.com/pricing

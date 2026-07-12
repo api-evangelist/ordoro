@@ -58,6 +58,8 @@ apis:
   - url: graphql/ordoro-graphql.md
     type: GraphQL
 common:
+- type: DomainSecurity
+  url: security/ordoro-domain-security.yml
 - type: Website
   url: https://www.ordoro.com/
 - type: Documentation

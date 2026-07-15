@@ -58,6 +58,8 @@ apis:
   - url: graphql/ordoro-graphql.md
     type: GraphQL
 common:
+- type: AgenticAccess
+  url: agentic-access/ordoro-agentic-access.yml
 - type: DomainSecurity
   url: security/ordoro-domain-security.yml
 - type: Website

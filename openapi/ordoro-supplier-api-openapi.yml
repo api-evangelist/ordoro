@@ -1,0 +1,719 @@
+openapi: 3.0.0
+info:
+  title: Ordoro API Documentation Address Supplier API
+  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://api.ordoro.com/
+  variables: {}
+tags:
+- name: Supplier
+  description: ''
+paths:
+  /supplier/:
+    get:
+      tags:
+      - Supplier
+      summary: Get a list of Suppliers
+      description: ''
+      operationId: Supplier_GET
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/searchParam'
+      - name: sort
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplier_list'
+      deprecated: false
+    post:
+      tags:
+      - Supplier
+      summary: Create a New Supplier
+      description: ''
+      operationId: Supplier_POST
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_supplier'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplier'
+      deprecated: false
+  /supplier/{supplier_id}/:
+    get:
+      tags:
+      - Supplier
+      summary: Get Supplier by ID
+      description: ''
+      operationId: SupplierBySupplierId_GET
+      parameters:
+      - $ref: '#/components/parameters/supplierPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplier'
+      deprecated: false
+    put:
+      tags:
+      - Supplier
+      summary: Update Supplier by ID
+      description: ''
+      operationId: SupplierBySupplierId_PUT
+      parameters:
+      - $ref: '#/components/parameters/supplierPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_supplier'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplier'
+      deprecated: false
+  /supplier/{supplier_id}/archive/:
+    post:
+      tags:
+      - Supplier
+      summary: Archive a Supplier
+      description: ''
+      operationId: SupplierArchiveBySupplierId_POST
+      parameters:
+      - $ref: '#/components/parameters/supplierPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplier'
+      deprecated: false
+  /supplier/{supplier_id}/shipping_methods/:
+    get:
+      tags:
+      - Supplier
+      summary: Get Supplier Shipping Method Mappings
+      description: ''
+      operationId: SupplierShippingMethodsBySupplierId_GET
+      parameters:
+      - $ref: '#/components/parameters/supplierPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplier_shipping_method_map_list'
+      deprecated: false
+    post:
+      tags:
+      - Supplier
+      summary: Add Supplier Shipping Method Mappings
+      description: ''
+      operationId: SupplierShippingMethodsBySupplierId_POST
+      parameters:
+      - $ref: '#/components/parameters/supplierPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_supplier_shipping_method'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplier_shipping_method_map'
+      deprecated: false
+  /supplier/{supplier_id}/shipping_methods/{shipping_method_map_id}/:
+    delete:
+      tags:
+      - Supplier
+      summary: Delete Supplier Shipping Method Mapping
+      description: ''
+      operationId: SupplierShippingMethodsBySupplierId_DELETE
+      parameters:
+      - $ref: '#/components/parameters/supplierPath'
+      - name: shipping_method_map_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplier_shipping_method_map'
+      deprecated: false
+    get:
+      tags:
+      - Supplier
+      summary: Get Supplier Shipping Method Mapping by Id
+      description: ''
+      operationId: GetSupplierShippingMethodsBySupplierId_GET
+      parameters:
+      - $ref: '#/components/parameters/supplierPath'
+      - name: shipping_method_map_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplier_shipping_method_map'
+      deprecated: false
+    put:
+      tags:
+      - Supplier
+      summary: Update Supplier Shipping Method Mapping
+      description: ''
+      operationId: SupplierShippingMethodsBySupplierId_PUT
+      parameters:
+      - $ref: '#/components/parameters/supplierPath'
+      - name: shipping_method_map_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_supplier_shipping_method'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplier_shipping_method_map'
+      deprecated: false
+components:
+  schemas:
+    address:
+      title: Address Schema
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        name:
+          example: Jimmy McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          example: Hamlin, Hamlin & McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 100 Constitution Ave
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Albuquerque
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '87109'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: slippin-jimmy@saul-good.man
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        revision_locked_fields:
+          type: array
+        validation:
+          title: Validation status of an Address
+          properties:
+            status:
+              type: string
+              enum:
+              - unvalidated
+              - validated
+              - warning
+              - error
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  is_commercial:
+                    default: false
+                    anyOf:
+                    - type: boolean
+                    - type: 'null'
+                  street1:
+                    type: string
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  zip:
+                    type: string
+                  country_code:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - city
+                - state
+                - zip
+                - street1
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+          required:
+          - status
+          - additional_text
+          - suggested
+          additionalProperties: false
+          anyOf:
+          - type: object
+          - type: 'null'
+      required:
+      - name
+      - company
+      - street1
+      - street2
+      - city
+      - state
+      - zip
+      - country
+      - email
+      - phone
+    supplier_list:
+      title: Supplier List Schema
+      type: object
+      properties:
+        count:
+          type: integer
+        supplier:
+          type: array
+          items:
+            $ref: '#/components/schemas/supplier'
+        limit:
+          type: integer
+          default: 10
+        offset:
+          type: integer
+          default: 0
+      required:
+      - count
+      - supplier
+      - limit
+      - offset
+    supplier_shipping_method_map:
+      title: Supplier shipping method map
+      type: object
+      additionalProperties: false
+      properties:
+        active:
+          description: Toggle to enable use of this shipping method map
+          type: boolean
+        created:
+          description: The date this was created
+          type: string
+        id:
+          description: internal reference identifier for the supplier shipping method map
+          type: integer
+        requested_shipping_method:
+          default: ''
+          description: User defined requested shipping method on an Order to be mapped to a determinate shipping method
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_method:
+          description: 'FBA defined shipping methods will only be one of the following: [''Expedited'', ''Priority'', ''Standard'']. All others can be freeform to suit the supplier'
+          type: string
+        mapped_shipping_account:
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+        supplier_id:
+          description: Integer indicating the supplier for which this mapping is tied.
+          type: integer
+        updated:
+          description: The latest updated date
+          type: string
+      required:
+      - active
+      - created
+      - id
+      - requested_shipping_method
+      - mapped_shipping_method
+      - mapped_shipping_account
+      - mapped_shipping_carrier
+      - supplier_id
+      - updated
+    address_lite:
+      title: Address Schema
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          example: Jimmy McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          example: Hamlin, Hamlin & McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 100 Constitution Ave
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Albuquerque
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '87109'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: slippin-jimmy@saul-good.man
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        revision_locked_fields:
+          type: array
+    post_supplier:
+      title: POST Supplier Schema
+      type: object
+      unevaluatedProperties: false
+      allOf:
+      - $ref: '#/components/schemas/address_lite'
+      - required:
+        - company
+      properties:
+        automatically_show_images_email:
+          type: boolean
+          default: false
+        automatically_show_images_packing_list:
+          type: boolean
+          default: false
+        automatically_show_ship_to_email:
+          type: boolean
+          default: false
+        automatically_show_supplier_price:
+          type: boolean
+          default: false
+        dropship_prefer_cart_order_line_names:
+          type: boolean
+          default: true
+        default_shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        default_shipping_account:
+          anyOf:
+          - type: string
+          - type: 'null'
+        default_shipping_carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+        dropshipment_routing_address:
+          anyOf:
+          - type: string
+          - type: 'null'
+        dropshipment_routing_channel:
+          default: email
+          enum:
+          - no_communication
+          - email
+          type: string
+        po_routing_address:
+          anyOf:
+          - type: string
+          - type: 'null'
+        po_routing_channel:
+          default: email
+          enum:
+          - no_communication
+          - email
+          type: string
+        warehouse_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+    post_supplier_shipping_method:
+      title: Add a shipping method to a mapped supplier method
+      type: object
+      additionalProperties: false
+      properties:
+        active:
+          type: boolean
+        requested_shipping_method:
+          description: The requested shipping method on an Order to be mapped to a determinate shipping method
+          default: ''
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_method:
+          description: 'For FBA, must be one of the following: [''Expedited'', ''Priority'', ''Standard'']'
+          type: string
+        mapped_shipping_account:
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+      required:
+      - mapped_shipping_method
+      - requested_shipping_method
+    put_supplier_shipping_method:
+      title: Update a shipping method mapped to a supplier method
+      type: object
+      additionalProperties: false
+      properties:
+        active:
+          type: boolean
+        requested_shipping_method:
+          description: The requested shipping method on an Order to be mapped to a determinate shipping method
+          type: string
+        mapped_shipping_method:
+          description: 'For FBA, must be one of the following: [''Expedited'', ''Priority'', ''Standard'']'
+          type: string
+        mapped_shipping_account:
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+    supplier_shipping_method_map_list:
+      title: Supplier Shipping Method Map List Schema
+      type: array
+      items:
+        $ref: '#/components/schemas/supplier_shipping_method_map'
+    supplier:
+      additionalProperties: false
+      properties:
+        _link:
+          type: string
+        address:
+          $ref: '#/components/schemas/address'
+        archive_date:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        automatically_show_ship_to_email:
+          type: boolean
+        automatically_show_supplier_price:
+          type: boolean
+        company_id:
+          type: integer
+        created:
+          format: date-time
+          type: string
+        default_shipping_account:
+          type: string
+        default_shipping_carrier:
+          type: string
+        default_shipping_method:
+          type: string
+        dropship_prefer_cart_order_line_names:
+          type: integer
+        dropshipment_routing_address:
+          type: string
+        dropshipment_routing_channel:
+          type: string
+        id:
+          type: integer
+        po_routing_address:
+          type: string
+        po_routing_channel:
+          type: string
+        shipping_method_maps:
+          items:
+            $ref: '#/components/schemas/supplier_shipping_method_map'
+          type: array
+        updated:
+          format: date-time
+          type: string
+        vendor_config:
+          type: object
+        warehouse_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+      required:
+      - id
+      - company_id
+      - warehouse_id
+      - created
+      - updated
+      - archive_date
+      - automatically_show_supplier_price
+      - dropship_prefer_cart_order_line_names
+      - address
+      - vendor_config
+      title: Supplier Schema
+      type: object
+  parameters:
+    supplierPath:
+      name: supplier_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0

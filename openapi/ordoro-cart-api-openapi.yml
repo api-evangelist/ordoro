@@ -1,0 +1,2333 @@
+openapi: 3.0.0
+info:
+  title: Ordoro API Documentation Address Cart API
+  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://api.ordoro.com/
+  variables: {}
+tags:
+- name: Cart
+  description: Current routes for `/cart/` are sometimes interchangeably referenced as `sales_channel`
+paths:
+  /cart/:
+    get:
+      tags:
+      - Cart
+      summary: List carts
+      operationId: Cart_GET
+      parameters:
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/searchParam'
+      - name: sort
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: all
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Successfully retrieved list of carts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart_list'
+    post:
+      tags:
+      - Cart
+      summary: Create a new Cart
+      description: Each sales channel has unique requirements, so the schema will depend on the value of the `type` parameter.
+      operationId: Cart_POST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              discriminator:
+                propertyName: type
+                mapping:
+                  amazon: '#/components/schemas/post_cart_amazon'
+                  amazon_ca: '#/components/schemas/post_cart_amazon'
+                  amazon_uk: '#/components/schemas/post_cart_amazon'
+                  bigcommerce: '#/components/schemas/post_cart_bigcommerce'
+                  channeladvisor: '#/components/schemas/post_cart_channeladvisor'
+                  custom_integration: '#/components/schemas/post_cart_base'
+                  ebay: '#/components/schemas/post_cart_ebay'
+                  ecwid: '#/components/schemas/post_cart_ecwid'
+                  etsy: '#/components/schemas/post_cart_etsy'
+                  magento: '#/components/schemas/post_cart_magento'
+                  magento_v2: '#/components/schemas/post_cart_magento_v2'
+                  miva: '#/components/schemas/post_cart_miva'
+                  reverb: '#/components/schemas/post_cart_reverb'
+                  shopify: '#/components/schemas/post_cart_shopify'
+                  shopsite: '#/components/schemas/post_cart_shopsite'
+                  sps_commerce: '#/components/schemas/post_cart_sps_commerce'
+                  square: '#/components/schemas/post_cart_square'
+                  squarespace: '#/components/schemas/post_cart_squarespace'
+                  stripe: '#/components/schemas/post_cart_stripe'
+                  threedcart: '#/components/schemas/post_cart_threedcart'
+                  volusion_v1: '#/components/schemas/post_cart_volusion_v1'
+                  walmart: '#/components/schemas/post_cart_walmart'
+                  wayfair: '#/components/schemas/post_cart_wayfair'
+                  woocommerce: '#/components/schemas/post_cart_woocommerce'
+              oneOf:
+              - $ref: '#/components/schemas/post_cart_amazon'
+              - $ref: '#/components/schemas/post_cart_bigcommerce'
+              - $ref: '#/components/schemas/post_cart_channeladvisor'
+              - $ref: '#/components/schemas/post_cart_base'
+              - $ref: '#/components/schemas/post_cart_ebay'
+              - $ref: '#/components/schemas/post_cart_ecwid'
+              - $ref: '#/components/schemas/post_cart_etsy'
+              - $ref: '#/components/schemas/post_cart_magento'
+              - $ref: '#/components/schemas/post_cart_magento_v2'
+              - $ref: '#/components/schemas/post_cart_miva'
+              - $ref: '#/components/schemas/post_cart_reverb'
+              - $ref: '#/components/schemas/post_cart_shopify'
+              - $ref: '#/components/schemas/post_cart_shopsite'
+              - $ref: '#/components/schemas/post_cart_sps_commerce'
+              - $ref: '#/components/schemas/post_cart_square'
+              - $ref: '#/components/schemas/post_cart_squarespace'
+              - $ref: '#/components/schemas/post_cart_stripe'
+              - $ref: '#/components/schemas/post_cart_threedcart'
+              - $ref: '#/components/schemas/post_cart_volusion_v1'
+              - $ref: '#/components/schemas/post_cart_walmart'
+              - $ref: '#/components/schemas/post_cart_wayfair'
+              - $ref: '#/components/schemas/post_cart_woocommerce'
+      responses:
+        '201':
+          description: Cart successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/one_of_cart_type'
+  /cart/{cart_id}/:
+    get:
+      tags:
+      - Cart
+      summary: Get an individual cart
+      operationId: CartByCartId_GET
+      parameters:
+      - name: cart_id
+        in: path
+        description: The ID of the cart to be retrieved
+        required: true
+        style: simple
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Cart successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/one_of_cart_type'
+        '404':
+          description: Could not find this cart
+      deprecated: false
+    put:
+      tags:
+      - Cart
+      summary: Update a cart
+      description: Each sales channel has unique requirements, so the schema will depend on the value of the existing cart's `type` parameter.
+      operationId: CartByCartId_PUT
+      parameters:
+      - name: cart_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/put_cart_amazon'
+              - $ref: '#/components/schemas/put_cart_bigcommerce'
+              - $ref: '#/components/schemas/put_cart_channeladvisor'
+              - $ref: '#/components/schemas/put_cart_base'
+              - $ref: '#/components/schemas/put_cart_ebay'
+              - $ref: '#/components/schemas/put_cart_ecwid'
+              - $ref: '#/components/schemas/put_cart_etsy'
+              - $ref: '#/components/schemas/put_cart_magento'
+              - $ref: '#/components/schemas/put_cart_magento_v2'
+              - $ref: '#/components/schemas/put_cart_miva'
+              - $ref: '#/components/schemas/put_cart_reverb'
+              - $ref: '#/components/schemas/put_cart_shopify'
+              - $ref: '#/components/schemas/put_cart_shopsite'
+              - $ref: '#/components/schemas/put_cart_sps_commerce'
+              - $ref: '#/components/schemas/put_cart_square'
+              - $ref: '#/components/schemas/put_cart_squarespace'
+              - $ref: '#/components/schemas/put_cart_stripe'
+              - $ref: '#/components/schemas/put_cart_threedcart'
+              - $ref: '#/components/schemas/put_cart_volusion_v1'
+              - $ref: '#/components/schemas/put_cart_walmart'
+              - $ref: '#/components/schemas/put_cart_wayfair'
+              - $ref: '#/components/schemas/put_cart_woocommerce'
+      responses:
+        '200':
+          description: Cart successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/one_of_cart_type'
+      deprecated: false
+  /cart/{cart_id}/warehouse/:
+    get:
+      tags:
+      - Cart
+      summary: Get cart warehouses
+      operationId: CartWarehouseByCartId_GET
+      parameters:
+      - name: cart_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /cart/{cart_id}/autosync/:
+    get:
+      tags:
+      - Cart
+      summary: Get cart sync setting
+      operationId: CartAutosyncByCartId_GET
+      parameters:
+      - name: cart_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+      - Cart
+      summary: Delete cart sync setting
+      operationId: CartAutosyncByCartId_DELETE
+      parameters:
+      - name: cart_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    cart_miva_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - api_token
+          - signature_key
+          - store_code
+          - store_url
+        required_in_response:
+          required:
+          - api_token
+          - signature_key
+          - store_code
+          - store_url
+      description: Miva configuration information
+      properties:
+        api_token:
+          type: string
+        signature_key:
+          type: string
+        store_code:
+          type: string
+        store_url:
+          type: string
+          format: uri
+    cart_channeladvisor:
+      title: Channel Advisor Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_channeladvisor_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - channeladvisor
+          vendor_display:
+            type: string
+            enum:
+            - Channel Advisor
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_channeladvisor_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    cart_shopsite_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_shopsite_vendor_config_definitions-required_in_response'
+    required_to_create:
+      required:
+      - selling_partner_id
+      - marketplace_id
+    cart_sps_commerce:
+      title: SPS Commerce Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_sps_commerce_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - sps_commerce
+          vendor_display:
+            type: string
+            enum:
+            - SPS Commerce
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_sps_commerce_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    post_cart_bigcommerce:
+      title: BigCommerce Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_bigcommerce_vendor_config'
+      - $ref: '#/components/schemas/definitions-required_to_create'
+    cart_walmart-2:
+      title: Walmart Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_walmart'
+      - $ref: '#/components/schemas/cart_walmart_definitions-required_in_response'
+    cart_volusion_v1_vendor_config_definitions-required_to_create:
+      required:
+      - username
+      - encrypted_password
+    cart_sps_commerce-2:
+      title: SPS Commerce Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_sps_commerce'
+      - $ref: '#/components/schemas/cart_sps_commerce_definitions-required_in_response'
+    cart_shopify:
+      title: Shopify Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_shopify_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - shopify
+          vendor_display:
+            type: string
+            enum:
+            - Shopify
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_shopify_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    cart_wayfair_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_wayfair_vendor_config_definitions-required_in_response'
+    cart_magento_v2_vendor_config_definitions-required_in_response:
+      required:
+      - url
+      - username
+      - password
+      - store_ids
+    cart_amazon_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/definitions-required_in_response'
+    put_cart_sps_commerce:
+      title: SPS Commerce Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_sps_commerce_vendor_config'
+    cart_magento:
+      title: Magento Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_magento_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - magento
+          vendor_display:
+            type: string
+            enum:
+            - Magento
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_magento_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    post_cart_stripe:
+      title: Stripe Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_stripe_vendor_config'
+      - $ref: '#/components/schemas/cart_stripe_vendor_config_definitions-required_to_create'
+    post_cart_etsy:
+      title: Etsy Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_etsy_vendor_config'
+      - $ref: '#/components/schemas/cart_etsy_vendor_config_definitions-required_to_create'
+    cart_amazon_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - selling_partner_id
+          - marketplace_id
+        required_in_response:
+          required:
+          - selling_partner_id
+          - marketplace_id
+      description: Amazon configuration information
+      properties:
+        selling_partner_id:
+          type: string
+          description: Amazon Selling Partner ID
+        marketplace_id:
+          type: string
+          description: Amazon marketplace ID
+    cart_magento_v2_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - url
+          - username
+          - password
+        required_in_response:
+          required:
+          - url
+          - username
+          - password
+          - store_ids
+      description: Magento V2 configuration information
+      properties:
+        url:
+          type: string
+          format: uri
+        username:
+          type: string
+        password:
+          type: string
+        store_ids:
+          type: array
+          items:
+            type: string
+    cart_square:
+      title: Square Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_square_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - square
+          vendor_display:
+            type: string
+            enum:
+            - Square
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_square_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    cart_etsy_vendor_config_definitions-required_in_response:
+      required:
+      - url
+      - oauth_access_token
+      - oauth_access_token_secret
+      - store_ids
+    cart_shopsite-2:
+      title: Shopsite Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_shopsite'
+      - $ref: '#/components/schemas/cart_shopsite_definitions-required_in_response'
+    cart_ebay_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_ebay_vendor_config_definitions-required_in_response'
+    cart_reverb_vendor_config_definitions-required_in_response:
+      required:
+      - access_token
+    cart_magento-2:
+      title: Magento Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_magento'
+      - $ref: '#/components/schemas/cart_magento_definitions-required_in_response'
+    post_cart_reverb:
+      title: Reverb Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_reverb_vendor_config'
+      - $ref: '#/components/schemas/definitions-required_to_create'
+    cart_volusion_v1_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - username
+          - encrypted_password
+        required_in_response:
+          required:
+          - username
+          - encrypted_password
+          - store_url
+      description: Volusion V1 configuration information
+      properties:
+        username:
+          type: string
+        encrypted_password:
+          type: string
+        store_url:
+          type: string
+          format: uri
+    cart_sps_commerce_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - host
+          - port
+          - username
+          - password
+        required_in_response:
+          required:
+          - host
+          - port
+          - username
+          - password
+      description: SPS Commerce configuration information
+      properties:
+        host:
+          type: string
+        port:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+    cart_walmart_vendor_config_definitions-required_in_response:
+      required:
+      - client_id
+      - client_secret
+      - vendor_id
+      - fulfillment_latency
+    put_cart_woocommerce:
+      title: WooCommerce Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_woocommerce_vendor_config'
+    post_cart_magento_v2:
+      title: Magento V2 Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_magento_v2_vendor_config'
+      - $ref: '#/components/schemas/cart_magento_v2_vendor_config_definitions-required_to_create'
+    cart_magento_v2_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_magento_v2_vendor_config_definitions-required_in_response'
+    cart_stripe_vendor_config_definitions-required_in_response:
+      required:
+      - stripe_user_id
+      - refresh_token
+    cart_walmart_vendor_config_definitions-required_to_create:
+      required: []
+    post_cart_woocommerce:
+      title: WooCommerce Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_woocommerce_vendor_config'
+      - $ref: '#/components/schemas/cart_woocommerce_vendor_config_definitions-required_to_create'
+    cart_list:
+      type: object
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        count:
+          type: integer
+        cart:
+          type: array
+          items:
+            $ref: '#/components/schemas/any_of_cart_type'
+      required:
+      - limit
+      - offset
+      - count
+      - cart
+    cart_channeladvisor_vendor_config_definitions-required_to_create:
+      required:
+      - profile_id
+      - account_id
+    cart_shopify_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_shopify_vendor_config_definitions-required_in_response'
+    cart_threedcart_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - store_url
+          - user_key
+        required_in_response:
+          required:
+          - store_url
+          - user_key
+      description: 3dcart configuration information
+      properties:
+        store_url:
+          type: string
+          format: uri
+        user_key:
+          type: string
+    cart_threedcart-2:
+      title: 3dcart Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_threedcart'
+      - $ref: '#/components/schemas/cart_threedcart_definitions-required_in_response'
+    cart_squarespace_vendor_config_definitions-required_in_response:
+      required:
+      - access_token
+    put_cart_shopsite:
+      title: Shopsite Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_shopsite_vendor_config'
+    cart_volusion_v1:
+      title: Volusion V1 Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_volusion_v1_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - volusion_v1
+          vendor_display:
+            type: string
+            enum:
+            - Volusion V1
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_volusion_v1_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    cart_threedcart_vendor_config_definitions-required_in_response:
+      required:
+      - store_url
+      - user_key
+    cart_ecwid-2:
+      title: Ecwid Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_ecwid'
+      - $ref: '#/components/schemas/cart_ecwid_definitions-required_in_response'
+    cart_reverb-2:
+      title: Reverb Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_reverb'
+      - $ref: '#/components/schemas/cart_reverb_definitions-required_in_response'
+    cart_etsy_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - url
+          - oauth_access_token
+          - oauth_access_token_secret
+        required_in_response:
+          required:
+          - url
+          - oauth_access_token
+          - oauth_access_token_secret
+          - store_ids
+      description: Etsy configuration information
+      properties:
+        url:
+          type: string
+          format: uri
+        oauth_access_token:
+          type: string
+        oauth_access_token_secret:
+          type: string
+        store_ids:
+          type: array
+          items:
+            type: integer
+    put_cart_ecwid:
+      title: Ecwid Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_ecwid_vendor_config'
+    cart_shopsite:
+      title: Shopsite Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_shopsite_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - shopsite
+          vendor_display:
+            type: string
+            enum:
+            - Shopsite
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_shopsite_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    cart_bigcommerce_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - access_token
+        required_in_response:
+          required:
+          - username
+          - password
+          - api_path
+          - access_token
+          - context
+          - bigc_v1_migrated
+      description: BigCommerce configuration information
+      properties:
+        username:
+          anyOf:
+          - type: string
+          - type: 'null'
+        password:
+          type: string
+        api_path:
+          oneOf:
+          - type: string
+            format: uri
+          - type: 'null'
+        access_token:
+          type: string
+        context:
+          type: string
+        bigc_v1_migrated:
+          type: boolean
+    post_cart_ecwid:
+      title: Ecwid Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_ecwid_vendor_config'
+      - $ref: '#/components/schemas/definitions-required_to_create'
+    cart_square_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - access_token
+          - refresh_token
+          - merchant_id
+        required_in_response:
+          required:
+          - access_token
+          - refresh_token
+          - merchant_id
+          - locations
+      description: Square configuration information
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        merchant_id:
+          type: string
+        locations:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+            required:
+            - id
+            - name
+    put_cart_ebay:
+      title: eBay Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_ebay_vendor_config'
+    cart_bigcommerce_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_bigcommerce_vendor_config_definitions-required_in_response'
+    post_cart_threedcart:
+      title: 3dcart Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_threedcart_vendor_config'
+      - $ref: '#/components/schemas/cart_threedcart_vendor_config_definitions-required_to_create'
+    cart_shopify_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - shop_url
+          - access_token
+          - plan_name
+        required_in_response:
+          required:
+          - shop_url
+          - access_token
+          - plan_name
+          - multi_location_enabled
+          - locations
+          - primary_location
+          - use_shopify_notify_customer
+      description: Shopify configuration information
+      properties:
+        shop_url:
+          type: string
+          format: uri
+        access_token:
+          type: string
+        plan_name:
+          type: string
+        multi_location_enabled:
+          type: boolean
+          default: false
+        locations:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+            required:
+            - id
+            - name
+        primary_location:
+          anyOf:
+          - type: integer
+          - type: 'null'
+        syncs_shipped_orders:
+          description: allow fulfilled order updates from shopify to mark order as Shipped in Ordoro
+          type: boolean
+        use_shopify_notify_customer:
+          type: boolean
+          default: true
+    cart_threedcart_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_threedcart_vendor_config_definitions-required_in_response'
+    cart_miva_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_miva_vendor_config_definitions-required_in_response'
+    cart_miva_vendor_config_definitions-required_in_response:
+      required:
+      - api_token
+      - signature_key
+      - store_code
+      - store_url
+    cart_wayfair-2:
+      title: Wayfair Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_wayfair'
+      - $ref: '#/components/schemas/cart_wayfair_definitions-required_in_response'
+    cart_ebay:
+      title: eBay Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_ebay_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - ebay
+          vendor_display:
+            type: string
+            enum:
+            - eBay
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_ebay_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    cart_stripe:
+      title: Stripe Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_stripe_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - stripe
+          vendor_display:
+            type: string
+            enum:
+            - Stripe
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_stripe_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    cart_walmart_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required: []
+        required_in_response:
+          required:
+          - client_id
+          - client_secret
+          - vendor_id
+          - fulfillment_latency
+      description: Walmart configuration information
+      properties:
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        vendor_id:
+          type: string
+          format: uri
+        fulfillment_latency:
+          anyOf:
+          - type: int
+            minimum: 1
+          - type: 'null'
+    put_cart_stripe:
+      title: Stripe Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_stripe_vendor_config'
+    cart_woocommerce_vendor_config_definitions-required_to_create:
+      required:
+      - url
+      - consumer_key
+      - consumer_secret
+    cart_woocommerce_vendor_config_definitions-required_in_response:
+      required:
+      - url
+      - consumer_key
+      - consumer_secret
+    cart_stripe_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - stripe_user_id
+          - refresh_token
+        required_in_response:
+          required:
+          - stripe_user_id
+          - refresh_token
+      description: Stripe configuration information
+      properties:
+        stripe_user_id:
+          type: string
+        refresh_token:
+          type: string
+    cart_magento_vendor_config_definitions-required_to_create:
+      required:
+      - url
+      - username
+      - key
+    cart_ebay-2:
+      title: eBay Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_ebay'
+      - $ref: '#/components/schemas/cart_ebay_definitions-required_in_response'
+    cart_wayfair_vendor_config_definitions-required_to_create:
+      required:
+      - client_id
+      - client_secret
+    post_cart_squarespace:
+      title: Squarespace Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_squarespace_vendor_config'
+      - $ref: '#/components/schemas/definitions-required_to_create'
+    cart_miva:
+      title: Miva Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_miva_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - miva
+          vendor_display:
+            type: string
+            enum:
+            - Miva
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_miva_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    put_cart_channeladvisor:
+      title: Channel Advisor Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_channeladvisor_vendor_config'
+    cart_reverb_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_reverb_vendor_config_definitions-required_in_response'
+    put_cart_wayfair:
+      title: Wayfair Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_wayfair_vendor_config'
+    cart_channeladvisor_vendor_config_definitions-required_in_response:
+      required:
+      - profile_id
+      - account_id
+    cart_custom_integration-2:
+      title: Custom Integration Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_custom_integration'
+      - $ref: '#/components/schemas/required_in_response'
+    post_cart_channeladvisor:
+      title: Channel Advisor Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_channeladvisor_vendor_config'
+      - $ref: '#/components/schemas/cart_channeladvisor_vendor_config_definitions-required_to_create'
+    put_cart_magento_v2:
+      title: Magento V2 Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_magento_v2_vendor_config'
+    cart_magento_vendor_config_definitions-required_in_response:
+      required:
+      - url
+      - username
+      - key
+      - shipment_email
+      - store_ids
+    cart_shopsite_vendor_config_definitions-required_to_create:
+      required:
+      - url
+      - username
+      - password
+    cart_etsy_vendor_config_definitions-required_to_create:
+      required:
+      - url
+      - oauth_access_token
+      - oauth_access_token_secret
+    cart_custom_integration:
+      title: Custom Integration Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          $ref: cart_base.json#/definitions/required_in_response
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - custom_integration
+          vendor_display:
+            type: string
+            enum:
+            - Custom Integration
+      - $ref: '#/components/schemas/cart_base'
+    post_cart_magento:
+      title: Magento Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_magento_vendor_config'
+      - $ref: '#/components/schemas/cart_magento_vendor_config_definitions-required_to_create'
+    cart_bigcommerce_vendor_config_definitions-required_in_response:
+      required:
+      - username
+      - password
+      - api_path
+      - access_token
+      - context
+      - bigc_v1_migrated
+    cart_channeladvisor-2:
+      title: Channel Advisor Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_channeladvisor'
+      - $ref: '#/components/schemas/cart_channeladvisor_definitions-required_in_response'
+    cart_sps_commerce_vendor_config_definitions-required_in_response:
+      required:
+      - host
+      - port
+      - username
+      - password
+    put_cart_square:
+      title: Square Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_square_vendor_config'
+    cart_bigcommerce-2:
+      title: BigCommerce Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_bigcommerce'
+      - $ref: '#/components/schemas/cart_bigcommerce_definitions-required_in_response'
+    post_cart_shopify:
+      title: Shopify Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_shopify_vendor_config'
+      - $ref: '#/components/schemas/cart_shopify_vendor_config_definitions-required_to_create'
+    cart_reverb_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - access_token
+        required_in_response:
+          required:
+          - access_token
+      description: Reverb configuration information
+      properties:
+        access_token:
+          type: string
+    cart_channeladvisor_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - profile_id
+          - account_id
+        required_in_response:
+          required:
+          - profile_id
+          - account_id
+      description: Channel Advisor configuration information
+      properties:
+        profile_id:
+          type: string
+        account_id:
+          type: string
+    cart_reverb:
+      title: Reverb Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_reverb_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - reverb
+          vendor_display:
+            type: string
+            enum:
+            - Reverb
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_reverb_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    cart_stripe_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_stripe_vendor_config_definitions-required_in_response'
+    put_cart_amazon:
+      title: Amazon Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_amazon_vendor_config'
+    cart_shopify_vendor_config_definitions-required_to_create:
+      required:
+      - shop_url
+      - access_token
+      - plan_name
+    cart_bigcommerce:
+      title: BigCommerce Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_bigcommerce_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - bigcommerce
+          vendor_display:
+            type: string
+            enum:
+            - BigCommerce
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_bigcommerce_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    cart_magento_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_magento_vendor_config_definitions-required_in_response'
+    cart_sps_commerce_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_sps_commerce_vendor_config_definitions-required_in_response'
+    cart_square-2:
+      title: Square Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_square'
+      - $ref: '#/components/schemas/cart_square_definitions-required_in_response'
+    cart_square_vendor_config_definitions-required_in_response:
+      required:
+      - access_token
+      - refresh_token
+      - merchant_id
+      - locations
+    cart_threedcart_vendor_config_definitions-required_to_create:
+      required:
+      - store_url
+      - user_key
+    cart_amazon:
+      title: Amazon Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - amazon
+            - amazon_ca
+            - amazon_uk
+          vendor_display:
+            type: string
+            enum:
+            - Amazon
+            - Amazon CA
+            - Amazon UK
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_amazon_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    cart_volusion_v1-2:
+      title: Volusion V1 Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_volusion_v1'
+      - $ref: '#/components/schemas/cart_volusion_v1_definitions-required_in_response'
+    one_of_cart_type:
+      oneOf:
+      - $ref: '#/components/schemas/cart_amazon-2'
+      - $ref: '#/components/schemas/cart_bigcommerce-2'
+      - $ref: '#/components/schemas/cart_channeladvisor-2'
+      - $ref: '#/components/schemas/cart_custom_integration-2'
+      - $ref: '#/components/schemas/cart_ebay-2'
+      - $ref: '#/components/schemas/cart_ecwid-2'
+      - $ref: '#/components/schemas/cart_etsy-2'
+      - $ref: '#/components/schemas/cart_magento-2'
+      - $ref: '#/components/schemas/cart_magento_v2-2'
+      - $ref: '#/components/schemas/cart_miva-2'
+      - $ref: '#/components/schemas/cart_reverb-2'
+      - $ref: '#/components/schemas/cart_shopify-2'
+      - $ref: '#/components/schemas/cart_shopsite-2'
+      - $ref: '#/components/schemas/cart_sps_commerce-2'
+      - $ref: '#/components/schemas/cart_square-2'
+      - $ref: '#/components/schemas/cart_squarespace-2'
+      - $ref: '#/components/schemas/cart_stripe-2'
+      - $ref: '#/components/schemas/cart_threedcart-2'
+      - $ref: '#/components/schemas/cart_volusion_v1-2'
+      - $ref: '#/components/schemas/cart_walmart-2'
+      - $ref: '#/components/schemas/cart_wayfair-2'
+      - $ref: '#/components/schemas/cart_woocommerce-2'
+    cart_etsy-2:
+      title: Etsy Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_etsy'
+      - $ref: '#/components/schemas/cart_etsy_definitions-required_in_response'
+    cart_shopify-2:
+      title: Shopify Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_shopify'
+      - $ref: '#/components/schemas/cart_shopify_definitions-required_in_response'
+    cart_channeladvisor_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_channeladvisor_vendor_config_definitions-required_in_response'
+    post_cart_miva:
+      title: Miva Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_miva_vendor_config'
+      - $ref: '#/components/schemas/cart_miva_vendor_config_definitions-required_to_create'
+    cart_base:
+      title: Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          required:
+          - name
+          - _link
+          - vendor
+          - vendor_display
+          - id
+          - is_demo
+          - worker_machinga
+          - archived_date
+          - gdpr_pii_removal_requested_date
+          - import_min_order_placed_date
+          - default_packing_list_id
+          - prevent_write_back_settings_adjustment
+          - vendor_config
+          - index
+          - proxy_requests
+          - cart_download_order_statuses
+          - autosync_activities
+          - autosync_enabled
+      properties:
+        _link:
+          type: string
+          description: A relative link to this cart
+        name:
+          type: string
+          description: The name of the cart
+        vendor:
+          type: string
+          description: Short name of the vendor.
+          enum:
+          - amazon
+          - amazon_ca
+          - amazon_uk
+          - bigcommerce
+          - channeladvisor
+          - custom_integration
+          - ebay
+          - ecwid
+          - etsy
+          - magento
+          - magento_v2
+          - miva
+          - reverb
+          - shopify
+          - shopsite
+          - sps_commerce
+          - square
+          - squarespace
+          - stripe
+          - threedcart
+          - volusion_v1
+          - walmart
+          - wayfair
+          - woocommerce
+        vendor_display:
+          type: string
+          description: The corresponding display name of the `vendor` property.
+          enum:
+          - Amazon
+          - Amazon CA
+          - Amazon UK
+          - BigCommerce
+          - ChannelAdvisor
+          - Custom Integration
+          - eBay
+          - Ecwid
+          - Etsy
+          - Magento
+          - Magento 2.0
+          - Miva
+          - Reverb
+          - Shopify
+          - Shopsite
+          - SpsCommerce
+          - Square
+          - Squarespace
+          - Stripe
+          - 3dcart
+          - Vendor Portal
+          - Walmart
+          - Wayfair
+          - WooCommerce
+        id:
+          type: integer
+          description: The identifier used as the main reference to this cart.
+          default: 1
+        is_demo:
+          type: boolean
+          description: Used internally.
+          default: false
+        worker_machinga:
+          description: Used internally.
+          anyOf:
+          - type: string
+          - type: 'null'
+        archived_date:
+          description: If this cart has been archived, this will contain the datetime that the cart was archived. Otherwise it will be null.
+          anyOf:
+          - type: string
+          - type: 'null'
+        gdpr_pii_removal_requested_date:
+          description: This cart received a GDPR account deletion or redaction request from the sales channel integration and will be processed 30 days from this date.
+          anyOf:
+          - type: string
+          - type: 'null'
+        import_min_order_placed_date:
+          description: Orders older than this will not be imported.
+          anyOf:
+          - type: string
+          - type: 'null'
+        default_packing_list_id:
+          type: integer
+          description: The default packing list template ID.
+          default: 1
+        prevent_write_back_settings_adjustment:
+          type: boolean
+          description: This is true true if inventory writeback is locked to prevent accidental changes.
+        index:
+          type: integer
+          description: The index of the cart in this company. Starts at 1 and increases with each additional cart.
+          default: 1
+        vendor_config:
+          type: object
+          description: Vendor-specific configuration information.
+        proxy_requests:
+          type: boolean
+          description: This cart uses a consistent outbound IP address for making requests to the sales channel URL.
+        cart_download_order_statuses:
+          type: array
+          items:
+            type: string
+          description: List of statuses that will be imported from the sales channel.
+        autosync_activities:
+          type: array
+          items:
+            type: string
+          description: Used internally.
+          default: []
+        autosync_enabled:
+          type: boolean
+          description: Used internally.
+    cart_squarespace:
+      title: Squarespace Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_squarespace_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - squarespace
+          vendor_display:
+            type: string
+            enum:
+            - Squarespace
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_squarespace_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    put_cart_miva:
+      title: Miva Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_miva_vendor_config'
+    cart_woocommerce:
+      title: WooCommerce Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_woocommerce_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - woocommerce
+          vendor_display:
+            type: string
+            enum:
+            - WooCommerce
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_woocommerce_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    definitions-required_in_response:
+      required:
+      - selling_partner_id
+      - marketplace_id
+    cart_woocommerce_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - url
+          - consumer_key
+          - consumer_secret
+        required_in_response:
+          required:
+          - url
+          - consumer_key
+          - consumer_secret
+      description: WooCommerce configuration information
+      properties:
+        url:
+          type: string
+          format: uri
+        consumer_key:
+          type: string
+        consumer_secret:
+          type: string
+    post_cart_base:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          description: The type of cart.
+          type: string
+          enum:
+          - amazon
+        name:
+          description: The display name of this cart.
+          type: string
+        autosync_activities:
+          type: array
+          items:
+            type: string
+            enum:
+            - export_products_to_cart
+            - import_awd_inventory
+            - import_fba_inventory
+            - import_orders_from_cart
+      required:
+      - type
+    post_cart_amazon:
+      title: Amazon Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_amazon_vendor_config'
+      - $ref: '#/components/schemas/required_to_create'
+    cart_squarespace-2:
+      title: Squarespace Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_squarespace'
+      - $ref: '#/components/schemas/cart_squarespace_definitions-required_in_response'
+    cart_squarespace_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_squarespace_vendor_config_definitions-required_in_response'
+    cart_shopify_vendor_config_definitions-required_in_response:
+      required:
+      - shop_url
+      - access_token
+      - plan_name
+      - multi_location_enabled
+      - locations
+      - primary_location
+      - use_shopify_notify_customer
+    cart_wayfair:
+      title: Wayfair Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_wayfair_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - wayfair
+          vendor_display:
+            type: string
+            enum:
+            - Wayfair
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_wayfair_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    put_cart_walmart:
+      title: Walmart Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_walmart_vendor_config'
+    put_cart_magento:
+      title: Magento Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_magento_vendor_config'
+    cart_sps_commerce_vendor_config_definitions-required_to_create:
+      required:
+      - host
+      - port
+      - username
+      - password
+    cart_wayfair_vendor_config_definitions-required_in_response:
+      required:
+      - client_id
+      - client_secret
+      - locations
+      - dry_run
+    cart_etsy:
+      title: Etsy Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_etsy_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - etsy
+          vendor_display:
+            type: string
+            enum:
+            - Etsy
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_etsy_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    post_cart_square:
+      title: Square Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_square_vendor_config'
+      - $ref: '#/components/schemas/cart_square_vendor_config_definitions-required_to_create'
+    cart_stripe_vendor_config_definitions-required_to_create:
+      required:
+      - stripe_user_id
+      - refresh_token
+    cart_magento_v2-2:
+      title: Magento V2 Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_magento_v2'
+      - $ref: '#/components/schemas/cart_magento_v2_definitions-required_in_response'
+    cart_etsy_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_etsy_vendor_config_definitions-required_in_response'
+    post_cart_volusion_v1:
+      title: Volusion V1 Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_volusion_v1_vendor_config'
+      - $ref: '#/components/schemas/cart_volusion_v1_vendor_config_definitions-required_to_create'
+    cart_ebay_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - token
+        required_in_response:
+          required:
+          - token
+          - token_expiration
+      description: eBay configuration information
+      properties:
+        token:
+          type: string
+        token_expiration:
+          type: string
+    cart_ecwid_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - access_token
+        required_in_response:
+          required:
+          - access_token
+      description: Ecwid configuration information
+      properties:
+        access_token:
+          type: string
+    put_cart_bigcommerce:
+      title: BigCommerce Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_bigcommerce_vendor_config'
+    put_cart_shopify:
+      title: Shopify Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_shopify_vendor_config'
+    definitions-required_to_create:
+      required:
+      - access_token
+    put_cart_threedcart:
+      title: 3dcart Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_threedcart_vendor_config'
+    cart_walmart_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_walmart_vendor_config_definitions-required_in_response'
+    cart_ebay_vendor_config_definitions-required_to_create:
+      required:
+      - token
+    cart_stripe-2:
+      title: Stripe Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_stripe'
+      - $ref: '#/components/schemas/cart_stripe_definitions-required_in_response'
+    cart_woocommerce_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_woocommerce_vendor_config_definitions-required_in_response'
+    post_cart_shopsite:
+      title: Shopsite Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_shopsite_vendor_config'
+      - $ref: '#/components/schemas/cart_shopsite_vendor_config_definitions-required_to_create'
+    cart_volusion_v1_vendor_config_definitions-required_in_response:
+      required:
+      - username
+      - encrypted_password
+      - store_url
+    cart_threedcart:
+      title: 3dcart Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_threedcart_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - threedcart
+          vendor_display:
+            type: string
+            enum:
+            - 3dcart
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_threedcart_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    cart_wayfair_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - client_id
+          - client_secret
+        required_in_response:
+          required:
+          - client_id
+          - client_secret
+          - locations
+          - dry_run
+      description: Wayfair configuration information
+      properties:
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        locations:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: int
+              name:
+                type: string
+            required:
+            - id
+            - name
+        dry_run:
+          type: boolean
+    cart_ecwid:
+      title: Ecwid Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_ecwid_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - ecwid
+          vendor_display:
+            type: string
+            enum:
+            - Ecwid
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_ecwid_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    cart_volusion_v1_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_volusion_v1_vendor_config_definitions-required_in_response'
+    cart_shopsite_vendor_config_definitions-required_in_response:
+      required:
+      - url
+      - username
+      - password
+      - parse_options_as_new_sku
+      - ftp_path
+      - ftp_username
+      - ftp_password
+    put_cart_volusion_v1:
+      title: Volusion V1 Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_volusion_v1_vendor_config'
+    post_cart_sps_commerce:
+      title: SPS Commerce Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_sps_commerce_vendor_config'
+      - $ref: '#/components/schemas/cart_sps_commerce_vendor_config_definitions-required_to_create'
+    any_of_cart_type:
+      anyOf:
+      - $ref: '#/components/schemas/cart_amazon-2'
+      - $ref: '#/components/schemas/cart_bigcommerce-2'
+      - $ref: '#/components/schemas/cart_channeladvisor-2'
+      - $ref: '#/components/schemas/cart_custom_integration-2'
+      - $ref: '#/components/schemas/cart_ebay-2'
+      - $ref: '#/components/schemas/cart_ecwid-2'
+      - $ref: '#/components/schemas/cart_etsy-2'
+      - $ref: '#/components/schemas/cart_magento-2'
+      - $ref: '#/components/schemas/cart_magento_v2-2'
+      - $ref: '#/components/schemas/cart_miva-2'
+      - $ref: '#/components/schemas/cart_reverb-2'
+      - $ref: '#/components/schemas/cart_shopify-2'
+      - $ref: '#/components/schemas/cart_shopsite-2'
+      - $ref: '#/components/schemas/cart_sps_commerce-2'
+      - $ref: '#/components/schemas/cart_square-2'
+      - $ref: '#/components/schemas/cart_squarespace-2'
+      - $ref: '#/components/schemas/cart_stripe-2'
+      - $ref: '#/components/schemas/cart_threedcart-2'
+      - $ref: '#/components/schemas/cart_volusion_v1-2'
+      - $ref: '#/components/schemas/cart_walmart-2'
+      - $ref: '#/components/schemas/cart_wayfair-2'
+      - $ref: '#/components/schemas/cart_woocommerce-2'
+    cart_miva-2:
+      title: Miva Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_miva'
+      - $ref: '#/components/schemas/cart_miva_definitions-required_in_response'
+    cart_magento_v2_vendor_config_definitions-required_to_create:
+      required:
+      - url
+      - username
+      - password
+    cart_walmart:
+      title: Walmart Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_walmart_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - walmart
+          vendor_display:
+            type: string
+            enum:
+            - Walmart
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_walmart_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    post_cart_wayfair:
+      title: Wayfair Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_wayfair_vendor_config'
+      - $ref: '#/components/schemas/cart_wayfair_vendor_config_definitions-required_to_create'
+    required_in_response:
+      required:
+      - name
+      - _link
+      - vendor
+      - vendor_display
+      - id
+      - is_demo
+      - worker_machinga
+      - archived_date
+      - gdpr_pii_removal_requested_date
+      - import_min_order_placed_date
+      - default_packing_list_id
+      - prevent_write_back_settings_adjustment
+      - vendor_config
+      - index
+      - proxy_requests
+      - cart_download_order_statuses
+      - autosync_activities
+      - autosync_enabled
+    post_cart_ebay:
+      title: eBay Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_ebay_vendor_config'
+      - $ref: '#/components/schemas/cart_ebay_vendor_config_definitions-required_to_create'
+    put_cart_base:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          description: The display name of this cart.
+          type: string
+        archived_date:
+          description: date at which time this cart is archived
+          type: string
+        gdpr_pii_removal_requested_date:
+          description: date of the cart received a request to delete or redact its data. the request will be processed 30 days from this date
+          type: string
+        autosync_activities:
+          type: array
+          items:
+            type: string
+            enum:
+            - export_products_to_cart
+            - import_awd_inventory
+            - import_fba_inventory
+            - import_orders_from_cart
+    cart_miva_vendor_config_definitions-required_to_create:
+      required:
+      - api_token
+      - signature_key
+      - store_code
+      - store_url
+    cart_squarespace_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - access_token
+        required_in_response:
+          required:
+          - access_token
+      description: Squarespace configuration information
+      properties:
+        access_token:
+          type: string
+    put_cart_reverb:
+      title: Reverb Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_reverb_vendor_config'
+    cart_magento_v2:
+      title: Magento V2 Cart Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/cart_magento_v2_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - magento_v2
+          vendor_display:
+            type: string
+            enum:
+            - Magento V2
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_magento_v2_vendor_config'
+      - $ref: '#/components/schemas/cart_base'
+    cart_square_vendor_config_definitions-required_to_create:
+      required:
+      - access_token
+      - refresh_token
+      - merchant_id
+    cart_ebay_vendor_config_definitions-required_in_response:
+      required:
+      - token
+      - token_expiration
+    cart_amazon-2:
+      title: Amazon Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_amazon'
+      - $ref: '#/components/schemas/cart_amazon_definitions-required_in_response'
+    cart_shopsite_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - url
+          - username
+          - password
+        required_in_response:
+          required:
+          - url
+          - username
+          - password
+          - parse_options_as_new_sku
+          - ftp_path
+          - ftp_username
+          - ftp_password
+      description: Shopsite configuration information
+      properties:
+        url:
+          type: string
+          format: uri
+        username:
+          type: string
+        password:
+          type: string
+        parse_options_as_new_sku:
+          type: boolean
+          default: false
+        ftp_path:
+          type: string
+          format: uri
+          default: /
+        ftp_username:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        ftp_password:
+          type: string
+    cart_ecwid_vendor_config_definitions-required_in_response:
+      required:
+      - access_token
+    cart_ecwid_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_ecwid_vendor_config_definitions-required_in_response'
+    post_cart_walmart:
+      title: Walmart Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_cart_base'
+      - $ref: '#/components/schemas/cart_walmart_vendor_config'
+      - $ref: '#/components/schemas/cart_walmart_vendor_config_definitions-required_to_create'
+    cart_square_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/cart_square_vendor_config_definitions-required_in_response'
+    cart_woocommerce-2:
+      title: WooCommerce Cart
+      allOf:
+      - $ref: '#/components/schemas/cart_woocommerce'
+      - $ref: '#/components/schemas/cart_woocommerce_definitions-required_in_response'
+    cart_magento_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - url
+          - username
+          - key
+        required_in_response:
+          required:
+          - url
+          - username
+          - key
+          - shipment_email
+          - store_ids
+      description: Magento configuration information
+      properties:
+        url:
+          type: string
+          format: uri
+        username:
+          type: string
+        key:
+          type: string
+        shipment_email:
+          type: bool
+        store_ids:
+          type: array
+          items:
+            type: string
+    put_cart_squarespace:
+      title: Squarespace Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_squarespace_vendor_config'
+    put_cart_etsy:
+      title: Etsy Cart
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_cart_base'
+      - $ref: '#/components/schemas/cart_etsy_vendor_config'
+  parameters:
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0

@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: Ordoro API Documentation Address Postage Account API
+  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://api.ordoro.com/
+  variables: {}
+tags:
+- name: Postage Account
+  description: Methods for retrieving postage account information to be used with USPS carriers.
+paths:
+  /v3/account/balance:
+    get:
+      summary: Get balance for postage account
+      operationId: V3AccountBalance_GET
+      tags:
+      - Postage Account
+      responses:
+        '200':
+          description: 200 response OK
+          content:
+            application/json:
+              example:
+                balance: 888
+              schema:
+                $ref: '#/components/schemas/balance'
+  /v3/account/add_funds:
+    post:
+      summary: Add funds to postage account
+      description: This charges the company card on file with stripe and adds to the balance allowable for creating postage labels via USPS Pitney Bowes.
+      operationId: V3AccountAddFunds_GET
+      tags:
+      - Postage Account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_account_ledger'
+            examples:
+              example:
+                value:
+                  amount: 42
+                  description: add funds for postage, low balance
+      parameters: []
+      responses:
+        '200':
+          description: 200 Response OK
+          content:
+            application/json:
+              example:
+                balance: 888
+              schema:
+                $ref: '#/components/schemas/balance'
+components:
+  schemas:
+    balance:
+      title: Account Balance Response Schema
+      additionalProperties: false
+      type: object
+      properties:
+        apv_balance:
+          type: number
+        balance:
+          type: number
+        daily_purchase_limit:
+          type: number
+        ledger_balance:
+          type: number
+        todays_purchases:
+          type: number
+        payment_account_number:
+          type: string
+      required:
+      - balance
+    post_account_ledger:
+      title: Ledger Request Schema
+      type: object
+      additionalProperties: false
+      properties:
+        amount:
+          type: number
+          format: double
+        description:
+          type: string
+      required:
+      - amount
+      - description

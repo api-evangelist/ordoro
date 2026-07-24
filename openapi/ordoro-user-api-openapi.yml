@@ -1,0 +1,356 @@
+openapi: 3.0.0
+info:
+  title: Ordoro API Documentation Address User API
+  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://api.ordoro.com/
+  variables: {}
+tags:
+- name: User
+  description: ''
+paths:
+  /user/:
+    get:
+      tags:
+      - User
+      summary: Get a list of Users
+      description: ''
+      operationId: User_GET
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user_list'
+      deprecated: false
+    post:
+      tags:
+      - User
+      summary: Create a User
+      description: ''
+      operationId: User_POST
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_user'
+      responses:
+        '201':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+      deprecated: false
+  /user/me/:
+    get:
+      tags:
+      - User
+      summary: Get Currently Authenticated User
+      description: ''
+      operationId: UserMe_GET
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+      deprecated: false
+  /user/{user_id}/:
+    get:
+      tags:
+      - User
+      summary: Get User by ID
+      description: ''
+      operationId: UserByUserId_GET
+      parameters:
+      - name: user_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+      deprecated: false
+    put:
+      tags:
+      - User
+      summary: Update User by ID
+      description: ''
+      operationId: UserByUserId_PUT
+      parameters:
+      - name: user_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_user'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+      deprecated: false
+components:
+  schemas:
+    post_user:
+      title: Create User Schema
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          description: Full Name
+          type: string
+          maxLength: 60
+        email:
+          description: Email Address
+          type: string
+          maxLength: 75
+          format: email
+        password:
+          description: Password
+          type: string
+          minLength: 8
+          maxLength: 128
+        warehouse_ids:
+          description: Assigned Warehouses
+          type: array
+          items:
+            type: number
+      required:
+      - email
+    user_list:
+      type: object
+      properties:
+        count:
+          type: integer
+        user:
+          type: array
+          items:
+            $ref: '#/components/schemas/user'
+      required:
+      - count
+      - user
+    put_user:
+      title: User Update Schema
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          description: Full Name
+          type: string
+          maxLength: 60
+        email:
+          description: Email Address
+          type: string
+          maxLength: 75
+          format: email
+        password:
+          description: Password
+          type: string
+          minLength: 8
+          maxLength: 128
+        warehouse_ids:
+          description: Assigned Warehouses
+          type: array
+          items:
+            type: number
+        otp_seed:
+          description: The seed with which to create an OTP
+          anyOf:
+          - type: string
+          - type: 'null'
+        otp:
+          description: Used to verify otp_seed
+          type: string
+          minLength: 6
+          maxLength: 6
+        permissions:
+          description: Permissions
+          type: object
+          additionalProperties: false
+          properties:
+            order:
+              anyOf:
+              - type: boolean
+              - type: object
+                additionalProperties: false
+                properties:
+                  import_from_cart:
+                    type: boolean
+                  force_verify_packing:
+                    type: boolean
+                  create_label_without_contents_verified_tag:
+                    type: boolean
+                  manage_tag:
+                    type: boolean
+                  manage_tag_on_order:
+                    type: boolean
+                  manage_revision:
+                    type: boolean
+                  financials:
+                    type: boolean
+                  manage_filter_config:
+                    type: boolean
+            return_order:
+              anyOf:
+              - type: boolean
+              - type: object
+                additionalProperties: false
+                properties:
+                  manage_tag:
+                    type: boolean
+                  manage_tag_on_return_order:
+                    type: boolean
+            manufacturing_order:
+              anyOf:
+              - type: boolean
+              - type: object
+                additionalProperties: false
+                properties:
+                  manage_tag:
+                    type: boolean
+                  manage_tag_on_manufacturing_order:
+                    type: boolean
+            product:
+              anyOf:
+              - type: boolean
+              - type: object
+                additionalProperties: false
+                properties:
+                  import_from_cart:
+                    type: boolean
+                  writeback_inventory:
+                    type: boolean
+                  manage_tag:
+                    type: boolean
+                  manage_tag_on_product:
+                    type: boolean
+                  update_inventory:
+                    type: boolean
+                  financials:
+                    type: boolean
+            purchase_order:
+              anyOf:
+              - type: boolean
+              - type: object
+                additionalProperties: false
+                properties:
+                  manage_tag:
+                    type: boolean
+                  manage_tag_on_purchase_order:
+                    type: boolean
+                  financials:
+                    type: boolean
+            stocktake:
+              anyOf:
+              - type: boolean
+              - type: object
+                additionalProperties: false
+                properties:
+                  manage_tag:
+                    type: boolean
+                  manage_tag_on_stocktake:
+                    type: boolean
+            analytics:
+              anyOf:
+              - type: boolean
+              - type: object
+                additionalProperties: false
+                properties:
+                  financial:
+                    type: boolean
+                  shipping:
+                    type: boolean
+                  inventory:
+                    type: boolean
+                  product:
+                    type: boolean
+                  customer:
+                    type: boolean
+            settings:
+              type: boolean
+            reports:
+              type: boolean
+            can_manage_user:
+              type: boolean
+        settings:
+          description: Settings
+          type: object
+          additionalProperties: true
+    user:
+      title: User Schema
+      additionalProperties: false
+      type: object
+      properties:
+        _link:
+          type: string
+        id:
+          type: integer
+        company_id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        is_active:
+          type: boolean
+        is_api_user:
+          type: boolean
+        last_login:
+          type: string
+          format: date-time
+        date_joined:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        email_verified:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        permissions:
+          type: object
+        settings:
+          type: object
+      required:
+      - id
+      - company_id
+      - name
+      - email
+      - is_active
+      - is_api_user
+      - last_login
+      - date_joined
+      - permissions
+      - settings

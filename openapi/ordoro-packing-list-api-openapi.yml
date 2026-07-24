@@ -1,0 +1,357 @@
+openapi: 3.0.0
+info:
+  title: Ordoro API Documentation Address Packing List API
+  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://api.ordoro.com/
+  variables: {}
+tags:
+- name: Packing List
+  description: A company or account may have multple packing list formats to be saved, retrieved and used for printing Order information.
+paths:
+  /packing_list/:
+    get:
+      tags:
+      - Packing List
+      summary: Get a list of packing lists
+      description: ''
+      operationId: PackingList_GET
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/searchParam'
+      - name: sort
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: packing_list_id
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/packing_list_list'
+      deprecated: false
+    post:
+      tags:
+      - Packing List
+      summary: Create a packing list
+      description: ''
+      operationId: PackingList_POST
+      parameters: []
+      responses:
+        '201':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/packing_list'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_packing_list'
+      deprecated: false
+  /packing_list/{packing_list_id}/:
+    delete:
+      tags:
+      - Packing List
+      summary: Delete a packing list by ID
+      description: ''
+      operationId: PackingListByPackingListId_DELETE
+      parameters:
+      - $ref: '#/components/parameters/packingListIDPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/packing_list'
+      deprecated: false
+    get:
+      tags:
+      - Packing List
+      summary: Get a packing list by ID
+      description: ''
+      operationId: PackingListByPackingListId_GET
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/packing_list'
+      deprecated: false
+    put:
+      tags:
+      - Packing List
+      summary: Update a packing list by ID
+      description: ''
+      operationId: PackingListByPackingListId_PUT
+      parameters:
+      - $ref: '#/components/parameters/packingListIDPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/packing_list'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_packing_list'
+      deprecated: false
+  /packing_list/{packing_list_id}/make_default/:
+    post:
+      tags:
+      - Packing List
+      summary: Make a Packing List the Default by ID
+      description: Set this packing list as the default
+      operationId: PackingListMakeDefaultByPackingListId_POST
+      parameters:
+      - $ref: '#/components/parameters/packingListIDPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/packing_list'
+      deprecated: false
+components:
+  parameters:
+    packingListIDPath:
+      name: packing_list_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+  schemas:
+    packing_list:
+      title: Packing List Schema
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        company_id:
+          type: integer
+        name:
+          type: string
+        is_default:
+          type: boolean
+        custom_text:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        website:
+          type: string
+        footer:
+          type: string
+        logo_hash:
+          type: string
+        return_email_subject:
+          type: string
+        return_email_content:
+          type: string
+        ship_from_alias_name:
+          type: string
+        customer_notes_label:
+          type: string
+        archived_date:
+          type: string
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        _linklogo:
+          type: string
+        _link:
+          type: string
+    put_packing_list:
+      title: Put Packing List Schema
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        branded_tracking:
+          anyOf:
+          - type: object
+          - type: 'null'
+        custom_layouts:
+          type: object
+        custom_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          maxLength: 75
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          maxLength: 255
+          anyOf:
+          - type: string
+          - type: 'null'
+        website:
+          maxLength: 255
+          anyOf:
+          - type: string
+          - type: 'null'
+        footer:
+          anyOf:
+          - type: string
+          - type: 'null'
+        return_email_subject:
+          maxLength: 255
+          anyOf:
+          - type: string
+          - type: 'null'
+        return_email_content:
+          maxLength: 1024
+          anyOf:
+          - type: string
+          - type: 'null'
+        ship_from_alias_name:
+          maxLength: 255
+          anyOf:
+          - type: string
+          - type: 'null'
+        customer_notes_label:
+          maxLength: 255
+          anyOf:
+          - type: string
+          - type: 'null'
+        logo_hash:
+          maxLength: 255
+          anyOf:
+          - type: string
+          - type: 'null'
+        logo:
+          description: 'to be deprecated: deprecated by the app, use logo_hash instead'
+          type: object
+          properties:
+            data:
+              description: base64 encoded image data, cannot validate type
+            mime_type:
+              anyOf:
+              - type: string
+              - type: 'null'
+          required:
+          - data
+          - mime_type
+    packing_list_list:
+      type: object
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        count:
+          type: integer
+        packing_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/packing_list'
+      required:
+      - limit
+      - offset
+      - count
+      - packing_list
+    post_packing_list:
+      title: Put Packing List Schema
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        branded_tracking:
+          anyOf:
+          - type: object
+          - type: 'null'
+        custom_text:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        website:
+          type: string
+        footer:
+          type: string
+        return_email_subject:
+          type: string
+        return_email_content:
+          type: string
+        ship_from_alias_name:
+          type: string
+        customer_notes_label:
+          type: string
+        is_default:
+          type: boolean
+        logo_hash:
+          type: string
+        logo:
+          type: object
+          properties:
+            data:
+              type: string
+            mime_type:
+              type: string
+      required:
+      - name

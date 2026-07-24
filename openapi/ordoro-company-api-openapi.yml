@@ -1,0 +1,313 @@
+openapi: 3.0.0
+info:
+  title: Ordoro API Documentation Address Company API
+  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://api.ordoro.com/
+  variables: {}
+tags:
+- name: Company
+  description: ''
+paths:
+  /company/:
+    get:
+      tags:
+      - Company
+      summary: Get Your Company Info
+      description: ''
+      operationId: Company_GET
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/company'
+      deprecated: false
+    put:
+      tags:
+      - Company
+      summary: Update Your Company
+      description: ''
+      operationId: Company_PUT
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/company'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_company'
+      deprecated: false
+  /company/logo/:
+    get:
+      tags:
+      - Company
+      summary: Get Company Logo
+      description: ''
+      operationId: CompanyLogo_GET
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/company_logo'
+      deprecated: false
+  /company/logo/{name}/:
+    get:
+      tags:
+      - Company
+      summary: Get Company Logo by Name
+      description: ''
+      operationId: CompanyLogoByName_GET
+      parameters:
+      - name: name
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/company_logo'
+      deprecated: false
+    put:
+      tags:
+      - Company
+      summary: Update Company Logo by Name
+      description: ''
+      operationId: CompanyLogoByName_PUT
+      parameters:
+      - name: name
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/company_logo'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_company_logo'
+      deprecated: false
+  /company/{company_id}/logo/{name}/:
+    get:
+      tags:
+      - Company
+      summary: Get company logo by company ID and logo name
+      description: ''
+      operationId: CompanyLogoByCompanyIdAndName_GET
+      parameters:
+      - name: company_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      - name: name
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/company_logo'
+      deprecated: false
+  /company/{company_id}/logo/{name}/raw/:
+    get:
+      tags:
+      - Company
+      summary: Get raw logo image by company ID and logo name
+      description: The `name` parameter is the name of your company logo.
+      operationId: CompanyLogoRawByCompanyIdAndName_GET
+      parameters:
+      - name: company_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      - name: name
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    put_company_logo:
+      title: PUT Company Logo Schema
+      additionalProperties: false
+      type: object
+      properties:
+        name:
+          type: string
+          example: Your Cool Company
+        data:
+          type: string
+          example: iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAO6SURBVGhD7Zk9aFNRGIaT0J9Y+pP0hxJa2kig1UKK0sVssZPSQR2lRXTTTTft5KRjx+LURXDs2FE3R3FyUnGqmyBKHbTxfUMOfB7e5Ny/Sgv54CnNl3PP9773nnvuuSe5VqtVOMv0DSg2NjYqMzMzT4vF4mtSKpV219bWLqu2acncwNLS0vVCofAtl8u1fGZnZ5+oY9KQqQGe+Xw+f6TEO2q12i11bFIyNTA9Pf1cibYMDw+/VccmJVMDQ0ND76zYkZGRnampqbs2RzY3N8vq+CRkasAfPuvr6yXk87gnPtt8s9k87x+blEwNWJEEkSd9Az3oG7BYkQTRNxCib8BiRRJE30CIVAb4ROUCDU/cA646rUiCkAbQ9g3bc+mR1kxiA51V56EV5oOQBix8ei8sLNxz/cYlkQGuOiFKLpktCGfgi/resrq62nD9xyGRgYmJiT0lwgfRNoAImh0YGPjohiJfhhqNxkVXrxeJDPirThTdLZfL922OINoG8P8vmx8bG3up2ls4tCqVyiNXsxuJDPjF3KrTzzPXyR/bPF4v66q9YmVl5SraSh0kEwMIJzRSHjNPVeUVoRegU2VADUUOJbSVOsh/MYD4avJ/tra2ip32P0z+uMdQlDpIbAOcQkUBJ/STyX93+cnJyTv4/BP8xll+4fKYdZ4h174/MDHsuzw/WxBSC4llAEJ2/M47BfgH/+ZuAE6ZR+Pj44+RawtyuDNs4dXw8+zTgpB6SCQDXDJwfvY7diDaBoAUFBfRv9RFIhnoduYdiLb4rBD9S10kaCDKZhVCCkmK6F9qI0EDfKzbzmDmEGub9/Yz2kkhSbH1CEJqI0EDo6Oj+7YzrIMeYgl9E8K73qxpsfUIQmojQQNYZH2wndVqtUvIZ3KzdsPWIwipjQQNIP5Z8y8vL19AXhbOCluPIKQ2EjTgT59YIV5DXhbOCluPIKQ2EjTAHydsZ9ywRV4WzgpbjyCkNhI0wP182xlnnZMa+w5bjyCkNhI0sL29fc5/DmBY7eE7WTwtnBxsLYKQ2kjQAPGfBeSk7oXFxcUrtg5nQeSlLhLJAK+C/xrJ54CbUrNkcHDwwNbhcwh5qYtEMkD4K6M/lGiCZwzfSzFx4UPS9k9CWy6RDRA1lAhnpnq93n7LigvH/Pz8fBNX+JXfL6dwtJFaHLEMkMCWSs9FXxx4taNsrcQ2QKL8GpkGbppVq9XbqrZPIgMkytZiErgLEWe/NLEBwtmJN5m/4IsLZzgOzbm5uQeqTi9SGTgNnHEDrcJfnQjmF7ZAUcwAAAAASUVORK5CYII=
+        mime_type:
+          type: string
+          example: image/png
+    put_company:
+      title: Address Schema
+      type: object
+      additionalProperties: false
+      properties:
+        company_name:
+          type: string
+        contact:
+          type: string
+        address:
+          type: string
+        website:
+          type: string
+        phone:
+          type: string
+        fax:
+          type: string
+        email:
+          type: string
+        billing_email:
+          type: string
+        footer:
+          type: string
+        mail_sender:
+          type: string
+        shipper_currency:
+          type: string
+        currency_symbol:
+          type: string
+    company_logo:
+      title: Company Logo Response Schema
+      additionalProperties: false
+      type: object
+      properties:
+        _link:
+          type: string
+        company_id:
+          type: integer
+        data:
+          type: string
+          example: iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAO6SURBVGhD7Zk9aFNRGIaT0J9Y+pP0hxJa2kig1UKK0sVssZPSQR2lRXTTTTft5KRjx+LURXDs2FE3R3FyUnGqmyBKHbTxfUMOfB7e5Ny/Sgv54CnNl3PP9773nnvuuSe5VqtVOMv0DSg2NjYqMzMzT4vF4mtSKpV219bWLqu2acncwNLS0vVCofAtl8u1fGZnZ5+oY9KQqQGe+Xw+f6TEO2q12i11bFIyNTA9Pf1cibYMDw+/VccmJVMDQ0ND76zYkZGRnampqbs2RzY3N8vq+CRkasAfPuvr6yXk87gnPtt8s9k87x+blEwNWJEEkSd9Az3oG7BYkQTRNxCib8BiRRJE30CIVAb4ROUCDU/cA646rUiCkAbQ9g3bc+mR1kxiA51V56EV5oOQBix8ei8sLNxz/cYlkQGuOiFKLpktCGfgi/resrq62nD9xyGRgYmJiT0lwgfRNoAImh0YGPjohiJfhhqNxkVXrxeJDPirThTdLZfL922OINoG8P8vmx8bG3up2ls4tCqVyiNXsxuJDPjF3KrTzzPXyR/bPF4v66q9YmVl5SraSh0kEwMIJzRSHjNPVeUVoRegU2VADUUOJbSVOsh/MYD4avJ/tra2ip32P0z+uMdQlDpIbAOcQkUBJ/STyX93+cnJyTv4/BP8xll+4fKYdZ4h174/MDHsuzw/WxBSC4llAEJ2/M47BfgH/+ZuAE6ZR+Pj44+RawtyuDNs4dXw8+zTgpB6SCQDXDJwfvY7diDaBoAUFBfRv9RFIhnoduYdiLb4rBD9S10kaCDKZhVCCkmK6F9qI0EDfKzbzmDmEGub9/Yz2kkhSbH1CEJqI0EDo6Oj+7YzrIMeYgl9E8K73qxpsfUIQmojQQNYZH2wndVqtUvIZ3KzdsPWIwipjQQNIP5Z8y8vL19AXhbOCluPIKQ2EjTgT59YIV5DXhbOCluPIKQ2EjTAHydsZ9ywRV4WzgpbjyCkNhI0wP182xlnnZMa+w5bjyCkNhI0sL29fc5/DmBY7eE7WTwtnBxsLYKQ2kjQAPGfBeSk7oXFxcUrtg5nQeSlLhLJAK+C/xrJ54CbUrNkcHDwwNbhcwh5qYtEMkD4K6M/lGiCZwzfSzFx4UPS9k9CWy6RDRA1lAhnpnq93n7LigvH/Pz8fBNX+JXfL6dwtJFaHLEMkMCWSs9FXxx4taNsrcQ2QKL8GpkGbppVq9XbqrZPIgMkytZiErgLEWe/NLEBwtmJN5m/4IsLZzgOzbm5uQeqTi9SGTgNnHEDrcJfnQjmF7ZAUcwAAAAASUVORK5CYII=
+        name:
+          type: string
+        mime_type:
+          type: string
+          example: image/png
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+    company:
+      title: Company Schema
+      type: object
+      properties:
+        _link:
+          type: string
+        id:
+          type: integer
+        name:
+          type: string
+        contact:
+          type: string
+        address:
+          type: string
+        website:
+          type: string
+        phone:
+          type: string
+        fax:
+          type: string
+        email:
+          type: string
+        billing_email:
+          type: string
+        currency_symbol:
+          type: string
+        created:
+          type: string
+          format: date-time
+        features:
+          type: object
+        stripe_customer_id:
+          type: string
+        shipper_currency:
+          type: string
+        footer:
+          type: string
+        mail_sender:
+          type: string
+        activated:
+          type: string
+          format: date-time
+        deactivated:
+          type: string
+          format: date-time
+        plan:
+          type: string
+        pitney_rate_type:
+          type: string
+        autosync_frequency:
+          type: string
+        app_message:
+          type: string
+        api_locked:
+          type: boolean
+        print_node:
+          type: object
+        vendor_connect:
+          type: boolean
+        payment_details:
+          type: object
+        trusted:
+          anyOf:
+          - type: 'null'
+          - type: boolean

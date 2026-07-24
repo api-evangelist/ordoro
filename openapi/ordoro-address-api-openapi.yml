@@ -1,0 +1,1011 @@
+openapi: 3.0.0
+info:
+  title: Ordoro API Documentation Address API
+  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://api.ordoro.com/
+  variables: {}
+tags:
+- name: Address
+  description: Address objects are used and referenced in Orders shipping and billing addresses, Warehouses, and Suppliers.
+paths:
+  /address/:
+    get:
+      tags:
+      - Address
+      summary: List Addresses
+      description: ''
+      operationId: Address_GET
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: sort
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/address_list'
+      deprecated: false
+    post:
+      tags:
+      - Address
+      summary: Create a new Address
+      description: ''
+      operationId: Address_POST
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/address'
+      responses:
+        '201':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/address'
+      deprecated: false
+  /address/{address_id}/:
+    get:
+      tags:
+      - Address
+      summary: Get an Address by ID
+      description: ''
+      operationId: AddressByAddressId_GET
+      parameters:
+      - name: address_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/address'
+      deprecated: false
+    put:
+      tags:
+      - Address
+      summary: Update an Address by ID
+      description: ''
+      operationId: AddressByAddressId_PUT
+      parameters:
+      - name: address_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/address'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update_address'
+      deprecated: false
+  /v3/order/{order_number}/billing_address:
+    put:
+      summary: Update an Order's Billing Address
+      operationId: OrderBillingAddressByOrderNumber_PUT
+      tags:
+      - Address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update_address'
+            examples:
+              example:
+                value:
+                  name: Tommy Tutone
+                  zip: '00000'
+        description: Updated fields for an order's address
+      parameters:
+      - $ref: '#/components/parameters/orderNumberPath'
+      responses:
+        '200':
+          description: 200 OK
+          content:
+            application/json:
+              example:
+                name: Tommy Tutone
+                company: null
+                street1: 101 W 6th St
+                street2: ''
+                city: Austin
+                state: TX
+                zip: '00000'
+                country: US
+                phone: '8675309'
+                email: null
+                validation:
+                  status: unvalidated
+                  suggested: []
+                  additional_text: null
+              schema:
+                $ref: '#/components/schemas/address'
+  /v3/order/{order_number}/shipping_address:
+    put:
+      summary: Update an Order's Shipping Address
+      operationId: OrderShippingAddressByOrderNumber_PUT
+      tags:
+      - Address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update_address'
+            examples:
+              example:
+                value:
+                  name: Tommy Tutone
+                  zip: '00000'
+        description: Updated fields for an order's address
+      parameters:
+      - $ref: '#/components/parameters/orderNumberPath'
+      responses:
+        '200':
+          description: 200 OK
+          content:
+            application/json:
+              example:
+                name: Tommy Tutone
+                company: null
+                street1: 101 W 6th St
+                street2: ''
+                city: Austin
+                state: TX
+                zip: '00000'
+                country: US
+                phone: '8675309'
+                email: null
+                validation:
+                  status: unvalidated
+                  suggested: []
+                  additional_text: null
+              schema:
+                $ref: '#/components/schemas/address'
+  /v3/order/{order_number}/warehouse:
+    put:
+      summary: Update an Order's Warehouse
+      operationId: OrderWarehouseByOrderNumber_PUT
+      tags:
+      - Address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_order_warehouse'
+            examples:
+              example:
+                value:
+                  warehouse_id: 1234
+        description: Warehouse id
+      parameters:
+      - $ref: '#/components/parameters/orderNumberPath'
+      responses:
+        '200':
+          description: 200 OK
+          content:
+            application/json:
+              example: {}
+              schema:
+                $ref: '#/components/schemas/order'
+components:
+  schemas:
+    address:
+      title: Address Schema
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        name:
+          example: Jimmy McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          example: Hamlin, Hamlin & McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 100 Constitution Ave
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Albuquerque
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '87109'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: slippin-jimmy@saul-good.man
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        revision_locked_fields:
+          type: array
+        validation:
+          title: Validation status of an Address
+          properties:
+            status:
+              type: string
+              enum:
+              - unvalidated
+              - validated
+              - warning
+              - error
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  is_commercial:
+                    default: false
+                    anyOf:
+                    - type: boolean
+                    - type: 'null'
+                  street1:
+                    type: string
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  zip:
+                    type: string
+                  country_code:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - city
+                - state
+                - zip
+                - street1
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+          required:
+          - status
+          - additional_text
+          - suggested
+          additionalProperties: false
+          anyOf:
+          - type: object
+          - type: 'null'
+      required:
+      - name
+      - company
+      - street1
+      - street2
+      - city
+      - state
+      - zip
+      - country
+      - email
+      - phone
+    order:
+      title: Order Schema
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        order_number:
+          type: string
+        barcode:
+          type: string
+        order_placed_date:
+          type: string
+        created_date:
+          type: string
+        updated_date:
+          type: string
+        cancelled_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+        obscured_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+        status:
+          type: string
+        shippability:
+          type: string
+        shipping_address:
+          $ref: '#/components/schemas/address'
+        billing_address:
+          $ref: '#/components/schemas/address'
+        alternate_ship_from_address:
+          oneOf:
+          - $ref: '#/components/schemas/address'
+          - type: 'null'
+        label_infos:
+          type: array
+          items:
+            type: number
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              link:
+                type: string
+              id:
+                type: integer
+              quantity:
+                type: integer
+              item_price:
+                type: number
+              supplier_price:
+                anyOf:
+                - type: number
+                - type: 'null'
+              sku:
+                type: string
+              product_name:
+                type: string
+              product_is_kit_parent:
+                type: boolean
+              product_serial_numbers:
+                type: array
+                items:
+                  type: string
+              order_line_product_name:
+                type: string
+              product_link:
+                type: string
+              product_category:
+                anyOf:
+                - type: string
+                - type: 'null'
+              cart_order_id:
+                anyOf:
+                - type: string
+                - type: 'null'
+              cart_orderitem_id:
+                anyOf:
+                - type: string
+                - type: 'null'
+              cart_shipment_id:
+                anyOf:
+                - type: string
+                - type: 'null'
+              cogs:
+                type: number
+              shippability:
+                type: object
+                properties:
+                  shippability:
+                    type: string
+                  supplier_id:
+                    anyOf:
+                    - type: number
+                    - type: 'null'
+                  is_dropship:
+                    type: boolean
+              details:
+                anyOf:
+                - type: string
+                - type: 'null'
+              upc:
+                anyOf:
+                - type: string
+                - type: 'null'
+              sales_channel_location_id:
+                anyOf:
+                - type: integer
+                - type: 'null'
+              is_allocated:
+                type: boolean
+            required:
+            - quantity
+            - item_price
+            - supplier_price
+            - link
+            - product_name
+            - product_link
+            - sku
+            - shippability
+            - details
+            - upc
+        weight:
+          description: Weight in ounces
+          type: number
+        notes_from_customer:
+          anyOf:
+          - type: string
+          - type: 'null'
+        internal_notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+        requested_shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        deliver_by_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+        ship_by_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+        sales_channel:
+          type: object
+          properties:
+            id:
+              type: integer
+            link:
+              type: string
+        warehouse:
+          type: object
+          properties:
+            id:
+              type: integer
+            link:
+              type: string
+        shipping_info:
+          $ref: '#/components/schemas/shipping_info'
+        return_shipping_info:
+          $ref: '#/components/schemas/shipping_info'
+        dropshipping_info:
+          $ref: '#/components/schemas/dropshipping_info'
+        comments:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+              text:
+                type: string
+              user:
+                type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/tag'
+        financial:
+          $ref: '#/components/schemas/order_financial'
+        link:
+          type: string
+        additional_cart_info:
+          type: object
+          properties:
+            is_prime:
+              type: boolean
+        is_order_parent:
+          type: boolean
+        parent_order_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+        sibling_order_numbers:
+          type: array
+          items:
+            type: string
+        audit_label:
+          type: array
+          items:
+            type: object
+        return_order_reference_ids:
+          type: array
+          items:
+            type: string
+        similar_open_addresses_count:
+          type: integer
+        allocation_status:
+          type: string
+        batch_reference_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        batch:
+          type: object
+        has_revision:
+          type: boolean
+        revision_locked_fields:
+          type: array
+          items:
+            type: string
+      required:
+      - billing_address
+      - shipping_address
+    address_list:
+      title: Address List Schema
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 35
+        limit:
+          type: integer
+          default: 1
+        offset:
+          type: integer
+          default: 0
+          example: 0
+        address:
+          type: array
+          items:
+            $ref: '#/components/schemas/address'
+      required:
+      - count
+      - limit
+      - offset
+      - address
+    put_order_warehouse:
+      title: Update Warehouse on an Order
+      type: object
+      additionalProperties: false
+      properties:
+        warehouse_id:
+          type: integer
+        skip_cache:
+          type: boolean
+          default: false
+          description: Updates the order but does not add it to the Elasticsearch cache. Used internally during initial order processing. This will probably go away in the future.
+      required:
+      - warehouse_id
+    tag:
+      title: Tag Schema
+      type: object
+      properties:
+        color:
+          type: string
+        text:
+          type: string
+        name:
+          type: string
+        link:
+          type: string
+        id:
+          type: integer
+      required:
+      - color
+      - text
+      - link
+      - id
+    order_financial:
+      title: Order Financial Schema
+      type: object
+      additionalProperties: false
+      properties:
+        credit_card_issuer:
+          anyOf:
+          - type: string
+          - type: 'null'
+        discount_amount:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+        product_amount:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+        shipping_amount:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+        tax_amount:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+        grand_total:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+    shipping_info:
+      title: Shipping Info Schema
+      type: object
+      properties:
+        delivery_confirmation:
+          description: delivery or signature confirmation requested to the carrier at the time of label creation. Should be of type string.
+        tracking_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+        package_tracking:
+          anyOf:
+          - type: string
+          - type: 'null'
+        tracking_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cost:
+          type: number
+        transaction_fee:
+          type: number
+        link:
+          type: string
+        shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        display_shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        ship_date:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        has_label:
+          type: boolean
+        has_additional_docs:
+          type: boolean
+        created_date:
+          type: string
+        carrier_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+        carrier:
+          properties:
+            id:
+              type: integer
+            link:
+              type: string
+          anyOf:
+          - type: object
+          - type: 'null'
+        estimated_delivery_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+        box_shape:
+          anyOf:
+          - type: string
+          - type: 'null'
+        length:
+          description: 'deprecated: Length in inches, see packages'
+          anyOf:
+          - type: number
+          - type: 'null'
+        width:
+          description: 'deprecated: Width in inches, see packages'
+          anyOf:
+          - type: number
+          - type: 'null'
+        height:
+          description: 'deprecated: Height in inches, see packages'
+          anyOf:
+          - type: number
+          - type: 'null'
+        insurance:
+          description: Insurance data if Ordoro discounted Shipsurance is used
+          anyOf:
+          - type: object
+          - type: 'null'
+        insured_value:
+          description: value of the package if it was insured using Ordoro discounted Shipsurance
+          anyOf:
+          - type: number
+          - type: 'null'
+        customs_info:
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              country:
+                anyOf:
+                - type: string
+                - type: 'null'
+              description:
+                anyOf:
+                - type: string
+                - type: 'null'
+              quantity:
+                anyOf:
+                - type: integer
+                - type: 'null'
+              value:
+                description: Dollar value of customs line
+                format: double
+                anyOf:
+                - type: number
+                - type: 'null'
+              weight:
+                description: Weight of customs line in ounces
+                anyOf:
+                - type: number
+                - type: 'null'
+          anyOf:
+          - type: array
+          - type: 'null'
+        ship_from:
+          description: optionally exists if a ship_from address was used to create a label or tracking
+          $ref: '#/components/schemas/address'
+        reference_number:
+          description: reference number sent to the carrier for the shipment
+          anyOf:
+          - type: string
+          - type: 'null'
+        return_to:
+          $ref: '#/components/schemas/address'
+        ship_to:
+          description: optionally exists if a ship_to address was used to create a label or tracking
+          $ref: '#/components/schemas/address'
+        status:
+          description: tracking status if available from USPS carrier
+          anyOf:
+          - type: string
+          - type: 'null'
+        carrier_updated_date:
+          description: the last date that the carrier updated the tracking status, currently only used for USPS shipments
+          anyOf:
+          - type: string
+          - type: 'null'
+        presets:
+          type: array
+          items:
+            type: integer
+        packages:
+          items:
+            type: object
+          anyOf:
+          - type: array
+          - type: 'null'
+        packing_list_id:
+          description: id of packing list profile template used to create this label
+          anyOf:
+          - type: integer
+          - type: 'null'
+        print_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+        label_image_link:
+          anyOf:
+          - type: string
+          - type: 'null'
+        void:
+          type: boolean
+        zone:
+          anyOf:
+          - type: string
+          - type: 'null'
+    update_address:
+      title: Update Address Schema
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+        validate:
+          type: boolean
+        set_revision_lock:
+          type: boolean
+        validation:
+          title: Validation status of an Address
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - unvalidated
+              - validated
+              - warning
+              - error
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  is_commercial:
+                    default: false
+                    anyOf:
+                    - type: boolean
+                    - type: 'null'
+                  street1:
+                    type: string
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  zip:
+                    type: string
+                  country_code:
+                    type: string
+                required:
+                - city
+                - state
+                - zip
+                - street1
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+            is_error:
+              type: boolean
+          required:
+          - additional_text
+          - suggested
+          additionalProperties: false
+    dropshipping_info:
+      title: Dropshipping Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        supplier:
+          type: object
+          properties:
+            id:
+              type: integer
+            link:
+              type: string
+        requested_date:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        show_ship_to_email:
+          type: boolean
+        show_price:
+          type: boolean
+        requested_shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        requested_shipping_carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+        requested_shipping_account:
+          anyOf:
+          - type: string
+          - type: 'null'
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+  parameters:
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    orderNumberPath:
+      description: Unique identifier for an Order that includes a cart index prefix
+      name: order_number
+      schema:
+        type: string
+      in: path
+      required: true
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0

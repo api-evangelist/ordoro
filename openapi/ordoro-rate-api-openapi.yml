@@ -1,0 +1,1862 @@
+openapi: 3.0.0
+info:
+  title: Ordoro API Documentation Address Rate API
+  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://api.ordoro.com/
+  variables: {}
+tags:
+- name: Rate
+  description: Rates are cost estimates or quotes provided by a shipping carrier or shipper. These can be retrieved per Order based on the order's package and address details.
+paths:
+  /v3/order/{order_number}/rate/amazon:
+    post:
+      summary: Get Amazon SFP Rate for Order
+      operationId: OrderbyOrderNumberRateAmazon_POST
+      tags:
+      - Rate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_amazon_rate'
+      parameters:
+      - $ref: '#/components/parameters/orderNumberPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+              - rate: 16.98
+                service_type: FEDEX_PTP_PRIORITY_OVERNIGHT
+                estimated_delivery_date: '2016-06-12T10:30:00Z'
+                box_type: null
+                carrier: fedex
+              - rate: 5.6
+                service_type: USPS_PTP_PRI
+                estimated_delivery_date: '2016-06-10T07:00:00Z'
+                box_type: null
+                carrier: usps
+              - rate: 7.28
+                service_type: UPS_PTP_GND
+                estimated_delivery_date: '2016-06-13T06:00:00Z'
+                box_type: null
+                carrier: ups
+              schema:
+                $ref: '#/components/schemas/v1_rate'
+  /v3/order/{order_number}/rate/australia_post:
+    post:
+      summary: Get Australia Post Rate for Order
+      operationId: OrderbyOrderNumberRateAmazon_POST
+      tags:
+      - Rate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_easypost_rate'
+      parameters:
+      - $ref: '#/components/parameters/orderNumberPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+              - rate: 16.98
+                service_type: TBD
+                estimated_delivery_date: '2019-11-18T10:30:00Z'
+                box_type: null
+                carrier: australia_post
+              - rate: 5.6
+                service_type: TBD
+                estimated_delivery_date: '2019-11-18T07:00:00Z'
+                box_type: null
+                carrier: australia_post
+              - rate: 7.28
+                service_type: TBD
+                estimated_delivery_date: '2019-11-18T06:00:00Z'
+                box_type: null
+                carrier: australia_post
+              schema:
+                $ref: '#/components/schemas/v1_rate'
+  /v3/order/{order_number}/rate/canada_post:
+    post:
+      summary: Get Canada Post Rate for Order
+      operationId: OrderbyOrderNumberRateCanadaPost_POST
+      tags:
+      - Rate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_canada_post_rate'
+      parameters:
+      - $ref: '#/components/parameters/orderNumberPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                info:
+                - service_type: DOM.EP
+                  delivery_day: Tuesday
+                  cost: '16.37'
+                  service: Expedited Parcel
+                  package: ''
+                - service_type: DOM.PC
+                  delivery_day: Thursday
+                  cost: '46.79'
+                  service: Priority
+                  package: ''
+                - service_type: DOM.RP
+                  delivery_day: Friday
+                  cost: '16.37'
+                  service: Regular Parcel
+                  package: ''
+                - service_type: DOM.XP
+                  delivery_day: Friday
+                  cost: '29.18'
+                  service: Xpresspost
+                  package: ''
+              schema:
+                $ref: '#/components/schemas/v1_rate'
+  /v3/order/{order_number}/rate/dhl:
+    post:
+      summary: Get DHL Express Rate for Order
+      operationId: OrderbyOrderNumberRateDHL_POST
+      tags:
+      - Rate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_dhl_rate'
+      parameters:
+      - $ref: '#/components/parameters/orderNumberPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+              - rate: 16.98
+                service_type: P
+                estimated_delivery_date: '2016-06-12T10:30:00Z'
+                box_type: null
+                carrier: dhl
+              - rate: 5.6
+                service_type: '0'
+                estimated_delivery_date: '2016-06-10T07:00:00Z'
+                box_type: null
+                carrier: dhl
+              schema:
+                $ref: '#/components/schemas/v1_rate'
+  /v3/order/{order_number}/rate/dhl_ecommerce:
+    post:
+      summary: Get DHL Ecommerce Rate for Order
+      operationId: OrderbyOrderNumberRateDHL_Ecommerce_POST
+      tags:
+      - Rate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_dhl_ecommerce_rate'
+      parameters:
+      - $ref: '#/components/parameters/orderNumberPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1_rate'
+  /v3/order/{order_number}/rate/endicia:
+    post:
+      summary: Get USPS Rate for Order via Endicia
+      operationId: OrderbyOrderNumberRateEndicia_POST
+      tags:
+      - Rate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_endicia_rate'
+      parameters:
+      - $ref: '#/components/parameters/orderNumberPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                status: '0'
+                info:
+                - service_type: PriorityExpress
+                  delivery_day: ''
+                  cost: 20.66
+                  service: Priority Mail Express
+                  package: Parcel
+                - service_type: LibraryMail
+                  delivery_day: ''
+                  cost: 4.03
+                  service: Library Mail
+                  package: Parcel
+                - service_type: MediaMail
+                  delivery_day: ''
+                  cost: 4.22
+                  service: Media Mail
+                  package: Parcel
+              schema:
+                $ref: '#/components/schemas/v1_rate'
+  /v3/order/{order_number}/rate/fedex:
+    post:
+      summary: Get FedEx Rate for Order
+      operationId: OrderbyOrderNumberRateFedex_POST
+      tags:
+      - Rate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_fedex_rate'
+      parameters:
+      - $ref: '#/components/parameters/orderNumberPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                status: WARNING
+                info:
+                - service_type: FIRST_OVERNIGHT
+                  delivery_day: Friday
+                  cost: 58.02
+                  service: First Overnight
+                  package: Your Packaging
+                - service_type: PRIORITY_OVERNIGHT
+                  delivery_day: Friday
+                  cost: 29.81
+                  service: Priority Overnight
+                  package: Your Packaging
+                - service_type: STANDARD_OVERNIGHT
+                  delivery_day: Friday
+                  cost: 27.57
+                  service: Standard Overnight
+                  package: Your Packaging
+                - service_type: FEDEX_2_DAY_AM
+                  delivery_day: Monday
+                  cost: 18.8
+                  service: 2 Day Am
+                  package: Your Packaging
+                - service_type: FEDEX_2_DAY
+                  delivery_day: Monday
+                  cost: 16.35
+                  service: 2 Day
+                  package: Your Packaging
+                - service_type: FEDEX_EXPRESS_SAVER
+                  delivery_day: Tuesday
+                  cost: 15.65
+                  service: Express Saver
+                  package: Your Packaging
+                - service_type: FEDEX_GROUND
+                  delivery_day: Unknown
+                  cost: 8.07
+                  service: Ground
+                  package: Your Packaging
+              schema:
+                $ref: '#/components/schemas/v1_rate'
+  /v3/order/{order_number}/rate/pitney:
+    post:
+      summary: Get USPS Rate for Order via Pitney Bowes
+      operationId: OrderbyOrderNumberRatePitney_POST
+      tags:
+      - Rate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_pitney_rate'
+      parameters:
+      - $ref: '#/components/parameters/orderNumberPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                status: Success
+                info:
+                - cost: 5.75
+                  package: PKG
+                  service_type: PM
+                  service: Priority Mail
+                  delivery_day: '2016-04-99'
+              schema:
+                $ref: '#/components/schemas/rate'
+  /v3/order/{order_number}/rate/ups:
+    post:
+      summary: Get UPS Rate for Order
+      operationId: OrderbyOrderNumberRateUPS_POST
+      tags:
+      - Rate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_ups_rate'
+      parameters:
+      - $ref: '#/components/parameters/orderNumberPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                status: Success
+                info:
+                - service_type: '03'
+                  delivery_day: ''
+                  cost: 9.29
+                  service: Ground
+                  package: ''
+                - service_type: '12'
+                  delivery_day: ''
+                  cost: 13.3
+                  service: 3-day Select
+                  package: ''
+                - service_type: '59'
+                  delivery_day: ''
+                  cost: 20.2
+                  service: 2nd Day AM
+                  package: ''
+                - service_type: '02'
+                  delivery_day: ''
+                  cost: 17.56
+                  service: 2nd Day
+                  package: ''
+                - service_type: '13'
+                  delivery_day: ''
+                  cost: 30.75
+                  service: Next Day Air Saver
+                  package: ''
+                - service_type: '14'
+                  delivery_day: ''
+                  cost: 65.41
+                  service: Next Day AM
+                  package: ''
+                - service_type: '01'
+                  delivery_day: ''
+                  cost: 34.51
+                  service: Next Day
+                  package: ''
+              schema:
+                $ref: '#/components/schemas/v1_rate'
+components:
+  schemas:
+    address:
+      title: Address Schema
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        name:
+          example: Jimmy McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          example: Hamlin, Hamlin & McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 100 Constitution Ave
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Albuquerque
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '87109'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: slippin-jimmy@saul-good.man
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        revision_locked_fields:
+          type: array
+        validation:
+          title: Validation status of an Address
+          properties:
+            status:
+              type: string
+              enum:
+              - unvalidated
+              - validated
+              - warning
+              - error
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  is_commercial:
+                    default: false
+                    anyOf:
+                    - type: boolean
+                    - type: 'null'
+                  street1:
+                    type: string
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  zip:
+                    type: string
+                  country_code:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - city
+                - state
+                - zip
+                - street1
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+          required:
+          - status
+          - additional_text
+          - suggested
+          additionalProperties: false
+          anyOf:
+          - type: object
+          - type: 'null'
+      required:
+      - name
+      - company
+      - street1
+      - street2
+      - city
+      - state
+      - zip
+      - country
+      - email
+      - phone
+    post_fedex_rate:
+      title: Fedex Rate POST Request Schema
+      type: object
+      additionalProperties: false
+      properties:
+        alcohol_shipment_license:
+          type: string
+        b13a_filing_option:
+          description: Specify the filing option being exercised. Required for non-document shipments originating in Canada destinated for any country other than Canada, the United States, Puerto Rico, or the U.S. Virgin Islands
+          enum:
+          - NOT_REQUIRED
+          - MANUALLY_ATTACHED
+          - FILED_ELECTRONICALLY
+          - SUMMARY_REPORTING
+          - FEDEX_TO_STAMP
+          type: string
+        declared_value:
+          description: Package level Insured Value for Fedex
+          type: number
+        packages:
+          type: array
+          maxItems: 99
+          items:
+            additionalProperties: false
+            type: object
+            properties:
+              box_shape:
+                type: string
+              declared_value:
+                description: Package level Insured Value for Fedex
+                type: number
+              description:
+                type: string
+              dry_ice_weight:
+                description: Weight in ounces.
+                type: number
+                default: 0
+              height:
+                description: Height in inches
+                type: number
+              length:
+                description: Length in inches
+                type: number
+              reference_number:
+                description: Package level reference, not always necessarily a number
+                type: string
+              department:
+                description: Department number. Displayed as DEPT field on label
+                type: string
+                maxLength: 40
+              invoice:
+                description: Invoice number. Displayed as INV field on label
+                type: string
+                maxLength: 40
+              purchase_order:
+                description: Purchase order number. Displayed as PO field on label
+                type: string
+                maxLength: 40
+              sub_package_type:
+                description: 'if you are using your own packaging for the shipment. Example: TUBE, CARTON, CONTAINER. etc'
+                type: string
+              weight:
+                description: Weight in ounces.
+                type: number
+              width:
+                description: Width in inches
+                type: number
+            required:
+            - box_shape
+        customs_info:
+          items:
+            $ref: '#/components/schemas/customs_line'
+          type: array
+        delivery_confirmation:
+          default: SERVICE_DEFAULT
+          enum:
+          - NO_SIGNATURE_REQUIRED
+          - INDIRECT
+          - DIRECT
+          - ADULT
+          - SERVICE_DEFAULT
+          type: string
+        delivery_instructions:
+          type: string
+        dry_ice_weight:
+          description: Weight in ounces.
+          type: number
+          default: 0
+        duties_payment_type:
+          type: string
+        duties_payment_account:
+          type: string
+        export_compliance_statement:
+          description: For US export shipments requiring an EEI, enter the ITN number received from AES when you filed your shipment or the FTR (Foreign Trade Regulations) exemption number.The proper format for an ITN number is AES XYYYYMMDDNNNNNN where YYYYMMDD is date and NNNNNN are numbers generated by the AES.
+          type: string
+        importer_of_record:
+          type: object
+          additionalProperties: false
+          properties:
+            address:
+              $ref: '#/components/schemas/address'
+            tin:
+              type: object
+              additionalProperties: false
+              properties:
+                tin_type:
+                  type: string
+                  enum:
+                  - BUSINESS_NATIONAL
+                  - BUSINESS_STATE
+                  - BUSINESS_UNION
+                  - PERSONAL_NATIONAL
+                  - PERSONAL_STATE
+                number:
+                  type: string
+                  maxLength: 15
+              required:
+              - tin_type
+              - number
+            account_number:
+              type: string
+              maxLength: 12
+          required:
+          - address
+          - tin
+        insurance_type:
+          enum:
+          - discounted_insurance
+          - fedex
+          type: string
+        insured_value:
+          default: 0
+          type: number
+        one_rate:
+          type: boolean
+        payment_account:
+          type: string
+        payment_type:
+          type: string
+        pharmacy_delivery:
+          default: false
+          type: boolean
+        priority_alert:
+          type: string
+          enum:
+          - PRIORITY_ALERT
+          - PRIORITY_ALERT_PLUS
+        reason_for_export:
+          enum:
+          - SOLD
+          - NOT_SOLD
+          - PERSONAL_EFFECTS
+          - GIFT
+          - REPAIR_AND_RETURN
+          - SAMPLE
+          type: string
+        reason_for_export_explanation:
+          type: string
+        receiver_tax_info:
+          $ref: '#/components/schemas/tax_info'
+        recipient_address_is_residential:
+          type: boolean
+        reference_number:
+          type: string
+        return:
+          description: For orders, determines whether the originating and destination addresses will be swapped for a return label request
+          type: boolean
+        saturday_delivery:
+          default: false
+          type: boolean
+        sender_tax_info:
+          $ref: '#/components/schemas/tax_info'
+        ship_date:
+          format: date-time
+          type: string
+        shipper_id:
+          type: integer
+        smart_post_ancillary_endorsement:
+          enum:
+          - ADDRESS_CORRECTION
+          - CARRIER_LEAVE_IF_NO_RESPONSE
+          - CHANGE_SERVICE
+          - FORWARDING_SERVICE
+          - RETURN_SERVICE
+          description: Required for Presorted Standard but not for returns or parcel select. They are not all usable for all ancillary endorsements.
+          type: string
+        smart_post_hub:
+          type: string
+        smart_post_indicia:
+          type: string
+        ship_from:
+          description: The ship_from address is used as the originating address of the rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        ship_to:
+          description: The to address is used as the destination address of a return order rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        reference_id:
+          description: Identifier for a Return Order
+          type: string
+        dangerous_goods_option:
+          type: string
+        dangerous_goods_regulation_type:
+          type: string
+        etd_service:
+          type: boolean
+        hold_at_location:
+          type: boolean
+        hold_at_location_id:
+          type: string
+        certificate_of_origin:
+          type: boolean
+        use_metric_units:
+          type: boolean
+      required:
+      - shipper_id
+    tax_info:
+      title: Tax Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        tax_id_number:
+          type: string
+        tax_id_type:
+          type: string
+        tax_issuer_country:
+          type: string
+      required:
+      - tax_id_number
+      - tax_id_type
+    post_ups_rate:
+      title: UPS Rate POST Request Schema
+      type: object
+      additionalProperties: false
+      properties:
+        additional_handling:
+          type: boolean
+        certificate_origin:
+          type: boolean
+        customs_info:
+          type: array
+          items:
+            $ref: '#/components/schemas/customs_line'
+        delivery_confirmation:
+          description: '[''0'' - None, ''1'' - Confirm, ''2'' - Signature, ''3'' - Adult Signature]'
+          type: string
+        direct_delivery:
+          type: boolean
+        dry_ice_regulation_set:
+          description: indicates dry ice shipment option [CFR = For HazMat regulated by US Dept of Transportation within the U.S. or ground shipments to Canada, IATA = For Worldwide Air movement]
+          type: string
+        insurance_type:
+          type: string
+        insured_value:
+          type: number
+        box_shape:
+          description: 'DEPRECATED: USE PACKAGES. ups box options [01 - UPS Letter, 02 - Customer Supplied Package, 03 - Tube, 04 - PAK, 2a - Small Express Box, 2b - Medium Express Box, 2c - Large Express Box, 24 - UPS 25KG Box, 25 - UPS 10KG Box]'
+          type: string
+        declared_value:
+          description: 'DEPRECATED: USE PACKAGES. Package level declared value for UPS'
+          type: number
+        description:
+          description: 'DEPRECATED: USE PACKAGES. Package level description, required for return label creation'
+          type: string
+        dry_ice_weight:
+          description: 'DEPRECATED: USE PACKAGES. Dry ice weight in ounces, required for dry ice shipments'
+          type: number
+        purchase_order_number:
+          description: Customs level purchase order number reference
+          type: string
+        reference_number:
+          description: Package level reference, not always necessarily a number
+          type: string
+        weight:
+          description: 'DEPRECATED: USE PACKAGES. Weight in ounces'
+          type: number
+        length:
+          description: 'DEPRECATED: USE PACKAGES. Length in inches'
+          type: number
+        width:
+          description: 'DEPRECATED: USE PACKAGES. Width in inches'
+          type: number
+        height:
+          description: 'DEPRECATED: USE PACKAGES. Height in inches'
+          type: number
+        packages:
+          type: array
+          maxItems: 200
+          items:
+            additionalProperties: false
+            type: object
+            properties:
+              additional_handling:
+                type: boolean
+              box_shape:
+                description: ups box options [01 - UPS Letter, 02 - Customer Supplied Package, 03 - Tube, 04 - PAK, 2a - Small Express Box, 2b - Medium Express Box, 2c - Large Express Box, 24 - UPS 25KG Box, 25 - UPS 10KG Box]
+                type: string
+              declared_value:
+                description: Package level declared value for UPS
+                type: number
+              description:
+                description: Package level description, required for return shipments
+                type: string
+              dry_ice_regulation_set:
+                description: indicates dry ice shipment option [CFR = For HazMat regulated by US Dept of Transportation within the U.S. or ground shipments to Canada, IATA = For Worldwide Air movement]
+                type: string
+              dry_ice_weight:
+                description: Dry ice weight in ounces, required for dry ice shipments
+                type: number
+              hazmat_items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/hazmat_item'
+              height:
+                description: Height in inches
+                type: number
+              length:
+                description: Length in inches
+                type: number
+              reference_number:
+                description: Package level reference, not always necessarily a number
+                type: string
+              weight:
+                description: weight of the package in ounces
+                type: number
+              width:
+                description: Width in inches
+                type: number
+            required:
+            - box_shape
+        package_bill_type:
+          description: 'required for shoptimeintransit rates: document, non-document, wwef pallet, or domestic pallet. describes the contents of the package.'
+          type: string
+          enum:
+          - '02'
+          - '03'
+          - '04'
+          - '07'
+        payment_type:
+          type: string
+        payment_account:
+          type: string
+        payment_zip:
+          type: string
+        payment_country:
+          type: string
+        duties_payment_type:
+          type: string
+        duties_payment_account:
+          type: string
+        duties_payment_zip:
+          type: string
+        duties_payment_country:
+          type: string
+        reason_for_export:
+          type: string
+        receiver_tax_info:
+          $ref: '#/components/schemas/tax_info'
+        recipient_address_is_residential:
+          type: boolean
+        return:
+          description: For orders, determines whether the originating and destination addresses will be swapped for a return label request
+          type: boolean
+        saturday_delivery:
+          type: boolean
+        sender_tax_info:
+          $ref: '#/components/schemas/tax_info'
+        shipper_id:
+          type: integer
+        shipping_method:
+          type: string
+        shipper_release:
+          type: boolean
+        shipper_return_to_address:
+          $ref: '#/components/schemas/v1_address'
+        usps_endorsement:
+          description: Required for UPS Mail Innovations shipments
+          type: string
+        ship_from:
+          description: The ship_from address is used as the originating address of the rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        ship_to:
+          description: The to address is used as the destination address of a return order rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        reference_id:
+          description: Identifier for a Return Order
+          type: string
+        warehouse_id:
+          description: Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.
+          type: integer
+        cost_center:
+          description: The Cost Center code for UPS Mail Innovations shipments
+          type: string
+      required:
+      - shipper_id
+    post_amazon_rate:
+      title: Amazon Rate POST Request schema
+      type: object
+      additionalProperties: false
+      properties:
+        shipper_id:
+          type: integer
+        delivery_confirmation:
+          type: string
+          enum:
+          - DeliveryConfirmationWithAdultSignature
+          - DeliveryConfirmationWithoutSignature
+          - DeliveryConfirmationWithSignature
+          - NoPreference
+          - NoTracking
+        weight:
+          description: Weight in ounces
+          type: number
+        length:
+          description: Length in inches
+          type: number
+        width:
+          description: Width in inches
+          type: number
+        height:
+          description: Height in inches
+          type: number
+        box_shape:
+          type: string
+        packages:
+          type: array
+          maxItems: 1
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              weight:
+                description: Weight in ounces
+                type: number
+              length:
+                description: Length in inches
+                type: number
+              width:
+                description: Width in inches
+                type: number
+              height:
+                description: Height in inches
+                type: number
+              box_shape:
+                type: string
+            required:
+            - weight
+        shipping_method:
+          type: string
+        ship_date:
+          type: string
+          format: date-time
+        arrive_by_date:
+          type: string
+          format: date-time
+        carrier_pickup:
+          type: boolean
+        ship_from:
+          description: The ship_from address is used as the source of the shipment label. This can be a warehouse or a supplier address.
+          $ref: '#/components/schemas/v1_address'
+        insurance_type:
+          type: string
+          enum:
+          - amazon
+        insured_value:
+          type: number
+          default: 0
+        warehouse_id:
+          description: Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.
+          type: integer
+      required:
+      - delivery_confirmation
+    post_pitney_rate:
+      title: Pitney Rate POST Request Schema
+      additionalProperties: false
+      properties:
+        delivery_confirmation:
+          enum:
+          - DelCon
+          - Sig
+          - ADSIG
+          - ADSIGRD
+          - SigRD
+          type: string
+        hazmat_type:
+          description: USPS hazmat input type options
+          type: string
+        hazmat_electronics:
+          description: ' USPS hazmat option for electronics'
+          type: boolean
+        insurance_type:
+          enum:
+          - discounted_insurance
+          type: string
+        insured_value:
+          default: 0
+          type: number
+        mailing_zip_code:
+          description: mailing post office zip code if different than from_address zip code, ignored in rate request
+          type: string
+        non_delivery:
+          enum:
+          - return
+          - abandon
+          - redirect
+          type: string
+        packages:
+          description: This should always be an array of 1, as USPS does not allow for multiple package shipments at this time
+          maxItems: 1
+          items:
+            additionalProperties: false
+            properties:
+              box_shape:
+                type: string
+              height:
+                description: Height in inches
+                type: number
+              length:
+                description: Length in inches
+                type: number
+              weight:
+                description: Weight in ounces
+                type: number
+              width:
+                description: Width in inches
+                type: number
+            required:
+            - box_shape
+            - weight
+            type: object
+          type: array
+        parcel_characteristics:
+          description: For nonstandard packages
+          type: string
+        pitney_rate_type:
+          type: string
+        reference_number:
+          type: string
+        return:
+          description: For orders, determines whether the originating and destination addresses will be swapped for a return label request
+          type: boolean
+        ship_date:
+          format: date-time
+          type: string
+        ship_from:
+          description: The ship_from address is used as the originating address of the rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        ship_to:
+          description: The to address is used as the destination address of a return order rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        reference_id:
+          description: Identifier for a Return Order
+          type: string
+        shipper_id:
+          type: integer
+        shipping_method:
+          type: string
+        warehouse_id:
+          description: Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.
+          type: integer
+      required:
+      - shipper_id
+      - shipping_method
+      type: object
+    post_endicia_rate:
+      title: Endicia Rate POST Request Schema
+      type: object
+      properties:
+        packages:
+          description: This should always be an array of 1, as USPS does not allow for multiple package shipments at this time
+          type: array
+          maxItems: 1
+          items:
+            additionalProperties: false
+            type: object
+            properties:
+              box_shape:
+                enum:
+                - SmallFlatRateBox
+                - MediumFlatRateBox
+                - LargeFlatRateBox
+                - Parcel
+                - Softpack
+                - Card
+                - Flat
+                - Letter
+                - FlatRateEnvelope
+                - FlatRateLegalEnvelope
+                - FlatRatePaddedEnvelope
+                - SmallFlatRateEnvelope
+                - RegionalRateBoxA
+                - RegionalRateBoxB
+                type: string
+              height:
+                description: Height in inches
+                type: number
+              length:
+                description: Length in inches
+                type: number
+              reference:
+                description: package level customer reference value
+                type: string
+              weight:
+                description: Currently not used, Order weight is used instead. Weight in ounces.
+                type: number
+              width:
+                description: Width in inches
+                type: number
+            required:
+            - box_shape
+        contents_type:
+          description: to be deprecated in favor of higher use reason_for_export
+          type: string
+        reason_for_export:
+          type: string
+        customs_info:
+          items:
+            $ref: '#/components/schemas/customs_line'
+          type: array
+        delivery_confirmation:
+          default: None
+          enum:
+          - None
+          - DeliveryConfirmation
+          - SignatureConfirmation
+          - AdultSignature
+          - AdultSignatureRestrictedDelivery
+          - RestrictedDelivery
+          type: string
+        hold_for_pickup:
+          type: boolean
+        insurance_type:
+          enum:
+          - discounted_insurance
+          - endicia
+          type: string
+        insured_value:
+          default: 0
+          type: number
+        mailing_zip_code:
+          description: mailing post office zip code if different than from address zip code
+          type: string
+        nondelivery_option:
+          default: Return
+          enum:
+          - Return
+          - Abandon
+          type: string
+        notify_bill_to:
+          default: false
+          type: boolean
+        notify_ship_to:
+          default: false
+          type: boolean
+        reference_number:
+          description: Customer supplied internal reference for an order
+          type: string
+        return:
+          description: For orders, determines whether the originating and destination addresses will be swapped for a return label request
+          type: boolean
+        ship_date:
+          format: date-time
+          type: string
+        shipper_id:
+          type: integer
+        shipping_method:
+          type: string
+        stealth:
+          description: 'NOTE: Ignored for rates. Display indicia on the label'
+          type: boolean
+        ship_from:
+          description: The ship_from address is used as the originating address of the rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        ship_to:
+          description: The to address is used as the destination address of a return order rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        reference_id:
+          description: Identifier for a Return Order
+          type: string
+        warehouse_id:
+          description: Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.
+          type: integer
+      required:
+      - shipper_id
+      additionalProperties: false
+    v1_rate:
+      title: Rate Response Schema
+      type: object
+      properties:
+        info:
+          type: array
+          items:
+            type: object
+            properties:
+              service:
+                type: string
+              service_type:
+                type: string
+              package:
+                type: string
+              delivery_day:
+                type: string
+              cost:
+                type: number
+    post_dhl_ecommerce_rate:
+      title: DHL eCommerce Label Request schema
+      type: object
+      additionalProperties: false
+      properties:
+        shipper_id:
+          type: integer
+        packages:
+          maxItems: 1
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              weight:
+                description: Weight in ounces
+                type: number
+              length:
+                description: Length in inches
+                type: number
+              width:
+                description: Width in inches
+                type: number
+              height:
+                description: Height in inches
+                type: number
+              declared_value:
+                type: number
+              description:
+                type: string
+              box_shape:
+                description: ignored
+                type: string
+            required:
+            - length
+            - width
+            - height
+            - weight
+            - description
+        packing_list_id:
+          description: id for packing list for profile template associated with this label
+          type: integer
+        dangerous_goods:
+          type: string
+        delivery_confirmation:
+          enum:
+          - DELCON
+          - SIGCON
+          type: string
+        customs_info:
+          items:
+            $ref: '#/components/schemas/customs_line'
+          type: array
+        declared_value:
+          type: number
+        insured_value:
+          type: number
+        insurance_type:
+          type: string
+          enum:
+          - dhl_ecommerce
+        notify_bill_to:
+          type: boolean
+          default: false
+        notify_ship_to:
+          type: boolean
+          default: false
+        ship_date:
+          type: string
+          format: date-time
+        receiver_tax_info:
+          $ref: '#/components/schemas/tax_info'
+        reference_number:
+          type: string
+        ship_from:
+          description: The ship_from address is used as the originating address of the rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        ship_to:
+          description: The to address is used as the destination address of a return order rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        return:
+          type: boolean
+          default: false
+      required:
+      - shipper_id
+    post_canada_post_rate:
+      title: Canada Post POST Rate Request Schema
+      type: object
+      properties:
+        reason_for_export:
+          type: string
+          enum:
+          - SOG
+          - DOC
+          - SAM
+          - REP
+          - OTH
+        nondelivery_option:
+          type: string
+          enum:
+          - RASE
+          - RTS
+          - ABAN
+        delivery_confirmation:
+          type: string
+          enum:
+          - SO
+          - PA18
+          - PA19
+        service_option:
+          type: string
+        insurance_type:
+          type: string
+          enum:
+          - canada_post
+        insured_value:
+          type: number
+          default: 0
+        shipper_id:
+          type: integer
+        packages:
+          type: array
+          maxItems: 1
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              box_shape:
+                type: string
+                enum:
+                - Parcel
+                - Tube
+              length:
+                description: Length in inches
+                type: number
+              width:
+                description: Width in inches
+                type: number
+              height:
+                description: Height in inches
+                type: number
+              weight:
+                description: Currently not used, Order weight is used instead. Weight in ounces.
+                type: number
+            required:
+            - box_shape
+        ship_date:
+          format: date-time
+          type: string
+        ship_from:
+          description: The ship_from address is used as the originating address of the rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        ship_to:
+          description: The to address is used as the destination address of a return order rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        reference_id:
+          description: Identifier for a Return Order
+          type: string
+        return:
+          description: For orders, determines whether the originating and destination addresses will be swapped for a return label request
+          type: boolean
+        warehouse_id:
+          description: Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.
+          type: integer
+      required:
+      - shipper_id
+      additionalProperties: false
+    hazmat_item:
+      title: Hazmat Item Schema
+      type: object
+      additionalProperties: false
+      properties:
+        additional_description:
+          type: string
+        class_division_number:
+          type: string
+        commodity_regulated_level_code:
+          type: string
+          enum:
+          - EQ
+          - FR
+          - LR
+          - LQ
+        emergency_contact:
+          type: string
+        emergency_phone:
+          type: string
+        hazard_label_required:
+          type: string
+        id_number:
+          type: string
+        packaging_instruction_code:
+          type: string
+        packaging_group_type:
+          type: string
+          enum:
+          - null
+          - ''
+          - I
+          - II
+          - III
+        packaging_type:
+          type: string
+        packaging_type_quantity:
+          type: string
+        proper_shipping_name:
+          type: string
+        quantity:
+          type: string
+        regulation_set:
+          type: string
+          enum:
+          - ADR
+          - CFR
+          - IATA
+          - TDG
+        reportable_quantity:
+          type: string
+        sub_risk_class:
+          type: string
+        technical_name:
+          type: string
+        transport_category:
+          description: A category that ranges from 0 to 4 in the ADR regulation set which indicates the amount of points assigned to a dangerous goods package to be in compliance with the fully regulated vehicle load exemption (ADR 1.1.3.6)
+          type: string
+          enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+        transportation_mode:
+          type: string
+          enum:
+          - Cargo Aircraft Only
+          - Ground
+          - Highway
+          - Passenger Aircraft
+        tunnel_restriction_code:
+          description: A No restriction for hazardous goods; B Prohibited for the transport of hazardous substances which could cause a very large explosion; C The same restriction as for B, plus hazardous goods which could cause a large explosion or the extensive release of toxic substances; D The same restrictions as for C plus hazardous goods which could cause a large fire; E Prohibited for the transport of all hazardous substances. There are some exceptions for certain radioactive substances, clinical waste and samples.
+          type: string
+          enum:
+          - (B)
+          - (B/D)
+          - (B/E)
+          - (C)
+          - (C/D)
+          - (C/E)
+          - (D)
+          - (D/E)
+          - (E)
+        uom:
+          type: string
+      required:
+      - commodity_regulated_level_code
+      - regulation_set
+      - transportation_mode
+    v1_address:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        reference_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        _link:
+          anyOf:
+          - type: string
+          - type: 'null'
+        _linkaddresscreatedtaskstatus:
+          anyOf:
+          - type: string
+          - type: 'null'
+        validation:
+          properties:
+            is_error:
+              type: boolean
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  city:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  zip:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  street1:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  is_commercial:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  state:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  country_code:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+          anyOf:
+          - type: object
+          - type: 'null'
+    post_dhl_rate:
+      title: DHL Rate POST Request schema
+      type: object
+      additionalProperties: false
+      properties:
+        shipper_id:
+          type: integer
+        packages:
+          maxItems: 1
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              weight:
+                description: Weight in ounces
+                type: number
+              length:
+                description: Length in inches
+                type: number
+              width:
+                description: Width in inches
+                type: number
+              height:
+                description: Height in inches
+                type: number
+              declared_value:
+                description: Package Level Declared Value for Dutiable International Shipments
+                type: number
+              box_shape:
+                description: optional box type [FLY=Flyer/Smalls - pieces that are too small, thin or light to be sorted on a standard conveyor, or for which it makes sense to group pieces into larger units for sort purposes. COY=Parcels/Conveyables - pieces that can be handled onto a system, less than 31.5 kg and up to 60*60*120cm. NCY=Non-conveyables - Pieces that cannot on their own be sorted on standard conveyor. PAL=Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. DBL=Double Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. BOX=Parcels that are conveyable have the shape of a box. Up to 70kg.]
+                type: string
+                enum:
+                - FLY
+                - COY
+                - NCY
+                - PAL
+                - DBL
+                - BOX
+            required:
+            - length
+            - width
+            - height
+            - weight
+        declared_value:
+          description: Shipment Level Declared Value for Dutiable International Shipments
+          type: number
+        insured_value:
+          type: number
+        insurance_type:
+          type: string
+          enum:
+          - dhl
+        ship_date:
+          type: string
+          format: date-time
+        reference_number:
+          type: string
+        pickup:
+          description: pickup date time to schedule for the carrier
+          type: string
+          format: date-time
+        signature_service:
+          description: signature service option. Signature services are included in international shipments. Use `SX` for no signature required
+          type: string
+          enum:
+          - SX
+        nonstandard_day:
+          description: options are [AA - Saturday Delivery, AB - Saturday Pickup, AC - Holiday Delivery, AD - Holiday Pickup, AG - Domestic Saturday Delivery]
+          type: string
+          enum:
+          - AA
+          - AB
+          - AC
+          - AD
+          - AG
+        nonstandard_contents:
+          description: options are [HB - Lithium Ion PI965 Section II, HC - Dry Ice UN1845, HD - Lithium Ion PI965-966 Section II, HE - Dangerous Goods, HG - Perishable Cargo, HH - Excepted Quantity, HI - Spill Cleaning, HK - Consumer Commodities, HL - Limited Quantities ADR, HM - Lithium Metal PI969 Section II, HN - ADR Load Exemption, HV - Lithium Ion PI967-Section II, HW - Lithium Metal PI970-Section II, HY - Biological UN3373]
+          type: string
+          enum:
+          - HB
+          - HC
+          - HD
+          - HE
+          - HG
+          - HH
+          - HI
+          - HK
+          - HL
+          - HM
+          - HN
+          - HV
+          - HW
+          - HY
+        is_dutiable:
+          type: boolean
+          default: true
+        ship_from:
+          description: The ship_from address is used as the originating address of the rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        ship_to:
+          description: The to address is used as the destination address of a return order rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        reference_id:
+          description: Identifier for a Return Order
+          type: string
+        return:
+          description: For orders, determines whether the originating and destination addresses will be swapped for a return label request
+          type: boolean
+          default: false
+        warehouse_id:
+          description: 'DEPRECATED: ignored. Previously used for updating a warehouse for the ship_from address on an order.'
+          type: integer
+      required:
+      - shipper_id
+    post_easypost_rate:
+      additionalProperties: true
+      properties:
+        box_shape:
+          type: string
+        customs_info:
+          items:
+            $ref: '#/components/schemas/customs_line'
+          type: array
+        delivery_confirmation:
+          type: string
+        insurance_type:
+          type: string
+        insured_value:
+          type: number
+        notify_bill_to:
+          default: false
+          type: boolean
+        notify_ship_to:
+          default: false
+          type: boolean
+        packages:
+          items:
+            additionalProperties: false
+            properties:
+              additional_handling:
+                type: boolean
+              box_shape:
+                type: string
+              height:
+                description: Height in inches
+                type: number
+              length:
+                description: Length in inches
+                type: number
+              reference_number:
+                description: Package level reference, not always necessarily a number
+                type: string
+              reference:
+                description: Package level reference, not always necessarily a number
+                type: string
+              weight:
+                description: weight of the package in ounces
+                type: number
+              width:
+                description: Width in inches
+                type: number
+            type: object
+          maxItems: 200
+          type: array
+        reason_for_export:
+          type: string
+        reference_number:
+          description: Package level reference, not always necessarily a number
+          type: string
+        ship_date:
+          type: string
+        ship_from:
+          description: The ship_from address is used as the originating address of the rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        ship_to:
+          description: The to address is used as the destination address of a return order rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        shipper_id:
+          type: integer
+        reference_id:
+          description: Identifier for a Return Order
+          type: string
+        shipping_method:
+          description: ignored for rate requests
+          type: string
+      required:
+      - shipper_id
+      - packages
+      title: Easypost POST Rate Request Schema
+      type: object
+    rate:
+      title: Rate Response schema
+      type: array
+      items:
+        type: object
+        properties:
+          service_type:
+            type: string
+          rate:
+            type: number
+          transaction_fee:
+            type: number
+          box_type:
+            anyOf:
+            - type: string
+            - type: 'null'
+          carrier:
+            type: string
+          carrier_account_id:
+            description: for shippo rate response and carrier matching
+            type: string
+          estimated_delivery_days:
+            anyOf:
+            - type: string
+            - type: 'null'
+          estimated_delivery_date:
+            anyOf:
+            - type: string
+            - type: 'null'
+          display:
+            description: display name for the carrier rate
+            type: string
+          one_rate:
+            description: indicator that rate is a FedEx One Rate
+            type: boolean
+          processing_category:
+            description: returned from USPS rates for service type processing category distinction
+            anyOf:
+            - type: string
+            - type: 'null'
+          rate_id:
+            description: returned by Shippo for rate selection along with shipment_id
+            type: string
+          rate_indicator:
+            description: returned from USPS for additional rate distinction
+            type: string
+          saturday_delivery:
+            type: boolean
+          shipment_id:
+            type: string
+          service_token:
+            type: string
+          zone:
+            anyOf:
+            - type: string
+            - type: 'null'
+        required:
+        - service_type
+        - box_type
+        - carrier
+        - rate
+        additionalProperties: false
+    customs_line:
+      title: Customs Line Schema
+      type: object
+      additionalProperties: false
+      properties:
+        country:
+          type: string
+        description:
+          type: string
+        quantity:
+          type: integer
+        value:
+          description: Dollar value of customs line
+          format: double
+          type: number
+        weight:
+          description: Weight of customs line in ounces
+          type: number
+        harmonization_code:
+          description: The 6 character international nomenclature for the classification of products
+          type: string
+        sku:
+          type: string
+        unit_of_measure:
+          type: string
+        url:
+          type: string
+        harmonization_code_country:
+          description: The country of harmonization_code
+          type: string
+      required:
+      - description
+      - quantity
+      - value
+      - weight
+      - country
+  parameters:
+    orderNumberPath:
+      description: Unique identifier for an Order that includes a cart index prefix
+      name: order_number
+      schema:
+        type: string
+      in: path
+      required: true

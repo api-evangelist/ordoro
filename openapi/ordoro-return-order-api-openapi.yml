@@ -1,0 +1,944 @@
+openapi: 3.0.0
+info:
+  title: Ordoro API Documentation Address Return Order API
+  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://api.ordoro.com/
+  variables: {}
+tags:
+- name: Return Order
+paths:
+  /v3/return_order:
+    get:
+      summary: Get a list of return_orders
+      operationId: Return_Order_GET
+      tags:
+      - Return Order
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/searchParam'
+      - description: can be one of [all, awaiting_fulfillment, dropshipment_requested, shipped, cancelled]
+        name: status
+        schema:
+          type: string
+        in: query
+        required: false
+        enum:
+        - all
+        - awaiting_fulfillment
+        - shipped
+        - cancelled
+        - dropshipment_requested
+      - name: reference_id
+        schema:
+          type: array
+          items:
+            type: string
+          in: query
+        required: false
+      - name: tag
+        type: array
+        items:
+          type: string
+        in: query
+        required: false
+      - description: filter the results to only return_orders that have no tags
+        name: untagged
+        schema:
+          type: string
+        in: query
+        required: false
+      - description: can be one of [(-)reference_id, (-)status, (-)warehouse_name, (-)created_date, (-)updated_date
+        name: sort
+        schema:
+          type: string
+        in: query
+        required: false
+        enum:
+        - reference_id
+        - -reference_id
+        - status
+        - -status
+        - warehouse_name
+        - -warehouse_name
+        - created_date
+        - -created_date
+        - dropship_date
+        - -dropship_date
+        - updated_date
+        - -updated_date
+      - name: tag_filter_by
+        type: string
+        in: query
+        required: false
+        enum:
+        - or
+        - and
+        - only
+        - not
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/return_order_list'
+    post:
+      summary: Create a return_order
+      operationId: Return_Order_POST
+      tags:
+      - Return Order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_return_order'
+        description: A Return Order object
+      parameters: []
+      responses:
+        '201':
+          description: Return Order Successfully created
+          content:
+            application/json:
+              example:
+                customer_address:
+                  city: austin
+                  country: USA
+                  email: mrgattispizza@delivers.com
+                  name: joe schmo
+                  phone: '4592222'
+                  state: tx
+                  street1: 123 foo-bar ln
+                  zip: '78701'
+                customer_notes: from the customer
+                internal_notes: for our eyes
+                lines:
+                - expected_quantity: 2
+                  sku: sku1
+                - expected_quantity: 1
+                  sku: sku2
+                original_order_number: this-is-from-the-cart-1234
+                reference_id: i-want-my-return_order-1234
+                return_to_address:
+                  city: austin
+                  country: USA
+                  email: jenny@igotyournumber.com
+                  name: joe schmo
+                  phone: '8675309'
+                  state: tx
+                  street1: 123 foo-bar ln
+                  zip: '78701'
+                warehouse_id: 1234
+              schema:
+                $ref: '#/components/schemas/return_order'
+  /v3/return_order/tag:
+    get:
+      tags:
+      - Return Order
+      summary: List Return Order Tags
+      description: ''
+      operationId: ReturnOrderTag_GET
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: response OK
+          content:
+            application/json:
+              example:
+                count: 2
+                tag:
+                - color: '#ff0'
+                  text: Unpaid
+                  link: /tag/1
+                  id: 1
+                - color: '#f7dbe7'
+                  text: Tag
+                  link: /tag/3
+                  id: 3
+                limit: 10
+                offset: 0
+              schema:
+                $ref: '#/components/schemas/v3_tag_list'
+      deprecated: false
+    post:
+      tags:
+      - Return Order
+      summary: Create a Return Order Tag
+      description: ''
+      operationId: ReturnOrderTag_POST
+      parameters: []
+      responses:
+        '201':
+          description: response OK
+          content:
+            application/json:
+              title: V3 Tag Schema
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                color:
+                  type: string
+              required:
+              - id
+              - name
+              - color
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v3_tag'
+      deprecated: false
+  /v3/return_order/tag/{tagNamePath}:
+    get:
+      tags:
+      - Return Order
+      summary: Get a Return Order Tag By Name
+      description: ''
+      operationId: ReturnOrderTagWithName_GET
+      parameters: []
+      responses:
+        '200':
+          description: response OK
+          content:
+            application/json:
+              example:
+                count: 2
+                tag:
+                - color: '#ff0'
+                  text: Unpaid
+                  link: /tag/1
+                  id: 1
+                - color: '#f7dbe7'
+                  text: Tag
+                  link: /tag/3
+                  id: 3
+                limit: 10
+                offset: 0
+              schema:
+                $ref: '#/components/schemas/v3_tag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/get_v3_tag_list'
+      deprecated: false
+    put:
+      tags:
+      - Return Order
+      summary: Update a Return Order Tag
+      description: ''
+      operationId: ReturnOrderTag_PUT
+      parameters: []
+      responses:
+        '200':
+          description: response OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v3_tag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_v3_tag'
+      deprecated: false
+    delete:
+      tags:
+      - Return Order
+      summary: Delete a Return Order Tag
+      description: ''
+      operationId: ReturnOrderTag_DELETE
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+components:
+  schemas:
+    address:
+      title: Address Schema
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        name:
+          example: Jimmy McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          example: Hamlin, Hamlin & McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 100 Constitution Ave
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Albuquerque
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '87109'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: slippin-jimmy@saul-good.man
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        revision_locked_fields:
+          type: array
+        validation:
+          title: Validation status of an Address
+          properties:
+            status:
+              type: string
+              enum:
+              - unvalidated
+              - validated
+              - warning
+              - error
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  is_commercial:
+                    default: false
+                    anyOf:
+                    - type: boolean
+                    - type: 'null'
+                  street1:
+                    type: string
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  zip:
+                    type: string
+                  country_code:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - city
+                - state
+                - zip
+                - street1
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+          required:
+          - status
+          - additional_text
+          - suggested
+          additionalProperties: false
+          anyOf:
+          - type: object
+          - type: 'null'
+      required:
+      - name
+      - company
+      - street1
+      - street2
+      - city
+      - state
+      - zip
+      - country
+      - email
+      - phone
+    return_order_code:
+      title: Return Order Code Schema
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+      required:
+      - code
+      - description
+    v3_tag_list:
+      title: Tag List Schema
+      type: object
+      properties:
+        count:
+          type: integer
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_tag'
+        limit:
+          type: integer
+          default: 10
+        offset:
+          type: integer
+          default: 0
+      required:
+      - count
+      - tag
+      - limit
+      - offset
+    post_return_order:
+      title: Create a Return Order
+      type: object
+      additionalProperties: false
+      properties:
+        reference_id:
+          type: string
+        original_order_number:
+          type: string
+        warehouse_id:
+          type: integer
+        customer_address:
+          $ref: '#/components/schemas/v1_address'
+        return_to_address:
+          $ref: '#/components/schemas/v1_address'
+        customer_notes:
+          type: string
+        internal_notes:
+          type: string
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              sku:
+                type: string
+              expected_quantity:
+                type: number
+      required:
+      - reference_id
+      - customer_address
+      - lines
+    get_v3_tag_list:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: GET Tag List Schema
+      properties:
+        limit:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+        offset:
+          type: integer
+          default: 0
+        id:
+          type: array
+          items:
+            type: integer
+      additionalProperties: false
+      anyOf:
+      - type: object
+      - type: 'null'
+    shipping_info:
+      title: Shipping Info Schema
+      type: object
+      properties:
+        delivery_confirmation:
+          description: delivery or signature confirmation requested to the carrier at the time of label creation. Should be of type string.
+        tracking_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+        package_tracking:
+          anyOf:
+          - type: string
+          - type: 'null'
+        tracking_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cost:
+          type: number
+        transaction_fee:
+          type: number
+        link:
+          type: string
+        shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        display_shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        ship_date:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        has_label:
+          type: boolean
+        has_additional_docs:
+          type: boolean
+        created_date:
+          type: string
+        carrier_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+        carrier:
+          properties:
+            id:
+              type: integer
+            link:
+              type: string
+          anyOf:
+          - type: object
+          - type: 'null'
+        estimated_delivery_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+        box_shape:
+          anyOf:
+          - type: string
+          - type: 'null'
+        length:
+          description: 'deprecated: Length in inches, see packages'
+          anyOf:
+          - type: number
+          - type: 'null'
+        width:
+          description: 'deprecated: Width in inches, see packages'
+          anyOf:
+          - type: number
+          - type: 'null'
+        height:
+          description: 'deprecated: Height in inches, see packages'
+          anyOf:
+          - type: number
+          - type: 'null'
+        insurance:
+          description: Insurance data if Ordoro discounted Shipsurance is used
+          anyOf:
+          - type: object
+          - type: 'null'
+        insured_value:
+          description: value of the package if it was insured using Ordoro discounted Shipsurance
+          anyOf:
+          - type: number
+          - type: 'null'
+        customs_info:
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              country:
+                anyOf:
+                - type: string
+                - type: 'null'
+              description:
+                anyOf:
+                - type: string
+                - type: 'null'
+              quantity:
+                anyOf:
+                - type: integer
+                - type: 'null'
+              value:
+                description: Dollar value of customs line
+                format: double
+                anyOf:
+                - type: number
+                - type: 'null'
+              weight:
+                description: Weight of customs line in ounces
+                anyOf:
+                - type: number
+                - type: 'null'
+          anyOf:
+          - type: array
+          - type: 'null'
+        ship_from:
+          description: optionally exists if a ship_from address was used to create a label or tracking
+          $ref: '#/components/schemas/address'
+        reference_number:
+          description: reference number sent to the carrier for the shipment
+          anyOf:
+          - type: string
+          - type: 'null'
+        return_to:
+          $ref: '#/components/schemas/address'
+        ship_to:
+          description: optionally exists if a ship_to address was used to create a label or tracking
+          $ref: '#/components/schemas/address'
+        status:
+          description: tracking status if available from USPS carrier
+          anyOf:
+          - type: string
+          - type: 'null'
+        carrier_updated_date:
+          description: the last date that the carrier updated the tracking status, currently only used for USPS shipments
+          anyOf:
+          - type: string
+          - type: 'null'
+        presets:
+          type: array
+          items:
+            type: integer
+        packages:
+          items:
+            type: object
+          anyOf:
+          - type: array
+          - type: 'null'
+        packing_list_id:
+          description: id of packing list profile template used to create this label
+          anyOf:
+          - type: integer
+          - type: 'null'
+        print_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+        label_image_link:
+          anyOf:
+          - type: string
+          - type: 'null'
+        void:
+          type: boolean
+        zone:
+          anyOf:
+          - type: string
+          - type: 'null'
+    v3_tag:
+      title: V3 Tag Schema
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        color:
+          type: string
+      required:
+      - id
+      - name
+      - color
+    put_v3_tag:
+      title: Update a Tag
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        color:
+          type: string
+    return_order_list:
+      type: object
+      properties:
+        limit:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+        offset:
+          type: integer
+          default: 0
+        count:
+          type: integer
+        return_order:
+          type: array
+          items:
+            $ref: '#/components/schemas/return_order'
+      required:
+      - limit
+      - offset
+      - count
+      - return_order
+    v1_address:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        reference_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        _link:
+          anyOf:
+          - type: string
+          - type: 'null'
+        _linkaddresscreatedtaskstatus:
+          anyOf:
+          - type: string
+          - type: 'null'
+        validation:
+          properties:
+            is_error:
+              type: boolean
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  city:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  zip:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  street1:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  is_commercial:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  state:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  country_code:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+          anyOf:
+          - type: object
+          - type: 'null'
+    return_order:
+      title: Return Order Schema
+      type: object
+      properties:
+        reference_id:
+          type: string
+        original_order_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+        status:
+          type: string
+        customer_address:
+          $ref: '#/components/schemas/address'
+        return_to_address:
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/address'
+        warehouse_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+        customer_notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+        internal_notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+        has_shipping_info:
+          type: boolean
+        label_infos:
+          type: array
+          items:
+            type: integer
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              line_id:
+                type: integer
+              sku:
+                type: string
+              product_name:
+                type: string
+              product_serial_numbers:
+                type: array
+                items:
+                  type: string
+              code:
+                oneOf:
+                - type: 'null'
+                - $ref: '#/components/schemas/return_order_code'
+              restock_warehouse_id:
+                anyOf:
+                - type: integer
+                - type: 'null'
+              line_notes:
+                anyOf:
+                - type: string
+                - type: 'null'
+              total_price:
+                type: number
+              expected_quantity:
+                type: number
+              received_quantity:
+                type: number
+              restocked_quantity:
+                type: number
+            required:
+            - line_id
+            - sku
+            - product_name
+            - code
+            - restock_warehouse_id
+            - line_notes
+            - total_price
+            - expected_quantity
+            - received_quantity
+            - restocked_quantity
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/comment'
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_tag'
+        created_date:
+          type: string
+        shipping_infos:
+          type: array
+          items:
+            $ref: '#/components/schemas/shipping_info'
+        updated_date:
+          type: string
+    comment:
+      title: Comment Schema
+      type: object
+      additionalProperties: false
+      properties:
+        user:
+          type: string
+        date:
+          type: string
+          format: date-time
+        text:
+          type: string
+  parameters:
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0

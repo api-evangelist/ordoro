@@ -1,0 +1,410 @@
+openapi: 3.0.0
+info:
+  title: Ordoro API Documentation Address Warehouse API
+  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://api.ordoro.com/
+  variables: {}
+tags:
+- name: Warehouse
+  description: ''
+paths:
+  /warehouse/:
+    get:
+      tags:
+      - Warehouse
+      summary: List Warehouses
+      description: ''
+      operationId: Warehouse_GET
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/searchParam'
+      - name: sort
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/warehouseSort'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/warehouse_list'
+      deprecated: false
+    post:
+      tags:
+      - Warehouse
+      summary: Create a Warehouse
+      description: ''
+      operationId: Warehouse_POST
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_warehouse'
+      responses:
+        '201':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/warehouse'
+      deprecated: false
+  /warehouse/{warehouse_id}/:
+    get:
+      tags:
+      - Warehouse
+      summary: Get a Warehouse by ID
+      description: ''
+      operationId: WarehouseByWarehouseId_GET
+      parameters:
+      - $ref: '#/components/parameters/warehouseIDPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/warehouse'
+      deprecated: false
+    put:
+      tags:
+      - Warehouse
+      summary: Update a Warehouse by ID
+      description: ''
+      operationId: WarehouseByWarehouseId_PUT
+      parameters:
+      - name: warehouse_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_warehouse'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/warehouse'
+      deprecated: false
+  /warehouse/{warehouse_id}/make_default/:
+    post:
+      tags:
+      - Warehouse
+      summary: Set a Warehouse to the Default by ID
+      description: ''
+      operationId: WarehouseMakeDefaultByWarehouseId_POST
+      parameters:
+      - $ref: '#/components/parameters/warehouseIDPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/warehouse'
+      deprecated: false
+components:
+  schemas:
+    address:
+      title: Address Schema
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        name:
+          example: Jimmy McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          example: Hamlin, Hamlin & McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 100 Constitution Ave
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Albuquerque
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '87109'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: slippin-jimmy@saul-good.man
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        revision_locked_fields:
+          type: array
+        validation:
+          title: Validation status of an Address
+          properties:
+            status:
+              type: string
+              enum:
+              - unvalidated
+              - validated
+              - warning
+              - error
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  is_commercial:
+                    default: false
+                    anyOf:
+                    - type: boolean
+                    - type: 'null'
+                  street1:
+                    type: string
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  zip:
+                    type: string
+                  country_code:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - city
+                - state
+                - zip
+                - street1
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+          required:
+          - status
+          - additional_text
+          - suggested
+          additionalProperties: false
+          anyOf:
+          - type: object
+          - type: 'null'
+      required:
+      - name
+      - company
+      - street1
+      - street2
+      - city
+      - state
+      - zip
+      - country
+      - email
+      - phone
+    post_warehouse:
+      title: Post Warehouse Schema
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/warehouse_address'
+      - properties:
+          cart_id:
+            type: integer
+    put_warehouse:
+      title: Post Warehouse Schema
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/warehouse_address'
+      - properties:
+          cart_id:
+            type: integer
+    warehouse_list:
+      type: object
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        count:
+          type: integer
+        warehouse:
+          type: array
+          items:
+            $ref: '#/components/schemas/warehouse'
+      required:
+      - limit
+      - offset
+      - count
+      - warehouse
+    warehouse_address:
+      title: Warehouse Address Schema
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          example: Hangar 51
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 123 Secret Street
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Roswell
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '88201'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: indiana@drjones.com
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+      required:
+      - name
+    warehouse:
+      title: Warehouse Schema
+      additionalProperties: false
+      type: object
+      properties:
+        _link:
+          type: string
+        id:
+          type: integer
+        address:
+          $ref: '#/components/schemas/address'
+        cart:
+          anyOf:
+          - type: string
+          - type: 'null'
+        is_configured_for_shipping:
+          type: boolean
+        is_default_location:
+          type: boolean
+      required:
+      - id
+      - address
+      - cart
+      - is_configured_for_shipping
+      - is_default_location
+    warehouseSort:
+      title: Warehouse Sort
+      enum:
+      - name
+      - -name
+      type: string
+  parameters:
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    warehouseIDPath:
+      name: warehouse_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0

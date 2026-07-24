@@ -1,0 +1,2198 @@
+openapi: 3.0.0
+info:
+  title: Ordoro API Documentation Address Product API
+  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://api.ordoro.com/
+  variables: {}
+tags:
+- name: Product
+  description: ''
+paths:
+  /product/:
+    get:
+      tags:
+      - Product
+      summary: List Products
+      description: ''
+      operationId: Product_GET
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/searchParam'
+      - name: sort
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/ProductSort'
+      - name: fba
+        in: query
+        description: 'Filter products by sales channel FBA (Fulfilled By Amazon) status. This is only applicable for products tied to at least one Amazon sales channel.
+
+          * `true` will include any products that are considred FBA by at least one sales channel
+
+          * `false` will exclude any products that are considred FBA by at least one sales channel
+
+          '
+        style: form
+        schema:
+          type: boolean
+      - name: fbm
+        in: query
+        description: 'Filter products by sales channel FBM (Fulfilled By Merchant) status. This is only applicable for products tied to at least one Amazon sales channel.
+
+          * `true` will include any products that are considred FBM by at least one sales channel
+
+          * `false` will exclude any products that are considred FBM by at least one sales channel
+
+          '
+        style: form
+        schema:
+          type: boolean
+      - name: category
+        in: query
+        description: Filter by product category.
+        style: form
+        schema:
+          type: string
+      - name: hs_code
+        in: query
+        description: Filter by product Harmonized System Code.
+        style: form
+        schema:
+          type: string
+      - name: active
+        in: query
+        description: Filter by active `true` or inactive `false` products.
+        style: form
+        schema:
+          type: boolean
+      - name: kit
+        in: query
+        description: Filter products that are `true` or are not `false` kit parents.
+        style: form
+        schema:
+          type: boolean
+      - name: kit_component
+        in: query
+        description: Filter products that are `true` or are not `false` kit components.
+        style: form
+        schema:
+          type: boolean
+      - name: dropship
+        in: query
+        description: 'Filter by dropship status.
+
+          * `true` will return products that are either dropshippable or automatically dropshipped
+
+          * `false` will return only products handled in house
+
+          '
+        style: form
+        schema:
+          type: boolean
+      - name: needs_sync
+        in: query
+        description: Filter products who do `true` or do not `false` need have their inventory synced with one or more sales channels.
+        style: form
+        schema:
+          type: boolean
+      - name: supplier
+        in: query
+        description: 'Filter by supplier id.
+
+
+          Notes: The default behavior of this param is to filter by the product''s assigned suppliers.
+
+          However, if `reordered=true` is also passed, then this param will filter products that are listed on PO''s assigned to the included supplier id.
+
+          '
+        style: form
+        schema:
+          type: array
+          items:
+            type: integer
+      - name: sales_channel
+        in: query
+        description: Filter by sales channel id. Can be repeated for multiple sales channels.
+        style: form
+        schema:
+          type: array
+          items:
+            type: integer
+      - name: low_inventory_aoh
+        in: query
+        description: Filter products with `true` or without `false` low inventory with respect to available on hand
+        style: form
+        schema:
+          type: boolean
+      - name: low_inventory_poh
+        in: query
+        description: Filter products with `true` or without `false` low inventory with respect to physical on hand
+        style: form
+        schema:
+          type: boolean
+      - name: to_be_shipped
+        in: query
+        description: Filter products with `true` or without `false` committed inventory.
+        style: form
+        schema:
+          type: boolean
+      - name: oversold
+        in: query
+        description: Filter products that are `true` or are not `false` oversold.
+        style: form
+        schema:
+          type: boolean
+      - name: reordered
+        in: query
+        description: Filter products that are `true` or are not `false` reordered. Can be refined by also including the `warehouse_id` param.
+        style: form
+        schema:
+          type: boolean
+      - name: overallocated
+        in: query
+        description: Filter products that are `true` or are not `false` overallocated. Can be refined by also including the `warehouse_id` param.
+        style: form
+        schema:
+          type: boolean
+      - name: tag
+        in: query
+        description: 'Filter by tag name. Can be repeated for multiple tags.
+
+
+          Note: Cannot be included if `untagged` is also passed.
+
+          '
+        style: form
+        schema:
+          type: array
+          items:
+            type: string
+      - name: untagged
+        in: query
+        description: 'Filter untagged products
+
+
+          Note: Cannot be included if `tags` are also passed.
+
+          '
+        style: form
+        schema:
+          type: boolean
+      - name: tag_filter_by
+        in: query
+        description: 'Tag filtering logic:
+
+          * `or` [default] return products that contain any of the supplied tags
+
+          * `and` returns products containing ALL of the supplied tags
+
+          * `only` returns products containing ONLY the supplied tags
+
+          * `not` returns products that do not contain one or more of the supplied tags
+
+          '
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/tag_filter_by'
+      - name: warehouse_id
+        in: query
+        description: Filter by warehouse id. Can be repeated for multiple warehouses.
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+      - name: updated_after
+        in: query
+        description: Filter products updated after this date
+        style: form
+        schema:
+          type: string
+          format: date-time
+      - name: updated_before
+        in: query
+        description: Filter products updated before this date
+        style: form
+        schema:
+          type: string
+          format: date-time
+      - name: cart
+        in: query
+        description: Deprecated. Use `sales_channel` instead.
+        style: form
+        explode: true
+        schema:
+          type: integer
+        deprecated: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product_list'
+      deprecated: false
+    post:
+      tags:
+      - Product
+      summary: Create a Product
+      operationId: Product_POST
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_product'
+      responses:
+        '201':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+      deprecated: false
+  /product/{sku}/:
+    get:
+      tags:
+      - Product
+      summary: Get a product by SKU
+      description: ''
+      operationId: ProductBySku_GET
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+      deprecated: false
+    put:
+      tags:
+      - Product
+      summary: Update a product by SKU
+      operationId: ProductBySku_PUT
+      description: Update a product by SKU.
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_product'
+      deprecated: false
+  /product/{sku}/archive/:
+    post:
+      tags:
+      - Product
+      summary: Archive a product By SKU
+      description: ''
+      operationId: ProductArchiveBySku_POST
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+      deprecated: false
+  /product/{sku}/unarchive/:
+    post:
+      tags:
+      - Product
+      summary: Unarchive a product by SKU
+      description: ''
+      operationId: ProductUnarchiveBySku_POST
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /product/{sku}/fulfillment/:
+    put:
+      tags:
+      - Product
+      summary: Update a Product's Fulfillment by SKU
+      description: ''
+      operationId: ProductFulfillmentBySku_PUT
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_product_fulfillment'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+      deprecated: false
+  /product/{sku}/image/:
+    get:
+      tags:
+      - Product
+      summary: Get a Product's Images by SKU
+      description: ''
+      operationId: ProductImageBySku_GET
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+      - Product
+      summary: Add Images to a product by SKU
+      description: ''
+      operationId: ProductImageBySku_POST
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_product_image'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /product/{sku}/kit_component/:
+    post:
+      tags:
+      - Product
+      summary: Create a Product Kit Component by SKU
+      description: Add a `child_sku` as a kit component to the parent `sku`
+      operationId: ProductKitComponentBySku_POST
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      responses:
+        '201':
+          description: ''
+          headers: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_kit_component'
+      deprecated: false
+    put:
+      tags:
+      - Product
+      summary: Update a Product Kit Component by SKU
+      description: Update a `child_sku` of a parent `sku`
+      operationId: ProductKitComponentBySku_PUT
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_kit_component'
+      deprecated: false
+    delete:
+      tags:
+      - Product
+      summary: Delete a Product Kit Component by SKU
+      description: ''
+      operationId: ProductKitComponentBySku_DELETE
+      parameters:
+      - name: child_sku
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/skuPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /product/{sku}/kit_graph/:
+    get:
+      tags:
+      - Product
+      summary: Get a Product's Kit Graph by SKU
+      description: ''
+      operationId: ProductKitGraphBySku_GET
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /product/{sku}/supplier/{supplier_id}/:
+    put:
+      tags:
+      - Product
+      summary: Update a Product Supplier by SKU and Supplier ID
+      description: ''
+      operationId: ProductSupplierBySkuAndSupplierId_PUT
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - $ref: '#/components/parameters/supplierPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_product_supplier'
+      deprecated: false
+    delete:
+      tags:
+      - Product
+      summary: Delete a Product Supplier by SKU and Supplier ID
+      description: ''
+      operationId: ProductSupplierBySkuAndSupplierId_DELETE
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - name: supplier_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+      deprecated: false
+  /product/{sku}/default_supplier/:
+    delete:
+      tags:
+      - Product
+      summary: Delete a Product's Default Supplier by SKU
+      description: ''
+      operationId: ProductDefaultSupplierBySku_DELETE
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /product/{sku}/default_supplier/{supplier_id}/:
+    post:
+      tags:
+      - Product
+      summary: Create a Product's Default Supplier by SKU and Supplier ID
+      description: ''
+      operationId: ProductDefaultSupplierBySkuAndSupplierId_POST
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - $ref: '#/components/parameters/supplierPath'
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /product/{sku}/cart/{cart_id}/:
+    get:
+      tags:
+      - Product
+      summary: Get a Product Cart Bridge by SKU and Cart ID
+      description: ''
+      operationId: ProductCartBySkuAndCartId_GET
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - name: cart_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    put:
+      tags:
+      - Product
+      summary: Update a Product Cart Bridge by SKU and Cart ID
+      description: ''
+      operationId: ProductCartBySkuAndCartId_GET
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - name: cart_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_product_cart_bridge'
+      deprecated: false
+  /product/{sku}/cart/{cart_id}/extra_info/:
+    get:
+      tags:
+      - Product
+      summary: Get a Product's Extra Info by SKU and Cart ID
+      description: ''
+      operationId: ProductCartExtraInfoBySkuAndCartId_GET
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/searchParam'
+      - name: sort
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: cart_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+      - Product
+      summary: Create a Product's Extra Info by SKU and Cart ID
+      description: ''
+      operationId: ProductCartExtraInfoBySkuAndCartId_POST
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - name: cart_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+        '201':
+          description: ''
+          headers: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_product_extra_info'
+      deprecated: false
+  /product/{sku}/cart/{cart_id}/extra_info/{extra_info_id}:
+    put:
+      tags:
+      - Product
+      summary: Update a Product's Extra Info by SKU/Cart ID/Extra Info ID
+      description: ''
+      operationId: ProductCartExtraInfoBySkuAndCartIdandExtraInfoId_PUT
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - name: cart_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      - name: extra_info_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_product_extra_info'
+      deprecated: false
+  /product/{sku}/tag/{name}/:
+    post:
+      tags:
+      - Product
+      summary: Add a tag to a product by SKU and Tag Name
+      description: ''
+      operationId: ProductTagBySkuAndName_POST
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - name: name
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+      - Product
+      summary: Delete a Product Tag by SKU and Tag Name
+      description: ''
+      operationId: ProductTagBySkuAndName_DELETE
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - name: name
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /product/{sku}/warehouse/{warehouse_id}/:
+    put:
+      tags:
+      - Product
+      summary: Update a Product Warehouse by SKU and Warehouse ID
+      description: Update a product's warehouse by SKU and Warehouse ID. Use this endpoint to set inventory values.
+      operationId: ProductWarehouseBySkuAndWarehouseId_PUT
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - $ref: '#/components/parameters/warehouseIDPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_product_warehouse'
+      deprecated: false
+  /product/{sku}/default_dropshipper/:
+    delete:
+      tags:
+      - Product
+      summary: Delete a Product Default Dropshipper by SKU
+      description: ''
+      operationId: ProductDefaultDropshipperBySku_DELETE
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: true
+  /product/{sku}/default_dropshipper/{supplier_id}/:
+    post:
+      tags:
+      - Product
+      summary: Create a Product Default Dropshipper by SKU
+      description: ''
+      operationId: ProductDefaultDropshipperBySku_POST
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - $ref: '#/components/parameters/supplierPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: true
+  /product/{sku}/buy/{supplier_id}/:
+    post:
+      tags:
+      - Product
+      summary: Create a Purchase Order by SKU and Supplier ID
+      description: Order More of a product. This will create or update an existing Purchase Order
+      operationId: ProductBuyBySkuAndSupplierId_POST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_buy_more'
+      parameters:
+      - $ref: '#/components/parameters/skuPath'
+      - $ref: '#/components/parameters/supplierPath'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/purchase_order'
+        '201':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/purchase_order'
+      deprecated: false
+  /product/tag/:
+    get:
+      tags:
+      - Product
+      summary: List Product Tags
+      description: ''
+      operationId: ProductTag_GET
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: response OK
+          content:
+            application/json:
+              example:
+                count: 2
+                tag:
+                - color: '#ff0'
+                  text: Unpaid
+                  link: /tag/1
+                  id: 1
+                - color: '#f7dbe7'
+                  text: Tag
+                  link: /tag/3
+                  id: 3
+                limit: 10
+                offset: 0
+              schema:
+                $ref: '#/components/schemas/v3_tag_list'
+      deprecated: false
+    post:
+      tags:
+      - Product
+      summary: Create a Product Tag
+      description: ''
+      operationId: ProductTag_POST
+      parameters: []
+      responses:
+        '201':
+          description: response OK
+          content:
+            application/json:
+              title: V3 Tag Schema
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                color:
+                  type: string
+              required:
+              - id
+              - name
+              - color
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v3_tag'
+      deprecated: false
+  /product/tag/{tagNamePath}/:
+    get:
+      tags:
+      - Product
+      summary: Get a Product Tag By Name
+      description: ''
+      operationId: ProductTagWithName_GET
+      parameters: []
+      responses:
+        '200':
+          description: response OK
+          content:
+            application/json:
+              example:
+                count: 2
+                tag:
+                - color: '#ff0'
+                  text: Unpaid
+                  link: /tag/1
+                  id: 1
+                - color: '#f7dbe7'
+                  text: Tag
+                  link: /tag/3
+                  id: 3
+                limit: 10
+                offset: 0
+              schema:
+                $ref: '#/components/schemas/v3_tag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/get_v3_tag_list'
+      deprecated: false
+    put:
+      tags:
+      - Product
+      summary: Update a Product Tag
+      description: ''
+      operationId: ProductTag_PUT
+      parameters: []
+      responses:
+        '200':
+          description: response OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v3_tag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/put_v3_tag'
+      deprecated: false
+    delete:
+      tags:
+      - Product
+      summary: Delete a Product Tag
+      description: ''
+      operationId: ProductTag_DELETE
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+components:
+  schemas:
+    supplier_shipping_method_map:
+      title: Supplier shipping method map
+      type: object
+      additionalProperties: false
+      properties:
+        active:
+          description: Toggle to enable use of this shipping method map
+          type: boolean
+        created:
+          description: The date this was created
+          type: string
+        id:
+          description: internal reference identifier for the supplier shipping method map
+          type: integer
+        requested_shipping_method:
+          default: ''
+          description: User defined requested shipping method on an Order to be mapped to a determinate shipping method
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_method:
+          description: 'FBA defined shipping methods will only be one of the following: [''Expedited'', ''Priority'', ''Standard'']. All others can be freeform to suit the supplier'
+          type: string
+        mapped_shipping_account:
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+        supplier_id:
+          description: Integer indicating the supplier for which this mapping is tied.
+          type: integer
+        updated:
+          description: The latest updated date
+          type: string
+      required:
+      - active
+      - created
+      - id
+      - requested_shipping_method
+      - mapped_shipping_method
+      - mapped_shipping_account
+      - mapped_shipping_carrier
+      - supplier_id
+      - updated
+    put_product_supplier:
+      title: Update a Product Supplier Schema
+      type: object
+      additionalProperties: false
+      properties:
+        supplier_price:
+          type: number
+        is_default:
+          type: boolean
+        supplier_sku:
+          type: string
+        min_order_qty:
+          type: integer
+      required:
+      - supplier_price
+      - is_default
+    tag_filter_by:
+      title: tag_filter_by
+      enum:
+      - or
+      - and
+      - only
+      - not
+      type: string
+    extra_info_shopify:
+      title: Shopify Extra Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        inventory_item_id:
+          type: number
+        location_ids:
+          type: array
+          items:
+            type: string
+    put_product:
+      title: Product Post Schema
+      type: object
+      additionalProperties: true
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        hs_code:
+          type: string
+        country_of_origin:
+          type: string
+        customs_description:
+          type: string
+        declared_value:
+          type: number
+        price:
+          type: number
+        weight:
+          type: number
+        length:
+          type: integer
+        width:
+          type: integer
+        height:
+          type: integer
+        taxable:
+          type: string
+        cost:
+          type: number
+        type:
+          type: string
+        upc:
+          type: string
+        asin:
+          type: string
+        internal_notes:
+          type: string
+        cart:
+          type: integer
+        sync:
+          type: boolean
+        original_sku:
+          type: string
+        variant_sku:
+          type: string
+        inventory_changed:
+          type: boolean
+        max_export_qty:
+          type: integer
+        images:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/product_image'
+        tags:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v3_tag'
+      oneOf:
+      - title: Amazon Extra Info
+        properties:
+          amazon_extra_info:
+            $ref: '#/components/schemas/extra_info_amazon'
+      - title: ChannelAdvisor Extra Info
+        properties:
+          channeladvisor_extra_info:
+            $ref: '#/components/schemas/extra_info_channeladvisor'
+      - title: Ebay Extra Info
+        properties:
+          ebay_extra_info:
+            $ref: '#/components/schemas/extra_info_ebay'
+      - title: Etsy Extra Info
+        properties:
+          etsy_extra_info:
+            $ref: '#/components/schemas/extra_info_etsy'
+      - title: Shopify Extra Info
+        properties:
+          shopify_extra_info:
+            $ref: '#/components/schemas/extra_info_shopify'
+      - title: Square Extra Info
+        properties:
+          square_extra_info:
+            $ref: '#/components/schemas/extra_info_square'
+      - title: Walmart Extra Info
+        properties:
+          walmart_extra_info:
+            $ref: '#/components/schemas/extra_info_walmart'
+      - title: Wayfair Extra Info
+        properties:
+          wayfair_extra_info:
+            $ref: '#/components/schemas/extra_info_wayfair'
+    product_image:
+      title: Product Image Schema
+      type: object
+      additionalProperties: false
+      properties:
+        url:
+          type: string
+        is_default:
+          type: boolean
+    v3_tag:
+      title: V3 Tag Schema
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        color:
+          type: string
+      required:
+      - id
+      - name
+      - color
+    product_list:
+      title: Product List Response schema
+      type: object
+      properties:
+        limit:
+          type: integer
+          example: 1
+        offset:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 46
+        products:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/product_base'
+            - properties:
+                warehouses:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/inventory_as_warehouse'
+                kit_components:
+                  type: array
+                  items:
+                    FIXME: object
+                carts:
+                  type: array
+                  items:
+                    FIXME: object
+                suppliers:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/supplier'
+                to_be_shipped:
+                  type: number
+                available_on_hand:
+                  type: number
+                on_pos:
+                  type: number
+    put_product_warehouse:
+      title: Update a Product Warehouse Schema
+      type: object
+      additionalProperties: false
+      oneOf:
+      - type: object
+        title: Set On Hand
+        description: Set the on hand quantity to a specific value
+        properties:
+          on_hand:
+            type: number
+      - type: object
+        title: Adjust by Amount
+        description: Adjust the on hand quantity by adjustment amount
+        properties:
+          adjustment:
+            type: number
+      properties:
+        low_stock_threshold:
+          anyOf:
+          - type: 'null'
+          - type: number
+        out_of_stock_threshold:
+          anyOf:
+          - type: 'null'
+          - type: number
+        location_in_warehouse:
+          type: string
+    extra_info_amazon:
+      title: Amazon Extra Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        item_is_marketplace:
+          type: string
+        fulfillment_channel:
+          type: string
+          enum:
+          - DEFAULT
+          - AMAZON_NA
+          - AMAZON_EU
+          - AMAZON_CA
+          - AMAZON_JP
+          - AMAZON_CN
+          - AMAZON_UK
+        fulfillment_latency:
+          anyOf:
+          - type: integer
+          - type: 'null'
+        pending_quantity:
+          type: number
+        listing_id:
+          type: string
+        asin:
+          type: string
+        item_condition:
+          anyOf:
+          - type: integer
+          - type: 'null'
+        category:
+          type: string
+        item_note:
+          type: string
+    goods_receipt:
+      title: Goods Receipt Schema
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+        po_id:
+          type: string
+        po_status:
+          type: string
+        goods_receipt_id:
+          type: string
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        received:
+          type: string
+          format: date-time
+        _link:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              po_item_id:
+                type: string
+              quantity:
+                type: integer
+              _link:
+                type: string
+              product:
+                $ref: '#/components/schemas/product_base'
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/comment'
+    address:
+      title: Address Schema
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        name:
+          example: Jimmy McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          example: Hamlin, Hamlin & McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 100 Constitution Ave
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Albuquerque
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '87109'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: slippin-jimmy@saul-good.man
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        revision_locked_fields:
+          type: array
+        validation:
+          title: Validation status of an Address
+          properties:
+            status:
+              type: string
+              enum:
+              - unvalidated
+              - validated
+              - warning
+              - error
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  is_commercial:
+                    default: false
+                    anyOf:
+                    - type: boolean
+                    - type: 'null'
+                  street1:
+                    type: string
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  zip:
+                    type: string
+                  country_code:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - city
+                - state
+                - zip
+                - street1
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+          required:
+          - status
+          - additional_text
+          - suggested
+          additionalProperties: false
+          anyOf:
+          - type: object
+          - type: 'null'
+      required:
+      - name
+      - company
+      - street1
+      - street2
+      - city
+      - state
+      - zip
+      - country
+      - email
+      - phone
+    extra_info_wayfair:
+      title: Wayfair Extra Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        location_ids:
+          type: array
+          items:
+            type: string
+    put_product_fulfillment:
+      title: Update Product Fulfillment
+      type: object
+      properties:
+        fulfillment_type:
+          type: string
+          enum:
+          - in_house
+          - dropshippable
+          - automatically_dropshipped
+        default_supplier_id:
+          type: integer
+      required:
+      - fulfillment_type
+      additionalProperties: false
+    extra_info_ebay:
+      title: Ebay Extra Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        item_id:
+          type: string
+        listing_type:
+          type: string
+        status:
+          type: string
+    v3_tag_list:
+      title: Tag List Schema
+      type: object
+      properties:
+        count:
+          type: integer
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_tag'
+        limit:
+          type: integer
+          default: 10
+        offset:
+          type: integer
+          default: 0
+      required:
+      - count
+      - tag
+      - limit
+      - offset
+    post_product_image:
+      title: Product Images Schema
+      type: object
+      oneOf:
+      - type: object
+        properties:
+          images:
+            type: array
+            items:
+              type: object
+              $ref: '#/components/schemas/product_image'
+        additionalProperties: false
+      - type: object
+        $ref: '#/components/schemas/product_image'
+    put_product_cart_bridge:
+      title: Update Product Cart Bridge Schema
+      type: object
+      additionalProperties: false
+      properties:
+        sync:
+          type: boolean
+        inventory_changed:
+          type: boolean
+        reserve_export_qty:
+          type: integer
+        percent_export_qty:
+          type: integer
+        max_export_qty:
+          anyOf:
+          - type: integer
+          - type: 'null'
+        min_export_qty:
+          anyOf:
+          - type: integer
+          - type: 'null'
+        amazon_extra_info:
+          ref: object/amazon_extra_info.json
+        walmart_extra_info:
+          ref: object/walmart_extra_info.json
+    warehouse:
+      title: Warehouse Schema
+      additionalProperties: false
+      type: object
+      properties:
+        _link:
+          type: string
+        id:
+          type: integer
+        address:
+          $ref: '#/components/schemas/address'
+        cart:
+          anyOf:
+          - type: string
+          - type: 'null'
+        is_configured_for_shipping:
+          type: boolean
+        is_default_location:
+          type: boolean
+      required:
+      - id
+      - address
+      - cart
+      - is_configured_for_shipping
+      - is_default_location
+    post_buy_more:
+      title: Buy More Products Request Schema
+      type: object
+      additionalProperties: false
+      properties:
+        warehouse:
+          type: integer
+        quantity:
+          type: integer
+        unit_price:
+          type: number
+        discount_amount:
+          type: number
+        po_id:
+          type: string
+      required:
+      - warehouse
+      - quantity
+    extra_info_walmart:
+      title: Walmart Extra Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        fulfillment_latency:
+          anyOf:
+          - type: integer
+          - type: 'null'
+        wpid:
+          type: string
+    post_kit_component:
+      title: Create a Kit Component
+      type: object
+      additionalProperties: false
+      properties:
+        child_sku:
+          type: string
+        quantity:
+          type: number
+      required:
+      - child_sku
+    extra_info_etsy:
+      title: Etsy Extra Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        listing_id:
+          type: string
+        product_id:
+          type: string
+        offering_id:
+          type: string
+    put_v3_tag:
+      title: Update a Tag
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        color:
+          type: string
+    get_v3_tag_list:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: GET Tag List Schema
+      properties:
+        limit:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+        offset:
+          type: integer
+          default: 0
+        id:
+          type: array
+          items:
+            type: integer
+      additionalProperties: false
+      anyOf:
+      - type: object
+      - type: 'null'
+    ProductSort:
+      title: sort
+      enum:
+      - name
+      - -name
+      - sku
+      - -sku
+      - created
+      - -created
+      - default_supplier
+      - -default_supplier
+      - total_committed
+      - -total_committed
+      - total_available
+      - -total_available
+      - total_on_hand
+      - -total_on_hand
+      - po_total_committed
+      - -po_total_committed
+      type: string
+    comment:
+      title: Comment Schema
+      type: object
+      additionalProperties: false
+      properties:
+        user:
+          type: string
+        date:
+          type: string
+          format: date-time
+        text:
+          type: string
+    post_product:
+      title: Product Post Schema
+      type: object
+      additionalProperties: true
+      properties:
+        sku:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        hs_code:
+          type: string
+        country_of_origin:
+          type: string
+        customs_description:
+          type: string
+        declared_value:
+          type: number
+        price:
+          type: number
+        weight:
+          type: number
+        length:
+          type: integer
+        width:
+          type: integer
+        height:
+          type: integer
+        taxable:
+          type: string
+        cost:
+          type: number
+        type:
+          type: string
+        upc:
+          type: string
+        asin:
+          type: string
+        internal_notes:
+          type: string
+        physical_on_hand:
+          type: number
+        location_in_warehouse:
+          type: string
+        low_stock_threshold:
+          type: number
+        out_of_stock_threshold:
+          type: number
+        cart:
+          type: integer
+        sync:
+          type: boolean
+        original_sku:
+          type: string
+        variant_sku:
+          type: string
+        inventory_changed:
+          type: boolean
+        max_export_qty:
+          type: integer
+        images:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/product_image'
+        tags:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v3_tag'
+      oneOf:
+      - title: Amazon Extra Info
+        properties:
+          amazon_extra_info:
+            $ref: '#/components/schemas/extra_info_amazon'
+      - title: ChannelAdvisor Extra Info
+        properties:
+          channeladvisor_extra_info:
+            $ref: '#/components/schemas/extra_info_channeladvisor'
+      - title: Ebay Extra Info
+        properties:
+          ebay_extra_info:
+            $ref: '#/components/schemas/extra_info_ebay'
+      - title: Etsy Extra Info
+        properties:
+          etsy_extra_info:
+            $ref: '#/components/schemas/extra_info_etsy'
+      - title: Shopify Extra Info
+        properties:
+          shopify_extra_info:
+            $ref: '#/components/schemas/extra_info_shopify'
+      - title: Square Extra Info
+        properties:
+          square_extra_info:
+            $ref: '#/components/schemas/extra_info_square'
+      - title: Walmart Extra Info
+        properties:
+          walmart_extra_info:
+            $ref: '#/components/schemas/extra_info_walmart'
+      - title: Wayfair Extra Info
+        properties:
+          wayfair_extra_info:
+            $ref: '#/components/schemas/extra_info_wayfair'
+      required:
+      - sku
+      - name
+    product_base:
+      title: Product Schema
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          example: Tangible
+        cost:
+          type: number
+          example: 4.95
+        id:
+          type: integer
+          example: 19551105
+        company_id:
+          type: integer
+          example: 1985
+        name:
+          type: string
+          example: Flux Capacitor
+        sku:
+          type: string
+          example: outa-time
+        taxable:
+          type: string
+        weight:
+          type: number
+          example: 1.21
+        length:
+          type: integer
+          example: 12
+        width:
+          type: integer
+          example: 4
+        height:
+          type: integer
+          example: 8
+        price:
+          type: number
+          example: 19.55
+        customer_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+        internal_notes:
+          example: Be sure to include the complimentary almanac
+          anyOf:
+          - type: string
+          - type: 'null'
+        total_on_hand:
+          type: number
+        category:
+          type: string
+          example: misc-timetravel
+        is_kit_parent:
+          type: boolean
+          example: false
+        archive_date:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        hs_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+        country_of_origin:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        customs_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+        created:
+          type: string
+          format: date-time
+          example: '2015-10-26T15:44:17.993588-06:00'
+        updated:
+          type: string
+          format: date-time
+          example: '2020-01-01T17:54:05.158248-06:00'
+        upc:
+          example: '847509005811'
+          anyOf:
+          - type: string
+          - type: 'null'
+        asin:
+          example: B07WXJHZ1L
+          anyOf:
+          - type: string
+          - type: 'null'
+        image_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+        default_image_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        _link:
+          anyOf:
+          - type: string
+          - type: 'null'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_tag'
+        total_committed:
+          type: number
+        total_available:
+          type: number
+        total_allocated:
+          type: number
+        total_unallocated:
+          type: number
+        po_total_committed:
+          type: number
+        fulfillment_type:
+          enum:
+          - in_house
+          - dropshippable
+          - automatically_dropshipped
+          anyOf:
+          - type: string
+          - type: 'null'
+    post_product_extra_info:
+      title: Product Post Extra Info Schema
+      type: object
+      additionalProperties: true
+      oneOf:
+      - $ref: '#/components/schemas/extra_info_amazon'
+      - $ref: '#/components/schemas/extra_info_channeladvisor'
+      - $ref: '#/components/schemas/extra_info_ebay'
+      - $ref: '#/components/schemas/extra_info_etsy'
+      - $ref: '#/components/schemas/extra_info_shopify'
+      - $ref: '#/components/schemas/extra_info_square'
+      - $ref: '#/components/schemas/extra_info_walmart'
+      - $ref: '#/components/schemas/extra_info_wayfair'
+    product:
+      title: Product Response Schema
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/product_base'
+      - properties:
+          warehouses:
+            type: array
+            items:
+              $ref: '#/components/schemas/inventory_as_warehouse'
+          kit_components:
+            type: array
+            items:
+              FIXME: object
+          carts:
+            type: array
+            items:
+              FIXME: object
+          suppliers:
+            type: array
+            items:
+              $ref: '#/components/schemas/supplier'
+          to_be_shipped:
+            type: number
+          available_on_hand:
+            type: number
+          on_pos:
+            type: number
+    inventory_as_warehouse:
+      title: Inventory as Warehouse Schema
+      additionalProperties: false
+      type: object
+      properties:
+        id:
+          type: integer
+        low_stock_threshold:
+          type: integer
+        out_of_stock_threshold:
+          type: integer
+        location_in_warehouse:
+          type: string
+        on_hand:
+          type: number
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        always_dropship:
+          type: boolean
+        address:
+          $ref: '#/components/schemas/address'
+        cart:
+          type: string
+        is_configured_for_shipping:
+          type: boolean
+        is_default_location:
+          type: boolean
+        physical_on_hand:
+          type: number
+        available:
+          type: number
+        committed:
+          type: number
+        allocated:
+          type: number
+        unallocated:
+          type: number
+        po_committed:
+          type: number
+    extra_info_channeladvisor:
+      title: ChannelAdvisor Extra Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        distribution_center_code:
+          type: string
+    supplier:
+      additionalProperties: false
+      properties:
+        _link:
+          type: string
+        address:
+          $ref: '#/components/schemas/address'
+        archive_date:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        automatically_show_ship_to_email:
+          type: boolean
+        automatically_show_supplier_price:
+          type: boolean
+        company_id:
+          type: integer
+        created:
+          format: date-time
+          type: string
+        default_shipping_account:
+          type: string
+        default_shipping_carrier:
+          type: string
+        default_shipping_method:
+          type: string
+        dropship_prefer_cart_order_line_names:
+          type: integer
+        dropshipment_routing_address:
+          type: string
+        dropshipment_routing_channel:
+          type: string
+        id:
+          type: integer
+        po_routing_address:
+          type: string
+        po_routing_channel:
+          type: string
+        shipping_method_maps:
+          items:
+            $ref: '#/components/schemas/supplier_shipping_method_map'
+          type: array
+        updated:
+          format: date-time
+          type: string
+        vendor_config:
+          type: object
+        warehouse_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+      required:
+      - id
+      - company_id
+      - warehouse_id
+      - created
+      - updated
+      - archive_date
+      - automatically_show_supplier_price
+      - dropship_prefer_cart_order_line_names
+      - address
+      - vendor_config
+      title: Supplier Schema
+      type: object
+    extra_info_square:
+      title: Square Extra Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        v2_product_id:
+          type: string
+        location_ids:
+          type: array
+          items:
+            type: string
+    purchase_order:
+      title: Purchase Order Schema
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+        company_id:
+          type: integer
+        po_id:
+          type: string
+        shipping_method:
+          type: string
+        payment_method:
+          type: string
+        instructions:
+          type: string
+        sent:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        estimated_delivery_date:
+          type: string
+          format: date-time
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        shipping_amount:
+          type: number
+        tax_amount:
+          type: number
+        discount_amount:
+          type: number
+        _link:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              quantity:
+                type: integer
+              unit_price:
+                type: number
+              discount_amount:
+                type: number
+              _link:
+                type: string
+              product:
+                allOf:
+                - $ref: '#/components/schemas/product_base'
+                - properties:
+                    supplier:
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        sku:
+                          type: string
+                        price:
+                          type: number
+                        unit_price:
+                          type: number
+                    warehouse:
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        location_in_warehouse:
+                          type: string
+              to_be_shipped:
+                type: number
+              available_on_hand:
+                type: number
+              quantity_received:
+                type: integer
+        supplier:
+          type: object
+          $ref: '#/components/schemas/supplier'
+        warehouse:
+          type: object
+          $ref: '#/components/schemas/warehouse'
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/comment'
+        goods_receipts:
+          type: array
+          items:
+            $ref: '#/components/schemas/goods_receipt'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_tag'
+  parameters:
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
+    supplierPath:
+      name: supplier_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    skuPath:
+      name: sku
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    warehouseIDPath:
+      name: warehouse_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0

@@ -1,0 +1,189 @@
+openapi: 3.0.0
+info:
+  title: Ordoro API Documentation Address Rule API
+  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://api.ordoro.com/
+  variables: {}
+tags:
+- name: Rule
+  description: ''
+paths:
+  /rule/:
+    get:
+      tags:
+      - Rule
+      summary: Get a list of Rules
+      description: ''
+      operationId: Rule_GET
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/searchParam'
+      - name: sort
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: latch
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/latch'
+      - name: active
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+      - Rule
+      summary: Create a Rule
+      description: Rules are used by the Automation Rules process in Ordoro. An `index` value determines where in the list the rule takes place. Rules have inner logic for determining an IF and THEN clause. Rules may only be run as an `order_created` latch at this time. The logic is obscured internally and this may be difficult to do via the API. We would suggest that you use the UI to make any updates to Rules
+      operationId: Rule_POST
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /rule/reorder/:
+    put:
+      tags:
+      - Rule
+      summary: Change rule indexes
+      description: Since rules are run sequentially, you may use this endpoint to reorder a set of rules and their respective indices to alter the order in which they are run.
+      operationId: RuleReorder_PUT
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /rule/{rule_id}/:
+    delete:
+      tags:
+      - Rule
+      summary: Delete a Rule by ID
+      description: ''
+      operationId: RuleByRuleId_DELETE
+      parameters:
+      - name: rule_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+      - Rule
+      summary: Get a Rule by ID
+      description: ''
+      operationId: RuleByRuleId_GET
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/searchParam'
+      - name: sort
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: latch
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/latch'
+      - name: active
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      - name: rule_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    put:
+      tags:
+      - Rule
+      summary: Update a Rule by ID
+      description: This may be used to alter the condition or action of a rule. The logic is obscured internally and this may be difficult to do via the API. We would suggest that you use the UI to make any updates to Rules.
+      operationId: RuleByRuleId_PUT
+      parameters:
+      - name: rule_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    latch:
+      title: latch
+      enum:
+      - order_created
+      type: string
+  parameters:
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0

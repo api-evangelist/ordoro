@@ -1,0 +1,415 @@
+openapi: 3.0.0
+info:
+  title: Ordoro API Documentation Address Integration API
+  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://api.ordoro.com/
+  variables: {}
+tags:
+- name: Integration
+  description: Currently Ordoro offers one type of integration to QuickBooks Online. Orders can be exported from Ordoro to QuickBooks using the integration.
+paths:
+  /integration/:
+    get:
+      tags:
+      - Integration
+      summary: Get a list of integrations
+      description: 'Get list of integrations - current integrations include: QuickBooks Online, Stripe'
+      operationId: Integration_GET
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/searchParam'
+      - name: sort
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: vendor
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/vendor'
+      - name: type
+        in: query
+        description: ''
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/type'
+      - name: all
+        in: query
+        description: allows inclusion of archived integrations
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Successfully retrieved list of integration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integration_list'
+      deprecated: false
+    post:
+      tags:
+      - Integration
+      summary: Create an integration
+      description: Each integration vendor has unique requirements, so the schema will depend on the value of the `vendor` parameter.
+      operationId: Integration_POST
+      parameters: []
+      responses:
+        '201':
+          description: Integration successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/one_of_integration_type'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              discriminator:
+                propertyName: vendor
+                mapping:
+                  quickbooks: '#/components/schemas/post_integration_quickbooks'
+                  stripe: '#/components/schemas/post_integration_stripe'
+                ondOf:
+                - $ref: '#/components/schemas/IntegrationQuickBooksNewRequest'
+                - $ref: '#/components/schemas/IntegrationStripeNewRequest'
+      deprecated: false
+  /integration/{integration_id}/:
+    get:
+      tags:
+      - Integration
+      summary: Get an integration by ID
+      description: ''
+      operationId: IntegrationByIntegrationId_GET
+      parameters:
+      - name: integration_id
+        in: path
+        description: the id of the integration to be retrieved
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/one_of_integration_type'
+          headers: {}
+      deprecated: false
+    put:
+      tags:
+      - Integration
+      summary: Update an integration
+      description: Each integration has unique requirements, so the schema will depend on the value of the existing integration's `vendor` parameter.
+      operationId: IntegrationByIntegrationId_PUT
+      parameters:
+      - name: integration_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/one_of_integration_type'
+          headers: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/put_integration_quickbooks'
+              - $ref: '#/components/schemas/put_integration_stripe'
+      deprecated: false
+components:
+  schemas:
+    integration_stripe:
+      title: Stripe Integration Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/integration_stripe_vendor_config'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - stripe
+          vendor_display:
+            type: string
+            enum:
+            - Stripe
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/integration_stripe_vendor_config'
+      - $ref: '#/components/schemas/integration_base'
+    put_integration_base:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          description: The display name of this cart.
+          type: string
+        archived_date:
+          description: date of the integration to be archived
+          type: string
+    IntegrationStripeNewRequest:
+      $ref: '#/components/schemas/post_integration_stripe'
+    IntegrationQuickBooksNewRequest:
+      $ref: '#/components/schemas/post_integration_quickbooks'
+    one_of_integration_type:
+      oneOf:
+      - $ref: '#/components/schemas/integration_quickbooks-2'
+      - $ref: '#/components/schemas/integration_stripe-2'
+    integration_stripe_vendor_config:
+      type: object
+      properties:
+        stripe_user_id:
+          type: string
+        refresh_token:
+          type: string
+      required:
+      - stripe_user_id
+      - refresh_token
+    post_integration_base:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          description: A unique name for the integration
+          type: string
+        vendor:
+          description: The type of integration.
+          type: string
+          enum:
+          - quickbooks
+      required:
+      - vendor
+    type:
+      title: type
+      enum:
+      - financial
+      - payment
+      type: string
+    integration_stripe_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/integration_stripe_vendor_config'
+    integration_quickbooks_vendor_config:
+      type: object
+      properties:
+        access_token:
+          type: string
+        access_token_expiration:
+          type: string
+        refresh_token:
+          type: string
+        realm_id:
+          type: string
+        refresh_token_expiration:
+          type: string
+      required:
+      - access_token
+      - access_token_expiration
+      - refresh_token
+      - refresh_token_expiration
+      - realm_id
+    integration_quickbooks_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/integration_quickbooks_vendor_config'
+    integration_list:
+      type: object
+      title: Integration list schema
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        count:
+          type: integer
+        integration:
+          type: array
+          items:
+            $ref: '#/components/schemas/any_of_integration_type'
+      required:
+      - limit
+      - offset
+      - count
+      - order
+    put_integration_stripe:
+      title: Update Stripe Integration
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_integration_base'
+      - $ref: '#/components/schemas/integration_stripe_vendor_config'
+    post_integration_quickbooks:
+      title: QuickBooks Integration
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_integration_base'
+      - $ref: '#/components/schemas/integration_quickbooks_vendor_config'
+    integration_base_definitions-required_in_response:
+      required:
+      - name
+      - _link
+      - vendor
+      - vendor_display
+      - id
+      - archived_date
+      - vendor_config
+    post_integration_stripe:
+      title: Stripe Integration
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_integration_base'
+      - $ref: '#/components/schemas/integration_stripe_vendor_config'
+    integration_stripe-2:
+      title: Stripe Integration
+      allOf:
+      - $ref: '#/components/schemas/integration_stripe'
+      - $ref: '#/components/schemas/integration_stripe_definitions-required_in_response'
+    any_of_integration_type:
+      anyOf:
+      - $ref: '#/components/schemas/integration_quickbooks-2'
+      - $ref: '#/components/schemas/integration_stripe-2'
+    integration_quickbooks-2:
+      title: QuickBooks Integration
+      allOf:
+      - $ref: '#/components/schemas/integration_quickbooks'
+      - $ref: '#/components/schemas/integration_quickbooks_definitions-required_in_response'
+    vendor:
+      title: vendor
+      enum:
+      - quickbooks
+      - stripe
+      type: string
+    integration_quickbooks:
+      title: QuickBooks Integration Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/integration_quickbooks_vendor_config'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - quickbooks
+          vendor_display:
+            type: string
+            enum:
+            - QuickBooks
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/integration_quickbooks_vendor_config'
+      - $ref: '#/components/schemas/integration_base'
+    put_integration_quickbooks:
+      title: Update QuickBooks Integration
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_integration_base'
+      - $ref: '#/components/schemas/integration_quickbooks_vendor_config'
+    integration_base:
+      title: Integration Base Schema
+      type: object
+      definitions:
+        required_in_response:
+          required:
+          - name
+          - _link
+          - vendor
+          - vendor_display
+          - id
+          - archived_date
+          - vendor_config
+      properties:
+        _link:
+          type: string
+          description: A relative link to this integration
+        name:
+          type: string
+          description: The name of the integration
+        vendor:
+          type: string
+          description: Short name of the vendor.
+          enum:
+          - quickbooks
+          - stripe
+        vendor_display:
+          type: string
+          description: The corresponding display name of the `vendor` property.
+          enum:
+          - QuickBooks
+          - Stripe
+        id:
+          type: integer
+          description: The identifier used as the main reference to this integration.
+        archived_date:
+          description: If this integration has been archived, this will contain the datetime that the integration was archived. Otherwise it will be null.
+          anyOf:
+          - type: string
+          - type: 'null'
+        vendor_config:
+          type: object
+          description: Vendor-specific configuration information.
+  parameters:
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0

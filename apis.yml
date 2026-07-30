@@ -11,7 +11,19 @@ description: 'Ordoro is a multi-channel order management and ecommerce logistics
 
   '
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: open
+  trial: true
+  try_now: true
+  public: true
+  label: Paid (free trial) · Open access
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ordoro.png
 tags:
 - Order Management
 - Inventory Management
@@ -26,37 +38,510 @@ created: '2026-06-12'
 modified: '2026-06-12'
 specificationVersion: '0.19'
 apis:
-- aid: ordoro:ordoro-api
-  name: Ordoro API
-  description: 'The Ordoro REST API provides programmatic access to orders, products,
-    inventory, shipments, purchase orders, suppliers, warehouses, and dropshipping
-    workflows. It uses Basic HTTP Authentication with API keys and communicates via
-    JSON. All endpoints are available at the base URL https://api.ordoro.com/ with
-    a rate limit of 500 requests per minute.
-
-    '
+- aid: ordoro:ordoro-address-api
+  name: Ordoro Address API
+  description: >-
+    Address objects are used and referenced in Orders shipping and billing addresses, Warehouses, and
+    Suppliers.
   humanURL: https://docs.ordoro.com/
   baseURL: https://api.ordoro.com/
   tags:
-  - Orders
-  - Products
-  - Inventory
-  - Shipments
-  - Purchase Orders
-  - Dropshipping
-  - Warehouses
-  - Suppliers
+  - Address
   properties:
+  - type: OpenAPI
+    url: openapi/ordoro-address-api-openapi.yml
   - type: Documentation
     url: https://docs.ordoro.com/
   - type: Forums
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-api-key-api
+  name: Ordoro Api Key API
+  description: The Api Key API from Ordoro — 2 operation(s) for api key.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Api Key
+  properties:
   - type: OpenAPI
-    url: openapi/ordoro-ordoro-api-openapi.yml
-  - url: graphql/ordoro-graphql.md
-    type: GraphQL
+    url: openapi/ordoro-api-key-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-authenticated-api
+  name: Ordoro Authenticated API
+  description: The Authenticated API from Ordoro — 1 operation(s) for authenticated.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Authenticated
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-authenticated-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-cart-api
+  name: Ordoro Cart API
+  description: Current routes for `/cart/` are sometimes interchangeably referenced as `sales_channel`
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Cart
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-cart-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-company-api
+  name: Ordoro Company API
+  description: The Company API from Ordoro — 5 operation(s) for company.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Company
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-company-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-goods-receipt-api
+  name: Ordoro Goods Receipt API
+  description: >-
+    Goods Receipts are used for receiving items on a Purchase Order. You may have multiple Goods Receipts
+    per Purchase Order and can have multiple lines and quantities of products related to the Purchase
+    Order.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Goods Receipt
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-goods-receipt-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-integration-api
+  name: Ordoro Integration API
+  description: >-
+    Currently Ordoro offers one type of integration to QuickBooks Online. Orders can be exported from
+    Ordoro to QuickBooks using the integration.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Integration
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-integration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-label-api
+  name: Ordoro Label API
+  description: >-
+    Labels can be retrieved in a raw image format using the Label endpoints. For order specific labels
+    refer to the Orders section.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Label
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-label-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-manufacturing-order-api
+  name: Ordoro Manufacturing Order API
+  description: >-
+    Manufacturing Orders are used for creating and tracking Bill of Material orders. A Manufacturing Order
+    is assigned to a warehouse and may have multiple lines and tags.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Manufacturing Order
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-manufacturing-order-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-order-api
+  name: Ordoro Order API
+  description: >-
+    Orders are the main level of management in Ordoro. Orders have lines, warehouse associations and can
+    be dropshipped or have labels created for them.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Order
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-order-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-packing-list-api
+  name: Ordoro Packing List API
+  description: >-
+    A company or account may have multple packing list formats to be saved, retrieved and used for printing
+    Order information.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Packing List
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-packing-list-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-postage-account-api
+  name: Ordoro Postage Account API
+  description: Methods for retrieving postage account information to be used with USPS carriers.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Postage Account
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-postage-account-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-product-api
+  name: Ordoro Product API
+  description: The Product API from Ordoro — 21 operation(s) for product.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Product
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-product-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-purchase-order-api
+  name: Ordoro Purchase Order API
+  description: The Purchase Order API from Ordoro — 12 operation(s) for purchase order.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Purchase Order
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-purchase-order-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-rate-api
+  name: Ordoro Rate API
+  description: >-
+    Rates are cost estimates or quotes provided by a shipping carrier or shipper. These can be retrieved
+    per Order based on the order's package and address details.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Rate
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-rate-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-return-label-api
+  name: Ordoro Return Label API
+  description: The Return Label API from Ordoro — 3 operation(s) for return label.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Return Label
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-return-label-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-return-order-api
+  name: Ordoro Return Order API
+  description: The Return Order API from Ordoro — 3 operation(s) for return order.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Return Order
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-return-order-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-return-order-label-api
+  name: Ordoro Return Order Label API
+  description: The Return Order Label API from Ordoro — 8 operation(s) for return order label.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Return Order Label
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-return-order-label-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-return-order-rate-api
+  name: Ordoro Return Order Rate API
+  description: The Return Order Rate API from Ordoro — 7 operation(s) for return order rate.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Return Order Rate
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-return-order-rate-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-return-tracking-api
+  name: Ordoro Return Tracking API
+  description: The Return Tracking API from Ordoro — 2 operation(s) for return tracking.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Return Tracking
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-return-tracking-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-rule-api
+  name: Ordoro Rule API
+  description: The Rule API from Ordoro — 3 operation(s) for rule.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Rule
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-rule-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-shipper-api
+  name: Ordoro Shipper API
+  description: >-
+    A shipper or carrier account can be created and used to get quotes and generate labels for orders.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Shipper
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-shipper-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-supplier-api
+  name: Ordoro Supplier API
+  description: The Supplier API from Ordoro — 5 operation(s) for supplier.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Supplier
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-supplier-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-tag-api
+  name: Ordoro Tag API
+  description: The Tag API from Ordoro — 3 operation(s) for tag.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Tag
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-tag-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-tracking-api
+  name: Ordoro Tracking API
+  description: The Tracking API from Ordoro — 2 operation(s) for tracking.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Tracking
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-tracking-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-user-api
+  name: Ordoro User API
+  description: The User API from Ordoro — 3 operation(s) for user.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-user-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
+- aid: ordoro:ordoro-warehouse-api
+  name: Ordoro Warehouse API
+  description: The Warehouse API from Ordoro — 3 operation(s) for warehouse.
+  humanURL: https://docs.ordoro.com/
+  baseURL: https://api.ordoro.com/
+  tags:
+  - Warehouse
+  properties:
+  - type: OpenAPI
+    url: openapi/ordoro-warehouse-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ordoro.com/
+  - type: Forums
+    url: https://forums.ordoro.com/
+  - type: GitHubRepository
+    url: https://github.com/ordoro/api-examples
+  - type: GraphQL
+    url: graphql/ordoro-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/ordoro-agentic-access.yml

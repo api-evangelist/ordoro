@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Cart API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cart",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List carts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/cart/",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "all",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List carts"
+        },
+        {
+          "info": {
+            "name": "Create a new Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/cart/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Each sales channel has unique requirements, so the schema will depend on the value of the `type` parameter."
+        },
+        {
+          "info": {
+            "name": "Get an individual cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/cart/:cart_id/",
+            "params": [
+              {
+                "name": "cart_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the cart to be retrieved"
+              }
+            ]
+          },
+          "docs": "Get an individual cart"
+        },
+        {
+          "info": {
+            "name": "Update a cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/cart/:cart_id/",
+            "params": [
+              {
+                "name": "cart_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Each sales channel has unique requirements, so the schema will depend on the value of the existing cart's `type` parameter."
+        },
+        {
+          "info": {
+            "name": "Get cart warehouses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/cart/:cart_id/warehouse/",
+            "params": [
+              {
+                "name": "cart_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get cart warehouses"
+        },
+        {
+          "info": {
+            "name": "Get cart sync setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/cart/:cart_id/autosync/",
+            "params": [
+              {
+                "name": "cart_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get cart sync setting"
+        },
+        {
+          "info": {
+            "name": "Delete cart sync setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/cart/:cart_id/autosync/",
+            "params": [
+              {
+                "name": "cart_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete cart sync setting"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

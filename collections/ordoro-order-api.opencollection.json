@@ -1,0 +1,1161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Order API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get order status counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/order/counts"
+          },
+          "docs": "Get order status counts"
+        },
+        {
+          "info": {
+            "name": "Get parent order information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/order/parent/:parent_order_number",
+            "params": [
+              {
+                "name": "parent_order_number",
+                "value": "",
+                "type": "path",
+                "description": "A parent order number"
+              }
+            ]
+          },
+          "docs": "A parent order is left after an order is split, this information is view-only."
+        },
+        {
+          "info": {
+            "name": "Get a list of orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/order",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "barcode",
+                "value": "",
+                "type": "query",
+                "description": "will return an order with a matching barcode regardless of other filters"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "can be one of [all, awaiting_fulfillment, dropshipment_requested, shipped, cancelled]"
+              },
+              {
+                "name": "allocation_status",
+                "value": "",
+                "type": "query",
+                "description": "can be one of [could_not_allocate, unallocated, could_not_allocate, partial, allocated]"
+              },
+              {
+                "name": "allocatable",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sales_channel",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cart_order_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "warehouse_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "supplier",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "shipper",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "untagged",
+                "value": "",
+                "type": "query",
+                "description": "filter the results to only orders that have no tags"
+              },
+              {
+                "name": "sku",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "printed",
+                "value": "",
+                "type": "query",
+                "description": "including this parameter will filter the results to only orders that have labels that have been printed"
+              },
+              {
+                "name": "has_similar_open_addresses",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "similar_address_to",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ship_to_is_bill_to",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ship_to_country",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ship_to_status",
+                "value": "",
+                "type": "query",
+                "description": "can be one of [error, unvalidated, validated]"
+              },
+              {
+                "name": "created_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "created_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "created_interval_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "created_interval_amount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "created_interval_trunc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_interval_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_interval_amount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_interval_trunc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_placed_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_placed_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_placed_interval_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_placed_interval_amount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_placed_interval_trunc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "shipped_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "shipped_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "shipped_interval_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "shipped_interval_amount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "shipped_interval_trunc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dropshipped_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dropshipped_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dropshipped_interval_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dropshipped_interval_amount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dropshipped_interval_trunc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "deliver_by_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "deliver_by_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "deliver_by_interval_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "deliver_by_interval_amount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "deliver_by_interval_trunc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ship_by_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ship_by_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ship_by_interval_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ship_by_interval_amount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ship_by_interval_trunc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cancelled_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cancelled_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cancelled_interval_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cancelled_interval_amount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cancelled_interval_trunc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "can be one of [(-)batch, (-)order_placed_date, (-)grand_total, (-)order_number, (-)created_date, (-)updated_date, (-)ship_date, (-)dropship_date, (-)deliver_by_date, (-)ship_by_date, (-)cancelled_date, (-)shipping_method, (-)status, (-)billing_address_name, (-)billing_address_zip, (-)shipping_address_name, (-)shipping_address_zip, (-)sku]"
+              },
+              {
+                "name": "tag_filter_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "batch_reference_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_revision",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "in_batch",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "carrier_error",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "batch_error",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of orders"
+        },
+        {
+          "info": {
+            "name": "Create an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an Order"
+        },
+        {
+          "info": {
+            "name": "Retrieve an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/order/:order_number",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ]
+          },
+          "docs": "Example Request `GET /order/M-order-1234`"
+        },
+        {
+          "info": {
+            "name": "Update an Order's information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/order/:order_number",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Order's information"
+        },
+        {
+          "info": {
+            "name": "Cancel an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/cancel",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ]
+          },
+          "docs": "Cancel an order"
+        },
+        {
+          "info": {
+            "name": "Uncancel an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/uncancel",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ]
+          },
+          "docs": "Uncancel an order"
+        },
+        {
+          "info": {
+            "name": "Update an Order's financial information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/order/:order_number/financial",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Order's financial information"
+        },
+        {
+          "info": {
+            "name": "Add Shipping Information to an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/shipping_info",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add Shipping Information to an Order and Mark it as Shipped"
+        },
+        {
+          "info": {
+            "name": "Update an Order's shipping information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/order/:order_number/shipping_info",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Order's shipping information"
+        },
+        {
+          "info": {
+            "name": "Delete an Order's Shipping Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/v3/order/:order_number/shipping_info",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ]
+          },
+          "docs": "Delete shipping_info from an order, changing order status to `awaiting_fulfillment`"
+        },
+        {
+          "info": {
+            "name": "Mark an order with a label as printed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/mark_as_printed",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ]
+          },
+          "docs": "Mark an order with a label as printed"
+        },
+        {
+          "info": {
+            "name": "Add a preset to an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/shipment_preset/:preset_id",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              },
+              {
+                "name": "preset_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Add a preset to an order"
+        },
+        {
+          "info": {
+            "name": "Remove a preset from an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/v3/order/:order_number/shipment_preset/:preset_id",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              },
+              {
+                "name": "preset_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove a preset from an order"
+        },
+        {
+          "info": {
+            "name": "Add a preset to an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/return_preset/:preset_id",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              },
+              {
+                "name": "preset_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Add a preset to an order"
+        },
+        {
+          "info": {
+            "name": "Remove a preset from an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/v3/order/:order_number/return_preset/:preset_id",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              },
+              {
+                "name": "preset_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove a preset from an order"
+        },
+        {
+          "info": {
+            "name": "Split an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/split",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Split an Order"
+        },
+        {
+          "info": {
+            "name": "Mark an order as shipped",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/mark_as_shipped",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ]
+          },
+          "docs": "This allows you to set an order status to shipped without adding tracking info or notifying cart"
+        },
+        {
+          "info": {
+            "name": "Mark an order as dropshipped",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/mark_as_dropshipped",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This allows you to set the status of an Order to dropshipment_requested"
+        },
+        {
+          "info": {
+            "name": "Get dropship request for an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/order/:order_number/dropship",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get dropship request for an order"
+        },
+        {
+          "info": {
+            "name": "Create dropship request for an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/dropship",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "When an order is drop shipped, an email may be sent to the assigned supplier."
+        },
+        {
+          "info": {
+            "name": "Process dropshipments for an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/process_dropshipments",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ]
+          },
+          "docs": "Processing an order for drop shipping automatically may split an order based on it's order lines' supplier and product's automatic dropship status. An email may also be sent to a supplier using this method."
+        },
+        {
+          "info": {
+            "name": "Update an Order's Billing Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/order/:order_number/billing_address",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Order's Billing Address"
+        },
+        {
+          "info": {
+            "name": "Update an Order's Shipping Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/order/:order_number/shipping_address",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Order's Shipping Address"
+        },
+        {
+          "info": {
+            "name": "Update an Order's Warehouse",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/order/:order_number/warehouse",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Order's Warehouse"
+        },
+        {
+          "info": {
+            "name": "Retrieve Comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/order/:order_number/comment",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ]
+          },
+          "docs": "Retrieve Comments"
+        },
+        {
+          "info": {
+            "name": "Add a comment to an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/comment",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a comment to an order"
+        },
+        {
+          "info": {
+            "name": "Add an Order Line",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/line",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add an Order Line"
+        },
+        {
+          "info": {
+            "name": "Update an Order Line",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/order/:order_number/line/:order_line_id",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              },
+              {
+                "name": "order_line_id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the order line"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Order Line"
+        },
+        {
+          "info": {
+            "name": "Delete an Order Line",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/v3/order/:order_number/line/:order_line_id",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              },
+              {
+                "name": "order_line_id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the order line"
+              }
+            ]
+          },
+          "docs": "Delete an Order Line"
+        },
+        {
+          "info": {
+            "name": "Add a tag to an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/tag/:tag_id",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              },
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Add a tag to an order"
+        },
+        {
+          "info": {
+            "name": "Remove tag from order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/v3/order/:order_number/tag/:tag_id",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              },
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove tag from order"
+        },
+        {
+          "info": {
+            "name": "List Order Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/order/tag",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List Order Tags"
+        },
+        {
+          "info": {
+            "name": "Create an Order Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/tag",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an Order Tag"
+        },
+        {
+          "info": {
+            "name": "Get an Order Tag By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/order/tag/:tagNamePath",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get an Order Tag By Name"
+        },
+        {
+          "info": {
+            "name": "Update an Order Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/order/tag/:tagNamePath",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Order Tag"
+        },
+        {
+          "info": {
+            "name": "Delete an Order Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/v3/order/tag/:tagNamePath"
+          },
+          "docs": "Delete an Order Tag"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

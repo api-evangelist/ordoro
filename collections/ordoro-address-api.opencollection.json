@@ -1,0 +1,170 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Address",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/address/",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List Addresses"
+        },
+        {
+          "info": {
+            "name": "Create a new Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/address/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Address"
+        },
+        {
+          "info": {
+            "name": "Get an Address by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/address/:address_id/",
+            "params": [
+              {
+                "name": "address_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an Address by ID"
+        },
+        {
+          "info": {
+            "name": "Update an Address by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/address/:address_id/",
+            "params": [
+              {
+                "name": "address_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Address by ID"
+        },
+        {
+          "info": {
+            "name": "Update an Order's Billing Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/order/:order_number/billing_address",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Order's Billing Address"
+        },
+        {
+          "info": {
+            "name": "Update an Order's Shipping Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/order/:order_number/shipping_address",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Order's Shipping Address"
+        },
+        {
+          "info": {
+            "name": "Update an Order's Warehouse",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/order/:order_number/warehouse",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Order's Warehouse"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

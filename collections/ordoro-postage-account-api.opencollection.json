@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Postage Account API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Postage Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get balance for postage account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/account/balance"
+          },
+          "docs": "Get balance for postage account"
+        },
+        {
+          "info": {
+            "name": "Add funds to postage account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/account/add_funds",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This charges the company card on file with stripe and adds to the balance allowable for creating postage labels via USPS Pitney Bowes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

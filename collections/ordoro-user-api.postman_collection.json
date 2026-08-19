@@ -1,0 +1,467 @@
+{
+  "item": [
+    {
+      "id": "9f18264c-8470-489e-8990-3abb138511c5",
+      "name": "User",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0a4643e5-6691-4300-99a8-16c736f76ff8",
+          "name": "Get a list of Users",
+          "request": {
+            "name": "Get a list of Users",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bdcb8fd0-ec08-4263-87c0-4c5ebcd82992",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 549,\n  \"user\": [\n    {\n      \"id\": 8262,\n      \"company_id\": 4851,\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"is_active\": false,\n      \"is_api_user\": true,\n      \"last_login\": \"1956-07-14T04:40:48.529Z\",\n      \"date_joined\": \"string\",\n      \"permissions\": {},\n      \"settings\": {},\n      \"_link\": \"string\",\n      \"email_verified\": \"string\"\n    },\n    {\n      \"id\": 614,\n      \"company_id\": 7039,\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"is_active\": false,\n      \"is_api_user\": false,\n      \"last_login\": \"1979-01-20T08:11:45.261Z\",\n      \"date_joined\": \"string\",\n      \"permissions\": {},\n      \"settings\": {},\n      \"_link\": \"string\",\n      \"email_verified\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "956c2f4b-ea79-4898-beb7-2a1885325b6b",
+          "name": "Create a User",
+          "request": {
+            "name": "Create a User",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"warehouse_ids\": [\n    \"<number>\",\n    \"<number>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c86e3efc-2ed1-47e6-bcfa-d7f288889f9a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"warehouse_ids\": [\n    \"<number>\",\n    \"<number>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 396,\n  \"company_id\": 3857,\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"is_active\": true,\n  \"is_api_user\": false,\n  \"last_login\": \"1963-12-06T01:21:21.367Z\",\n  \"date_joined\": \"string\",\n  \"permissions\": {},\n  \"settings\": {},\n  \"_link\": \"string\",\n  \"email_verified\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3b408e9-c658-4d05-acc9-3d46363dd494",
+          "name": "Get Currently Authenticated User",
+          "request": {
+            "name": "Get Currently Authenticated User",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "me",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e8f380c-818f-45a8-872a-45c8848ba3af",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "me",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 396,\n  \"company_id\": 3857,\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"is_active\": true,\n  \"is_api_user\": false,\n  \"last_login\": \"1963-12-06T01:21:21.367Z\",\n  \"date_joined\": \"string\",\n  \"permissions\": {},\n  \"settings\": {},\n  \"_link\": \"string\",\n  \"email_verified\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ca636d3-d78e-4f38-aab5-a5087af1cb9d",
+          "name": "Get User by ID",
+          "request": {
+            "name": "Get User by ID",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                ":user_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "913d8226-7d4d-45ee-b72a-95fb223db59e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    ":user_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 396,\n  \"company_id\": 3857,\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"is_active\": true,\n  \"is_api_user\": false,\n  \"last_login\": \"1963-12-06T01:21:21.367Z\",\n  \"date_joined\": \"string\",\n  \"permissions\": {},\n  \"settings\": {},\n  \"_link\": \"string\",\n  \"email_verified\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "edffde76-287b-479b-b446-32f904f864f5",
+          "name": "Update User by ID",
+          "request": {
+            "name": "Update User by ID",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                ":user_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"password\": \"<string>\",\n  \"warehouse_ids\": [\n    \"<number>\",\n    \"<number>\"\n  ],\n  \"otp_seed\": \"<string>\",\n  \"otp\": \"<string>\",\n  \"permissions\": {\n    \"order\": \"<boolean>\",\n    \"return_order\": \"<boolean>\",\n    \"manufacturing_order\": \"<boolean>\",\n    \"product\": \"<boolean>\",\n    \"purchase_order\": \"<boolean>\",\n    \"stocktake\": \"<boolean>\",\n    \"analytics\": \"<boolean>\",\n    \"settings\": \"<boolean>\",\n    \"reports\": \"<boolean>\",\n    \"can_manage_user\": \"<boolean>\"\n  },\n  \"settings\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8536bbb7-023d-45b3-b649-914797e9b425",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    ":user_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"password\": \"<string>\",\n  \"warehouse_ids\": [\n    \"<number>\",\n    \"<number>\"\n  ],\n  \"otp_seed\": \"<string>\",\n  \"otp\": \"<string>\",\n  \"permissions\": {\n    \"order\": \"<boolean>\",\n    \"return_order\": \"<boolean>\",\n    \"manufacturing_order\": \"<boolean>\",\n    \"product\": \"<boolean>\",\n    \"purchase_order\": \"<boolean>\",\n    \"stocktake\": \"<boolean>\",\n    \"analytics\": \"<boolean>\",\n    \"settings\": \"<boolean>\",\n    \"reports\": \"<boolean>\",\n    \"can_manage_user\": \"<boolean>\"\n  },\n  \"settings\": {\n    \"key_0\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 396,\n  \"company_id\": 3857,\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"is_active\": true,\n  \"is_api_user\": false,\n  \"last_login\": \"1963-12-06T01:21:21.367Z\",\n  \"date_joined\": \"string\",\n  \"permissions\": {},\n  \"settings\": {},\n  \"_link\": \"string\",\n  \"email_verified\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.ordoro.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "866db400-b69b-4555-9eb9-73586708513f",
+    "name": "Ordoro API Documentation Address User API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code.",
+      "type": "text/plain"
+    }
+  }
+}

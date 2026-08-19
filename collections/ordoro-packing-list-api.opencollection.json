@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Packing List API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Packing List",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of packing lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/packing_list/",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "packing_list_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of packing lists"
+        },
+        {
+          "info": {
+            "name": "Create a packing list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/packing_list/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a packing list"
+        },
+        {
+          "info": {
+            "name": "Get a packing list by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/packing_list/:packing_list_id/"
+          },
+          "docs": "Get a packing list by ID"
+        },
+        {
+          "info": {
+            "name": "Update a packing list by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/packing_list/:packing_list_id/",
+            "params": [
+              {
+                "name": "packing_list_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a packing list by ID"
+        },
+        {
+          "info": {
+            "name": "Delete a packing list by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/packing_list/:packing_list_id/",
+            "params": [
+              {
+                "name": "packing_list_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a packing list by ID"
+        },
+        {
+          "info": {
+            "name": "Make a Packing List the Default by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/packing_list/:packing_list_id/make_default/",
+            "params": [
+              {
+                "name": "packing_list_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Set this packing list as the default"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

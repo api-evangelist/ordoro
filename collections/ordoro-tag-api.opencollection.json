@@ -1,0 +1,162 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Tag API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tag",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add a tag to an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/tag/:tag_id",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              },
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Add a tag to an order"
+        },
+        {
+          "info": {
+            "name": "Remove tag from order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/v3/order/:order_number/tag/:tag_id",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              },
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove tag from order"
+        },
+        {
+          "info": {
+            "name": "Get a list of Order tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/tag",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of Order tags"
+        },
+        {
+          "info": {
+            "name": "Create an Order Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/tag",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an Order Tag"
+        },
+        {
+          "info": {
+            "name": "Get an Order Tag by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/tag/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an Order Tag by ID"
+        },
+        {
+          "info": {
+            "name": "Update an Order Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/tag/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an Order Tag"
+        },
+        {
+          "info": {
+            "name": "Delete an Order Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/v3/tag/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an Order Tag"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

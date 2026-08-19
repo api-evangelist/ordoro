@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Tracking API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tracking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tracking_GET",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/tracking/",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "shipper_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "warehouse_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ship_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tracking",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "void",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Tracking_GET"
+        },
+        {
+          "info": {
+            "name": "TrackingByTrackingId_GET",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/tracking/:tracking_id/",
+            "params": [
+              {
+                "name": "tracking_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "TrackingByTrackingId_GET"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

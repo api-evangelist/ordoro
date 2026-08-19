@@ -1,0 +1,880 @@
+{
+  "item": [
+    {
+      "id": "f5316c9d-c097-4ea9-a209-be15170d6fe1",
+      "name": "Goods Receipt",
+      "description": {
+        "content": "Goods Receipts are used for receiving items on a Purchase Order. You may have multiple Goods Receipts per Purchase Order and can have multiple lines and quantities of products related to the Purchase Order.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e64605e7-da76-401f-956d-8346dbff6a4d",
+          "name": "Get a list of Goods Receipts",
+          "request": {
+            "name": "Get a list of Goods Receipts",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "goods_receipt",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "98756072-6a05-4149-a1f0-46c0622c1c5a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goods_receipt",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"limit\": 2766,\n  \"offset\": 7357,\n  \"count\": 3061,\n  \"goods_receipt\": [\n    {\n      \"status\": \"string\",\n      \"po_id\": \"string\",\n      \"po_status\": \"string\",\n      \"goods_receipt_id\": \"string\",\n      \"created\": \"1980-01-26T18:18:00.716Z\",\n      \"updated\": \"2024-04-11T08:59:47.988Z\",\n      \"received\": \"1955-08-20T18:00:52.714Z\",\n      \"_link\": \"string\",\n      \"items\": [\n        {\n          \"id\": 3353,\n          \"po_item_id\": \"string\",\n          \"quantity\": 4390,\n          \"_link\": \"string\",\n          \"product\": {\n            \"type\": \"Tangible\",\n            \"cost\": 4.95,\n            \"id\": 19551105,\n            \"company_id\": 1985,\n            \"name\": \"Flux Capacitor\",\n            \"sku\": \"outa-time\",\n            \"taxable\": \"string\",\n            \"weight\": 1.21,\n            \"length\": 12,\n            \"width\": 4,\n            \"height\": 8,\n            \"price\": 19.55,\n            \"customer_text\": \"string\",\n            \"internal_notes\": \"string\",\n            \"total_on_hand\": 8900.100387113802,\n            \"category\": \"misc-timetravel\",\n            \"is_kit_parent\": false,\n            \"archive_date\": \"string\",\n            \"hs_code\": \"string\",\n            \"country_of_origin\": \"string\",\n            \"customs_description\": \"string\",\n            \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n            \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n            \"upc\": \"string\",\n            \"asin\": \"string\",\n            \"image_url\": \"string\",\n            \"default_image_id\": \"string\",\n            \"_link\": \"string\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"total_committed\": 5772.95183005808,\n            \"total_available\": 9250.908276356811,\n            \"total_allocated\": 918.7515863075224,\n            \"total_unallocated\": 4243.122717809896,\n            \"po_total_committed\": 493.34521130348975,\n            \"fulfillment_type\": \"string\"\n          }\n        },\n        {\n          \"id\": 876,\n          \"po_item_id\": \"string\",\n          \"quantity\": 2349,\n          \"_link\": \"string\",\n          \"product\": {\n            \"type\": \"Tangible\",\n            \"cost\": 4.95,\n            \"id\": 19551105,\n            \"company_id\": 1985,\n            \"name\": \"Flux Capacitor\",\n            \"sku\": \"outa-time\",\n            \"taxable\": \"string\",\n            \"weight\": 1.21,\n            \"length\": 12,\n            \"width\": 4,\n            \"height\": 8,\n            \"price\": 19.55,\n            \"customer_text\": \"string\",\n            \"internal_notes\": \"string\",\n            \"total_on_hand\": 4.966167090038054,\n            \"category\": \"misc-timetravel\",\n            \"is_kit_parent\": false,\n            \"archive_date\": \"string\",\n            \"hs_code\": \"string\",\n            \"country_of_origin\": \"string\",\n            \"customs_description\": \"string\",\n            \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n            \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n            \"upc\": \"string\",\n            \"asin\": \"string\",\n            \"image_url\": \"string\",\n            \"default_image_id\": \"string\",\n            \"_link\": \"string\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"total_committed\": 3269.1504703468454,\n            \"total_available\": 7775.11148676419,\n            \"total_allocated\": 5432.308329618987,\n            \"total_unallocated\": 853.307750240545,\n            \"po_total_committed\": 8240.567422012973,\n            \"fulfillment_type\": \"string\"\n          }\n        }\n      ],\n      \"comments\": [\n        {\n          \"user\": \"string\",\n          \"date\": \"1965-01-06T07:17:26.961Z\",\n          \"text\": \"string\"\n        },\n        {\n          \"user\": \"string\",\n          \"date\": \"1946-10-20T22:28:38.783Z\",\n          \"text\": \"string\"\n        }\n      ]\n    },\n    {\n      \"status\": \"string\",\n      \"po_id\": \"string\",\n      \"po_status\": \"string\",\n      \"goods_receipt_id\": \"string\",\n      \"created\": \"1976-05-30T04:13:57.355Z\",\n      \"updated\": \"2004-07-05T18:33:32.364Z\",\n      \"received\": \"1947-07-09T13:25:12.014Z\",\n      \"_link\": \"string\",\n      \"items\": [\n        {\n          \"id\": 8168,\n          \"po_item_id\": \"string\",\n          \"quantity\": 9670,\n          \"_link\": \"string\",\n          \"product\": {\n            \"type\": \"Tangible\",\n            \"cost\": 4.95,\n            \"id\": 19551105,\n            \"company_id\": 1985,\n            \"name\": \"Flux Capacitor\",\n            \"sku\": \"outa-time\",\n            \"taxable\": \"string\",\n            \"weight\": 1.21,\n            \"length\": 12,\n            \"width\": 4,\n            \"height\": 8,\n            \"price\": 19.55,\n            \"customer_text\": \"string\",\n            \"internal_notes\": \"string\",\n            \"total_on_hand\": 146.70003344122273,\n            \"category\": \"misc-timetravel\",\n            \"is_kit_parent\": false,\n            \"archive_date\": \"string\",\n            \"hs_code\": \"string\",\n            \"country_of_origin\": \"string\",\n            \"customs_description\": \"string\",\n            \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n            \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n            \"upc\": \"string\",\n            \"asin\": \"string\",\n            \"image_url\": \"string\",\n            \"default_image_id\": \"string\",\n            \"_link\": \"string\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"total_committed\": 4412.0058464328,\n            \"total_available\": 4469.466868298127,\n            \"total_allocated\": 9418.156306466468,\n            \"total_unallocated\": 68.30663370710144,\n            \"po_total_committed\": 9375.00392871631,\n            \"fulfillment_type\": \"string\"\n          }\n        },\n        {\n          \"id\": 9264,\n          \"po_item_id\": \"string\",\n          \"quantity\": 5035,\n          \"_link\": \"string\",\n          \"product\": {\n            \"type\": \"Tangible\",\n            \"cost\": 4.95,\n            \"id\": 19551105,\n            \"company_id\": 1985,\n            \"name\": \"Flux Capacitor\",\n            \"sku\": \"outa-time\",\n            \"taxable\": \"string\",\n            \"weight\": 1.21,\n            \"length\": 12,\n            \"width\": 4,\n            \"height\": 8,\n            \"price\": 19.55,\n            \"customer_text\": \"string\",\n            \"internal_notes\": \"string\",\n            \"total_on_hand\": 2534.9810562820317,\n            \"category\": \"misc-timetravel\",\n            \"is_kit_parent\": false,\n            \"archive_date\": \"string\",\n            \"hs_code\": \"string\",\n            \"country_of_origin\": \"string\",\n            \"customs_description\": \"string\",\n            \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n            \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n            \"upc\": \"string\",\n            \"asin\": \"string\",\n            \"image_url\": \"string\",\n            \"default_image_id\": \"string\",\n            \"_link\": \"string\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"total_committed\": 7062.288899039977,\n            \"total_available\": 1659.7986304105073,\n            \"total_allocated\": 5218.48146195912,\n            \"total_unallocated\": 2061.618306573746,\n            \"po_total_committed\": 5008.742756258053,\n            \"fulfillment_type\": \"string\"\n          }\n        }\n      ],\n      \"comments\": [\n        {\n          \"user\": \"string\",\n          \"date\": \"2020-12-22T03:42:06.475Z\",\n          \"text\": \"string\"\n        },\n        {\n          \"user\": \"string\",\n          \"date\": \"1967-02-22T12:18:34.511Z\",\n          \"text\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1603fa3c-6461-4d59-8992-d569281ceea5",
+          "name": "Create a Goods Receipt",
+          "request": {
+            "name": "Create a Goods Receipt",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "goods_receipt",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"po_id\": \"<string>\",\n  \"received_lines\": [\n    {\n      \"po_item_id\": \"<integer>\",\n      \"quantity\": \"<number>\"\n    },\n    {\n      \"po_item_id\": \"<integer>\",\n      \"quantity\": \"<number>\"\n    }\n  ],\n  \"goods_receipt_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7392406f-4c1b-412b-b03f-bfd7f47c1426",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goods_receipt",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"po_id\": \"<string>\",\n  \"received_lines\": [\n    {\n      \"po_item_id\": \"<integer>\",\n      \"quantity\": \"<number>\"\n    },\n    {\n      \"po_item_id\": \"<integer>\",\n      \"quantity\": \"<number>\"\n    }\n  ],\n  \"goods_receipt_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"po_id\": \"string\",\n  \"po_status\": \"string\",\n  \"goods_receipt_id\": \"string\",\n  \"created\": \"1974-10-20T00:16:10.605Z\",\n  \"updated\": \"2013-03-11T01:55:04.159Z\",\n  \"received\": \"2025-02-23T14:30:57.417Z\",\n  \"_link\": \"string\",\n  \"items\": [\n    {\n      \"id\": 781,\n      \"po_item_id\": \"string\",\n      \"quantity\": 4577,\n      \"_link\": \"string\",\n      \"product\": {\n        \"type\": \"Tangible\",\n        \"cost\": 4.95,\n        \"id\": 19551105,\n        \"company_id\": 1985,\n        \"name\": \"Flux Capacitor\",\n        \"sku\": \"outa-time\",\n        \"taxable\": \"string\",\n        \"weight\": 1.21,\n        \"length\": 12,\n        \"width\": 4,\n        \"height\": 8,\n        \"price\": 19.55,\n        \"customer_text\": \"string\",\n        \"internal_notes\": \"string\",\n        \"total_on_hand\": 9227.343857459497,\n        \"category\": \"misc-timetravel\",\n        \"is_kit_parent\": false,\n        \"archive_date\": \"string\",\n        \"hs_code\": \"string\",\n        \"country_of_origin\": \"string\",\n        \"customs_description\": \"string\",\n        \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n        \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n        \"upc\": \"string\",\n        \"asin\": \"string\",\n        \"image_url\": \"string\",\n        \"default_image_id\": \"string\",\n        \"_link\": \"string\",\n        \"tags\": [\n          {\n            \"id\": 2250,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          },\n          {\n            \"id\": 177,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          }\n        ],\n        \"total_committed\": 8245.462104581915,\n        \"total_available\": 6614.722648099481,\n        \"total_allocated\": 9938.202215994159,\n        \"total_unallocated\": 7941.145328359216,\n        \"po_total_committed\": 206.72837067416629,\n        \"fulfillment_type\": \"string\"\n      }\n    },\n    {\n      \"id\": 3731,\n      \"po_item_id\": \"string\",\n      \"quantity\": 9549,\n      \"_link\": \"string\",\n      \"product\": {\n        \"type\": \"Tangible\",\n        \"cost\": 4.95,\n        \"id\": 19551105,\n        \"company_id\": 1985,\n        \"name\": \"Flux Capacitor\",\n        \"sku\": \"outa-time\",\n        \"taxable\": \"string\",\n        \"weight\": 1.21,\n        \"length\": 12,\n        \"width\": 4,\n        \"height\": 8,\n        \"price\": 19.55,\n        \"customer_text\": \"string\",\n        \"internal_notes\": \"string\",\n        \"total_on_hand\": 9809.730456568837,\n        \"category\": \"misc-timetravel\",\n        \"is_kit_parent\": false,\n        \"archive_date\": \"string\",\n        \"hs_code\": \"string\",\n        \"country_of_origin\": \"string\",\n        \"customs_description\": \"string\",\n        \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n        \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n        \"upc\": \"string\",\n        \"asin\": \"string\",\n        \"image_url\": \"string\",\n        \"default_image_id\": \"string\",\n        \"_link\": \"string\",\n        \"tags\": [\n          {\n            \"id\": 1914,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          },\n          {\n            \"id\": 8204,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          }\n        ],\n        \"total_committed\": 135.6569901246174,\n        \"total_available\": 1713.4095816459117,\n        \"total_allocated\": 398.26579004176745,\n        \"total_unallocated\": 4509.455362070264,\n        \"po_total_committed\": 8394.058557684511,\n        \"fulfillment_type\": \"string\"\n      }\n    }\n  ],\n  \"comments\": [\n    {\n      \"user\": \"string\",\n      \"date\": \"1950-07-16T21:54:56.450Z\",\n      \"text\": \"string\"\n    },\n    {\n      \"user\": \"string\",\n      \"date\": \"2017-06-04T06:03:55.205Z\",\n      \"text\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "30648fcb-e182-4770-b8b7-72b780af9089",
+          "name": "Delete a Goods Receipt by ID",
+          "request": {
+            "name": "Delete a Goods Receipt by ID",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "goods_receipt",
+                ":goods_receipt_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "goods_receipt_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2a7f228-5231-4fe0-af81-e282b56b1a00",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goods_receipt",
+                    ":goods_receipt_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "goods_receipt_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"po_id\": \"string\",\n  \"po_status\": \"string\",\n  \"goods_receipt_id\": \"string\",\n  \"created\": \"1974-10-20T00:16:10.605Z\",\n  \"updated\": \"2013-03-11T01:55:04.159Z\",\n  \"received\": \"2025-02-23T14:30:57.417Z\",\n  \"_link\": \"string\",\n  \"items\": [\n    {\n      \"id\": 781,\n      \"po_item_id\": \"string\",\n      \"quantity\": 4577,\n      \"_link\": \"string\",\n      \"product\": {\n        \"type\": \"Tangible\",\n        \"cost\": 4.95,\n        \"id\": 19551105,\n        \"company_id\": 1985,\n        \"name\": \"Flux Capacitor\",\n        \"sku\": \"outa-time\",\n        \"taxable\": \"string\",\n        \"weight\": 1.21,\n        \"length\": 12,\n        \"width\": 4,\n        \"height\": 8,\n        \"price\": 19.55,\n        \"customer_text\": \"string\",\n        \"internal_notes\": \"string\",\n        \"total_on_hand\": 9227.343857459497,\n        \"category\": \"misc-timetravel\",\n        \"is_kit_parent\": false,\n        \"archive_date\": \"string\",\n        \"hs_code\": \"string\",\n        \"country_of_origin\": \"string\",\n        \"customs_description\": \"string\",\n        \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n        \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n        \"upc\": \"string\",\n        \"asin\": \"string\",\n        \"image_url\": \"string\",\n        \"default_image_id\": \"string\",\n        \"_link\": \"string\",\n        \"tags\": [\n          {\n            \"id\": 2250,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          },\n          {\n            \"id\": 177,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          }\n        ],\n        \"total_committed\": 8245.462104581915,\n        \"total_available\": 6614.722648099481,\n        \"total_allocated\": 9938.202215994159,\n        \"total_unallocated\": 7941.145328359216,\n        \"po_total_committed\": 206.72837067416629,\n        \"fulfillment_type\": \"string\"\n      }\n    },\n    {\n      \"id\": 3731,\n      \"po_item_id\": \"string\",\n      \"quantity\": 9549,\n      \"_link\": \"string\",\n      \"product\": {\n        \"type\": \"Tangible\",\n        \"cost\": 4.95,\n        \"id\": 19551105,\n        \"company_id\": 1985,\n        \"name\": \"Flux Capacitor\",\n        \"sku\": \"outa-time\",\n        \"taxable\": \"string\",\n        \"weight\": 1.21,\n        \"length\": 12,\n        \"width\": 4,\n        \"height\": 8,\n        \"price\": 19.55,\n        \"customer_text\": \"string\",\n        \"internal_notes\": \"string\",\n        \"total_on_hand\": 9809.730456568837,\n        \"category\": \"misc-timetravel\",\n        \"is_kit_parent\": false,\n        \"archive_date\": \"string\",\n        \"hs_code\": \"string\",\n        \"country_of_origin\": \"string\",\n        \"customs_description\": \"string\",\n        \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n        \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n        \"upc\": \"string\",\n        \"asin\": \"string\",\n        \"image_url\": \"string\",\n        \"default_image_id\": \"string\",\n        \"_link\": \"string\",\n        \"tags\": [\n          {\n            \"id\": 1914,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          },\n          {\n            \"id\": 8204,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          }\n        ],\n        \"total_committed\": 135.6569901246174,\n        \"total_available\": 1713.4095816459117,\n        \"total_allocated\": 398.26579004176745,\n        \"total_unallocated\": 4509.455362070264,\n        \"po_total_committed\": 8394.058557684511,\n        \"fulfillment_type\": \"string\"\n      }\n    }\n  ],\n  \"comments\": [\n    {\n      \"user\": \"string\",\n      \"date\": \"1950-07-16T21:54:56.450Z\",\n      \"text\": \"string\"\n    },\n    {\n      \"user\": \"string\",\n      \"date\": \"2017-06-04T06:03:55.205Z\",\n      \"text\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0107b6e-037a-478a-9fb2-6b8d8dbc6d04",
+          "name": "Get a Goods Receipt by ID",
+          "request": {
+            "name": "Get a Goods Receipt by ID",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "goods_receipt",
+                ":goods_receipt_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "goods_receipt_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4dbfd9f2-41e9-4912-91b9-47fb2270b573",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goods_receipt",
+                    ":goods_receipt_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "goods_receipt_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"po_id\": \"string\",\n  \"po_status\": \"string\",\n  \"goods_receipt_id\": \"string\",\n  \"created\": \"1974-10-20T00:16:10.605Z\",\n  \"updated\": \"2013-03-11T01:55:04.159Z\",\n  \"received\": \"2025-02-23T14:30:57.417Z\",\n  \"_link\": \"string\",\n  \"items\": [\n    {\n      \"id\": 781,\n      \"po_item_id\": \"string\",\n      \"quantity\": 4577,\n      \"_link\": \"string\",\n      \"product\": {\n        \"type\": \"Tangible\",\n        \"cost\": 4.95,\n        \"id\": 19551105,\n        \"company_id\": 1985,\n        \"name\": \"Flux Capacitor\",\n        \"sku\": \"outa-time\",\n        \"taxable\": \"string\",\n        \"weight\": 1.21,\n        \"length\": 12,\n        \"width\": 4,\n        \"height\": 8,\n        \"price\": 19.55,\n        \"customer_text\": \"string\",\n        \"internal_notes\": \"string\",\n        \"total_on_hand\": 9227.343857459497,\n        \"category\": \"misc-timetravel\",\n        \"is_kit_parent\": false,\n        \"archive_date\": \"string\",\n        \"hs_code\": \"string\",\n        \"country_of_origin\": \"string\",\n        \"customs_description\": \"string\",\n        \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n        \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n        \"upc\": \"string\",\n        \"asin\": \"string\",\n        \"image_url\": \"string\",\n        \"default_image_id\": \"string\",\n        \"_link\": \"string\",\n        \"tags\": [\n          {\n            \"id\": 2250,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          },\n          {\n            \"id\": 177,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          }\n        ],\n        \"total_committed\": 8245.462104581915,\n        \"total_available\": 6614.722648099481,\n        \"total_allocated\": 9938.202215994159,\n        \"total_unallocated\": 7941.145328359216,\n        \"po_total_committed\": 206.72837067416629,\n        \"fulfillment_type\": \"string\"\n      }\n    },\n    {\n      \"id\": 3731,\n      \"po_item_id\": \"string\",\n      \"quantity\": 9549,\n      \"_link\": \"string\",\n      \"product\": {\n        \"type\": \"Tangible\",\n        \"cost\": 4.95,\n        \"id\": 19551105,\n        \"company_id\": 1985,\n        \"name\": \"Flux Capacitor\",\n        \"sku\": \"outa-time\",\n        \"taxable\": \"string\",\n        \"weight\": 1.21,\n        \"length\": 12,\n        \"width\": 4,\n        \"height\": 8,\n        \"price\": 19.55,\n        \"customer_text\": \"string\",\n        \"internal_notes\": \"string\",\n        \"total_on_hand\": 9809.730456568837,\n        \"category\": \"misc-timetravel\",\n        \"is_kit_parent\": false,\n        \"archive_date\": \"string\",\n        \"hs_code\": \"string\",\n        \"country_of_origin\": \"string\",\n        \"customs_description\": \"string\",\n        \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n        \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n        \"upc\": \"string\",\n        \"asin\": \"string\",\n        \"image_url\": \"string\",\n        \"default_image_id\": \"string\",\n        \"_link\": \"string\",\n        \"tags\": [\n          {\n            \"id\": 1914,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          },\n          {\n            \"id\": 8204,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          }\n        ],\n        \"total_committed\": 135.6569901246174,\n        \"total_available\": 1713.4095816459117,\n        \"total_allocated\": 398.26579004176745,\n        \"total_unallocated\": 4509.455362070264,\n        \"po_total_committed\": 8394.058557684511,\n        \"fulfillment_type\": \"string\"\n      }\n    }\n  ],\n  \"comments\": [\n    {\n      \"user\": \"string\",\n      \"date\": \"1950-07-16T21:54:56.450Z\",\n      \"text\": \"string\"\n    },\n    {\n      \"user\": \"string\",\n      \"date\": \"2017-06-04T06:03:55.205Z\",\n      \"text\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9daf131e-2610-43f7-87ad-07ffe85a3f59",
+          "name": "Update a Goods Receipt by ID",
+          "request": {
+            "name": "Update a Goods Receipt by ID",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "goods_receipt",
+                ":goods_receipt_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "goods_receipt_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"goods_receipt_id\": \"<string>\",\n  \"received_lines\": [\n    {\n      \"po_item_id\": \"<integer>\",\n      \"quantity\": \"<number>\"\n    },\n    {\n      \"po_item_id\": \"<integer>\",\n      \"quantity\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "78c6f4ce-b36f-4158-9441-ba300674799e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goods_receipt",
+                    ":goods_receipt_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "goods_receipt_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"goods_receipt_id\": \"<string>\",\n  \"received_lines\": [\n    {\n      \"po_item_id\": \"<integer>\",\n      \"quantity\": \"<number>\"\n    },\n    {\n      \"po_item_id\": \"<integer>\",\n      \"quantity\": \"<number>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"po_id\": \"string\",\n  \"po_status\": \"string\",\n  \"goods_receipt_id\": \"string\",\n  \"created\": \"1974-10-20T00:16:10.605Z\",\n  \"updated\": \"2013-03-11T01:55:04.159Z\",\n  \"received\": \"2025-02-23T14:30:57.417Z\",\n  \"_link\": \"string\",\n  \"items\": [\n    {\n      \"id\": 781,\n      \"po_item_id\": \"string\",\n      \"quantity\": 4577,\n      \"_link\": \"string\",\n      \"product\": {\n        \"type\": \"Tangible\",\n        \"cost\": 4.95,\n        \"id\": 19551105,\n        \"company_id\": 1985,\n        \"name\": \"Flux Capacitor\",\n        \"sku\": \"outa-time\",\n        \"taxable\": \"string\",\n        \"weight\": 1.21,\n        \"length\": 12,\n        \"width\": 4,\n        \"height\": 8,\n        \"price\": 19.55,\n        \"customer_text\": \"string\",\n        \"internal_notes\": \"string\",\n        \"total_on_hand\": 9227.343857459497,\n        \"category\": \"misc-timetravel\",\n        \"is_kit_parent\": false,\n        \"archive_date\": \"string\",\n        \"hs_code\": \"string\",\n        \"country_of_origin\": \"string\",\n        \"customs_description\": \"string\",\n        \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n        \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n        \"upc\": \"string\",\n        \"asin\": \"string\",\n        \"image_url\": \"string\",\n        \"default_image_id\": \"string\",\n        \"_link\": \"string\",\n        \"tags\": [\n          {\n            \"id\": 2250,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          },\n          {\n            \"id\": 177,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          }\n        ],\n        \"total_committed\": 8245.462104581915,\n        \"total_available\": 6614.722648099481,\n        \"total_allocated\": 9938.202215994159,\n        \"total_unallocated\": 7941.145328359216,\n        \"po_total_committed\": 206.72837067416629,\n        \"fulfillment_type\": \"string\"\n      }\n    },\n    {\n      \"id\": 3731,\n      \"po_item_id\": \"string\",\n      \"quantity\": 9549,\n      \"_link\": \"string\",\n      \"product\": {\n        \"type\": \"Tangible\",\n        \"cost\": 4.95,\n        \"id\": 19551105,\n        \"company_id\": 1985,\n        \"name\": \"Flux Capacitor\",\n        \"sku\": \"outa-time\",\n        \"taxable\": \"string\",\n        \"weight\": 1.21,\n        \"length\": 12,\n        \"width\": 4,\n        \"height\": 8,\n        \"price\": 19.55,\n        \"customer_text\": \"string\",\n        \"internal_notes\": \"string\",\n        \"total_on_hand\": 9809.730456568837,\n        \"category\": \"misc-timetravel\",\n        \"is_kit_parent\": false,\n        \"archive_date\": \"string\",\n        \"hs_code\": \"string\",\n        \"country_of_origin\": \"string\",\n        \"customs_description\": \"string\",\n        \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n        \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n        \"upc\": \"string\",\n        \"asin\": \"string\",\n        \"image_url\": \"string\",\n        \"default_image_id\": \"string\",\n        \"_link\": \"string\",\n        \"tags\": [\n          {\n            \"id\": 1914,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          },\n          {\n            \"id\": 8204,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          }\n        ],\n        \"total_committed\": 135.6569901246174,\n        \"total_available\": 1713.4095816459117,\n        \"total_allocated\": 398.26579004176745,\n        \"total_unallocated\": 4509.455362070264,\n        \"po_total_committed\": 8394.058557684511,\n        \"fulfillment_type\": \"string\"\n      }\n    }\n  ],\n  \"comments\": [\n    {\n      \"user\": \"string\",\n      \"date\": \"1950-07-16T21:54:56.450Z\",\n      \"text\": \"string\"\n    },\n    {\n      \"user\": \"string\",\n      \"date\": \"2017-06-04T06:03:55.205Z\",\n      \"text\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e4496e98-fbff-44cf-ad5f-1f6ec7076b4c",
+          "name": "Create a Goods Receipt Comment by ID",
+          "request": {
+            "name": "Create a Goods Receipt Comment by ID",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "goods_receipt",
+                ":goods_receipt_id",
+                "comment",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "goods_receipt_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"comment\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "23b9098d-6ae1-4f33-9678-82e8f3dd2a2f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goods_receipt",
+                    ":goods_receipt_id",
+                    "comment",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "goods_receipt_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": \"string\",\n  \"date\": \"2002-03-10T14:26:34.718Z\",\n  \"text\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "68402bc0-7272-4df1-8a3d-1dc22e711002",
+          "name": "Retrieve Comments",
+          "request": {
+            "name": "Retrieve Comments",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "goods_receipt",
+                ":goods_receipt_id",
+                "comment",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "goods_receipt_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "09737bf2-7d98-402f-a67d-c439a8cda7af",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goods_receipt",
+                    ":goods_receipt_id",
+                    "comment",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "goods_receipt_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"limit\": 10,\n  \"offset\": 0,\n  \"count\": 1,\n  \"comment\": [\n    {\n      \"user\": \"user@ordoro.com\",\n      \"date\": \"2026-03-05T21:10:26.911724+00:00\",\n      \"text\": \"This is a very important comment\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ca6c007-f6b0-4840-a2b7-5224dece1454",
+          "name": "Update a Goods Receipt Line by Goods Receipt ID and Line ID",
+          "request": {
+            "name": "Update a Goods Receipt Line by Goods Receipt ID and Line ID",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "goods_receipt",
+                ":goods_receipt_id",
+                "line",
+                ":goods_receipt_item_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "goods_receipt_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "goods_receipt_item_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "08d83dce-cd37-416f-9fb1-9d920f629be4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goods_receipt",
+                    ":goods_receipt_id",
+                    "line",
+                    ":goods_receipt_item_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "goods_receipt_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "goods_receipt_item_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"po_id\": \"string\",\n  \"po_status\": \"string\",\n  \"goods_receipt_id\": \"string\",\n  \"created\": \"1974-10-20T00:16:10.605Z\",\n  \"updated\": \"2013-03-11T01:55:04.159Z\",\n  \"received\": \"2025-02-23T14:30:57.417Z\",\n  \"_link\": \"string\",\n  \"items\": [\n    {\n      \"id\": 781,\n      \"po_item_id\": \"string\",\n      \"quantity\": 4577,\n      \"_link\": \"string\",\n      \"product\": {\n        \"type\": \"Tangible\",\n        \"cost\": 4.95,\n        \"id\": 19551105,\n        \"company_id\": 1985,\n        \"name\": \"Flux Capacitor\",\n        \"sku\": \"outa-time\",\n        \"taxable\": \"string\",\n        \"weight\": 1.21,\n        \"length\": 12,\n        \"width\": 4,\n        \"height\": 8,\n        \"price\": 19.55,\n        \"customer_text\": \"string\",\n        \"internal_notes\": \"string\",\n        \"total_on_hand\": 9227.343857459497,\n        \"category\": \"misc-timetravel\",\n        \"is_kit_parent\": false,\n        \"archive_date\": \"string\",\n        \"hs_code\": \"string\",\n        \"country_of_origin\": \"string\",\n        \"customs_description\": \"string\",\n        \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n        \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n        \"upc\": \"string\",\n        \"asin\": \"string\",\n        \"image_url\": \"string\",\n        \"default_image_id\": \"string\",\n        \"_link\": \"string\",\n        \"tags\": [\n          {\n            \"id\": 2250,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          },\n          {\n            \"id\": 177,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          }\n        ],\n        \"total_committed\": 8245.462104581915,\n        \"total_available\": 6614.722648099481,\n        \"total_allocated\": 9938.202215994159,\n        \"total_unallocated\": 7941.145328359216,\n        \"po_total_committed\": 206.72837067416629,\n        \"fulfillment_type\": \"string\"\n      }\n    },\n    {\n      \"id\": 3731,\n      \"po_item_id\": \"string\",\n      \"quantity\": 9549,\n      \"_link\": \"string\",\n      \"product\": {\n        \"type\": \"Tangible\",\n        \"cost\": 4.95,\n        \"id\": 19551105,\n        \"company_id\": 1985,\n        \"name\": \"Flux Capacitor\",\n        \"sku\": \"outa-time\",\n        \"taxable\": \"string\",\n        \"weight\": 1.21,\n        \"length\": 12,\n        \"width\": 4,\n        \"height\": 8,\n        \"price\": 19.55,\n        \"customer_text\": \"string\",\n        \"internal_notes\": \"string\",\n        \"total_on_hand\": 9809.730456568837,\n        \"category\": \"misc-timetravel\",\n        \"is_kit_parent\": false,\n        \"archive_date\": \"string\",\n        \"hs_code\": \"string\",\n        \"country_of_origin\": \"string\",\n        \"customs_description\": \"string\",\n        \"created\": \"2015-10-26T15:44:17.993588-06:00\",\n        \"updated\": \"2020-01-01T17:54:05.158248-06:00\",\n        \"upc\": \"string\",\n        \"asin\": \"string\",\n        \"image_url\": \"string\",\n        \"default_image_id\": \"string\",\n        \"_link\": \"string\",\n        \"tags\": [\n          {\n            \"id\": 1914,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          },\n          {\n            \"id\": 8204,\n            \"name\": \"string\",\n            \"color\": \"string\"\n          }\n        ],\n        \"total_committed\": 135.6569901246174,\n        \"total_available\": 1713.4095816459117,\n        \"total_allocated\": 398.26579004176745,\n        \"total_unallocated\": 4509.455362070264,\n        \"po_total_committed\": 8394.058557684511,\n        \"fulfillment_type\": \"string\"\n      }\n    }\n  ],\n  \"comments\": [\n    {\n      \"user\": \"string\",\n      \"date\": \"1950-07-16T21:54:56.450Z\",\n      \"text\": \"string\"\n    },\n    {\n      \"user\": \"string\",\n      \"date\": \"2017-06-04T06:03:55.205Z\",\n      \"text\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.ordoro.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "34d3111e-b111-4ae5-8f2c-07825c74e535",
+    "name": "Ordoro API Documentation Address Goods Receipt API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code.",
+      "type": "text/plain"
+    }
+  }
+}

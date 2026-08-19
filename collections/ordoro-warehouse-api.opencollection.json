@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Warehouse API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Warehouse",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Warehouses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/warehouse/",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List Warehouses"
+        },
+        {
+          "info": {
+            "name": "Create a Warehouse",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/warehouse/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Warehouse"
+        },
+        {
+          "info": {
+            "name": "Get a Warehouse by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/warehouse/:warehouse_id/",
+            "params": [
+              {
+                "name": "warehouse_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a Warehouse by ID"
+        },
+        {
+          "info": {
+            "name": "Update a Warehouse by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/warehouse/:warehouse_id/",
+            "params": [
+              {
+                "name": "warehouse_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Warehouse by ID"
+        },
+        {
+          "info": {
+            "name": "Set a Warehouse to the Default by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/warehouse/:warehouse_id/make_default/",
+            "params": [
+              {
+                "name": "warehouse_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Set a Warehouse to the Default by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

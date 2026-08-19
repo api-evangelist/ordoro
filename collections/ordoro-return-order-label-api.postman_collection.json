@@ -1,0 +1,440 @@
+{
+  "item": [
+    {
+      "id": "66718465-221f-4f0d-8ea9-6540cceef31d",
+      "name": "Return Order Label",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0797dd2b-8c6f-4413-af77-3f42ce9dcb42",
+          "name": "Get Australia Post Label for Return Order",
+          "request": {
+            "name": "Get Australia Post Label for Return Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "return_order",
+                "label",
+                "australia_post"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_number",
+                  "description": "(Required) Unique identifier for an Order that includes a cart index prefix"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipper_id\": \"<integer>\",\n  \"packages\": [\n    {\n      \"additional_handling\": \"<boolean>\",\n      \"box_shape\": \"<string>\",\n      \"height\": \"<number>\",\n      \"length\": \"<number>\",\n      \"reference_number\": \"<string>\",\n      \"reference\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"additional_handling\": \"<boolean>\",\n      \"box_shape\": \"<string>\",\n      \"height\": \"<number>\",\n      \"length\": \"<number>\",\n      \"reference_number\": \"<string>\",\n      \"reference\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"box_shape\": \"<string>\",\n  \"customs_info\": [\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    }\n  ],\n  \"delivery_confirmation\": \"<string>\",\n  \"insurance_type\": \"<string>\",\n  \"insured_value\": \"<number>\",\n  \"notify_bill_to\": false,\n  \"notify_ship_to\": false,\n  \"packing_list_id\": \"<integer>\",\n  \"reason_for_export\": \"<string>\",\n  \"reference_id\": \"<string>\",\n  \"reference_number\": \"<string>\",\n  \"return\": \"<boolean>\",\n  \"service_token\": \"<string>\",\n  \"ship_date\": \"<string>\",\n  \"ship_from\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"ship_to\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"shipment_id\": \"<string>\",\n  \"shipping_method\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5cecf873-a4e4-4840-a4da-3934eb822003",
+          "name": "Get Canada Post Label for Return Order",
+          "request": {
+            "name": "Get Canada Post Label for Return Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "return_order",
+                "label",
+                "canada_post"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_number",
+                  "description": "(Required) Unique identifier for an Order that includes a cart index prefix"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipper_id\": \"<integer>\",\n  \"shipping_method\": \"<string>\",\n  \"shipper_type\": \"<string>\",\n  \"notify_bill_to\": false,\n  \"notify_ship_to\": false,\n  \"packages\": [\n    {\n      \"box_shape\": \"<string>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\",\n      \"weight\": \"<number>\"\n    }\n  ],\n  \"packing_list_id\": \"<integer>\",\n  \"reference_id\": \"<string>\",\n  \"reference_number\": \"<string>\",\n  \"reason_for_export\": \"<string>\",\n  \"nondelivery_option\": \"<string>\",\n  \"delivery_confirmation\": \"<string>\",\n  \"service_option\": \"<string>\",\n  \"insurance_type\": \"<string>\",\n  \"insured_value\": 0,\n  \"invoice_number\": \"<string>\",\n  \"customs_info\": [\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    }\n  ],\n  \"ship_from\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"ship_to\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"return\": \"<boolean>\",\n  \"warehouse_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f900de0-90ec-4260-82be-aed16cf0b8d1",
+          "name": "Get DHL Label for Return Order",
+          "request": {
+            "name": "Get DHL Label for Return Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "return_order",
+                "label",
+                "dhl"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_number",
+                  "description": "(Required) Unique identifier for an Order that includes a cart index prefix"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipper_id\": \"<integer>\",\n  \"shipping_method\": \"<string>\",\n  \"weight\": \"<number>\",\n  \"length\": \"<integer>\",\n  \"width\": \"<integer>\",\n  \"height\": \"<integer>\",\n  \"box_shape\": \"<string>\",\n  \"packages\": [\n    {\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"declared_value\": \"<number>\",\n      \"box_shape\": \"<string>\"\n    }\n  ],\n  \"packing_list_id\": \"<integer>\",\n  \"customs_info\": [\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    }\n  ],\n  \"reason_for_export\": \"P\",\n  \"reason_for_export_explanation\": \"<string>\",\n  \"declared_value\": \"<number>\",\n  \"insured_value\": \"<number>\",\n  \"insurance_type\": \"<string>\",\n  \"notify_bill_to\": false,\n  \"notify_ship_to\": false,\n  \"ship_date\": \"<dateTime>\",\n  \"pickup\": \"<dateTime>\",\n  \"signature_service\": \"<string>\",\n  \"nonstandard_day\": \"<string>\",\n  \"nonstandard_contents\": \"<string>\",\n  \"is_dutiable\": true,\n  \"federal_tax_id\": \"<string>\",\n  \"state_tax_id\": \"<string>\",\n  \"duty_payment_type\": \"R\",\n  \"reference_id\": \"<string>\",\n  \"reference_number\": \"<string>\",\n  \"sender_tax_info\": {\n    \"tax_id_number\": \"<string>\",\n    \"tax_id_type\": \"<string>\",\n    \"tax_issuer_country\": \"<string>\"\n  },\n  \"receiver_tax_info\": {\n    \"tax_id_number\": \"<string>\",\n    \"tax_id_type\": \"<string>\",\n    \"tax_issuer_country\": \"<string>\"\n  },\n  \"ship_from\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"ship_to\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"return\": false,\n  \"warehouse_id\": \"<integer>\",\n  \"shipping_payment_type\": \"S\",\n  \"shipping_payment_account\": \"<string>\",\n  \"duty_payment_account\": \"<string>\",\n  \"foreign_trade_regulation\": \"<string>\",\n  \"internal_transaction_number\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf49fa7c-b943-47f8-af78-8a4e77ef12ef",
+          "name": "Get DHL Label for Return Order",
+          "request": {
+            "name": "Get DHL Label for Return Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "return_order",
+                "label",
+                "dhl_ecommerce"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_number",
+                  "description": "(Required) Unique identifier for an Order that includes a cart index prefix"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipper_id\": \"<integer>\",\n  \"shipping_method\": \"<string>\",\n  \"packages\": [\n    {\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"description\": \"<string>\",\n      \"declared_value\": \"<number>\",\n      \"box_shape\": \"<string>\"\n    }\n  ],\n  \"packing_list_id\": \"<integer>\",\n  \"dangerous_goods\": \"<string>\",\n  \"delivery_confirmation\": \"<string>\",\n  \"service_endorsement\": \"<string>\",\n  \"customs_info\": [\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    }\n  ],\n  \"declared_value\": \"<number>\",\n  \"insured_value\": \"<number>\",\n  \"insurance_type\": \"<string>\",\n  \"notify_bill_to\": false,\n  \"notify_ship_to\": false,\n  \"reference_id\": \"<string>\",\n  \"reference_number\": \"<string>\",\n  \"ship_date\": \"<dateTime>\",\n  \"receiver_tax_info\": {\n    \"tax_id_number\": \"<string>\",\n    \"tax_id_type\": \"<string>\",\n    \"tax_issuer_country\": \"<string>\"\n  },\n  \"ship_from\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"ship_to\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"return\": false,\n  \"return_reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90aa32e9-5e61-4d1e-aa11-74acc28705d7",
+          "name": "Get Endicia Label for Return Order",
+          "request": {
+            "name": "Get Endicia Label for Return Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "return_order",
+                "label",
+                "endicia"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_number",
+                  "description": "(Required) Unique identifier for an Order that includes a cart index prefix"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipper_id\": \"<integer>\",\n  \"shipping_method\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"packages\": [\n    {\n      \"box_shape\": \"<string>\",\n      \"height\": \"<number>\",\n      \"length\": \"<number>\",\n      \"reference\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"packing_list_id\": \"<integer>\",\n  \"contents_type\": \"<string>\",\n  \"reason_for_export\": \"<string>\",\n  \"contents_explanation\": \"<string>\",\n  \"customs_info\": [\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    }\n  ],\n  \"delivery_confirmation\": \"None\",\n  \"hold_for_pickup\": \"<boolean>\",\n  \"insurance_type\": \"<string>\",\n  \"insured_value\": 0,\n  \"mailing_zip_code\": \"<string>\",\n  \"nondelivery_option\": \"Return\",\n  \"notify_bill_to\": false,\n  \"notify_ship_to\": false,\n  \"reference_id\": \"<string>\",\n  \"reference_number\": \"<string>\",\n  \"return\": \"<boolean>\",\n  \"ship_date\": \"<dateTime>\",\n  \"stealth\": \"<boolean>\",\n  \"ship_from\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"ship_to\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"warehouse_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4bea0b30-7ad2-4f51-9b34-740df96d0c26",
+          "name": "Get Fedex Label for Return Order",
+          "request": {
+            "name": "Get Fedex Label for Return Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "return_order",
+                "label",
+                "fedex"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_number",
+                  "description": "(Required) Unique identifier for an Order that includes a cart index prefix"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipper_id\": \"<integer>\",\n  \"shipping_method\": \"<string>\",\n  \"alcohol_shipment_license\": \"<string>\",\n  \"alternate_return_to_address\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"b13a_filing_option\": \"<string>\",\n  \"cod\": {\n    \"collection_type\": \"<string>\",\n    \"amount\": \"<number>\"\n  },\n  \"declared_value\": \"<number>\",\n  \"reference_number\": \"<string>\",\n  \"packages\": [\n    {\n      \"box_shape\": \"<string>\",\n      \"declared_value\": \"<number>\",\n      \"description\": \"<string>\",\n      \"dry_ice_weight\": 0,\n      \"height\": \"<number>\",\n      \"length\": \"<number>\",\n      \"reference_number\": \"<string>\",\n      \"department\": \"<string>\",\n      \"invoice\": \"<string>\",\n      \"purchase_order\": \"<string>\",\n      \"sub_package_type\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"box_shape\": \"<string>\",\n      \"declared_value\": \"<number>\",\n      \"description\": \"<string>\",\n      \"dry_ice_weight\": 0,\n      \"height\": \"<number>\",\n      \"length\": \"<number>\",\n      \"reference_number\": \"<string>\",\n      \"department\": \"<string>\",\n      \"invoice\": \"<string>\",\n      \"purchase_order\": \"<string>\",\n      \"sub_package_type\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"packing_list_id\": \"<integer>\",\n  \"customs_info\": [\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    }\n  ],\n  \"delivery_confirmation\": \"SERVICE_DEFAULT\",\n  \"delivery_instructions\": \"<string>\",\n  \"dry_ice_weight\": 0,\n  \"duties_payment_type\": \"<string>\",\n  \"duties_payment_account\": \"<string>\",\n  \"export_compliance_statement\": \"<string>\",\n  \"importer_of_record\": {\n    \"address\": {\n      \"name\": \"<string>\",\n      \"company\": \"<string>\",\n      \"street1\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"fax\": \"<string>\",\n      \"cart_address_id\": \"<string>\",\n      \"revision_locked_fields\": \"<array>\",\n      \"validation\": \"<object>\"\n    },\n    \"tin\": {\n      \"tin_type\": \"<string>\",\n      \"number\": \"<string>\"\n    },\n    \"account_number\": \"<string>\"\n  },\n  \"insurance_type\": \"<string>\",\n  \"insured_value\": 0,\n  \"label_type\": \"<string>\",\n  \"notify_bill_to\": false,\n  \"notify_ship_to\": false,\n  \"one_rate\": \"<boolean>\",\n  \"payment_account\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"pharmacy_delivery\": false,\n  \"priority_alert\": \"<string>\",\n  \"reason_for_export\": \"<string>\",\n  \"reason_for_export_explanation\": \"<string>\",\n  \"receiver_tax_info\": {\n    \"tax_id_number\": \"<string>\",\n    \"tax_id_type\": \"<string>\",\n    \"tax_issuer_country\": \"<string>\"\n  },\n  \"recipient_address_is_residential\": \"<boolean>\",\n  \"return\": \"<boolean>\",\n  \"saturday_delivery\": false,\n  \"sender_tax_info\": {\n    \"tax_id_number\": \"<string>\",\n    \"tax_id_type\": \"<string>\",\n    \"tax_issuer_country\": \"<string>\"\n  },\n  \"ship_date\": \"<dateTime>\",\n  \"shipper_type\": \"<string>\",\n  \"smart_post_ancillary_endorsement\": \"<string>\",\n  \"smart_post_hub\": \"<string>\",\n  \"smart_post_indicia\": \"<string>\",\n  \"ship_from\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"ship_to\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"reference_id\": \"<string>\",\n  \"dangerous_goods_option\": \"<string>\",\n  \"dangerous_goods_regulation_type\": \"<string>\",\n  \"warehouse_id\": \"<integer>\",\n  \"etd_service\": \"<boolean>\",\n  \"etd_preshipment_docs\": [\n    {\n      \"id\": \"<string>\",\n      \"document_type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"document_type\": \"<string>\"\n    }\n  ],\n  \"hold_at_location\": \"<boolean>\",\n  \"hold_at_location_id\": \"<string>\",\n  \"certificate_of_origin\": \"<boolean>\",\n  \"use_metric_units\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e8dd1536-5409-44c6-ab7e-285d5b8abd83",
+          "name": "Get Pitney Label for Return Order",
+          "request": {
+            "name": "Get Pitney Label for Return Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "return_order",
+                "label",
+                "pitney"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_number",
+                  "description": "(Required) Unique identifier for an Order that includes a cart index prefix"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipper_id\": \"<integer>\",\n  \"shipping_method\": \"<string>\",\n  \"alternate_return_to_address\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"customs_info\": [\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    }\n  ],\n  \"delivery_confirmation\": \"<string>\",\n  \"hazmat_type\": \"<string>\",\n  \"hazmat_electronics\": \"<boolean>\",\n  \"insurance_type\": \"<string>\",\n  \"insured_value\": \"<number>\",\n  \"mailing_zip_code\": \"<string>\",\n  \"non_delivery\": \"<string>\",\n  \"notify_bill_to\": false,\n  \"notify_ship_to\": false,\n  \"packages\": [\n    {\n      \"box_shape\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"height\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"box_shape\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"height\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"parcel_characteristics\": \"<string>\",\n  \"packing_list_id\": \"<integer>\",\n  \"pitney_rate_type\": \"<string>\",\n  \"rate_cost\": \"<number>\",\n  \"reason_for_export\": \"<string>\",\n  \"reason_for_export_explanation\": \"<string>\",\n  \"sender_tax_info\": {\n    \"tax_id_number\": \"<string>\",\n    \"tax_id_type\": \"<string>\",\n    \"tax_issuer_country\": \"<string>\"\n  },\n  \"reference_id\": \"<string>\",\n  \"reference_number\": \"<string>\",\n  \"return\": \"<boolean>\",\n  \"ship_date\": \"<dateTime>\",\n  \"ship_from\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"ship_to\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"warehouse_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "45f97c48-726b-479e-8156-7c413f7cab38",
+          "name": "Get UPS Label for Return Order",
+          "request": {
+            "name": "Get UPS Label for Return Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "return_order",
+                "label",
+                "ups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_number",
+                  "description": "(Required) Unique identifier for an Order that includes a cart index prefix"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipper_id\": \"<integer>\",\n  \"shipping_method\": \"<string>\",\n  \"additional_handling\": \"<boolean>\",\n  \"certificate_origin\": false,\n  \"customs_info\": [\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"value\": \"<double>\",\n      \"weight\": \"<number>\",\n      \"country\": \"<string>\",\n      \"harmonization_code\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"url\": \"<string>\",\n      \"harmonization_code_country\": \"<string>\"\n    }\n  ],\n  \"delivery_confirmation\": \"<string>\",\n  \"direct_delivery\": \"<boolean>\",\n  \"dry_ice_regulation_set\": \"<string>\",\n  \"insurance_type\": \"<string>\",\n  \"insured_value\": 0,\n  \"notify_bill_to\": false,\n  \"notify_ship_to\": false,\n  \"box_shape\": \"<string>\",\n  \"declared_value\": \"<number>\",\n  \"description\": \"<string>\",\n  \"dry_ice_weight\": \"<number>\",\n  \"height\": \"<number>\",\n  \"length\": \"<number>\",\n  \"weight\": \"<number>\",\n  \"width\": \"<number>\",\n  \"packages\": [\n    {\n      \"box_shape\": \"<string>\",\n      \"additional_handling\": \"<boolean>\",\n      \"declared_value\": \"<number>\",\n      \"description\": \"<string>\",\n      \"dry_ice_regulation_set\": \"<string>\",\n      \"dry_ice_weight\": \"<number>\",\n      \"hazmat_items\": [\n        {\n          \"commodity_regulated_level_code\": \"<string>\",\n          \"regulation_set\": \"<string>\",\n          \"transportation_mode\": \"<string>\",\n          \"additional_description\": \"<string>\",\n          \"class_division_number\": \"<string>\",\n          \"emergency_contact\": \"<string>\",\n          \"emergency_phone\": \"<string>\",\n          \"hazard_label_required\": \"<string>\",\n          \"id_number\": \"<string>\",\n          \"packaging_instruction_code\": \"<string>\",\n          \"packaging_group_type\": \"<string>\",\n          \"packaging_type\": \"<string>\",\n          \"packaging_type_quantity\": \"<string>\",\n          \"proper_shipping_name\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"reportable_quantity\": \"<string>\",\n          \"sub_risk_class\": \"<string>\",\n          \"technical_name\": \"<string>\",\n          \"transport_category\": \"<string>\",\n          \"tunnel_restriction_code\": \"<string>\",\n          \"uom\": \"<string>\"\n        },\n        {\n          \"commodity_regulated_level_code\": \"<string>\",\n          \"regulation_set\": \"<string>\",\n          \"transportation_mode\": \"<string>\",\n          \"additional_description\": \"<string>\",\n          \"class_division_number\": \"<string>\",\n          \"emergency_contact\": \"<string>\",\n          \"emergency_phone\": \"<string>\",\n          \"hazard_label_required\": \"<string>\",\n          \"id_number\": \"<string>\",\n          \"packaging_instruction_code\": \"<string>\",\n          \"packaging_group_type\": \"<string>\",\n          \"packaging_type\": \"<string>\",\n          \"packaging_type_quantity\": \"<string>\",\n          \"proper_shipping_name\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"reportable_quantity\": \"<string>\",\n          \"sub_risk_class\": \"<string>\",\n          \"technical_name\": \"<string>\",\n          \"transport_category\": \"<string>\",\n          \"tunnel_restriction_code\": \"<string>\",\n          \"uom\": \"<string>\"\n        }\n      ],\n      \"height\": \"<number>\",\n      \"length\": \"<number>\",\n      \"reference_number\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"box_shape\": \"<string>\",\n      \"additional_handling\": \"<boolean>\",\n      \"declared_value\": \"<number>\",\n      \"description\": \"<string>\",\n      \"dry_ice_regulation_set\": \"<string>\",\n      \"dry_ice_weight\": \"<number>\",\n      \"hazmat_items\": [\n        {\n          \"commodity_regulated_level_code\": \"<string>\",\n          \"regulation_set\": \"<string>\",\n          \"transportation_mode\": \"<string>\",\n          \"additional_description\": \"<string>\",\n          \"class_division_number\": \"<string>\",\n          \"emergency_contact\": \"<string>\",\n          \"emergency_phone\": \"<string>\",\n          \"hazard_label_required\": \"<string>\",\n          \"id_number\": \"<string>\",\n          \"packaging_instruction_code\": \"<string>\",\n          \"packaging_group_type\": \"<string>\",\n          \"packaging_type\": \"<string>\",\n          \"packaging_type_quantity\": \"<string>\",\n          \"proper_shipping_name\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"reportable_quantity\": \"<string>\",\n          \"sub_risk_class\": \"<string>\",\n          \"technical_name\": \"<string>\",\n          \"transport_category\": \"<string>\",\n          \"tunnel_restriction_code\": \"<string>\",\n          \"uom\": \"<string>\"\n        },\n        {\n          \"commodity_regulated_level_code\": \"<string>\",\n          \"regulation_set\": \"<string>\",\n          \"transportation_mode\": \"<string>\",\n          \"additional_description\": \"<string>\",\n          \"class_division_number\": \"<string>\",\n          \"emergency_contact\": \"<string>\",\n          \"emergency_phone\": \"<string>\",\n          \"hazard_label_required\": \"<string>\",\n          \"id_number\": \"<string>\",\n          \"packaging_instruction_code\": \"<string>\",\n          \"packaging_group_type\": \"<string>\",\n          \"packaging_type\": \"<string>\",\n          \"packaging_type_quantity\": \"<string>\",\n          \"proper_shipping_name\": \"<string>\",\n          \"quantity\": \"<string>\",\n          \"reportable_quantity\": \"<string>\",\n          \"sub_risk_class\": \"<string>\",\n          \"technical_name\": \"<string>\",\n          \"transport_category\": \"<string>\",\n          \"tunnel_restriction_code\": \"<string>\",\n          \"uom\": \"<string>\"\n        }\n      ],\n      \"height\": \"<number>\",\n      \"length\": \"<number>\",\n      \"reference_number\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"package_bill_type\": \"<string>\",\n  \"packing_list_id\": \"<integer>\",\n  \"payment_type\": \"BillShipper\",\n  \"payment_account\": \"<string>\",\n  \"payment_zip\": \"<string>\",\n  \"payment_country\": \"<string>\",\n  \"duties_payment_type\": \"BillShipper\",\n  \"duties_payment_account\": \"<string>\",\n  \"duties_payment_zip\": \"<string>\",\n  \"duties_payment_country\": \"<string>\",\n  \"purchase_order_number\": \"<string>\",\n  \"reason_for_export\": \"<string>\",\n  \"receiver_tax_info\": {\n    \"tax_id_number\": \"<string>\",\n    \"tax_id_type\": \"<string>\",\n    \"tax_issuer_country\": \"<string>\"\n  },\n  \"recipient_address_is_residential\": \"<boolean>\",\n  \"reference_number\": \"<string>\",\n  \"return\": \"<boolean>\",\n  \"saturday_delivery\": false,\n  \"sender_tax_info\": {\n    \"tax_id_number\": \"<string>\",\n    \"tax_id_type\": \"<string>\",\n    \"tax_issuer_country\": \"<string>\"\n  },\n  \"shipper_type\": \"<string>\",\n  \"shipper_release\": \"<boolean>\",\n  \"shipper_return_to_address\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"ship_from\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"ship_to\": {\n    \"id\": \"<number>\",\n    \"name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street1\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"reference_number\": \"<string>\",\n    \"cart_address_id\": \"<string>\",\n    \"_link\": \"<string>\",\n    \"_linkaddresscreatedtaskstatus\": \"<string>\",\n    \"validation\": \"<object>\"\n  },\n  \"reference_id\": \"<string>\",\n  \"usps_endorsement\": \"<string>\",\n  \"warehouse_id\": \"<integer>\",\n  \"cost_center\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.ordoro.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b2eb7dca-449b-494c-a4c6-34aee55b3020",
+    "name": "Ordoro API Documentation Address Return Order Label API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code.",
+      "type": "text/plain"
+    }
+  }
+}

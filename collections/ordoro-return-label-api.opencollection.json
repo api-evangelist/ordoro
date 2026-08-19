@@ -1,0 +1,172 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Return Label API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Return Label",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of Return Labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/return_label/",
+            "params": [
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "default",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_width",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_height",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orientation",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "top_margin",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "left_margin",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "rotation",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of return labels by using the `s` parameter for shipments"
+        },
+        {
+          "info": {
+            "name": "Get return label PDFs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/return_label/pdf/",
+            "params": [
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "default",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_width",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_height",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orientation",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "top_margin",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "left_margin",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "rotation",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of return label PDFs by type and shipment"
+        },
+        {
+          "info": {
+            "name": "Get a raw label image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/return_label/:label_id/raw/",
+            "params": [
+              {
+                "name": "label_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a raw label image by label id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

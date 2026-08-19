@@ -1,0 +1,141 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Company API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Company",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Your Company Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/company/"
+          },
+          "docs": "Get Your Company Info"
+        },
+        {
+          "info": {
+            "name": "Update Your Company",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/company/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Your Company"
+        },
+        {
+          "info": {
+            "name": "Get Company Logo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/company/logo/"
+          },
+          "docs": "Get Company Logo"
+        },
+        {
+          "info": {
+            "name": "Get Company Logo by Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/company/logo/:name/",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Company Logo by Name"
+        },
+        {
+          "info": {
+            "name": "Update Company Logo by Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/company/logo/:name/",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Company Logo by Name"
+        },
+        {
+          "info": {
+            "name": "Get company logo by company ID and logo name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/company/:company_id/logo/:name/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get company logo by company ID and logo name"
+        },
+        {
+          "info": {
+            "name": "Get raw logo image by company ID and logo name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/company/:company_id/logo/:name/raw/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "The `name` parameter is the name of your company logo."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

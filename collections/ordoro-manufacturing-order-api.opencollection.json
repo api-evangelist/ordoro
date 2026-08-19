@@ -1,0 +1,314 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Manufacturing Order API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Manufacturing Order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Manufacturing Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/manufacturing_order",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tag name. Can be repeated for multiple tags.\n\nNote: Cannot be included if `untagged` is also passed.\n"
+              },
+              {
+                "name": "tag_filter_by",
+                "value": "",
+                "type": "query",
+                "description": "Tag filtering logic:\n* `or` [default] return manufacturing orders that contain any of the supplied tags\n* `and` returns manufacturing orders containing ALL of the supplied tags\n* `only` returns manufacturing orders containing ONLY the supplied tags\n* `not` returns manufacturing orders that do not contain one or more of the supplied tags\n"
+              },
+              {
+                "name": "untagged",
+                "value": "",
+                "type": "query",
+                "description": "Filter untagged manufacturing orders\n\nNote: Cannot be included if `tags` are also passed.\n"
+              },
+              {
+                "name": "reference_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "warehouse_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List Manufacturing Orders"
+        },
+        {
+          "info": {
+            "name": "Create a Manufacturing Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/manufacturing_order",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Manufacturing Order"
+        },
+        {
+          "info": {
+            "name": "Get Manufacturing Order by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/:reference_id"
+          },
+          "docs": "Get Manufacturing Order by ID"
+        },
+        {
+          "info": {
+            "name": "Update Manufacturing Order by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/:reference_id",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Manufacturing Order by ID"
+        },
+        {
+          "info": {
+            "name": "Get Manufacturing Order Counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/counts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get Manufacturing Order Counts"
+        },
+        {
+          "info": {
+            "name": "Get Manufacturing Order Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/tag"
+          },
+          "docs": "Get Manufacturing Order Tags"
+        },
+        {
+          "info": {
+            "name": "Create a Manufacturing Order Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/tag",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Manufacturing Order Tag"
+        },
+        {
+          "info": {
+            "name": "Get Manufacturing Order Tag by Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/tag/:name"
+          },
+          "docs": "Get Manufacturing Order Tag by Name"
+        },
+        {
+          "info": {
+            "name": "Update a Manufacturing Order Tag by Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/tag/:name",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Manufacturing Order Tag by Name"
+        },
+        {
+          "info": {
+            "name": "Delete a Manufacturing Order Tag by Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/tag/:name"
+          },
+          "docs": "Delete a Manufacturing Order Tag by Name"
+        },
+        {
+          "info": {
+            "name": "Apply a Manufacturing Order Tag to Manufacturing Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/:reference_id/tag/:tag_name"
+          },
+          "docs": "Apply a Manufacturing Order Tag to Manufacturing Order"
+        },
+        {
+          "info": {
+            "name": "Remove a Manufacturing Order Tag from a Manufacturing Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/:reference_id/tag/:tag_name"
+          },
+          "docs": "Remove a Manufacturing Order Tag from a Manufacturing Order"
+        },
+        {
+          "info": {
+            "name": "Retrieve Comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/:reference_id/comment",
+            "params": [
+              {
+                "name": "goods_receipt_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve Comments"
+        },
+        {
+          "info": {
+            "name": "Create a Manufacturing Order Comment by MO ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/:reference_id/comment",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Manufacturing Order Comment by MO ID"
+        },
+        {
+          "info": {
+            "name": "Create a Manufacturing Order line",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/:reference_id/line",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Manufacturing Order line"
+        },
+        {
+          "info": {
+            "name": "Update a Manufacturing Order line",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/:reference_id/line/:manufacturing_order_line_id",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Manufacturing Order line"
+        },
+        {
+          "info": {
+            "name": "Remove a Manufacturing Order line from Manufacturing Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/:reference_id/line/:manufacturing_order_line_id"
+          },
+          "docs": "Remove a Manufacturing Order line from Manufacturing Order"
+        },
+        {
+          "info": {
+            "name": "Mark a Manufacturing Order line as finished",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/manufacturing_order/:reference_id/line/:manufacturing_order_line_id/finish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mark a Manufacturing Order line as finished"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

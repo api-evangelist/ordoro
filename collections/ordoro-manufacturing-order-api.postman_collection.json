@@ -1,0 +1,1684 @@
+{
+  "item": [
+    {
+      "id": "0f5afc4f-961d-4234-8570-691fcee55b17",
+      "name": "Manufacturing Order",
+      "description": {
+        "content": "Manufacturing Orders are used for creating and tracking Bill of Material orders. A Manufacturing Order is assigned to a warehouse and may have multiple lines and tags.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d6982c17-7f91-440a-8dad-f77198d59fe0",
+          "name": "List Manufacturing Orders",
+          "request": {
+            "name": "List Manufacturing Orders",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "Filter by tag name. Can be repeated for multiple tags.\n\nNote: Cannot be included if `untagged` is also passed.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "Filter by tag name. Can be repeated for multiple tags.\n\nNote: Cannot be included if `untagged` is also passed.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_filter_by",
+                  "value": "<string>",
+                  "description": "Tag filtering logic:\n* `or` [default] return manufacturing orders that contain any of the supplied tags\n* `and` returns manufacturing orders containing ALL of the supplied tags\n* `only` returns manufacturing orders containing ONLY the supplied tags\n* `not` returns manufacturing orders that do not contain one or more of the supplied tags\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "untagged",
+                  "value": "<boolean>",
+                  "description": "Filter untagged manufacturing orders\n\nNote: Cannot be included if `tags` are also passed.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "reference_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "reference_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "warehouse_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "warehouse_id",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6446ffb2-ee7d-4461-9f9d-dcee501bd630",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_filter_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "untagged",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "reference_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reference_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "warehouse_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "warehouse_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"limit\": 7325,\n  \"offset\": 2032,\n  \"count\": 995,\n  \"manufacturing_order\": [\n    {\n      \"reference_id\": \"string\",\n      \"status\": \"string\",\n      \"warehouse_id\": 3480,\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"lines\": [\n        {\n          \"id\": 857,\n          \"sku\": \"string\",\n          \"bom_sku\": \"string\",\n          \"manufacturer_notes\": \"string\",\n          \"internal_notes\": \"string\",\n          \"requested_quantity\": 8643.87488939202,\n          \"finished_quantity\": 4059.6763187010033,\n          \"created_date\": \"string\",\n          \"updated_date\": \"string\",\n          \"_link\": \"string\"\n        },\n        {\n          \"id\": 1992,\n          \"sku\": \"string\",\n          \"bom_sku\": \"string\",\n          \"manufacturer_notes\": \"string\",\n          \"internal_notes\": \"string\",\n          \"requested_quantity\": 1587.8757895498918,\n          \"finished_quantity\": 1484.8144527120733,\n          \"created_date\": \"string\",\n          \"updated_date\": \"string\",\n          \"_link\": \"string\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": 3005,\n          \"name\": \"string\",\n          \"color\": \"string\"\n        },\n        {\n          \"id\": 3995,\n          \"name\": \"string\",\n          \"color\": \"string\"\n        }\n      ],\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"comments\": [\n        {\n          \"user\": \"string\",\n          \"date\": \"1992-06-28T14:39:54.530Z\",\n          \"text\": \"string\"\n        },\n        {\n          \"user\": \"string\",\n          \"date\": \"2021-03-28T06:10:29.284Z\",\n          \"text\": \"string\"\n        }\n      ]\n    },\n    {\n      \"reference_id\": \"string\",\n      \"status\": \"string\",\n      \"warehouse_id\": 6912,\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"lines\": [\n        {\n          \"id\": 3712,\n          \"sku\": \"string\",\n          \"bom_sku\": \"string\",\n          \"manufacturer_notes\": \"string\",\n          \"internal_notes\": \"string\",\n          \"requested_quantity\": 765.1971361633558,\n          \"finished_quantity\": 3498.0271513635676,\n          \"created_date\": \"string\",\n          \"updated_date\": \"string\",\n          \"_link\": \"string\"\n        },\n        {\n          \"id\": 1747,\n          \"sku\": \"string\",\n          \"bom_sku\": \"string\",\n          \"manufacturer_notes\": \"string\",\n          \"internal_notes\": \"string\",\n          \"requested_quantity\": 5171.492769417995,\n          \"finished_quantity\": 4463.264670249525,\n          \"created_date\": \"string\",\n          \"updated_date\": \"string\",\n          \"_link\": \"string\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": 7972,\n          \"name\": \"string\",\n          \"color\": \"string\"\n        },\n        {\n          \"id\": 4094,\n          \"name\": \"string\",\n          \"color\": \"string\"\n        }\n      ],\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"comments\": [\n        {\n          \"user\": \"string\",\n          \"date\": \"1955-03-25T02:57:53.442Z\",\n          \"text\": \"string\"\n        },\n        {\n          \"user\": \"string\",\n          \"date\": \"1952-09-23T05:25:35.447Z\",\n          \"text\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36a0a86a-1a53-4b3f-962d-258465e6af6a",
+          "name": "Create a Manufacturing Order",
+          "request": {
+            "name": "Create a Manufacturing Order",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reference_id\": \"<string>\",\n  \"warehouse_id\": \"<integer>\",\n  \"manufacturer_notes\": \"<string>\",\n  \"internal_notes\": \"<string>\",\n  \"lines\": [\n    {\n      \"sku\": \"<string>\",\n      \"requested_quantity\": \"<number>\",\n      \"manufacturer_notes\": \"<string>\",\n      \"internal_notes\": \"<string>\"\n    },\n    {\n      \"sku\": \"<string>\",\n      \"requested_quantity\": \"<number>\",\n      \"manufacturer_notes\": \"<string>\",\n      \"internal_notes\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "30847918-0dc3-4fc7-9479-c0320ac83253",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference_id\": \"<string>\",\n  \"warehouse_id\": \"<integer>\",\n  \"manufacturer_notes\": \"<string>\",\n  \"internal_notes\": \"<string>\",\n  \"lines\": [\n    {\n      \"sku\": \"<string>\",\n      \"requested_quantity\": \"<number>\",\n      \"manufacturer_notes\": \"<string>\",\n      \"internal_notes\": \"<string>\"\n    },\n    {\n      \"sku\": \"<string>\",\n      \"requested_quantity\": \"<number>\",\n      \"manufacturer_notes\": \"<string>\",\n      \"internal_notes\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reference_id\": \"string\",\n  \"status\": \"string\",\n  \"warehouse_id\": 9953,\n  \"manufacturer_notes\": \"string\",\n  \"internal_notes\": \"string\",\n  \"lines\": [\n    {\n      \"id\": 5182,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 5599.42826826562,\n      \"finished_quantity\": 3184.0959718212403,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    },\n    {\n      \"id\": 5737,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 2638.1792859867705,\n      \"finished_quantity\": 8686.243776678553,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 8598,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    },\n    {\n      \"id\": 3523,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    }\n  ],\n  \"created_date\": \"string\",\n  \"updated_date\": \"string\",\n  \"comments\": [\n    {\n      \"user\": \"string\",\n      \"date\": \"1949-09-04T04:40:59.406Z\",\n      \"text\": \"string\"\n    },\n    {\n      \"user\": \"string\",\n      \"date\": \"2014-02-03T16:31:56.925Z\",\n      \"text\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92966f78-b113-4f56-9d74-431535265172",
+          "name": "Get Manufacturing Order by ID",
+          "request": {
+            "name": "Get Manufacturing Order by ID",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                ":reference_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8a40f670-c706-4547-be0e-795ee2c9cd07",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    ":reference_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reference_id\": \"string\",\n  \"status\": \"string\",\n  \"warehouse_id\": 9953,\n  \"manufacturer_notes\": \"string\",\n  \"internal_notes\": \"string\",\n  \"lines\": [\n    {\n      \"id\": 5182,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 5599.42826826562,\n      \"finished_quantity\": 3184.0959718212403,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    },\n    {\n      \"id\": 5737,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 2638.1792859867705,\n      \"finished_quantity\": 8686.243776678553,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 8598,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    },\n    {\n      \"id\": 3523,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    }\n  ],\n  \"created_date\": \"string\",\n  \"updated_date\": \"string\",\n  \"comments\": [\n    {\n      \"user\": \"string\",\n      \"date\": \"1949-09-04T04:40:59.406Z\",\n      \"text\": \"string\"\n    },\n    {\n      \"user\": \"string\",\n      \"date\": \"2014-02-03T16:31:56.925Z\",\n      \"text\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c786f67b-e7ce-4b37-880e-f2e7766842a4",
+          "name": "Update Manufacturing Order by ID",
+          "request": {
+            "name": "Update Manufacturing Order by ID",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                ":reference_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\",\n  \"manufacturer_notes\": \"<string>\",\n  \"internal_notes\": \"<string>\",\n  \"warehouse_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ec9a50f8-3a95-42c4-9029-28e03a3bc98c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    ":reference_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"manufacturer_notes\": \"<string>\",\n  \"internal_notes\": \"<string>\",\n  \"warehouse_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reference_id\": \"string\",\n  \"status\": \"string\",\n  \"warehouse_id\": 9953,\n  \"manufacturer_notes\": \"string\",\n  \"internal_notes\": \"string\",\n  \"lines\": [\n    {\n      \"id\": 5182,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 5599.42826826562,\n      \"finished_quantity\": 3184.0959718212403,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    },\n    {\n      \"id\": 5737,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 2638.1792859867705,\n      \"finished_quantity\": 8686.243776678553,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 8598,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    },\n    {\n      \"id\": 3523,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    }\n  ],\n  \"created_date\": \"string\",\n  \"updated_date\": \"string\",\n  \"comments\": [\n    {\n      \"user\": \"string\",\n      \"date\": \"1949-09-04T04:40:59.406Z\",\n      \"text\": \"string\"\n    },\n    {\n      \"user\": \"string\",\n      \"date\": \"2014-02-03T16:31:56.925Z\",\n      \"text\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8fd424b6-8207-4129-9fd7-e6d692127043",
+          "name": "Get Manufacturing Order Counts",
+          "request": {
+            "name": "Get Manufacturing Order Counts",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                "counts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"group_by\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bba5fe7c-9d2b-4091-bea0-ed3341971a80",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    "counts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"group_by\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c7c0bc38-290d-496a-99fa-ca514cdd400f",
+          "name": "Create a Manufacturing Order Tag",
+          "request": {
+            "name": "Create a Manufacturing Order Tag",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                "tag"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eab29503-8879-43f1-97ac-0e06aa1d56a9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    "tag"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6589,\n  \"name\": \"string\",\n  \"color\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9678d24d-dead-4a47-b8a3-d1479f06d5c0",
+          "name": "Get Manufacturing Order Tags",
+          "request": {
+            "name": "Get Manufacturing Order Tags",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                "tag"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81f49250-6c82-4fce-ae07-c02cf4c6817a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    "tag"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 2007,\n  \"tag\": [\n    {\n      \"id\": 5557,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    },\n    {\n      \"id\": 7699,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    }\n  ],\n  \"limit\": 10,\n  \"offset\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2658940b-db02-4577-95f1-835fc15e54b2",
+          "name": "Get Manufacturing Order Tag by Name",
+          "request": {
+            "name": "Get Manufacturing Order Tag by Name",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                "tag",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "975cedb9-827f-4ac5-ba3e-8ed898924273",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    "tag",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6589,\n  \"name\": \"string\",\n  \"color\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63f5b4e0-2c49-42f4-81d0-38c7a38eac0e",
+          "name": "Update a Manufacturing Order Tag by Name",
+          "request": {
+            "name": "Update a Manufacturing Order Tag by Name",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                "tag",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c194c0b3-1649-4a90-aeb5-e67602d6d33b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    "tag",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6589,\n  \"name\": \"string\",\n  \"color\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c42f6504-22bc-492e-b2da-8994bc0bc98c",
+          "name": "Delete a Manufacturing Order Tag by Name",
+          "request": {
+            "name": "Delete a Manufacturing Order Tag by Name",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                "tag",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "98b29ad2-4cdc-4132-a922-23d9f312de63",
+              "name": "response OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    "tag",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8268218-103e-4470-88f9-88e7d2bde9e9",
+          "name": "Apply a Manufacturing Order Tag to Manufacturing Order",
+          "request": {
+            "name": "Apply a Manufacturing Order Tag to Manufacturing Order",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                ":reference_id",
+                "tag",
+                ":tag_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3da07eb-0e1a-4ba4-8c89-b6401639aa7d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    ":reference_id",
+                    "tag",
+                    ":tag_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reference_id\": \"string\",\n  \"status\": \"string\",\n  \"warehouse_id\": 9953,\n  \"manufacturer_notes\": \"string\",\n  \"internal_notes\": \"string\",\n  \"lines\": [\n    {\n      \"id\": 5182,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 5599.42826826562,\n      \"finished_quantity\": 3184.0959718212403,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    },\n    {\n      \"id\": 5737,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 2638.1792859867705,\n      \"finished_quantity\": 8686.243776678553,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 8598,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    },\n    {\n      \"id\": 3523,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    }\n  ],\n  \"created_date\": \"string\",\n  \"updated_date\": \"string\",\n  \"comments\": [\n    {\n      \"user\": \"string\",\n      \"date\": \"1949-09-04T04:40:59.406Z\",\n      \"text\": \"string\"\n    },\n    {\n      \"user\": \"string\",\n      \"date\": \"2014-02-03T16:31:56.925Z\",\n      \"text\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c9dc4f9-ebdd-4c04-b7d0-19be3f04bebf",
+          "name": "Remove a Manufacturing Order Tag from a Manufacturing Order",
+          "request": {
+            "name": "Remove a Manufacturing Order Tag from a Manufacturing Order",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                ":reference_id",
+                "tag",
+                ":tag_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "48bf29e6-5d42-4ccf-b811-bf4c955c020b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    ":reference_id",
+                    "tag",
+                    ":tag_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reference_id\": \"string\",\n  \"status\": \"string\",\n  \"warehouse_id\": 9953,\n  \"manufacturer_notes\": \"string\",\n  \"internal_notes\": \"string\",\n  \"lines\": [\n    {\n      \"id\": 5182,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 5599.42826826562,\n      \"finished_quantity\": 3184.0959718212403,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    },\n    {\n      \"id\": 5737,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 2638.1792859867705,\n      \"finished_quantity\": 8686.243776678553,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 8598,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    },\n    {\n      \"id\": 3523,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    }\n  ],\n  \"created_date\": \"string\",\n  \"updated_date\": \"string\",\n  \"comments\": [\n    {\n      \"user\": \"string\",\n      \"date\": \"1949-09-04T04:40:59.406Z\",\n      \"text\": \"string\"\n    },\n    {\n      \"user\": \"string\",\n      \"date\": \"2014-02-03T16:31:56.925Z\",\n      \"text\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d51ca846-bbd4-42ad-aae6-8893a7f37c64",
+          "name": "Create a Manufacturing Order Comment by MO ID",
+          "request": {
+            "name": "Create a Manufacturing Order Comment by MO ID",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                ":reference_id",
+                "comment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": \"<string>\",\n  \"date\": \"<dateTime>\",\n  \"text\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c66ad3e1-fb68-4f9a-ad4e-af7629e91720",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    ":reference_id",
+                    "comment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": \"<string>\",\n  \"date\": \"<dateTime>\",\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reference_id\": \"string\",\n  \"status\": \"string\",\n  \"warehouse_id\": 9413,\n  \"manufacturer_notes\": \"string\",\n  \"internal_notes\": \"string\",\n  \"lines\": [\n    {\n      \"id\": 673,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 411.81784515402,\n      \"finished_quantity\": 8889.141482143019,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    },\n    {\n      \"id\": 8922,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 2341.0071841494296,\n      \"finished_quantity\": 6922.120394795292,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 9943,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    },\n    {\n      \"id\": 5745,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    }\n  ],\n  \"created_date\": \"string\",\n  \"updated_date\": \"string\",\n  \"comments\": [\n    {\n      \"user\": \"<string>\",\n      \"date\": \"<dateTime>\",\n      \"text\": \"<string>\"\n    },\n    {\n      \"user\": \"<string>\",\n      \"date\": \"<dateTime>\",\n      \"text\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb747209-84dc-48be-9fa5-88d5415f7db3",
+          "name": "Retrieve Comments",
+          "request": {
+            "name": "Retrieve Comments",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                ":reference_id",
+                "comment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "goods_receipt_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c2c89d4-f420-4884-8119-eb89094ab736",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    ":reference_id",
+                    "comment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "goods_receipt_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"limit\": 10,\n  \"offset\": 0,\n  \"count\": 1,\n  \"comment\": [\n    {\n      \"user\": \"user@ordoro.com\",\n      \"date\": \"2026-03-05T21:10:26.911724+00:00\",\n      \"text\": \"This is a very important comment\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2f75a84-416b-44fb-b094-d5b2aca36cf0",
+          "name": "Create a Manufacturing Order line",
+          "request": {
+            "name": "Create a Manufacturing Order line",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                ":reference_id",
+                "line"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"<string>\",\n  \"requested_quantity\": \"<number>\",\n  \"manufacturer_notes\": \"<string>\",\n  \"internal_notes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fb9d9830-ada0-4505-9b58-56c57050ec11",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    ":reference_id",
+                    "line"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sku\": \"<string>\",\n  \"requested_quantity\": \"<number>\",\n  \"manufacturer_notes\": \"<string>\",\n  \"internal_notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reference_id\": \"string\",\n  \"status\": \"string\",\n  \"warehouse_id\": 9413,\n  \"manufacturer_notes\": \"string\",\n  \"internal_notes\": \"string\",\n  \"lines\": [\n    {\n      \"id\": 673,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 411.81784515402,\n      \"finished_quantity\": 8889.141482143019,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    },\n    {\n      \"id\": 8922,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 2341.0071841494296,\n      \"finished_quantity\": 6922.120394795292,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 9943,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    },\n    {\n      \"id\": 5745,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    }\n  ],\n  \"created_date\": \"string\",\n  \"updated_date\": \"string\",\n  \"comments\": [\n    {\n      \"user\": \"<string>\",\n      \"date\": \"<dateTime>\",\n      \"text\": \"<string>\"\n    },\n    {\n      \"user\": \"<string>\",\n      \"date\": \"<dateTime>\",\n      \"text\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04893a0a-b31b-45df-af95-0b2b992852a2",
+          "name": "Update a Manufacturing Order line",
+          "request": {
+            "name": "Update a Manufacturing Order line",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                ":reference_id",
+                "line",
+                ":manufacturing_order_line_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requested_quantity\": \"<number>\",\n  \"finished_quantity\": \"<number>\",\n  \"manufacturer_notes\": \"<string>\",\n  \"internal_notes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ab168905-23ec-4ea1-a2e8-d0623a9e7634",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    ":reference_id",
+                    "line",
+                    ":manufacturing_order_line_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requested_quantity\": \"<number>\",\n  \"finished_quantity\": \"<number>\",\n  \"manufacturer_notes\": \"<string>\",\n  \"internal_notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reference_id\": \"string\",\n  \"status\": \"string\",\n  \"warehouse_id\": 9413,\n  \"manufacturer_notes\": \"string\",\n  \"internal_notes\": \"string\",\n  \"lines\": [\n    {\n      \"id\": 673,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 411.81784515402,\n      \"finished_quantity\": 8889.141482143019,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    },\n    {\n      \"id\": 8922,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 2341.0071841494296,\n      \"finished_quantity\": 6922.120394795292,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 9943,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    },\n    {\n      \"id\": 5745,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    }\n  ],\n  \"created_date\": \"string\",\n  \"updated_date\": \"string\",\n  \"comments\": [\n    {\n      \"user\": \"<string>\",\n      \"date\": \"<dateTime>\",\n      \"text\": \"<string>\"\n    },\n    {\n      \"user\": \"<string>\",\n      \"date\": \"<dateTime>\",\n      \"text\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24748f84-22e9-44de-a86a-3447b1179cb6",
+          "name": "Remove a Manufacturing Order line from Manufacturing Order",
+          "request": {
+            "name": "Remove a Manufacturing Order line from Manufacturing Order",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                ":reference_id",
+                "line",
+                ":manufacturing_order_line_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "710d00ef-93aa-445b-a78b-98d97b25442f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    ":reference_id",
+                    "line",
+                    ":manufacturing_order_line_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reference_id\": \"string\",\n  \"status\": \"string\",\n  \"warehouse_id\": 9413,\n  \"manufacturer_notes\": \"string\",\n  \"internal_notes\": \"string\",\n  \"lines\": [\n    {\n      \"id\": 673,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 411.81784515402,\n      \"finished_quantity\": 8889.141482143019,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    },\n    {\n      \"id\": 8922,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 2341.0071841494296,\n      \"finished_quantity\": 6922.120394795292,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 9943,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    },\n    {\n      \"id\": 5745,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    }\n  ],\n  \"created_date\": \"string\",\n  \"updated_date\": \"string\",\n  \"comments\": [\n    {\n      \"user\": \"<string>\",\n      \"date\": \"<dateTime>\",\n      \"text\": \"<string>\"\n    },\n    {\n      \"user\": \"<string>\",\n      \"date\": \"<dateTime>\",\n      \"text\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60be67a2-4b77-48e5-bb5b-24699dda93d8",
+          "name": "Mark a Manufacturing Order line as finished",
+          "request": {
+            "name": "Mark a Manufacturing Order line as finished",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "manufacturing_order",
+                ":reference_id",
+                "line",
+                ":manufacturing_order_line_id",
+                "finish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ace3371b-d52e-4c74-9463-a1a03cfa3a82",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "manufacturing_order",
+                    ":reference_id",
+                    "line",
+                    ":manufacturing_order_line_id",
+                    "finish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reference_id\": \"string\",\n  \"status\": \"string\",\n  \"warehouse_id\": 9413,\n  \"manufacturer_notes\": \"string\",\n  \"internal_notes\": \"string\",\n  \"lines\": [\n    {\n      \"id\": 673,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 411.81784515402,\n      \"finished_quantity\": 8889.141482143019,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    },\n    {\n      \"id\": 8922,\n      \"sku\": \"string\",\n      \"bom_sku\": \"string\",\n      \"manufacturer_notes\": \"string\",\n      \"internal_notes\": \"string\",\n      \"requested_quantity\": 2341.0071841494296,\n      \"finished_quantity\": 6922.120394795292,\n      \"created_date\": \"string\",\n      \"updated_date\": \"string\",\n      \"_link\": \"string\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 9943,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    },\n    {\n      \"id\": 5745,\n      \"name\": \"string\",\n      \"color\": \"string\"\n    }\n  ],\n  \"created_date\": \"string\",\n  \"updated_date\": \"string\",\n  \"comments\": [\n    {\n      \"user\": \"<string>\",\n      \"date\": \"<dateTime>\",\n      \"text\": \"<string>\"\n    },\n    {\n      \"user\": \"<string>\",\n      \"date\": \"<dateTime>\",\n      \"text\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.ordoro.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0d9a3ba3-eed7-4b7f-b749-d484ff578bea",
+    "name": "Ordoro API Documentation Address Manufacturing Order API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code.",
+      "type": "text/plain"
+    }
+  }
+}

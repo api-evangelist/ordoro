@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Return Tracking API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Return Tracking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of Return Trackings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/return_tracking/",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "shipper_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ship_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tracking",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "void",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "These are for companies that do not use the Return Order (RMA) feature"
+        },
+        {
+          "info": {
+            "name": "Get a Return Tracking by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/return_tracking/:return_tracking_id/",
+            "params": [
+              {
+                "name": "return_tracking_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a Return Tracking by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

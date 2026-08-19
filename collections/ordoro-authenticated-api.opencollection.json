@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Authenticated API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authenticated",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check Authentication Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/authenticated/"
+          },
+          "docs": "Check Authentication Status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

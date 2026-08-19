@@ -1,0 +1,328 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Label API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Label",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get raw label data by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/label/:label_id/raw/",
+            "params": [
+              {
+                "name": "label_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get label data as stored from the carrier in its direct raw image form or converted from PDF"
+        },
+        {
+          "info": {
+            "name": "DELETE /v3/order/{order_number}/label",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/v3/order/:order_number/label",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete label for an order"
+        },
+        {
+          "info": {
+            "name": "Create an Endicia USPS label for an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/label/endicia",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The `order_number` parameter is the identifier of the order"
+        },
+        {
+          "info": {
+            "name": "Create a FedEx label for an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/label/fedex",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The `order_number` parameter is the identifier of the order"
+        },
+        {
+          "info": {
+            "name": "Create a Pitney USPS label for an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/label/pitney",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The `order_number` parameter is the identifier of the order"
+        },
+        {
+          "info": {
+            "name": "Create a UPS label for an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/label/ups",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The `order_number` parameter is the identifier of the order"
+        },
+        {
+          "info": {
+            "name": "Create an Australia Post label for an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/label/australia_post",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The `order_number` parameter is the identifier of the order"
+        },
+        {
+          "info": {
+            "name": "Create a Canada Post label for an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/label/canada_post",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The `order_number` parameter is the identifier of the order"
+        },
+        {
+          "info": {
+            "name": "Create a DHL Express label for an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/label/dhl",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The `order_number` parameter is the identifier of the order"
+        },
+        {
+          "info": {
+            "name": "Create a DHL ecommerce label for an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/order/:order_number/label/dhl_ecommerce",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The `order_number` parameter is the identifier of the order"
+        },
+        {
+          "info": {
+            "name": "Get labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/label",
+            "params": [
+              {
+                "name": "o",
+                "value": "",
+                "type": "query",
+                "description": "The Order number. To retrieve multiple labels, pass in multiple \"o\" params"
+              },
+              {
+                "name": "pdf_type",
+                "value": "",
+                "type": "query",
+                "description": "Specify the type of PDF label. Can be one of [additional_docs, canada_pdf, multi_page, single_page]"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Set predefined or custom sizes. Can be one of [desktop, thermal, custom]"
+              },
+              {
+                "name": "page_width",
+                "value": "",
+                "type": "query",
+                "description": "The page width in inches"
+              },
+              {
+                "name": "page_height",
+                "value": "",
+                "type": "query",
+                "description": "The page height in inches"
+              },
+              {
+                "name": "page_top_margin",
+                "value": "",
+                "type": "query",
+                "description": "The top margin in inches"
+              },
+              {
+                "name": "page_left_margin",
+                "value": "",
+                "type": "query",
+                "description": "The left margin in inches"
+              },
+              {
+                "name": "label_width",
+                "value": "",
+                "type": "query",
+                "description": "The label width, within the page, in inches"
+              },
+              {
+                "name": "label_height",
+                "value": "",
+                "type": "query",
+                "description": "The label height, within the page, in inches"
+              },
+              {
+                "name": "label_orientation",
+                "value": "",
+                "type": "query",
+                "description": "The label orientation. Can be one of [portrait, landscape]"
+              },
+              {
+                "name": "label_rotation",
+                "value": "",
+                "type": "query",
+                "description": "The degree of rotation for the label. Can be one of [0, 90, 180, 270]"
+              },
+              {
+                "name": "return",
+                "value": "",
+                "type": "query",
+                "description": "Get a return label or a forward label based on this boolean field"
+              }
+            ]
+          },
+          "docs": "Get labels for each order number passed in to the `o` parameter"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

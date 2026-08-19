@@ -1,0 +1,511 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Purchase Order API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Purchase Order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Purchase Order by SKU and Supplier ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/product/:sku/buy/:supplier_id/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Order More of a product. This will create or update an existing Purchase Order"
+        },
+        {
+          "info": {
+            "name": "List Purchase Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/purchase_order/",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sku",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tag name. Can be repeated for multiple tags.\n\nNote: Cannot be included if `untagged` is also passed.\n"
+              },
+              {
+                "name": "tag_filter_by",
+                "value": "",
+                "type": "query",
+                "description": "Tag filtering logic:\n* `or` [default] return purchase orders that contain any of the supplied tags\n* `and` returns purchase orders containing ALL of the supplied tags\n* `only` returns purchase orders containing ONLY the supplied tags\n"
+              },
+              {
+                "name": "exclude_tags",
+                "value": "",
+                "type": "query",
+                "description": "Note: Cannot be included if `untagged` is also passed.\n"
+              },
+              {
+                "name": "untagged",
+                "value": "",
+                "type": "query",
+                "description": "Filter untagged purchase orders\n\nNote: Cannot be included if `tags` or `exclude_tags` are also passed.\n"
+              },
+              {
+                "name": "updated_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_before",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List Purchase Orders"
+        },
+        {
+          "info": {
+            "name": "Create a Purchase Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/purchase_order/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Purchase Order"
+        },
+        {
+          "info": {
+            "name": "Get Purchase Order Counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/purchase_order/counts/"
+          },
+          "docs": "Get Purchase Order Counts"
+        },
+        {
+          "info": {
+            "name": "Get a Purchase Order by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/purchase_order/:po_id/",
+            "params": [
+              {
+                "name": "po_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sku",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a Purchase Order by ID"
+        },
+        {
+          "info": {
+            "name": "Update a Purchase Order by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/purchase_order/:po_id/",
+            "params": [
+              {
+                "name": "po_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Purchase Order by ID"
+        },
+        {
+          "info": {
+            "name": "Delete a Purchase Order by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/purchase_order/:po_id/",
+            "params": [
+              {
+                "name": "po_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancel a purchase order."
+        },
+        {
+          "info": {
+            "name": "Retrieve Comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/purchase_order/:po_id/comment/",
+            "params": [
+              {
+                "name": "po_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve Comments"
+        },
+        {
+          "info": {
+            "name": "Create a Purchase Order Comment by PO ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/purchase_order/:po_id/comment/",
+            "params": [
+              {
+                "name": "po_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Purchase Order Comment by PO ID"
+        },
+        {
+          "info": {
+            "name": "Create a Purchase Order Goods Receipt by PO ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/purchase_order/:po_id/create_goods_receipt/",
+            "params": [
+              {
+                "name": "po_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Purchase Order Goods Receipt by PO ID"
+        },
+        {
+          "info": {
+            "name": "Create a Purchase Order Line by PO ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/purchase_order/:po_id/line/",
+            "params": [
+              {
+                "name": "po_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Purchase Order Line by PO ID"
+        },
+        {
+          "info": {
+            "name": "Update a Purchase Order Line by PO ID and PO Line ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/purchase_order/:po_id/line/:po_item_id/",
+            "params": [
+              {
+                "name": "po_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "po_item_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Purchase Order Line by PO ID and PO Line ID"
+        },
+        {
+          "info": {
+            "name": "Delete a Purchase Order Line by PO ID and PO Line ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/purchase_order/:po_id/line/:po_item_id/",
+            "params": [
+              {
+                "name": "po_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "po_item_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Purchase Order Line by PO ID and PO Line ID"
+        },
+        {
+          "info": {
+            "name": "Preview a Purchase Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/purchase_order/:po_id/send/",
+            "params": [
+              {
+                "name": "po_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Preview a Purchase Order"
+        },
+        {
+          "info": {
+            "name": "Send a Purchase Order to the Supplier",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/purchase_order/:po_id/send/",
+            "params": [
+              {
+                "name": "po_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Send a Purchase Order to the Supplier"
+        },
+        {
+          "info": {
+            "name": "Get Purchase Order Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/purchase_order/tag/"
+          },
+          "docs": "Get Purchase Order Tags"
+        },
+        {
+          "info": {
+            "name": "Create a Purchase Order Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/purchase_order/tag/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Purchase Order Tag"
+        },
+        {
+          "info": {
+            "name": "Get Purchase Order Tag by Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/purchase_order/tag/:name/"
+          },
+          "docs": "Get Purchase Order Tag by Name"
+        },
+        {
+          "info": {
+            "name": "Update a Purchase Order Tag by Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/purchase_order/tag/:name/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Purchase Order Tag by Name"
+        },
+        {
+          "info": {
+            "name": "Delete a Purchase Order Tag by Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/purchase_order/tag/:name/"
+          },
+          "docs": "Delete a Purchase Order Tag by Name"
+        },
+        {
+          "info": {
+            "name": "Apply a Purchase Order Tag to Purchase Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/purchase_order/:po_id/tag/:tag_name/"
+          },
+          "docs": "Apply a Purchase Order Tag to Purchase Order"
+        },
+        {
+          "info": {
+            "name": "Remove a Purchase Order Tag from a Purchase Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/purchase_order/:po_id/tag/:tag_name/"
+          },
+          "docs": "Remove a Purchase Order Tag from a Purchase Order"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

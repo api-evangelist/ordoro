@@ -1,0 +1,906 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Product API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Product",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/product/",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fba",
+                "value": "",
+                "type": "query",
+                "description": "Filter products by sales channel FBA (Fulfilled By Amazon) status. This is only applicable for products tied to at least one Amazon sales channel.\n* `true` will include any products that are considred FBA by at least one sales channel\n* `false` will exclude any products that are considred FBA by at least one sales channel\n"
+              },
+              {
+                "name": "fbm",
+                "value": "",
+                "type": "query",
+                "description": "Filter products by sales channel FBM (Fulfilled By Merchant) status. This is only applicable for products tied to at least one Amazon sales channel.\n* `true` will include any products that are considred FBM by at least one sales channel\n* `false` will exclude any products that are considred FBM by at least one sales channel\n"
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Filter by product category."
+              },
+              {
+                "name": "hs_code",
+                "value": "",
+                "type": "query",
+                "description": "Filter by product Harmonized System Code."
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query",
+                "description": "Filter by active `true` or inactive `false` products."
+              },
+              {
+                "name": "kit",
+                "value": "",
+                "type": "query",
+                "description": "Filter products that are `true` or are not `false` kit parents."
+              },
+              {
+                "name": "kit_component",
+                "value": "",
+                "type": "query",
+                "description": "Filter products that are `true` or are not `false` kit components."
+              },
+              {
+                "name": "dropship",
+                "value": "",
+                "type": "query",
+                "description": "Filter by dropship status.\n* `true` will return products that are either dropshippable or automatically dropshipped\n* `false` will return only products handled in house\n"
+              },
+              {
+                "name": "needs_sync",
+                "value": "",
+                "type": "query",
+                "description": "Filter products who do `true` or do not `false` need have their inventory synced with one or more sales channels."
+              },
+              {
+                "name": "supplier",
+                "value": "",
+                "type": "query",
+                "description": "Filter by supplier id.\n\nNotes: The default behavior of this param is to filter by the product's assigned suppliers.\nHowever, if `reordered=true` is also passed, then this param will filter products that are listed on PO's assigned to the included supplier id.\n"
+              },
+              {
+                "name": "sales_channel",
+                "value": "",
+                "type": "query",
+                "description": "Filter by sales channel id. Can be repeated for multiple sales channels."
+              },
+              {
+                "name": "low_inventory_aoh",
+                "value": "",
+                "type": "query",
+                "description": "Filter products with `true` or without `false` low inventory with respect to available on hand"
+              },
+              {
+                "name": "low_inventory_poh",
+                "value": "",
+                "type": "query",
+                "description": "Filter products with `true` or without `false` low inventory with respect to physical on hand"
+              },
+              {
+                "name": "to_be_shipped",
+                "value": "",
+                "type": "query",
+                "description": "Filter products with `true` or without `false` committed inventory."
+              },
+              {
+                "name": "oversold",
+                "value": "",
+                "type": "query",
+                "description": "Filter products that are `true` or are not `false` oversold."
+              },
+              {
+                "name": "reordered",
+                "value": "",
+                "type": "query",
+                "description": "Filter products that are `true` or are not `false` reordered. Can be refined by also including the `warehouse_id` param."
+              },
+              {
+                "name": "overallocated",
+                "value": "",
+                "type": "query",
+                "description": "Filter products that are `true` or are not `false` overallocated. Can be refined by also including the `warehouse_id` param."
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tag name. Can be repeated for multiple tags.\n\nNote: Cannot be included if `untagged` is also passed.\n"
+              },
+              {
+                "name": "untagged",
+                "value": "",
+                "type": "query",
+                "description": "Filter untagged products\n\nNote: Cannot be included if `tags` are also passed.\n"
+              },
+              {
+                "name": "tag_filter_by",
+                "value": "",
+                "type": "query",
+                "description": "Tag filtering logic:\n* `or` [default] return products that contain any of the supplied tags\n* `and` returns products containing ALL of the supplied tags\n* `only` returns products containing ONLY the supplied tags\n* `not` returns products that do not contain one or more of the supplied tags\n"
+              },
+              {
+                "name": "warehouse_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by warehouse id. Can be repeated for multiple warehouses."
+              },
+              {
+                "name": "updated_after",
+                "value": "",
+                "type": "query",
+                "description": "Filter products updated after this date"
+              },
+              {
+                "name": "updated_before",
+                "value": "",
+                "type": "query",
+                "description": "Filter products updated before this date"
+              },
+              {
+                "name": "cart",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. Use `sales_channel` instead."
+              }
+            ]
+          },
+          "docs": "List Products"
+        },
+        {
+          "info": {
+            "name": "Create a Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/product/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Product"
+        },
+        {
+          "info": {
+            "name": "Get a product by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/product/:sku/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a product by SKU"
+        },
+        {
+          "info": {
+            "name": "Update a product by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/product/:sku/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a product by SKU."
+        },
+        {
+          "info": {
+            "name": "Archive a product By SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/product/:sku/archive/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Archive a product By SKU"
+        },
+        {
+          "info": {
+            "name": "Unarchive a product by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/product/:sku/unarchive/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Unarchive a product by SKU"
+        },
+        {
+          "info": {
+            "name": "Update a Product's Fulfillment by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/product/:sku/fulfillment/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Product's Fulfillment by SKU"
+        },
+        {
+          "info": {
+            "name": "Get a Product's Images by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/product/:sku/image/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a Product's Images by SKU"
+        },
+        {
+          "info": {
+            "name": "Add Images to a product by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/product/:sku/image/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add Images to a product by SKU"
+        },
+        {
+          "info": {
+            "name": "Create a Product Kit Component by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/product/:sku/kit_component/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a `child_sku` as a kit component to the parent `sku`"
+        },
+        {
+          "info": {
+            "name": "Update a Product Kit Component by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/product/:sku/kit_component/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a `child_sku` of a parent `sku`"
+        },
+        {
+          "info": {
+            "name": "Delete a Product Kit Component by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/product/:sku/kit_component/",
+            "params": [
+              {
+                "name": "child_sku",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Product Kit Component by SKU"
+        },
+        {
+          "info": {
+            "name": "Get a Product's Kit Graph by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/product/:sku/kit_graph/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a Product's Kit Graph by SKU"
+        },
+        {
+          "info": {
+            "name": "Update a Product Supplier by SKU and Supplier ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/product/:sku/supplier/:supplier_id/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Product Supplier by SKU and Supplier ID"
+        },
+        {
+          "info": {
+            "name": "Delete a Product Supplier by SKU and Supplier ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/product/:sku/supplier/:supplier_id/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Product Supplier by SKU and Supplier ID"
+        },
+        {
+          "info": {
+            "name": "Delete a Product's Default Supplier by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/product/:sku/default_supplier/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Product's Default Supplier by SKU"
+        },
+        {
+          "info": {
+            "name": "Create a Product's Default Supplier by SKU and Supplier ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/product/:sku/default_supplier/:supplier_id/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a Product's Default Supplier by SKU and Supplier ID"
+        },
+        {
+          "info": {
+            "name": "Get a Product Cart Bridge by SKU and Cart ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/product/:sku/cart/:cart_id/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cart_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a Product Cart Bridge by SKU and Cart ID"
+        },
+        {
+          "info": {
+            "name": "Update a Product Cart Bridge by SKU and Cart ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/product/:sku/cart/:cart_id/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cart_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Product Cart Bridge by SKU and Cart ID"
+        },
+        {
+          "info": {
+            "name": "Get a Product's Extra Info by SKU and Cart ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/product/:sku/cart/:cart_id/extra_info/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cart_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a Product's Extra Info by SKU and Cart ID"
+        },
+        {
+          "info": {
+            "name": "Create a Product's Extra Info by SKU and Cart ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/product/:sku/cart/:cart_id/extra_info/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cart_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Product's Extra Info by SKU and Cart ID"
+        },
+        {
+          "info": {
+            "name": "Update a Product's Extra Info by SKU/Cart ID/Extra Info ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/product/:sku/cart/:cart_id/extra_info/:extra_info_id",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cart_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "extra_info_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Product's Extra Info by SKU/Cart ID/Extra Info ID"
+        },
+        {
+          "info": {
+            "name": "Add a tag to a product by SKU and Tag Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/product/:sku/tag/:name/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Add a tag to a product by SKU and Tag Name"
+        },
+        {
+          "info": {
+            "name": "Delete a Product Tag by SKU and Tag Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/product/:sku/tag/:name/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Product Tag by SKU and Tag Name"
+        },
+        {
+          "info": {
+            "name": "Update a Product Warehouse by SKU and Warehouse ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/product/:sku/warehouse/:warehouse_id/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "warehouse_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a product's warehouse by SKU and Warehouse ID. Use this endpoint to set inventory values."
+        },
+        {
+          "info": {
+            "name": "Delete a Product Default Dropshipper by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/product/:sku/default_dropshipper/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Product Default Dropshipper by SKU"
+        },
+        {
+          "info": {
+            "name": "Create a Product Default Dropshipper by SKU",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/product/:sku/default_dropshipper/:supplier_id/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a Product Default Dropshipper by SKU"
+        },
+        {
+          "info": {
+            "name": "Create a Purchase Order by SKU and Supplier ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/product/:sku/buy/:supplier_id/",
+            "params": [
+              {
+                "name": "sku",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Order More of a product. This will create or update an existing Purchase Order"
+        },
+        {
+          "info": {
+            "name": "List Product Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/product/tag/",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List Product Tags"
+        },
+        {
+          "info": {
+            "name": "Create a Product Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/product/tag/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Product Tag"
+        },
+        {
+          "info": {
+            "name": "Get a Product Tag By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/product/tag/:tagNamePath/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a Product Tag By Name"
+        },
+        {
+          "info": {
+            "name": "Update a Product Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/product/tag/:tagNamePath/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Product Tag"
+        },
+        {
+          "info": {
+            "name": "Delete a Product Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/product/tag/:tagNamePath/"
+          },
+          "docs": "Delete a Product Tag"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

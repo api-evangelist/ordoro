@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Return Order API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Return Order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of return_orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/return_order",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "can be one of [all, awaiting_fulfillment, dropshipment_requested, shipped, cancelled]"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "untagged",
+                "value": "",
+                "type": "query",
+                "description": "filter the results to only return_orders that have no tags"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "can be one of [(-)reference_id, (-)status, (-)warehouse_name, (-)created_date, (-)updated_date"
+              },
+              {
+                "name": "tag_filter_by",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of return_orders"
+        },
+        {
+          "info": {
+            "name": "Create a return_order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/return_order",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a return_order"
+        },
+        {
+          "info": {
+            "name": "List Return Order Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/return_order/tag",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List Return Order Tags"
+        },
+        {
+          "info": {
+            "name": "Create a Return Order Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/return_order/tag",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Return Order Tag"
+        },
+        {
+          "info": {
+            "name": "Get a Return Order Tag By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/return_order/tag/:tagNamePath",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a Return Order Tag By Name"
+        },
+        {
+          "info": {
+            "name": "Update a Return Order Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/v3/return_order/tag/:tagNamePath",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Return Order Tag"
+        },
+        {
+          "info": {
+            "name": "Delete a Return Order Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/v3/return_order/tag/:tagNamePath"
+          },
+          "docs": "Delete a Return Order Tag"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

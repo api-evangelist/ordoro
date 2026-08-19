@@ -1,0 +1,206 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Goods Receipt API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Goods Receipt",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of Goods Receipts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/goods_receipt/",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of Goods Receipts"
+        },
+        {
+          "info": {
+            "name": "Create a Goods Receipt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/goods_receipt/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Goods Receipt"
+        },
+        {
+          "info": {
+            "name": "Get a Goods Receipt by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/goods_receipt/:goods_receipt_id/",
+            "params": [
+              {
+                "name": "goods_receipt_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a Goods Receipt by ID"
+        },
+        {
+          "info": {
+            "name": "Update a Goods Receipt by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/goods_receipt/:goods_receipt_id/",
+            "params": [
+              {
+                "name": "goods_receipt_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Goods Receipt by ID"
+        },
+        {
+          "info": {
+            "name": "Delete a Goods Receipt by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/goods_receipt/:goods_receipt_id/",
+            "params": [
+              {
+                "name": "goods_receipt_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Goods Receipt by ID"
+        },
+        {
+          "info": {
+            "name": "Retrieve Comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/goods_receipt/:goods_receipt_id/comment/",
+            "params": [
+              {
+                "name": "goods_receipt_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve Comments"
+        },
+        {
+          "info": {
+            "name": "Create a Goods Receipt Comment by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/goods_receipt/:goods_receipt_id/comment/",
+            "params": [
+              {
+                "name": "goods_receipt_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Goods Receipt Comment by ID"
+        },
+        {
+          "info": {
+            "name": "Update a Goods Receipt Line by Goods Receipt ID and Line ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/goods_receipt/:goods_receipt_id/line/:goods_receipt_item_id/",
+            "params": [
+              {
+                "name": "goods_receipt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "goods_receipt_item_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Goods Receipt Line by Goods Receipt ID and Line ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

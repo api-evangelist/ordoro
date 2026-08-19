@@ -1,0 +1,915 @@
+{
+  "item": [
+    {
+      "id": "dc08a0e8-3be3-4875-8b75-d758ee8320e6",
+      "name": "Shipper",
+      "description": {
+        "content": "A shipper or carrier account can be created and used to get quotes and generate labels for orders.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "23e59a47-92f3-4fa7-9ab8-9d8d3a77f96d",
+          "name": "Get a list of Shippers",
+          "request": {
+            "name": "Get a list of Shippers",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipper",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "all",
+                  "value": "<boolean>",
+                  "description": "Allows for retrieval of archived shippers as well"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd8aef3b-5711-4ba9-b576-28e3105b6c77",
+              "name": "Successfully retrieved list of shippers",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipper",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "all",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"limit\": 5287,\n  \"offset\": 9418,\n  \"count\": 5774,\n  \"shipper\": [\n    {\n      \"vendor\": \"amazon\",\n      \"vendor_config\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"_link\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"name\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"hidden_shipping_methods\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"id\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"archive_date\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    {\n      \"vendor\": \"amazon\",\n      \"vendor_config\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"_link\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"name\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"hidden_shipping_methods\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"id\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"archive_date\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b007d795-c92a-4d73-ba25-edd76c1151fa",
+          "name": "Create a Shipper",
+          "request": {
+            "name": "Create a Shipper",
+            "description": {
+              "content": "Each shipper has unique authentication requirements, so the schema depends on the value of the `vendor` parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipper",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vendor\": \"<string>\",\n  \"name\": \"<string>\",\n  \"cart_id\": \"<string>\",\n  \"cart_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cbe2e0f8-1d28-4a64-a285-5803f8c260c0",
+              "name": "Shipper successfully created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipper",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vendor\": \"<string>\",\n  \"name\": \"<string>\",\n  \"cart_id\": \"<string>\",\n  \"cart_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vendor\": \"pitney\",\n  \"vendor_config\": {\n    \"cart_id\": \"<string>\",\n    \"cart_name\": \"<string>\"\n  },\n  \"_link\": \"string\",\n  \"name\": \"string\",\n  \"id\": 1,\n  \"archive_date\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4de82724-3598-43c9-a2b2-e99e0efb1f24",
+          "name": "Archive a Shipper",
+          "request": {
+            "name": "Archive a Shipper",
+            "description": {
+              "content": "Set an archive date on a Shipper and hide it from responses",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipper",
+                ":shipper_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "shipper_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "80212c71-ac91-45d6-ab4d-b8f7673ca8c2",
+          "name": "Get a Shipper by Id",
+          "request": {
+            "name": "Get a Shipper by Id",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipper",
+                ":shipper_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "shipper_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ceb88e5-fe67-4b95-883b-c9497b54a8eb",
+              "name": "Shipper successfully retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipper",
+                    ":shipper_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipper_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vendor\": \"pitney_merchant\",\n  \"vendor_config\": {\n    \"cart_id\": \"<string>\",\n    \"cart_name\": \"<string>\"\n  },\n  \"_link\": \"string\",\n  \"name\": \"string\",\n  \"id\": 1,\n  \"archive_date\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c315dd80-5aff-424e-8722-8d8844a76553",
+              "name": "Could not find this Shipper",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipper",
+                    ":shipper_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipper_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "386fbb7a-d8e5-4ec7-b2f2-5e87f35de198",
+          "name": "Update Shipper",
+          "request": {
+            "name": "Update Shipper",
+            "description": {
+              "content": "Each shipper has unique authentication requirements, so the schema depends on the value of the `vendor` parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipper",
+                ":shipper_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "shipper_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"cart_id\": \"<string>\",\n  \"cart_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bed94b8e-754c-411e-b47f-08a84b28a90a",
+              "name": "Shipper successfully updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipper",
+                    ":shipper_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipper_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"cart_id\": \"<string>\",\n  \"cart_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vendor\": \"pitney_merchant\",\n  \"vendor_config\": {\n    \"cart_id\": \"<string>\",\n    \"cart_name\": \"<string>\"\n  },\n  \"_link\": \"string\",\n  \"name\": \"string\",\n  \"id\": 1,\n  \"archive_date\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ebf6a4a8-3070-410f-8249-6526efb0d73d",
+          "name": "Get balance for shipper's postage",
+          "request": {
+            "name": "Get balance for shipper's postage",
+            "description": {
+              "content": "A single USPS Pitney Bowes shipper may have a balance",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "shipper",
+                ":shipper_id",
+                "balance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "shipper_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "210b6741-b011-4b32-b5d8-b80547ab311f",
+              "name": "200 response OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "shipper",
+                    ":shipper_id",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "shipper_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"postage_balance\": 888\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "77e12a13-a888-4664-8067-3b95d88a2cdb",
+          "name": "Add balance for shipper's postage",
+          "request": {
+            "name": "Add balance for shipper's postage",
+            "description": {
+              "content": "Add balance for shipper's postage",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "shipper",
+                ":shipper_id",
+                "balance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "shipper_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<double>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "726c3ad3-9320-4517-997a-ba626c690a16",
+              "name": "200 response OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "shipper",
+                    ":shipper_id",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "shipper_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<double>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"postage_balance\": 9567.921394533949,\n  \"postage_printed\": 3400.0395317958564\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa5a8713-6c75-49c9-8259-01ce05a82270",
+          "name": "Schedule a UPS pickup",
+          "request": {
+            "name": "Schedule a UPS pickup",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "pickup",
+                "ups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"close_time\": \"<string>\",\n  \"pickup_address_same_as_account\": \"<boolean>\",\n  \"pickup_datetime\": \"<dateTime>\",\n  \"pickup_pieces\": [\n    {\n      \"service_type\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"destination_country\": \"<string>\",\n      \"container_type\": \"<string>\"\n    },\n    {\n      \"service_type\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"destination_country\": \"<string>\",\n      \"container_type\": \"<string>\"\n    }\n  ],\n  \"shipper_id\": \"<integer>\",\n  \"warehouse_id\": \"<integer>\",\n  \"overweight_packages\": false,\n  \"shipper_country\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "73582e5c-a485-420b-a255-a5a72f89bc99",
+              "name": "Pickup schedule success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "pickup",
+                    "ups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"close_time\": \"<string>\",\n  \"pickup_address_same_as_account\": \"<boolean>\",\n  \"pickup_datetime\": \"<dateTime>\",\n  \"pickup_pieces\": [\n    {\n      \"service_type\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"destination_country\": \"<string>\",\n      \"container_type\": \"<string>\"\n    },\n    {\n      \"service_type\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"destination_country\": \"<string>\",\n      \"container_type\": \"<string>\"\n    }\n  ],\n  \"shipper_id\": \"<integer>\",\n  \"warehouse_id\": \"<integer>\",\n  \"overweight_packages\": false,\n  \"shipper_country\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pickup_number\": \"1234\",\n  \"carrier\": \"ups\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e237d0fb-653c-442d-8048-79b414131120",
+          "name": "Schedule a FedEx pickup",
+          "request": {
+            "name": "Schedule a FedEx pickup",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "pickup",
+                "fedex"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"close_time\": \"<string>\",\n  \"pickup_datetime\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"shipper_id\": \"<integer>\",\n  \"total_weight\": \"<number>\",\n  \"pickup_address_same_as_account\": \"<boolean>\",\n  \"oversize_package_count\": 0,\n  \"package_location\": \"<string>\",\n  \"pickup_date_type\": \"<string>\",\n  \"service_category\": \"<string>\",\n  \"carrier_code\": \"<string>\",\n  \"remarks\": \"<string>\",\n  \"warehouse_id\": \"<integer>\",\n  \"commodity_description\": \"<string>\",\n  \"domestic_or_international\": \"DOMESTIC\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cd602855-742c-40cf-a0d5-b7291efae571",
+              "name": "Pickup schedule success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "pickup",
+                    "fedex"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"close_time\": \"<string>\",\n  \"pickup_datetime\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"shipper_id\": \"<integer>\",\n  \"total_weight\": \"<number>\",\n  \"pickup_address_same_as_account\": \"<boolean>\",\n  \"oversize_package_count\": 0,\n  \"package_location\": \"<string>\",\n  \"pickup_date_type\": \"<string>\",\n  \"service_category\": \"<string>\",\n  \"carrier_code\": \"<string>\",\n  \"remarks\": \"<string>\",\n  \"warehouse_id\": \"<integer>\",\n  \"commodity_description\": \"<string>\",\n  \"domestic_or_international\": \"DOMESTIC\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pickup_number\": \"1234\",\n  \"carrier\": \"fedex\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.ordoro.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2dd73418-fdb8-4e0b-8b24-29d8b0a9a5c8",
+    "name": "Ordoro API Documentation Address Shipper API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code.",
+      "type": "text/plain"
+    }
+  }
+}

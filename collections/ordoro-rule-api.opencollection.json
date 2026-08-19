@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Rule API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rule",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/rule/",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "latch",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of Rules"
+        },
+        {
+          "info": {
+            "name": "Create a Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/rule/"
+          },
+          "docs": "Rules are used by the Automation Rules process in Ordoro. An `index` value determines where in the list the rule takes place. Rules have inner logic for determining an IF and THEN clause. Rules may only be run as an `order_created` latch at this time. The logic is obscured internally and this may be difficult to do via the API. We would suggest that you use the UI to make any updates to Rules"
+        },
+        {
+          "info": {
+            "name": "Change rule indexes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/rule/reorder/"
+          },
+          "docs": "Since rules are run sequentially, you may use this endpoint to reorder a set of rules and their respective indices to alter the order in which they are run."
+        },
+        {
+          "info": {
+            "name": "Get a Rule by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/rule/:rule_id/",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "latch",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a Rule by ID"
+        },
+        {
+          "info": {
+            "name": "Update a Rule by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/rule/:rule_id/",
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This may be used to alter the condition or action of a rule. The logic is obscured internally and this may be difficult to do via the API. We would suggest that you use the UI to make any updates to Rules."
+        },
+        {
+          "info": {
+            "name": "Delete a Rule by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/rule/:rule_id/",
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Rule by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

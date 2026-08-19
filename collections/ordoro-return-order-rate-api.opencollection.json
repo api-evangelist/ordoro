@@ -1,0 +1,179 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Return Order Rate API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Return Order Rate",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Australia Post Rate for Return Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/return_order/rate/australia_post",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get Australia Post Rate for Return Order"
+        },
+        {
+          "info": {
+            "name": "Get Canada Post Rate for Return Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/return_order/rate/canada_post",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get Canada Post Rate for Return Order"
+        },
+        {
+          "info": {
+            "name": "Get DHL Rate for Return Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/return_order/rate/dhl",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get DHL Rate for Return Order"
+        },
+        {
+          "info": {
+            "name": "Get Endicia Rate for Return Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/return_order/rate/endicia",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get Endicia Rate for Return Order"
+        },
+        {
+          "info": {
+            "name": "Get Fedex Rate for Return Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/return_order/rate/fedex",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get Fedex Rate for Return Order"
+        },
+        {
+          "info": {
+            "name": "Get USPS Rate for Return Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/return_order/rate/pitney",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get USPS Rate for Return Order"
+        },
+        {
+          "info": {
+            "name": "Get UPS Rate for Return Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/return_order/rate/ups",
+            "params": [
+              {
+                "name": "order_number",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an Order that includes a cart index prefix"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get UPS Rate for Return Order"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

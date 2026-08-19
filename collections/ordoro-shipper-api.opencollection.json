@@ -1,0 +1,200 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Shipper API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shipper",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of Shippers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/shipper/",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "all",
+                "value": "",
+                "type": "query",
+                "description": "Allows for retrieval of archived shippers as well"
+              }
+            ]
+          },
+          "docs": "Get a list of Shippers"
+        },
+        {
+          "info": {
+            "name": "Create a Shipper",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/shipper/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Each shipper has unique authentication requirements, so the schema depends on the value of the `vendor` parameter."
+        },
+        {
+          "info": {
+            "name": "Get a Shipper by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/shipper/:shipper_id/",
+            "params": [
+              {
+                "name": "shipper_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a Shipper by Id"
+        },
+        {
+          "info": {
+            "name": "Update Shipper",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/shipper/:shipper_id/",
+            "params": [
+              {
+                "name": "shipper_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Each shipper has unique authentication requirements, so the schema depends on the value of the `vendor` parameter."
+        },
+        {
+          "info": {
+            "name": "Archive a Shipper",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/shipper/:shipper_id/",
+            "params": [
+              {
+                "name": "shipper_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Set an archive date on a Shipper and hide it from responses"
+        },
+        {
+          "info": {
+            "name": "Get balance for shipper's postage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/v3/shipper/:shipper_id/balance",
+            "params": [
+              {
+                "name": "shipper_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "A single USPS Pitney Bowes shipper may have a balance"
+        },
+        {
+          "info": {
+            "name": "POST /v3/shipper/{shipper_id}/balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/shipper/:shipper_id/balance",
+            "params": [
+              {
+                "name": "shipper_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add balance for shipper's postage"
+        },
+        {
+          "info": {
+            "name": "Schedule a UPS pickup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/pickup/ups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedule a UPS pickup"
+        },
+        {
+          "info": {
+            "name": "Schedule a FedEx pickup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/v3/pickup/fedex",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedule a FedEx pickup"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

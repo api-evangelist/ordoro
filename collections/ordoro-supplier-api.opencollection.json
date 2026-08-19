@@ -1,0 +1,237 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ordoro API Documentation Address Supplier API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Supplier",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of Suppliers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/supplier/",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of Suppliers"
+        },
+        {
+          "info": {
+            "name": "Create a New Supplier",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/supplier/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a New Supplier"
+        },
+        {
+          "info": {
+            "name": "Get Supplier by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/supplier/:supplier_id/",
+            "params": [
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Supplier by ID"
+        },
+        {
+          "info": {
+            "name": "Update Supplier by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/supplier/:supplier_id/",
+            "params": [
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Supplier by ID"
+        },
+        {
+          "info": {
+            "name": "Archive a Supplier",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/supplier/:supplier_id/archive/",
+            "params": [
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Archive a Supplier"
+        },
+        {
+          "info": {
+            "name": "Get Supplier Shipping Method Mappings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/supplier/:supplier_id/shipping_methods/",
+            "params": [
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Supplier Shipping Method Mappings"
+        },
+        {
+          "info": {
+            "name": "Add Supplier Shipping Method Mappings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ordoro.com/supplier/:supplier_id/shipping_methods/",
+            "params": [
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add Supplier Shipping Method Mappings"
+        },
+        {
+          "info": {
+            "name": "Get Supplier Shipping Method Mapping by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ordoro.com/supplier/:supplier_id/shipping_methods/:shipping_method_map_id/",
+            "params": [
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "shipping_method_map_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Supplier Shipping Method Mapping by Id"
+        },
+        {
+          "info": {
+            "name": "Update Supplier Shipping Method Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.ordoro.com/supplier/:supplier_id/shipping_methods/:shipping_method_map_id/",
+            "params": [
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "shipping_method_map_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Supplier Shipping Method Mapping"
+        },
+        {
+          "info": {
+            "name": "Delete Supplier Shipping Method Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ordoro.com/supplier/:supplier_id/shipping_methods/:shipping_method_map_id/",
+            "params": [
+              {
+                "name": "supplier_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "shipping_method_map_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Supplier Shipping Method Mapping"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

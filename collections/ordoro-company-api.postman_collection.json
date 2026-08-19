@@ -1,0 +1,675 @@
+{
+  "item": [
+    {
+      "id": "22c404c2-a556-4e92-9490-1741877a6866",
+      "name": "Company",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "215b9808-d7a0-4ddb-8fa4-172b23f92544",
+          "name": "Get Your Company Info",
+          "request": {
+            "name": "Get Your Company Info",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "82798d59-1d1a-48de-b317-cbb819c211e6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_link\": \"string\",\n  \"id\": 8711,\n  \"name\": \"string\",\n  \"contact\": \"string\",\n  \"address\": \"string\",\n  \"website\": \"string\",\n  \"phone\": \"string\",\n  \"fax\": \"string\",\n  \"email\": \"string\",\n  \"billing_email\": \"string\",\n  \"currency_symbol\": \"string\",\n  \"created\": \"2024-04-02T04:48:32.387Z\",\n  \"features\": {},\n  \"stripe_customer_id\": \"string\",\n  \"shipper_currency\": \"string\",\n  \"footer\": \"string\",\n  \"mail_sender\": \"string\",\n  \"activated\": \"1949-07-26T01:45:08.942Z\",\n  \"deactivated\": \"1982-11-07T15:36:36.575Z\",\n  \"plan\": \"string\",\n  \"pitney_rate_type\": \"string\",\n  \"autosync_frequency\": \"string\",\n  \"app_message\": \"string\",\n  \"api_locked\": true,\n  \"print_node\": {},\n  \"vendor_connect\": true,\n  \"payment_details\": {},\n  \"trusted\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "17b6aa82-0c89-46f1-9178-98cf4585be6b",
+          "name": "Update Your Company",
+          "request": {
+            "name": "Update Your Company",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"company_name\": \"<string>\",\n  \"contact\": \"<string>\",\n  \"address\": \"<string>\",\n  \"website\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"email\": \"<string>\",\n  \"billing_email\": \"<string>\",\n  \"footer\": \"<string>\",\n  \"mail_sender\": \"<string>\",\n  \"shipper_currency\": \"<string>\",\n  \"currency_symbol\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1a88cc07-8bf9-4a63-87ef-151cb4dd0868",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"company_name\": \"<string>\",\n  \"contact\": \"<string>\",\n  \"address\": \"<string>\",\n  \"website\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"email\": \"<string>\",\n  \"billing_email\": \"<string>\",\n  \"footer\": \"<string>\",\n  \"mail_sender\": \"<string>\",\n  \"shipper_currency\": \"<string>\",\n  \"currency_symbol\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_link\": \"string\",\n  \"id\": 8711,\n  \"name\": \"string\",\n  \"contact\": \"string\",\n  \"address\": \"string\",\n  \"website\": \"string\",\n  \"phone\": \"string\",\n  \"fax\": \"string\",\n  \"email\": \"string\",\n  \"billing_email\": \"string\",\n  \"currency_symbol\": \"string\",\n  \"created\": \"2024-04-02T04:48:32.387Z\",\n  \"features\": {},\n  \"stripe_customer_id\": \"string\",\n  \"shipper_currency\": \"string\",\n  \"footer\": \"string\",\n  \"mail_sender\": \"string\",\n  \"activated\": \"1949-07-26T01:45:08.942Z\",\n  \"deactivated\": \"1982-11-07T15:36:36.575Z\",\n  \"plan\": \"string\",\n  \"pitney_rate_type\": \"string\",\n  \"autosync_frequency\": \"string\",\n  \"app_message\": \"string\",\n  \"api_locked\": true,\n  \"print_node\": {},\n  \"vendor_connect\": true,\n  \"payment_details\": {},\n  \"trusted\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87204d6c-02ef-4422-be74-bb8e37de9c56",
+          "name": "Get Company Logo",
+          "request": {
+            "name": "Get Company Logo",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "logo",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e12b308c-989e-4ba4-9eac-024d58e3e930",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "logo",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_link\": \"string\",\n  \"company_id\": 8557,\n  \"data\": \"iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAO6SURBVGhD7Zk9aFNRGIaT0J9Y+pP0hxJa2kig1UKK0sVssZPSQR2lRXTTTTft5KRjx+LURXDs2FE3R3FyUnGqmyBKHbTxfUMOfB7e5Ny/Sgv54CnNl3PP9773nnvuuSe5VqtVOMv0DSg2NjYqMzMzT4vF4mtSKpV219bWLqu2acncwNLS0vVCofAtl8u1fGZnZ5+oY9KQqQGe+Xw+f6TEO2q12i11bFIyNTA9Pf1cibYMDw+/VccmJVMDQ0ND76zYkZGRnampqbs2RzY3N8vq+CRkasAfPuvr6yXk87gnPtt8s9k87x+blEwNWJEEkSd9Az3oG7BYkQTRNxCib8BiRRJE30CIVAb4ROUCDU/cA646rUiCkAbQ9g3bc+mR1kxiA51V56EV5oOQBix8ei8sLNxz/cYlkQGuOiFKLpktCGfgi/resrq62nD9xyGRgYmJiT0lwgfRNoAImh0YGPjohiJfhhqNxkVXrxeJDPirThTdLZfL922OINoG8P8vmx8bG3up2ls4tCqVyiNXsxuJDPjF3KrTzzPXyR/bPF4v66q9YmVl5SraSh0kEwMIJzRSHjNPVeUVoRegU2VADUUOJbSVOsh/MYD4avJ/tra2ip32P0z+uMdQlDpIbAOcQkUBJ/STyX93+cnJyTv4/BP8xll+4fKYdZ4h174/MDHsuzw/WxBSC4llAEJ2/M47BfgH/+ZuAE6ZR+Pj44+RawtyuDNs4dXw8+zTgpB6SCQDXDJwfvY7diDaBoAUFBfRv9RFIhnoduYdiLb4rBD9S10kaCDKZhVCCkmK6F9qI0EDfKzbzmDmEGub9/Yz2kkhSbH1CEJqI0EDo6Oj+7YzrIMeYgl9E8K73qxpsfUIQmojQQNYZH2wndVqtUvIZ3KzdsPWIwipjQQNIP5Z8y8vL19AXhbOCluPIKQ2EjTgT59YIV5DXhbOCluPIKQ2EjTAHydsZ9ywRV4WzgpbjyCkNhI0wP182xlnnZMa+w5bjyCkNhI0sL29fc5/DmBY7eE7WTwtnBxsLYKQ2kjQAPGfBeSk7oXFxcUrtg5nQeSlLhLJAK+C/xrJ54CbUrNkcHDwwNbhcwh5qYtEMkD4K6M/lGiCZwzfSzFx4UPS9k9CWy6RDRA1lAhnpnq93n7LigvH/Pz8fBNX+JXfL6dwtJFaHLEMkMCWSs9FXxx4taNsrcQ2QKL8GpkGbppVq9XbqrZPIgMkytZiErgLEWe/NLEBwtmJN5m/4IsLZzgOzbm5uQeqTi9SGTgNnHEDrcJfnQjmF7ZAUcwAAAAASUVORK5CYII=\",\n  \"name\": \"string\",\n  \"mime_type\": \"image/png\",\n  \"created\": \"1962-07-04T08:08:42.906Z\",\n  \"updated\": \"1956-05-26T20:15:45.085Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94d288d2-be91-404a-a333-cd56e4ac6349",
+          "name": "Get Company Logo by Name",
+          "request": {
+            "name": "Get Company Logo by Name",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "logo",
+                ":name",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e579321-8a96-424b-9a40-0ad324fb116a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "logo",
+                    ":name",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_link\": \"string\",\n  \"company_id\": 8557,\n  \"data\": \"iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAO6SURBVGhD7Zk9aFNRGIaT0J9Y+pP0hxJa2kig1UKK0sVssZPSQR2lRXTTTTft5KRjx+LURXDs2FE3R3FyUnGqmyBKHbTxfUMOfB7e5Ny/Sgv54CnNl3PP9773nnvuuSe5VqtVOMv0DSg2NjYqMzMzT4vF4mtSKpV219bWLqu2acncwNLS0vVCofAtl8u1fGZnZ5+oY9KQqQGe+Xw+f6TEO2q12i11bFIyNTA9Pf1cibYMDw+/VccmJVMDQ0ND76zYkZGRnampqbs2RzY3N8vq+CRkasAfPuvr6yXk87gnPtt8s9k87x+blEwNWJEEkSd9Az3oG7BYkQTRNxCib8BiRRJE30CIVAb4ROUCDU/cA646rUiCkAbQ9g3bc+mR1kxiA51V56EV5oOQBix8ei8sLNxz/cYlkQGuOiFKLpktCGfgi/resrq62nD9xyGRgYmJiT0lwgfRNoAImh0YGPjohiJfhhqNxkVXrxeJDPirThTdLZfL922OINoG8P8vmx8bG3up2ls4tCqVyiNXsxuJDPjF3KrTzzPXyR/bPF4v66q9YmVl5SraSh0kEwMIJzRSHjNPVeUVoRegU2VADUUOJbSVOsh/MYD4avJ/tra2ip32P0z+uMdQlDpIbAOcQkUBJ/STyX93+cnJyTv4/BP8xll+4fKYdZ4h174/MDHsuzw/WxBSC4llAEJ2/M47BfgH/+ZuAE6ZR+Pj44+RawtyuDNs4dXw8+zTgpB6SCQDXDJwfvY7diDaBoAUFBfRv9RFIhnoduYdiLb4rBD9S10kaCDKZhVCCkmK6F9qI0EDfKzbzmDmEGub9/Yz2kkhSbH1CEJqI0EDo6Oj+7YzrIMeYgl9E8K73qxpsfUIQmojQQNYZH2wndVqtUvIZ3KzdsPWIwipjQQNIP5Z8y8vL19AXhbOCluPIKQ2EjTgT59YIV5DXhbOCluPIKQ2EjTAHydsZ9ywRV4WzgpbjyCkNhI0wP182xlnnZMa+w5bjyCkNhI0sL29fc5/DmBY7eE7WTwtnBxsLYKQ2kjQAPGfBeSk7oXFxcUrtg5nQeSlLhLJAK+C/xrJ54CbUrNkcHDwwNbhcwh5qYtEMkD4K6M/lGiCZwzfSzFx4UPS9k9CWy6RDRA1lAhnpnq93n7LigvH/Pz8fBNX+JXfL6dwtJFaHLEMkMCWSs9FXxx4taNsrcQ2QKL8GpkGbppVq9XbqrZPIgMkytZiErgLEWe/NLEBwtmJN5m/4IsLZzgOzbm5uQeqTi9SGTgNnHEDrcJfnQjmF7ZAUcwAAAAASUVORK5CYII=\",\n  \"name\": \"string\",\n  \"mime_type\": \"image/png\",\n  \"created\": \"1962-07-04T08:08:42.906Z\",\n  \"updated\": \"1956-05-26T20:15:45.085Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd2bcbd1-5fe0-4d4e-8334-9304f2bce944",
+          "name": "Update Company Logo by Name",
+          "request": {
+            "name": "Update Company Logo by Name",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "logo",
+                ":name",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"data\": \"<string>\",\n  \"mime_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dd755605-27be-4b89-b668-5879e88984cb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "logo",
+                    ":name",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Your Cool Company\",\n  \"data\": \"iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAO6SURBVGhD7Zk9aFNRGIaT0J9Y+pP0hxJa2kig1UKK0sVssZPSQR2lRXTTTTft5KRjx+LURXDs2FE3R3FyUnGqmyBKHbTxfUMOfB7e5Ny/Sgv54CnNl3PP9773nnvuuSe5VqtVOMv0DSg2NjYqMzMzT4vF4mtSKpV219bWLqu2acncwNLS0vVCofAtl8u1fGZnZ5+oY9KQqQGe+Xw+f6TEO2q12i11bFIyNTA9Pf1cibYMDw+/VccmJVMDQ0ND76zYkZGRnampqbs2RzY3N8vq+CRkasAfPuvr6yXk87gnPtt8s9k87x+blEwNWJEEkSd9Az3oG7BYkQTRNxCib8BiRRJE30CIVAb4ROUCDU/cA646rUiCkAbQ9g3bc+mR1kxiA51V56EV5oOQBix8ei8sLNxz/cYlkQGuOiFKLpktCGfgi/resrq62nD9xyGRgYmJiT0lwgfRNoAImh0YGPjohiJfhhqNxkVXrxeJDPirThTdLZfL922OINoG8P8vmx8bG3up2ls4tCqVyiNXsxuJDPjF3KrTzzPXyR/bPF4v66q9YmVl5SraSh0kEwMIJzRSHjNPVeUVoRegU2VADUUOJbSVOsh/MYD4avJ/tra2ip32P0z+uMdQlDpIbAOcQkUBJ/STyX93+cnJyTv4/BP8xll+4fKYdZ4h174/MDHsuzw/WxBSC4llAEJ2/M47BfgH/+ZuAE6ZR+Pj44+RawtyuDNs4dXw8+zTgpB6SCQDXDJwfvY7diDaBoAUFBfRv9RFIhnoduYdiLb4rBD9S10kaCDKZhVCCkmK6F9qI0EDfKzbzmDmEGub9/Yz2kkhSbH1CEJqI0EDo6Oj+7YzrIMeYgl9E8K73qxpsfUIQmojQQNYZH2wndVqtUvIZ3KzdsPWIwipjQQNIP5Z8y8vL19AXhbOCluPIKQ2EjTgT59YIV5DXhbOCluPIKQ2EjTAHydsZ9ywRV4WzgpbjyCkNhI0wP182xlnnZMa+w5bjyCkNhI0sL29fc5/DmBY7eE7WTwtnBxsLYKQ2kjQAPGfBeSk7oXFxcUrtg5nQeSlLhLJAK+C/xrJ54CbUrNkcHDwwNbhcwh5qYtEMkD4K6M/lGiCZwzfSzFx4UPS9k9CWy6RDRA1lAhnpnq93n7LigvH/Pz8fBNX+JXfL6dwtJFaHLEMkMCWSs9FXxx4taNsrcQ2QKL8GpkGbppVq9XbqrZPIgMkytZiErgLEWe/NLEBwtmJN5m/4IsLZzgOzbm5uQeqTi9SGTgNnHEDrcJfnQjmF7ZAUcwAAAAASUVORK5CYII=\",\n  \"mime_type\": \"image/png\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_link\": \"string\",\n  \"company_id\": 8557,\n  \"data\": \"iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAO6SURBVGhD7Zk9aFNRGIaT0J9Y+pP0hxJa2kig1UKK0sVssZPSQR2lRXTTTTft5KRjx+LURXDs2FE3R3FyUnGqmyBKHbTxfUMOfB7e5Ny/Sgv54CnNl3PP9773nnvuuSe5VqtVOMv0DSg2NjYqMzMzT4vF4mtSKpV219bWLqu2acncwNLS0vVCofAtl8u1fGZnZ5+oY9KQqQGe+Xw+f6TEO2q12i11bFIyNTA9Pf1cibYMDw+/VccmJVMDQ0ND76zYkZGRnampqbs2RzY3N8vq+CRkasAfPuvr6yXk87gnPtt8s9k87x+blEwNWJEEkSd9Az3oG7BYkQTRNxCib8BiRRJE30CIVAb4ROUCDU/cA646rUiCkAbQ9g3bc+mR1kxiA51V56EV5oOQBix8ei8sLNxz/cYlkQGuOiFKLpktCGfgi/resrq62nD9xyGRgYmJiT0lwgfRNoAImh0YGPjohiJfhhqNxkVXrxeJDPirThTdLZfL922OINoG8P8vmx8bG3up2ls4tCqVyiNXsxuJDPjF3KrTzzPXyR/bPF4v66q9YmVl5SraSh0kEwMIJzRSHjNPVeUVoRegU2VADUUOJbSVOsh/MYD4avJ/tra2ip32P0z+uMdQlDpIbAOcQkUBJ/STyX93+cnJyTv4/BP8xll+4fKYdZ4h174/MDHsuzw/WxBSC4llAEJ2/M47BfgH/+ZuAE6ZR+Pj44+RawtyuDNs4dXw8+zTgpB6SCQDXDJwfvY7diDaBoAUFBfRv9RFIhnoduYdiLb4rBD9S10kaCDKZhVCCkmK6F9qI0EDfKzbzmDmEGub9/Yz2kkhSbH1CEJqI0EDo6Oj+7YzrIMeYgl9E8K73qxpsfUIQmojQQNYZH2wndVqtUvIZ3KzdsPWIwipjQQNIP5Z8y8vL19AXhbOCluPIKQ2EjTgT59YIV5DXhbOCluPIKQ2EjTAHydsZ9ywRV4WzgpbjyCkNhI0wP182xlnnZMa+w5bjyCkNhI0sL29fc5/DmBY7eE7WTwtnBxsLYKQ2kjQAPGfBeSk7oXFxcUrtg5nQeSlLhLJAK+C/xrJ54CbUrNkcHDwwNbhcwh5qYtEMkD4K6M/lGiCZwzfSzFx4UPS9k9CWy6RDRA1lAhnpnq93n7LigvH/Pz8fBNX+JXfL6dwtJFaHLEMkMCWSs9FXxx4taNsrcQ2QKL8GpkGbppVq9XbqrZPIgMkytZiErgLEWe/NLEBwtmJN5m/4IsLZzgOzbm5uQeqTi9SGTgNnHEDrcJfnQjmF7ZAUcwAAAAASUVORK5CYII=\",\n  \"name\": \"string\",\n  \"mime_type\": \"image/png\",\n  \"created\": \"1962-07-04T08:08:42.906Z\",\n  \"updated\": \"1956-05-26T20:15:45.085Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9acc63f-b7ce-4d5e-8fdc-49bbc4c3c2cf",
+          "name": "Get company logo by company ID and logo name",
+          "request": {
+            "name": "Get company logo by company ID and logo name",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                ":company_id",
+                "logo",
+                ":name",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "company_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4efae3b8-0b40-4a76-a6b6-fbc4efceb229",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    ":company_id",
+                    "logo",
+                    ":name",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_link\": \"string\",\n  \"company_id\": 8557,\n  \"data\": \"iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAO6SURBVGhD7Zk9aFNRGIaT0J9Y+pP0hxJa2kig1UKK0sVssZPSQR2lRXTTTTft5KRjx+LURXDs2FE3R3FyUnGqmyBKHbTxfUMOfB7e5Ny/Sgv54CnNl3PP9773nnvuuSe5VqtVOMv0DSg2NjYqMzMzT4vF4mtSKpV219bWLqu2acncwNLS0vVCofAtl8u1fGZnZ5+oY9KQqQGe+Xw+f6TEO2q12i11bFIyNTA9Pf1cibYMDw+/VccmJVMDQ0ND76zYkZGRnampqbs2RzY3N8vq+CRkasAfPuvr6yXk87gnPtt8s9k87x+blEwNWJEEkSd9Az3oG7BYkQTRNxCib8BiRRJE30CIVAb4ROUCDU/cA646rUiCkAbQ9g3bc+mR1kxiA51V56EV5oOQBix8ei8sLNxz/cYlkQGuOiFKLpktCGfgi/resrq62nD9xyGRgYmJiT0lwgfRNoAImh0YGPjohiJfhhqNxkVXrxeJDPirThTdLZfL922OINoG8P8vmx8bG3up2ls4tCqVyiNXsxuJDPjF3KrTzzPXyR/bPF4v66q9YmVl5SraSh0kEwMIJzRSHjNPVeUVoRegU2VADUUOJbSVOsh/MYD4avJ/tra2ip32P0z+uMdQlDpIbAOcQkUBJ/STyX93+cnJyTv4/BP8xll+4fKYdZ4h174/MDHsuzw/WxBSC4llAEJ2/M47BfgH/+ZuAE6ZR+Pj44+RawtyuDNs4dXw8+zTgpB6SCQDXDJwfvY7diDaBoAUFBfRv9RFIhnoduYdiLb4rBD9S10kaCDKZhVCCkmK6F9qI0EDfKzbzmDmEGub9/Yz2kkhSbH1CEJqI0EDo6Oj+7YzrIMeYgl9E8K73qxpsfUIQmojQQNYZH2wndVqtUvIZ3KzdsPWIwipjQQNIP5Z8y8vL19AXhbOCluPIKQ2EjTgT59YIV5DXhbOCluPIKQ2EjTAHydsZ9ywRV4WzgpbjyCkNhI0wP182xlnnZMa+w5bjyCkNhI0sL29fc5/DmBY7eE7WTwtnBxsLYKQ2kjQAPGfBeSk7oXFxcUrtg5nQeSlLhLJAK+C/xrJ54CbUrNkcHDwwNbhcwh5qYtEMkD4K6M/lGiCZwzfSzFx4UPS9k9CWy6RDRA1lAhnpnq93n7LigvH/Pz8fBNX+JXfL6dwtJFaHLEMkMCWSs9FXxx4taNsrcQ2QKL8GpkGbppVq9XbqrZPIgMkytZiErgLEWe/NLEBwtmJN5m/4IsLZzgOzbm5uQeqTi9SGTgNnHEDrcJfnQjmF7ZAUcwAAAAASUVORK5CYII=\",\n  \"name\": \"string\",\n  \"mime_type\": \"image/png\",\n  \"created\": \"1962-07-04T08:08:42.906Z\",\n  \"updated\": \"1956-05-26T20:15:45.085Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75791456-e50b-4e38-8313-5143d64e111b",
+          "name": "Get raw logo image by company ID and logo name",
+          "request": {
+            "name": "Get raw logo image by company ID and logo name",
+            "description": {
+              "content": "The `name` parameter is the name of your company logo.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                ":company_id",
+                "logo",
+                ":name",
+                "raw",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "company_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4c33142-8bc9-4c33-b454-aa65899168e0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    ":company_id",
+                    "logo",
+                    ":name",
+                    "raw",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.ordoro.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7497dccf-1061-4d44-a3eb-0249942b0283",
+    "name": "Ordoro API Documentation Address Company API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code.",
+      "type": "text/plain"
+    }
+  }
+}

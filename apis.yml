@@ -29,6 +29,15 @@ tags:
 - Inventory Management
 - Shipping
 - Dropshipping
+- E-Commerce
+- Multi-Channel
+- Fulfillment
+- Logistics
+tags_raw:
+- Order Management
+- Inventory Management
+- Shipping
+- Dropshipping
 - Ecommerce
 - Multi-Channel
 - Fulfillment
@@ -64,6 +73,8 @@ apis:
   humanURL: https://docs.ordoro.com/
   baseURL: https://api.ordoro.com/
   tags:
+  - APIKeys
+  tags_raw:
   - Api Key
   properties:
   - type: OpenAPI
@@ -421,6 +432,8 @@ apis:
   humanURL: https://docs.ordoro.com/
   baseURL: https://api.ordoro.com/
   tags:
+  - rule
+  tags_raw:
   - Rule
   properties:
   - type: OpenAPI

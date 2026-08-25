@@ -5,7 +5,7 @@
       "source": "https://blog.ordoro.com/feed/",
       "feed_url": "https://blog.ordoro.com/feed/",
       "title": "",
-      "saved": 7,
+      "saved": 0,
       "method": "feed"
     },
     {
@@ -13,10 +13,9 @@
       "feed_url": "https://twitter.com/ordoro",
       "title": "",
       "saved": 0,
-      "method": "none",
-      "error": "parse_failed"
+      "method": "none"
     }
   ],
-  "post_count": 41,
-  "fetched": "2026-08-15T12:11:08Z"
+  "post_count": 43,
+  "fetched": "2026-08-22T20:20:02Z"
 }

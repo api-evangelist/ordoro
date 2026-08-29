@@ -1,0 +1,47 @@
+slug: ordoro
+provider: Ordoro
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Purchase Order
+  spec_file: ordoro-purchase-order-api-openapi.yml
+  capability_id: BC-500.30
+  capability_id_l1: BC-500
+  capability_name: Purchase Order Management
+  confidence: 0.85
+  evidence: '"Create a Purchase Order", "Update a Purchase Order by ID", "Create a Purchase Order Line
+    by PO ID", schema PurchaseOrderStatus'
+  reason: Full purchase order lifecycle against suppliers including lines, comments and status — plainly
+    purchase order management within procurement.
+- tag: Order
+  spec_file: ordoro-order-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.7
+  evidence: '"Create an Order", "Cancel an order", "Add Shipping Information to an Order", "Get order
+    status counts"'
+  reason: Multi-channel sales order intake, modification, cancellation and shipping-info assignment is
+    order fulfilment orchestration rather than sales pipeline work; some ambiguity between fulfilment
+    and sales order capture.
+- tag: Return Order
+  spec_file: ordoro-return-order-api-openapi.yml
+  capability_id: BC-2460.50
+  capability_id_l1: BC-2460
+  capability_name: Returns and Reverse Operations Management
+  confidence: 0.7
+  evidence: 'POST /v3/return_order Return_Order_POST Create a return_order; schemas: post_return_order,
+    return_order_code, return_order'
+  reason: Creates and lists return orders (RMAs) with return reason codes and shipping info — intake and
+    handling of returned goods, i.e. returns and reverse operations. Sub-tag CRUD is just classification
+    metadata on those return orders.

@@ -465,6 +465,8 @@ apis:
   humanURL: https://docs.ordoro.com/
   baseURL: https://api.ordoro.com/
   tags:
+  - Shippers
+  tags_raw:
   - Shipper
   properties:
   - type: OpenAPI

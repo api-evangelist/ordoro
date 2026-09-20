@@ -1,33 +1,21 @@
-specification: API Commons Rate Limits
-specificationVersion: '0.1'
-provider: Ordoro
-providerId: ordoro
-created: '2026-06-12'
-modified: '2026-06-12'
-description: >
-  Ordoro enforces a rate limit of 500 requests per minute at the account level.
-  This limit applies across all API keys and users attached to the same account,
-  regardless of HTTP method (GET, POST, PUT, DELETE). Requests that exceed this
-  threshold receive a 429 HTTP status code. There are no documented daily limits.
-  Background processes operated by Ordoro itself are exempt from user rate limits.
-source: https://forums.ordoro.com/t/api-request-limit/711
-
-throttled: 429
-retryAfter: Retry-After
-
+# Rate limits transcribed from the provider's own documentation — see provenance. Quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://docs.ordoro.com/
+sources:
+- https://docs.ordoro.com/
+provenance:
+  tool: planning/api-economics/harvest_ratelimits.py
+  run: 20260920T133210
+  grounding: every limit_text was found verbatim in the fetched page text
+published: true
+note: Rate Limiting section states 500 requests per minute, with 429 returned over the threshold; no scope
+  or headers documented.
+limit_count: 1
 limits:
-  - scope: account
-    metric: requests
-    limit: 500
-    timeFrame: minute
-    description: >
-      Account-wide limit of 500 requests per minute. Applies to all API keys and
-      users associated with the account. All HTTP methods count toward this total.
-      Multiple applications or credentials on the same account share this limit.
-    enforcement: hard
-    errorCode: 429
-    notes:
-      - All HTTP methods (GET, POST, PUT, DELETE) count equally toward the limit
-      - Multiple API keys on the same account share the same quota
-      - Ordoro internal background processes are exempt
-      - No documented daily or monthly request cap beyond the per-minute limit
+- name: API request rate limit
+  limit_text: API requests will be limited to 500 requests per minute.
+  limit: 500
+  window: minute
+  scope: unclear
+exceeded_status: 429

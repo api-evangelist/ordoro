@@ -1,7 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Ordoro API Documentation Address Product API
-  description: "# Introduction\n\nThe Ordoro API can be used to access data or integrate to add functionality to Ordoro. The Ordoro API uses the application/json Content-Type. The Ordoro API documentation is in beta. [See our forum](https://forums.ordoro.com) for questions or comments to help us improve the docs or request features.\n#### Note: Any routes with a /v3 designation will not allow for trailing slashes while all other routes and endpoints will require a trailing slash.\n\n# Authentication\n\nThe Ordoro API uses [Basic HTTP Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). Please create API keys via Settings->Account Settings->API Keys in app and use those for basic auth in your API requests.\n\n# Additional Resources\n\nFor a look at some code examples on how to use the API check out our github repo https://github.com/ordoro/api-examples.\n\n# API Responses\n\nMost of our endpoints return either a list of objects or a single object instance. They share similar response shapes.\n\n## List endpoints\n\nList endpoints respond with the following parameters:\n\n| Name           | Type                     | Description |\n|----------------|--------------------------|-------------|\n| `count`        | int                      | The total number of objects returned by a query ( **not** necessarily the number of objects included in a response). |\n| `limit`        | int                      | The maximum number of objects returned per request. Defaults to 10. Maximum is 100. You can set this as a URL parameter. |\n| `offset`       | int                      | The number of objects being offset in the response. May be altered as a URL Parameter. |\n| `<model name>` | array | An array of objects. The name of the model should be singular. For example, the /v3/order endpoint will have an `order` parameter, as opposed to `orders`.|\n\nHere is an example response for the `/v3/order` list endpoint.\n\n```\n{\n    \"count\": 2,\n    \"limit\": 10,\n    \"offset\" 0,\n    \"order\": [\n        {\n            // an order object\n        },\n        {\n            // another order object\n        }\n    ]\n}\n```\n\n## Instance endpoints\n\nInstance endpoints return a single instance of a serialized model. `/v3/order/{order_number}` is an example of an instance endpoint.\n\n# Error Handling\n\nError responses contain the following parameters:\n\n| Name            | Type             | Description                                                          |\n|-----------------|------------------|----------------------------------------------------------------------|\n| `error_message` | string           | Some human-readable error message.                                   |\n| `param`         | string or `null` | The name of the corresponding parameter, or null for general errors. |\n\n# Rate Limiting\n\nAPI requests will be limited to 500 requests per minute. Any requests over this threshold will respond with a 429 status code."
+  title: Ordoro API Documentation Product API
+  description: '# Introduction
+
+
+    The Ordoro API can be used to access data or integrate to add functionality to Ordoro.'
   contact: {}
   version: '1.0'
 servers:
@@ -937,7 +940,67 @@ paths:
           description: ''
           headers: {}
 components:
+  parameters:
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
+    supplierPath:
+      name: supplier_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    skuPath:
+      name: sku
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    warehouseIDPath:
+      name: warehouse_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
   schemas:
+    extra_info_etsy:
+      title: Etsy Extra Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        listing_id:
+          type: string
+        product_id:
+          type: string
+        offering_id:
+          type: string
     supplier_shipping_method_map:
       title: Supplier shipping method map
       type: object
@@ -985,6 +1048,84 @@ components:
       - mapped_shipping_carrier
       - supplier_id
       - updated
+    product:
+      title: Product Response Schema
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/product_base'
+      - properties:
+          warehouses:
+            type: array
+            items:
+              $ref: '#/components/schemas/inventory_as_warehouse'
+          kit_components:
+            type: array
+            items:
+              FIXME: object
+          carts:
+            type: array
+            items:
+              FIXME: object
+          suppliers:
+            type: array
+            items:
+              $ref: '#/components/schemas/supplier'
+          to_be_shipped:
+            type: number
+          available_on_hand:
+            type: number
+          on_pos:
+            type: number
+    inventory_as_warehouse:
+      title: Inventory as Warehouse Schema
+      additionalProperties: false
+      type: object
+      properties:
+        id:
+          type: integer
+        low_stock_threshold:
+          type: integer
+        out_of_stock_threshold:
+          type: integer
+        location_in_warehouse:
+          type: string
+        on_hand:
+          type: number
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        always_dropship:
+          type: boolean
+        address:
+          $ref: '#/components/schemas/address'
+        cart:
+          type: string
+        is_configured_for_shipping:
+          type: boolean
+        is_default_location:
+          type: boolean
+        physical_on_hand:
+          type: number
+        available:
+          type: number
+        committed:
+          type: number
+        allocated:
+          type: number
+        unallocated:
+          type: number
+        po_committed:
+          type: number
+    extra_info_channeladvisor:
+      title: ChannelAdvisor Extra Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        distribution_center_code:
+          type: string
     put_product_supplier:
       title: Update a Product Supplier Schema
       type: object
@@ -1001,6 +1142,155 @@ components:
       required:
       - supplier_price
       - is_default
+    get_v3_tag_list:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: GET Tag List Schema
+      properties:
+        limit:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+        offset:
+          type: integer
+          default: 0
+        id:
+          type: array
+          items:
+            type: integer
+      additionalProperties: false
+      anyOf:
+      - type: object
+      - type: 'null'
+    purchase_order:
+      title: Purchase Order Schema
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+        company_id:
+          type: integer
+        po_id:
+          type: string
+        shipping_method:
+          type: string
+        payment_method:
+          type: string
+        instructions:
+          type: string
+        sent:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        estimated_delivery_date:
+          type: string
+          format: date-time
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        shipping_amount:
+          type: number
+        tax_amount:
+          type: number
+        discount_amount:
+          type: number
+        _link:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              quantity:
+                type: integer
+              unit_price:
+                type: number
+              discount_amount:
+                type: number
+              _link:
+                type: string
+              product:
+                allOf:
+                - $ref: '#/components/schemas/product_base'
+                - properties:
+                    supplier:
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        sku:
+                          type: string
+                        price:
+                          type: number
+                        unit_price:
+                          type: number
+                    warehouse:
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        location_in_warehouse:
+                          type: string
+              to_be_shipped:
+                type: number
+              available_on_hand:
+                type: number
+              quantity_received:
+                type: integer
+        supplier:
+          type: object
+          $ref: '#/components/schemas/supplier'
+        warehouse:
+          type: object
+          $ref: '#/components/schemas/warehouse'
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/comment'
+        goods_receipts:
+          type: array
+          items:
+            $ref: '#/components/schemas/goods_receipt'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_tag'
+    extra_info_ebay:
+      title: Ebay Extra Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        item_id:
+          type: string
+        listing_type:
+          type: string
+        status:
+          type: string
+    ProductSort:
+      title: sort
+      enum:
+      - name
+      - -name
+      - sku
+      - -sku
+      - created
+      - -created
+      - default_supplier
+      - -default_supplier
+      - total_committed
+      - -total_committed
+      - total_available
+      - -total_available
+      - total_on_hand
+      - -total_on_hand
+      - po_total_committed
+      - -po_total_committed
+      type: string
     tag_filter_by:
       title: tag_filter_by
       enum:
@@ -1009,17 +1299,49 @@ components:
       - only
       - not
       type: string
-    extra_info_shopify:
-      title: Shopify Extra Info Schema
+    goods_receipt:
+      title: Goods Receipt Schema
       type: object
       additionalProperties: false
       properties:
-        inventory_item_id:
-          type: number
-        location_ids:
+        status:
+          type: string
+        po_id:
+          type: string
+        po_status:
+          type: string
+        goods_receipt_id:
+          type: string
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        received:
+          type: string
+          format: date-time
+        _link:
+          type: string
+        items:
           type: array
           items:
-            type: string
+            type: object
+            properties:
+              id:
+                type: integer
+              po_item_id:
+                type: string
+              quantity:
+                type: integer
+              _link:
+                type: string
+              product:
+                $ref: '#/components/schemas/product_base'
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/comment'
     put_product:
       title: Product Post Schema
       type: object
@@ -1114,98 +1436,32 @@ components:
         properties:
           wayfair_extra_info:
             $ref: '#/components/schemas/extra_info_wayfair'
-    product_image:
-      title: Product Image Schema
+    comment:
+      title: Comment Schema
       type: object
       additionalProperties: false
       properties:
-        url:
+        user:
           type: string
-        is_default:
-          type: boolean
-    v3_tag:
-      title: V3 Tag Schema
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
+        date:
           type: string
-        color:
+          format: date-time
+        text:
           type: string
-      required:
-      - id
-      - name
-      - color
-    product_list:
-      title: Product List Response schema
+    post_product_image:
+      title: Product Images Schema
       type: object
-      properties:
-        limit:
-          type: integer
-          example: 1
-        offset:
-          type: integer
-          example: 0
-        count:
-          type: integer
-          example: 46
-        products:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/product_base'
-            - properties:
-                warehouses:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/inventory_as_warehouse'
-                kit_components:
-                  type: array
-                  items:
-                    FIXME: object
-                carts:
-                  type: array
-                  items:
-                    FIXME: object
-                suppliers:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/supplier'
-                to_be_shipped:
-                  type: number
-                available_on_hand:
-                  type: number
-                on_pos:
-                  type: number
-    put_product_warehouse:
-      title: Update a Product Warehouse Schema
-      type: object
-      additionalProperties: false
       oneOf:
       - type: object
-        title: Set On Hand
-        description: Set the on hand quantity to a specific value
         properties:
-          on_hand:
-            type: number
+          images:
+            type: array
+            items:
+              type: object
+              $ref: '#/components/schemas/product_image'
+        additionalProperties: false
       - type: object
-        title: Adjust by Amount
-        description: Adjust the on hand quantity by adjustment amount
-        properties:
-          adjustment:
-            type: number
-      properties:
-        low_stock_threshold:
-          anyOf:
-          - type: 'null'
-          - type: number
-        out_of_stock_threshold:
-          anyOf:
-          - type: 'null'
-          - type: number
-        location_in_warehouse:
-          type: string
+        $ref: '#/components/schemas/product_image'
     extra_info_amazon:
       title: Amazon Extra Info Schema
       type: object
@@ -1241,49 +1497,147 @@ components:
           type: string
         item_note:
           type: string
-    goods_receipt:
-      title: Goods Receipt Schema
+    extra_info_walmart:
+      title: Walmart Extra Info Schema
       type: object
       additionalProperties: false
       properties:
-        status:
+        fulfillment_latency:
+          anyOf:
+          - type: integer
+          - type: 'null'
+        wpid:
           type: string
-        po_id:
+    v3_tag_list:
+      title: Tag List Schema
+      type: object
+      properties:
+        count:
+          type: integer
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_tag'
+        limit:
+          type: integer
+          default: 10
+        offset:
+          type: integer
+          default: 0
+      required:
+      - count
+      - tag
+      - limit
+      - offset
+    put_product_fulfillment:
+      title: Update Product Fulfillment
+      type: object
+      properties:
+        fulfillment_type:
           type: string
-        po_status:
-          type: string
-        goods_receipt_id:
-          type: string
-        created:
-          type: string
-          format: date-time
-        updated:
-          type: string
-          format: date-time
-        received:
-          type: string
-          format: date-time
+          enum:
+          - in_house
+          - dropshippable
+          - automatically_dropshipped
+        default_supplier_id:
+          type: integer
+      required:
+      - fulfillment_type
+      additionalProperties: false
+    extra_info_wayfair:
+      title: Wayfair Extra Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        location_ids:
+          type: array
+          items:
+            type: string
+    supplier:
+      additionalProperties: false
+      properties:
         _link:
           type: string
-        items:
-          type: array
+        address:
+          $ref: '#/components/schemas/address'
+        archive_date:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        automatically_show_ship_to_email:
+          type: boolean
+        automatically_show_supplier_price:
+          type: boolean
+        company_id:
+          type: integer
+        created:
+          format: date-time
+          type: string
+        default_shipping_account:
+          type: string
+        default_shipping_carrier:
+          type: string
+        default_shipping_method:
+          type: string
+        dropship_prefer_cart_order_line_names:
+          type: integer
+        dropshipment_routing_address:
+          type: string
+        dropshipment_routing_channel:
+          type: string
+        id:
+          type: integer
+        po_routing_address:
+          type: string
+        po_routing_channel:
+          type: string
+        shipping_method_maps:
           items:
-            type: object
-            properties:
-              id:
-                type: integer
-              po_item_id:
-                type: string
-              quantity:
-                type: integer
-              _link:
-                type: string
-              product:
-                $ref: '#/components/schemas/product_base'
-        comments:
+            $ref: '#/components/schemas/supplier_shipping_method_map'
           type: array
-          items:
-            $ref: '#/components/schemas/comment'
+        updated:
+          format: date-time
+          type: string
+        vendor_config:
+          type: object
+        warehouse_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+      required:
+      - id
+      - company_id
+      - warehouse_id
+      - created
+      - updated
+      - archive_date
+      - automatically_show_supplier_price
+      - dropship_prefer_cart_order_line_names
+      - address
+      - vendor_config
+      title: Supplier Schema
+      type: object
+    post_kit_component:
+      title: Create a Kit Component
+      type: object
+      additionalProperties: false
+      properties:
+        child_sku:
+          type: string
+        quantity:
+          type: number
+      required:
+      - child_sku
+    put_v3_tag:
+      title: Update a Tag
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        color:
+          type: string
     address:
       title: Address Schema
       type: object
@@ -1416,76 +1770,97 @@ components:
       - country
       - email
       - phone
-    extra_info_wayfair:
-      title: Wayfair Extra Info Schema
+    put_product_warehouse:
+      title: Update a Product Warehouse Schema
+      type: object
+      additionalProperties: false
+      oneOf:
+      - type: object
+        title: Set On Hand
+        description: Set the on hand quantity to a specific value
+        properties:
+          on_hand:
+            type: number
+      - type: object
+        title: Adjust by Amount
+        description: Adjust the on hand quantity by adjustment amount
+        properties:
+          adjustment:
+            type: number
+      properties:
+        low_stock_threshold:
+          anyOf:
+          - type: 'null'
+          - type: number
+        out_of_stock_threshold:
+          anyOf:
+          - type: 'null'
+          - type: number
+        location_in_warehouse:
+          type: string
+    post_buy_more:
+      title: Buy More Products Request Schema
       type: object
       additionalProperties: false
       properties:
+        warehouse:
+          type: integer
+        quantity:
+          type: integer
+        unit_price:
+          type: number
+        discount_amount:
+          type: number
+        po_id:
+          type: string
+      required:
+      - warehouse
+      - quantity
+    v3_tag:
+      title: V3 Tag Schema
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        color:
+          type: string
+      required:
+      - id
+      - name
+      - color
+    extra_info_square:
+      title: Square Extra Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        v2_product_id:
+          type: string
         location_ids:
           type: array
           items:
             type: string
-    put_product_fulfillment:
-      title: Update Product Fulfillment
-      type: object
-      properties:
-        fulfillment_type:
-          type: string
-          enum:
-          - in_house
-          - dropshippable
-          - automatically_dropshipped
-        default_supplier_id:
-          type: integer
-      required:
-      - fulfillment_type
-      additionalProperties: false
-    extra_info_ebay:
-      title: Ebay Extra Info Schema
+    extra_info_shopify:
+      title: Shopify Extra Info Schema
       type: object
       additionalProperties: false
       properties:
-        item_id:
-          type: string
-        listing_type:
-          type: string
-        status:
-          type: string
-    v3_tag_list:
-      title: Tag List Schema
-      type: object
-      properties:
-        count:
-          type: integer
-        tag:
+        inventory_item_id:
+          type: number
+        location_ids:
           type: array
           items:
-            $ref: '#/components/schemas/v3_tag'
-        limit:
-          type: integer
-          default: 10
-        offset:
-          type: integer
-          default: 0
-      required:
-      - count
-      - tag
-      - limit
-      - offset
-    post_product_image:
-      title: Product Images Schema
+            type: string
+    product_image:
+      title: Product Image Schema
       type: object
-      oneOf:
-      - type: object
-        properties:
-          images:
-            type: array
-            items:
-              type: object
-              $ref: '#/components/schemas/product_image'
-        additionalProperties: false
-      - type: object
-        $ref: '#/components/schemas/product_image'
+      additionalProperties: false
+      properties:
+        url:
+          type: string
+        is_default:
+          type: boolean
     put_product_cart_bridge:
       title: Update Product Cart Bridge Schema
       type: object
@@ -1511,250 +1886,47 @@ components:
           ref: object/amazon_extra_info.json
         walmart_extra_info:
           ref: object/walmart_extra_info.json
-    warehouse:
-      title: Warehouse Schema
-      additionalProperties: false
+    product_list:
+      title: Product List Response schema
       type: object
-      properties:
-        _link:
-          type: string
-        id:
-          type: integer
-        address:
-          $ref: '#/components/schemas/address'
-        cart:
-          anyOf:
-          - type: string
-          - type: 'null'
-        is_configured_for_shipping:
-          type: boolean
-        is_default_location:
-          type: boolean
-      required:
-      - id
-      - address
-      - cart
-      - is_configured_for_shipping
-      - is_default_location
-    post_buy_more:
-      title: Buy More Products Request Schema
-      type: object
-      additionalProperties: false
-      properties:
-        warehouse:
-          type: integer
-        quantity:
-          type: integer
-        unit_price:
-          type: number
-        discount_amount:
-          type: number
-        po_id:
-          type: string
-      required:
-      - warehouse
-      - quantity
-    extra_info_walmart:
-      title: Walmart Extra Info Schema
-      type: object
-      additionalProperties: false
-      properties:
-        fulfillment_latency:
-          anyOf:
-          - type: integer
-          - type: 'null'
-        wpid:
-          type: string
-    post_kit_component:
-      title: Create a Kit Component
-      type: object
-      additionalProperties: false
-      properties:
-        child_sku:
-          type: string
-        quantity:
-          type: number
-      required:
-      - child_sku
-    extra_info_etsy:
-      title: Etsy Extra Info Schema
-      type: object
-      additionalProperties: false
-      properties:
-        listing_id:
-          type: string
-        product_id:
-          type: string
-        offering_id:
-          type: string
-    put_v3_tag:
-      title: Update a Tag
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          type: string
-        color:
-          type: string
-    get_v3_tag_list:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: GET Tag List Schema
       properties:
         limit:
           type: integer
-          default: 10
-          minimum: 1
-          maximum: 100
+          example: 1
         offset:
           type: integer
-          default: 0
-        id:
+          example: 0
+        count:
+          type: integer
+          example: 46
+        products:
           type: array
           items:
-            type: integer
-      additionalProperties: false
-      anyOf:
-      - type: object
-      - type: 'null'
-    ProductSort:
-      title: sort
-      enum:
-      - name
-      - -name
-      - sku
-      - -sku
-      - created
-      - -created
-      - default_supplier
-      - -default_supplier
-      - total_committed
-      - -total_committed
-      - total_available
-      - -total_available
-      - total_on_hand
-      - -total_on_hand
-      - po_total_committed
-      - -po_total_committed
-      type: string
-    comment:
-      title: Comment Schema
-      type: object
-      additionalProperties: false
-      properties:
-        user:
-          type: string
-        date:
-          type: string
-          format: date-time
-        text:
-          type: string
-    post_product:
-      title: Product Post Schema
-      type: object
-      additionalProperties: true
-      properties:
-        sku:
-          type: string
-        name:
-          type: string
-        category:
-          type: string
-        hs_code:
-          type: string
-        country_of_origin:
-          type: string
-        customs_description:
-          type: string
-        declared_value:
-          type: number
-        price:
-          type: number
-        weight:
-          type: number
-        length:
-          type: integer
-        width:
-          type: integer
-        height:
-          type: integer
-        taxable:
-          type: string
-        cost:
-          type: number
-        type:
-          type: string
-        upc:
-          type: string
-        asin:
-          type: string
-        internal_notes:
-          type: string
-        physical_on_hand:
-          type: number
-        location_in_warehouse:
-          type: string
-        low_stock_threshold:
-          type: number
-        out_of_stock_threshold:
-          type: number
-        cart:
-          type: integer
-        sync:
-          type: boolean
-        original_sku:
-          type: string
-        variant_sku:
-          type: string
-        inventory_changed:
-          type: boolean
-        max_export_qty:
-          type: integer
-        images:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/product_image'
-        tags:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v3_tag'
-      oneOf:
-      - title: Amazon Extra Info
-        properties:
-          amazon_extra_info:
-            $ref: '#/components/schemas/extra_info_amazon'
-      - title: ChannelAdvisor Extra Info
-        properties:
-          channeladvisor_extra_info:
-            $ref: '#/components/schemas/extra_info_channeladvisor'
-      - title: Ebay Extra Info
-        properties:
-          ebay_extra_info:
-            $ref: '#/components/schemas/extra_info_ebay'
-      - title: Etsy Extra Info
-        properties:
-          etsy_extra_info:
-            $ref: '#/components/schemas/extra_info_etsy'
-      - title: Shopify Extra Info
-        properties:
-          shopify_extra_info:
-            $ref: '#/components/schemas/extra_info_shopify'
-      - title: Square Extra Info
-        properties:
-          square_extra_info:
-            $ref: '#/components/schemas/extra_info_square'
-      - title: Walmart Extra Info
-        properties:
-          walmart_extra_info:
-            $ref: '#/components/schemas/extra_info_walmart'
-      - title: Wayfair Extra Info
-        properties:
-          wayfair_extra_info:
-            $ref: '#/components/schemas/extra_info_wayfair'
-      required:
-      - sku
-      - name
+            allOf:
+            - $ref: '#/components/schemas/product_base'
+            - properties:
+                warehouses:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/inventory_as_warehouse'
+                kit_components:
+                  type: array
+                  items:
+                    FIXME: object
+                carts:
+                  type: array
+                  items:
+                    FIXME: object
+                suppliers:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/supplier'
+                to_be_shipped:
+                  type: number
+                available_on_hand:
+                  type: number
+                on_pos:
+                  type: number
     product_base:
       title: Product Schema
       type: object
@@ -1895,304 +2067,135 @@ components:
       - $ref: '#/components/schemas/extra_info_square'
       - $ref: '#/components/schemas/extra_info_walmart'
       - $ref: '#/components/schemas/extra_info_wayfair'
-    product:
-      title: Product Response Schema
+    post_product:
+      title: Product Post Schema
       type: object
-      allOf:
-      - $ref: '#/components/schemas/product_base'
-      - properties:
-          warehouses:
-            type: array
-            items:
-              $ref: '#/components/schemas/inventory_as_warehouse'
-          kit_components:
-            type: array
-            items:
-              FIXME: object
-          carts:
-            type: array
-            items:
-              FIXME: object
-          suppliers:
-            type: array
-            items:
-              $ref: '#/components/schemas/supplier'
-          to_be_shipped:
-            type: number
-          available_on_hand:
-            type: number
-          on_pos:
-            type: number
-    inventory_as_warehouse:
-      title: Inventory as Warehouse Schema
+      additionalProperties: true
+      properties:
+        sku:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        hs_code:
+          type: string
+        country_of_origin:
+          type: string
+        customs_description:
+          type: string
+        declared_value:
+          type: number
+        price:
+          type: number
+        weight:
+          type: number
+        length:
+          type: integer
+        width:
+          type: integer
+        height:
+          type: integer
+        taxable:
+          type: string
+        cost:
+          type: number
+        type:
+          type: string
+        upc:
+          type: string
+        asin:
+          type: string
+        internal_notes:
+          type: string
+        physical_on_hand:
+          type: number
+        location_in_warehouse:
+          type: string
+        low_stock_threshold:
+          type: number
+        out_of_stock_threshold:
+          type: number
+        cart:
+          type: integer
+        sync:
+          type: boolean
+        original_sku:
+          type: string
+        variant_sku:
+          type: string
+        inventory_changed:
+          type: boolean
+        max_export_qty:
+          type: integer
+        images:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/product_image'
+        tags:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v3_tag'
+      oneOf:
+      - title: Amazon Extra Info
+        properties:
+          amazon_extra_info:
+            $ref: '#/components/schemas/extra_info_amazon'
+      - title: ChannelAdvisor Extra Info
+        properties:
+          channeladvisor_extra_info:
+            $ref: '#/components/schemas/extra_info_channeladvisor'
+      - title: Ebay Extra Info
+        properties:
+          ebay_extra_info:
+            $ref: '#/components/schemas/extra_info_ebay'
+      - title: Etsy Extra Info
+        properties:
+          etsy_extra_info:
+            $ref: '#/components/schemas/extra_info_etsy'
+      - title: Shopify Extra Info
+        properties:
+          shopify_extra_info:
+            $ref: '#/components/schemas/extra_info_shopify'
+      - title: Square Extra Info
+        properties:
+          square_extra_info:
+            $ref: '#/components/schemas/extra_info_square'
+      - title: Walmart Extra Info
+        properties:
+          walmart_extra_info:
+            $ref: '#/components/schemas/extra_info_walmart'
+      - title: Wayfair Extra Info
+        properties:
+          wayfair_extra_info:
+            $ref: '#/components/schemas/extra_info_wayfair'
+      required:
+      - sku
+      - name
+    warehouse:
+      title: Warehouse Schema
       additionalProperties: false
       type: object
       properties:
+        _link:
+          type: string
         id:
           type: integer
-        low_stock_threshold:
-          type: integer
-        out_of_stock_threshold:
-          type: integer
-        location_in_warehouse:
-          type: string
-        on_hand:
-          type: number
-        created:
-          type: string
-          format: date-time
-        updated:
-          type: string
-          format: date-time
-        always_dropship:
-          type: boolean
         address:
           $ref: '#/components/schemas/address'
         cart:
-          type: string
+          anyOf:
+          - type: string
+          - type: 'null'
         is_configured_for_shipping:
           type: boolean
         is_default_location:
           type: boolean
-        physical_on_hand:
-          type: number
-        available:
-          type: number
-        committed:
-          type: number
-        allocated:
-          type: number
-        unallocated:
-          type: number
-        po_committed:
-          type: number
-    extra_info_channeladvisor:
-      title: ChannelAdvisor Extra Info Schema
-      type: object
-      additionalProperties: false
-      properties:
-        distribution_center_code:
-          type: string
-    supplier:
-      additionalProperties: false
-      properties:
-        _link:
-          type: string
-        address:
-          $ref: '#/components/schemas/address'
-        archive_date:
-          format: date-time
-          anyOf:
-          - type: string
-          - type: 'null'
-        automatically_show_ship_to_email:
-          type: boolean
-        automatically_show_supplier_price:
-          type: boolean
-        company_id:
-          type: integer
-        created:
-          format: date-time
-          type: string
-        default_shipping_account:
-          type: string
-        default_shipping_carrier:
-          type: string
-        default_shipping_method:
-          type: string
-        dropship_prefer_cart_order_line_names:
-          type: integer
-        dropshipment_routing_address:
-          type: string
-        dropshipment_routing_channel:
-          type: string
-        id:
-          type: integer
-        po_routing_address:
-          type: string
-        po_routing_channel:
-          type: string
-        shipping_method_maps:
-          items:
-            $ref: '#/components/schemas/supplier_shipping_method_map'
-          type: array
-        updated:
-          format: date-time
-          type: string
-        vendor_config:
-          type: object
-        warehouse_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
       required:
       - id
-      - company_id
-      - warehouse_id
-      - created
-      - updated
-      - archive_date
-      - automatically_show_supplier_price
-      - dropship_prefer_cart_order_line_names
       - address
-      - vendor_config
-      title: Supplier Schema
-      type: object
-    extra_info_square:
-      title: Square Extra Info Schema
-      type: object
-      additionalProperties: false
-      properties:
-        v2_product_id:
-          type: string
-        location_ids:
-          type: array
-          items:
-            type: string
-    purchase_order:
-      title: Purchase Order Schema
-      type: object
-      additionalProperties: false
-      properties:
-        status:
-          type: string
-        company_id:
-          type: integer
-        po_id:
-          type: string
-        shipping_method:
-          type: string
-        payment_method:
-          type: string
-        instructions:
-          type: string
-        sent:
-          format: date-time
-          anyOf:
-          - type: string
-          - type: 'null'
-        estimated_delivery_date:
-          type: string
-          format: date-time
-        created:
-          type: string
-          format: date-time
-        updated:
-          type: string
-          format: date-time
-        shipping_amount:
-          type: number
-        tax_amount:
-          type: number
-        discount_amount:
-          type: number
-        _link:
-          type: string
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              quantity:
-                type: integer
-              unit_price:
-                type: number
-              discount_amount:
-                type: number
-              _link:
-                type: string
-              product:
-                allOf:
-                - $ref: '#/components/schemas/product_base'
-                - properties:
-                    supplier:
-                      type: object
-                      additionalProperties: false
-                      properties:
-                        sku:
-                          type: string
-                        price:
-                          type: number
-                        unit_price:
-                          type: number
-                    warehouse:
-                      type: object
-                      additionalProperties: false
-                      properties:
-                        location_in_warehouse:
-                          type: string
-              to_be_shipped:
-                type: number
-              available_on_hand:
-                type: number
-              quantity_received:
-                type: integer
-        supplier:
-          type: object
-          $ref: '#/components/schemas/supplier'
-        warehouse:
-          type: object
-          $ref: '#/components/schemas/warehouse'
-        comments:
-          type: array
-          items:
-            $ref: '#/components/schemas/comment'
-        goods_receipts:
-          type: array
-          items:
-            $ref: '#/components/schemas/goods_receipt'
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/v3_tag'
-  parameters:
-    searchParam:
-      name: search
-      in: query
-      description: ''
-      schema:
-        type: string
-    supplierPath:
-      name: supplier_id
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
-    skuPath:
-      name: sku
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
-    limitParam:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
-    warehouseIDPath:
-      name: warehouse_id
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
-    offsetParam:
-      in: query
-      name: offset
-      required: false
-      description: ''
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
+      - cart
+      - is_configured_for_shipping
+      - is_default_location

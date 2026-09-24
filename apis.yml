@@ -77,8 +77,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-api-key-api
   name: Ordoro Api Key API
   description: The Api Key API from Ordoro — 2 operation(s) for api key.
@@ -97,8 +95,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-authenticated-api
   name: Ordoro Authenticated API
   description: The Authenticated API from Ordoro — 1 operation(s) for authenticated.
@@ -115,8 +111,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-cart-api
   name: Ordoro Cart API
   description: Current routes for `/cart/` are sometimes interchangeably referenced as `sales_channel`
@@ -133,8 +127,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-company-api
   name: Ordoro Company API
   description: The Company API from Ordoro — 5 operation(s) for company.
@@ -151,8 +143,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-goods-receipt-api
   name: Ordoro Goods Receipt API
   description: >-
@@ -172,8 +162,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-integration-api
   name: Ordoro Integration API
   description: >-
@@ -192,8 +180,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-label-api
   name: Ordoro Label API
   description: >-
@@ -212,8 +198,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-manufacturing-order-api
   name: Ordoro Manufacturing Order API
   description: >-
@@ -232,8 +216,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-order-api
   name: Ordoro Order API
   description: >-
@@ -252,8 +234,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-packing-list-api
   name: Ordoro Packing List API
   description: >-
@@ -272,8 +252,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-postage-account-api
   name: Ordoro Postage Account API
   description: Methods for retrieving postage account information to be used with USPS carriers.
@@ -290,8 +268,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-product-api
   name: Ordoro Product API
   description: The Product API from Ordoro — 21 operation(s) for product.
@@ -308,8 +284,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-purchase-order-api
   name: Ordoro Purchase Order API
   description: The Purchase Order API from Ordoro — 12 operation(s) for purchase order.
@@ -326,8 +300,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-rate-api
   name: Ordoro Rate API
   description: >-
@@ -346,8 +318,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-return-label-api
   name: Ordoro Return Label API
   description: The Return Label API from Ordoro — 3 operation(s) for return label.
@@ -364,8 +334,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-return-order-api
   name: Ordoro Return Order API
   description: The Return Order API from Ordoro — 3 operation(s) for return order.
@@ -382,8 +350,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-return-order-label-api
   name: Ordoro Return Order Label API
   description: The Return Order Label API from Ordoro — 8 operation(s) for return order label.
@@ -400,8 +366,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-return-order-rate-api
   name: Ordoro Return Order Rate API
   description: The Return Order Rate API from Ordoro — 7 operation(s) for return order rate.
@@ -418,8 +382,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-return-tracking-api
   name: Ordoro Return Tracking API
   description: The Return Tracking API from Ordoro — 2 operation(s) for return tracking.
@@ -436,8 +398,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-rule-api
   name: Ordoro Rule API
   description: The Rule API from Ordoro — 3 operation(s) for rule.
@@ -456,8 +416,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-shipper-api
   name: Ordoro Shipper API
   description: >-
@@ -477,8 +435,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-supplier-api
   name: Ordoro Supplier API
   description: The Supplier API from Ordoro — 5 operation(s) for supplier.
@@ -495,8 +451,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-tag-api
   name: Ordoro Tag API
   description: The Tag API from Ordoro — 3 operation(s) for tag.
@@ -513,8 +467,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-tracking-api
   name: Ordoro Tracking API
   description: The Tracking API from Ordoro — 2 operation(s) for tracking.
@@ -531,8 +483,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-user-api
   name: Ordoro User API
   description: The User API from Ordoro — 3 operation(s) for user.
@@ -549,8 +499,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 - aid: ordoro:ordoro-warehouse-api
   name: Ordoro Warehouse API
   description: The Warehouse API from Ordoro — 3 operation(s) for warehouse.
@@ -567,8 +515,6 @@ apis:
     url: https://forums.ordoro.com/
   - type: GitHubRepository
     url: https://github.com/ordoro/api-examples
-  - type: GraphQL
-    url: graphql/ordoro-graphql.md
 common:
 - type: CapabilityMap
   url: capabilities/ordoro-capability-edges.yml

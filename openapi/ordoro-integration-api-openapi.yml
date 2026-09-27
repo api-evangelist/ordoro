@@ -145,6 +145,15 @@ paths:
       deprecated: false
 components:
   parameters:
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
     limitParam:
       in: query
       name: limit
@@ -160,51 +169,14 @@ components:
       description: ''
       schema:
         type: string
-    offsetParam:
-      in: query
-      name: offset
-      required: false
-      description: ''
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
   schemas:
-    integration_stripe_definitions-required_in_response:
+    post_integration_stripe:
+      title: Stripe Integration
+      type: object
+      additionalProperties: false
       allOf:
-      - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/integration_stripe_vendor_config'
-    IntegrationStripeNewRequest:
-      $ref: '#/components/schemas/post_integration_stripe'
-    integration_base_definitions-required_in_response:
-      required:
-      - name
-      - _link
-      - vendor
-      - vendor_display
-      - id
-      - archived_date
-      - vendor_config
-    type:
-      title: type
-      enum:
-      - financial
-      - payment
-      type: string
-    vendor:
-      title: vendor
-      enum:
-      - quickbooks
-      - stripe
-      type: string
-    integration_quickbooks_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/integration_quickbooks_vendor_config'
+      - $ref: '#/components/schemas/post_integration_base'
+      - $ref: '#/components/schemas/integration_stripe_vendor_config'
     integration_quickbooks:
       title: QuickBooks Integration Schema
       type: object
@@ -229,81 +201,68 @@ components:
           vendor_config:
             $ref: '#/components/schemas/integration_quickbooks_vendor_config'
       - $ref: '#/components/schemas/integration_base'
-    integration_list:
-      type: object
-      title: Integration list schema
-      properties:
-        limit:
-          type: integer
-        offset:
-          type: integer
-        count:
-          type: integer
-        integration:
-          type: array
-          items:
-            $ref: '#/components/schemas/any_of_integration_type'
-      required:
-      - limit
-      - offset
-      - count
-      - order
-    post_integration_quickbooks:
-      title: QuickBooks Integration
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/post_integration_base'
-      - $ref: '#/components/schemas/integration_quickbooks_vendor_config'
-    integration_stripe-2:
-      title: Stripe Integration
-      allOf:
-      - $ref: '#/components/schemas/integration_stripe'
-      - $ref: '#/components/schemas/integration_stripe_definitions-required_in_response'
-    integration_quickbooks_vendor_config:
+    vendor:
+      title: vendor
+      enum:
+      - quickbooks
+      - stripe
+      type: string
+    integration_stripe_vendor_config:
       type: object
       properties:
-        access_token:
-          type: string
-        access_token_expiration:
+        stripe_user_id:
           type: string
         refresh_token:
           type: string
-        realm_id:
-          type: string
-        refresh_token_expiration:
-          type: string
       required:
-      - access_token
-      - access_token_expiration
+      - stripe_user_id
       - refresh_token
-      - refresh_token_expiration
-      - realm_id
-    integration_quickbooks-2:
-      title: QuickBooks Integration
+    integration_base_definitions-required_in_response:
+      required:
+      - name
+      - _link
+      - vendor
+      - vendor_display
+      - id
+      - archived_date
+      - vendor_config
+    integration_stripe:
+      title: Stripe Integration Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/integration_stripe_vendor_config'
       allOf:
-      - $ref: '#/components/schemas/integration_quickbooks'
-      - $ref: '#/components/schemas/integration_quickbooks_definitions-required_in_response'
-    put_integration_quickbooks:
-      title: Update QuickBooks Integration
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - stripe
+          vendor_display:
+            type: string
+            enum:
+            - Stripe
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/integration_stripe_vendor_config'
+      - $ref: '#/components/schemas/integration_base'
+    put_integration_stripe:
+      title: Update Stripe Integration
       type: object
       additionalProperties: false
       allOf:
       - $ref: '#/components/schemas/put_integration_base'
-      - $ref: '#/components/schemas/integration_quickbooks_vendor_config'
-    post_integration_stripe:
-      title: Stripe Integration
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/post_integration_base'
       - $ref: '#/components/schemas/integration_stripe_vendor_config'
-    any_of_integration_type:
-      anyOf:
-      - $ref: '#/components/schemas/integration_quickbooks-2'
-      - $ref: '#/components/schemas/integration_stripe-2'
-    IntegrationQuickBooksNewRequest:
-      $ref: '#/components/schemas/post_integration_quickbooks'
+    integration_stripe_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/integration_stripe_vendor_config'
     integration_base:
       title: Integration Base Schema
       type: object
@@ -347,16 +306,66 @@ components:
         vendor_config:
           type: object
           description: Vendor-specific configuration information.
-    integration_stripe_vendor_config:
+    any_of_integration_type:
+      anyOf:
+      - $ref: '#/components/schemas/integration_quickbooks-2'
+      - $ref: '#/components/schemas/integration_stripe-2'
+    IntegrationQuickBooksNewRequest:
+      $ref: '#/components/schemas/post_integration_quickbooks'
+    one_of_integration_type:
+      oneOf:
+      - $ref: '#/components/schemas/integration_quickbooks-2'
+      - $ref: '#/components/schemas/integration_stripe-2'
+    integration_quickbooks-2:
+      title: QuickBooks Integration
+      allOf:
+      - $ref: '#/components/schemas/integration_quickbooks'
+      - $ref: '#/components/schemas/integration_quickbooks_definitions-required_in_response'
+    post_integration_quickbooks:
+      title: QuickBooks Integration
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_integration_base'
+      - $ref: '#/components/schemas/integration_quickbooks_vendor_config'
+    integration_quickbooks_vendor_config:
       type: object
       properties:
-        stripe_user_id:
+        access_token:
+          type: string
+        access_token_expiration:
           type: string
         refresh_token:
           type: string
+        realm_id:
+          type: string
+        refresh_token_expiration:
+          type: string
       required:
-      - stripe_user_id
+      - access_token
+      - access_token_expiration
       - refresh_token
+      - refresh_token_expiration
+      - realm_id
+    integration_list:
+      type: object
+      title: Integration list schema
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        count:
+          type: integer
+        integration:
+          type: array
+          items:
+            $ref: '#/components/schemas/any_of_integration_type'
+      required:
+      - limit
+      - offset
+      - count
+      - order
     put_integration_base:
       type: object
       additionalProperties: false
@@ -367,34 +376,32 @@ components:
         archived_date:
           description: date of the integration to be archived
           type: string
-    one_of_integration_type:
-      oneOf:
-      - $ref: '#/components/schemas/integration_quickbooks-2'
-      - $ref: '#/components/schemas/integration_stripe-2'
-    integration_stripe:
-      title: Stripe Integration Schema
-      type: object
-      definitions:
-        required_in_response:
-          allOf:
-          - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
-          - properties:
-              vendor_config:
-                $ref: '#/components/schemas/integration_stripe_vendor_config'
+    IntegrationStripeNewRequest:
+      $ref: '#/components/schemas/post_integration_stripe'
+    type:
+      title: type
+      enum:
+      - financial
+      - payment
+      type: string
+    integration_stripe-2:
+      title: Stripe Integration
       allOf:
-      - properties:
-          vendor:
-            type: string
-            enum:
-            - stripe
-          vendor_display:
-            type: string
-            enum:
-            - Stripe
+      - $ref: '#/components/schemas/integration_stripe'
+      - $ref: '#/components/schemas/integration_stripe_definitions-required_in_response'
+    put_integration_quickbooks:
+      title: Update QuickBooks Integration
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_integration_base'
+      - $ref: '#/components/schemas/integration_quickbooks_vendor_config'
+    integration_quickbooks_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
       - properties:
           vendor_config:
-            $ref: '#/components/schemas/integration_stripe_vendor_config'
-      - $ref: '#/components/schemas/integration_base'
+            $ref: '#/components/schemas/integration_quickbooks_vendor_config'
     post_integration_base:
       type: object
       additionalProperties: false
@@ -409,10 +416,3 @@ components:
           - quickbooks
       required:
       - vendor
-    put_integration_stripe:
-      title: Update Stripe Integration
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/put_integration_base'
-      - $ref: '#/components/schemas/integration_stripe_vendor_config'

@@ -129,7 +129,91 @@ paths:
                 $ref: '#/components/schemas/warehouse'
       deprecated: false
 components:
+  parameters:
+    warehouseIDPath:
+      name: warehouse_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
   schemas:
+    warehouse:
+      title: Warehouse Schema
+      additionalProperties: false
+      type: object
+      properties:
+        _link:
+          type: string
+        id:
+          type: integer
+        address:
+          $ref: '#/components/schemas/address'
+        cart:
+          anyOf:
+          - type: string
+          - type: 'null'
+        is_configured_for_shipping:
+          type: boolean
+        is_default_location:
+          type: boolean
+      required:
+      - id
+      - address
+      - cart
+      - is_configured_for_shipping
+      - is_default_location
+    post_warehouse:
+      title: Post Warehouse Schema
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/warehouse_address'
+      - properties:
+          cart_id:
+            type: integer
+    warehouse_list:
+      type: object
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        count:
+          type: integer
+        warehouse:
+          type: array
+          items:
+            $ref: '#/components/schemas/warehouse'
+      required:
+      - limit
+      - offset
+      - count
+      - warehouse
     warehouse_address:
       title: Warehouse Address Schema
       type: object
@@ -181,38 +265,12 @@ components:
           - type: 'null'
       required:
       - name
-    warehouse_list:
-      type: object
-      properties:
-        limit:
-          type: integer
-        offset:
-          type: integer
-        count:
-          type: integer
-        warehouse:
-          type: array
-          items:
-            $ref: '#/components/schemas/warehouse'
-      required:
-      - limit
-      - offset
-      - count
-      - warehouse
     warehouseSort:
       title: Warehouse Sort
       enum:
       - name
       - -name
       type: string
-    put_warehouse:
-      title: Post Warehouse Schema
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/warehouse_address'
-      - properties:
-          cart_id:
-            type: integer
     address:
       title: Address Schema
       type: object
@@ -345,7 +403,7 @@ components:
       - country
       - email
       - phone
-    post_warehouse:
+    put_warehouse:
       title: Post Warehouse Schema
       type: object
       allOf:
@@ -353,61 +411,3 @@ components:
       - properties:
           cart_id:
             type: integer
-    warehouse:
-      title: Warehouse Schema
-      additionalProperties: false
-      type: object
-      properties:
-        _link:
-          type: string
-        id:
-          type: integer
-        address:
-          $ref: '#/components/schemas/address'
-        cart:
-          anyOf:
-          - type: string
-          - type: 'null'
-        is_configured_for_shipping:
-          type: boolean
-        is_default_location:
-          type: boolean
-      required:
-      - id
-      - address
-      - cart
-      - is_configured_for_shipping
-      - is_default_location
-  parameters:
-    limitParam:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
-    warehouseIDPath:
-      name: warehouse_id
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
-    offsetParam:
-      in: query
-      name: offset
-      required: false
-      description: ''
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    searchParam:
-      name: search
-      in: query
-      description: ''
-      schema:
-        type: string

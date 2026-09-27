@@ -244,7 +244,7 @@ paths:
     post:
       summary: Schedule a FedEx pickup
       description: ''
-      operationId: PickupUPS_POST
+      operationId: postV3PickupFedex
       tags:
       - Shipper
       requestBody:
@@ -263,8 +263,36 @@ paths:
                 carrier: fedex
               schema:
                 $ref: '#/components/schemas/pickup'
+      x-operation-id-source: normalized
+      x-operation-id-original: PickupUPS_POST
 components:
   schemas:
+    shipper_list:
+      type: object
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        count:
+          type: integer
+        shipper:
+          type: array
+          items:
+            $ref: '#/components/schemas/any_of_shipper_type'
+      required:
+      - limit
+      - offset
+      - count
+      - shipper
+    post_shipper_canada_post:
+      title: Canada Post Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_shipper_base'
+      - $ref: '#/components/schemas/shipper_canada_post_vendor_config'
+      - $ref: '#/components/schemas/shipper_canada_post_vendor_config_definitions-required_to_create'
     put_shipper_endicia:
       title: Endicia Shipper
       type: object
@@ -272,6 +300,549 @@ components:
       allOf:
       - $ref: '#/components/schemas/put_shipper_base'
       - $ref: '#/components/schemas/shipper_endicia_vendor_config'
+    post_shipper_amazon:
+      title: Amazon Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_shipper_base'
+      - $ref: '#/components/schemas/shipper_amazon_vendor_config'
+      - $ref: '#/components/schemas/shipper_amazon_vendor_config_definitions-required_to_create'
+    shipper_amazon_vendor_config_definitions-required_to_create:
+      required: []
+    post_shipper_pitney:
+      title: Pitney Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_shipper_base'
+      - $ref: '#/components/schemas/shipper_pitney_vendor_config'
+      - $ref: '#/components/schemas/shipper_pitney_vendor_config_definitions-required_to_create'
+    shipper_australia_post_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_australia_post_vendor_config_definitions-required_in_response'
+    any_of_shipper_type:
+      anyOf:
+      - $ref: '#/components/schemas/shipper_amazon-2'
+      - $ref: '#/components/schemas/shipper_australia_post-2'
+      - $ref: '#/components/schemas/shipper_canada_post-2'
+      - $ref: '#/components/schemas/shipper_dhl-2'
+      - $ref: '#/components/schemas/shipper_endicia-2'
+      - $ref: '#/components/schemas/shipper_fedex-2'
+      - $ref: '#/components/schemas/shipper_pitney-2'
+      - $ref: '#/components/schemas/shipper_pitney_merchant-2'
+      - $ref: '#/components/schemas/shipper_pitney_presort-2'
+      - $ref: '#/components/schemas/shipper_sendle-2'
+      - $ref: '#/components/schemas/shipper_ups-2'
+    post_ups_schedule_pickup:
+      title: UPS Pickup Request Schema
+      type: object
+      additionalProperties: false
+      properties:
+        shipper_id:
+          type: integer
+        close_time:
+          type: string
+        overweight_packages:
+          type: boolean
+          default: false
+        pickup_address_same_as_account:
+          type: boolean
+        pickup_datetime:
+          type: string
+          format: date-time
+        pickup_pieces:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              container_type:
+                description: '[''01'' - package, ''02'' - letter, ''03'' - pallet]'
+                type: string
+                enum:
+                - '01'
+                - '02'
+                - '03'
+              destination_country:
+                description: destination country covered in this package pickup request
+                type: string
+              service_type:
+                description: service type of the packages being picked up
+                type: string
+              quantity:
+                description: number of packages in this pickup request, one request per service type, destination country, and container type combination
+                type: integer
+            required:
+            - service_type
+            - quantity
+            - destination_country
+            - container_type
+        shipper_country:
+          type: string
+        warehouse_id:
+          description: warehouse for the pickup address
+          type: integer
+      required:
+      - close_time
+      - pickup_address_same_as_account
+      - pickup_datetime
+      - pickup_pieces
+      - shipper_id
+      - warehouse_id
+    post_shipper_australia_post:
+      title: Australia Post Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_shipper_base'
+      - $ref: '#/components/schemas/shipper_australia_post_vendor_config'
+      - $ref: '#/components/schemas/shipper_australia_post_vendor_config_definitions-required_to_create'
+    shipper_xdelivery_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - username
+          - password
+        required_in_response:
+          required:
+          - username
+          - password
+      description: X Delivery formerly Onelive X Shipper configuration information
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    shipper_ups_vendor_config_definitions-required_to_create:
+      required:
+      - access_token
+      - token_type
+      - expires
+      - refresh_token
+      - refresh_token_expires
+    put_shipper_base:
+      type: object
+      additionalProperties: false
+      properties:
+        hidden_shipping_methods:
+          description: A list of shipping methods per shipper type that can be excluded from retrieved rates
+          items: {}
+          type: array
+        name:
+          description: The display name of this shipper.
+          type: string
+    shipper_ups_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_ups_vendor_config_definitions-required_in_response'
+    shipper_pitney_presort:
+      title: Pitney Bowes USPS Presort Shipper Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/shipper_pitney_presort_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - pitney_presort
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_pitney_presort_vendor_config'
+      - $ref: '#/components/schemas/shipper_base'
+    shipper_dhl_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - payment_account_number
+          - payment_country_code
+        required_in_response:
+          required:
+          - payment_account_number
+          - payment_country_code
+      description: DHL Shipper configuration information
+      properties:
+        payment_account_number:
+          type: string
+        payment_country_code:
+          type: string
+    shipper_sendle_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_sendle_vendor_config_definitions-required_in_response'
+    shipper_ups-2:
+      title: UPS Shipper
+      allOf:
+      - $ref: '#/components/schemas/shipper_ups'
+      - $ref: '#/components/schemas/shipper_ups_definitions-required_in_response'
+    shipper_fedex_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_fedex_vendor_config_definitions-required_in_response'
+    shipper_dhl_vendor_config_definitions-required_to_create:
+      required:
+      - payment_account_number
+      - payment_country_code
+    shipper_pitney_merchant-2:
+      title: Pitney Bowes USPS Shipper
+      allOf:
+      - $ref: '#/components/schemas/shipper_pitney_merchant'
+      - $ref: '#/components/schemas/shipper_pitney_merchant_definitions-required_in_response'
+    shipper_sendle-2:
+      title: Sendle Shipper
+      allOf:
+      - $ref: '#/components/schemas/shipper_sendle'
+      - $ref: '#/components/schemas/shipper_sendle_definitions-required_in_response'
+    shipper_amazon_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required: []
+        required_in_response:
+          required:
+          - cart_id
+          - cart_name
+      description: Amazon Shipper configuration information
+      properties:
+        cart_id:
+          type: string
+          description: Amazon Cart id in Ordoro
+        cart_name:
+          type: string
+          description: Amazon Cart name in Ordoro
+    shipper_endicia-2:
+      title: Endicia USPS Shipper
+      allOf:
+      - $ref: '#/components/schemas/shipper_endicia'
+      - $ref: '#/components/schemas/shipper_endicia_definitions-required_in_response'
+    shipper_ups_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - access_token
+          - token_type
+          - expires
+          - refresh_token
+          - refresh_token_expires
+        required_in_response:
+          required:
+          - access_token
+          - token_type
+          - expires
+          - refresh_token
+          - refresh_token_expires
+          - shipper_number
+          - access_license_key
+          - use_metric_units
+          - cost_center
+          - billing_email
+          - uses_discounted_rates
+      description: UPS Shipper configuration information
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+        expires:
+          type: string
+        refresh_token:
+          type: string
+        refresh_token_expires:
+          type: string
+        shipper_number:
+          type: string
+        access_license_key:
+          type: string
+        use_metric_units:
+          type: boolean
+          default: false
+        cost_center:
+          type: string
+        billing_email:
+          type: string
+        uses_discounted_rates:
+          type: boolean
+          default: false
+    shipper_base:
+      title: Shipper Base Schema
+      type: object
+      definitions:
+        required_in_response:
+          required:
+          - _link
+          - archive_date
+          - created
+          - hidden_shipping_methods
+          - id
+          - name
+          - updated
+          - vendor
+          - vendor_config
+      properties:
+        _link:
+          type: string
+          description: A relative link to this shipper
+        name:
+          type: string
+          description: The name of the shipper
+        vendor:
+          type: string
+          description: Short name of the vendor.
+          enum:
+          - amazon
+          - australia_post
+          - canada_post
+          - dhl
+          - endicia
+          - fedex
+          - pitney
+          - pitney_merchant
+          - pitney_presort
+          - sendle
+          - ups
+        hidden_shipping_methods:
+          description: A list of shipping methods per shipper type that can be excluded from retrieved rates
+          items: {}
+          type: array
+        id:
+          type: integer
+          description: The identifier used as the main reference to this shipper.
+          default: 1
+        archive_date:
+          description: If this shipper has been archived, this will contain the datetime that the shipper was archived. Otherwise it will be null.
+          anyOf:
+          - type: string
+          - type: 'null'
+        vendor_config:
+          type: object
+          description: Vendor-specific configuration information.
+    shipper_canada_post-2:
+      title: Canada Post Shipper
+      allOf:
+      - $ref: '#/components/schemas/shipper_canada_post'
+      - $ref: '#/components/schemas/shipper_canada_post_definitions-required_in_response'
+    shipper_pitney_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - postal_reporting_number
+        required_in_response:
+          required:
+          - postal_reporting_number
+          - autorefill_config
+      description: Pitney Shipper configuration information
+      properties:
+        postal_reporting_number:
+          description: Identifying number from Pitney Bowes, also referred to as PB-SHIPPER-ID
+          type: string
+        autorefill_config:
+          type: object
+    shipper_endicia_vendor_config_definitions-required_to_create:
+      required:
+      - account_id
+      - passphrase
+    one_of_shipper_type:
+      oneOf:
+      - $ref: '#/components/schemas/shipper_amazon-2'
+      - $ref: '#/components/schemas/shipper_australia_post-2'
+      - $ref: '#/components/schemas/shipper_canada_post-2'
+      - $ref: '#/components/schemas/shipper_dhl-2'
+      - $ref: '#/components/schemas/shipper_endicia-2'
+      - $ref: '#/components/schemas/shipper_fedex-2'
+      - $ref: '#/components/schemas/shipper_pitney-2'
+      - $ref: '#/components/schemas/shipper_pitney_merchant-2'
+      - $ref: '#/components/schemas/shipper_pitney_presort-2'
+      - $ref: '#/components/schemas/shipper_sendle-2'
+      - $ref: '#/components/schemas/shipper_ups-2'
+    shipper_dhl-2:
+      title: DHL Express Shipper
+      allOf:
+      - $ref: '#/components/schemas/shipper_dhl'
+      - $ref: '#/components/schemas/shipper_dhl_definitions-required_in_response'
+    shipper_pitney:
+      title: Pitney Shipper Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/shipper_pitney_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - pitney
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_pitney_vendor_config'
+      - $ref: '#/components/schemas/shipper_base'
+    put_shipper_pitney:
+      title: Pitney Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_shipper_base'
+      - $ref: '#/components/schemas/shipper_pitney_vendor_config'
+    pickup:
+      title: Pickup Response
+      type: object
+      additionalProperties: false
+      properties:
+        pickup_address:
+          $ref: '#/components/schemas/update_address'
+        pickup_address_same_as_account:
+          type: boolean
+        pickup_datetime:
+          type: string
+          format: date-time
+        close_time:
+          type: string
+          format: date-time
+        location:
+          type: string
+        pickup_number:
+          type: string
+        cost:
+          anyOf:
+          - type: string
+          - type: number
+          - type: 'null'
+        carrier:
+          type: string
+          enum:
+          - ups
+          - fedex
+        carrier_options:
+          anyOf:
+          - type: object
+          - type: 'null'
+      required:
+      - pickup_number
+      - carrier
+    shipper_pitney-2:
+      title: Pitney Bowes USPS Shipper
+      allOf:
+      - $ref: '#/components/schemas/shipper_pitney'
+      - $ref: '#/components/schemas/shipper_pitney_definitions-required_in_response'
+    shipper_amazon_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_amazon_vendor_config_definitions-required_in_response'
+    put_shipper_newgistics:
+      title: Newgistics Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_shipper_base'
+      - $ref: '#/components/schemas/shipper_newgistics_vendor_config'
+    shipper_amazon_vendor_config_definitions-required_in_response:
+      required:
+      - cart_id
+      - cart_name
+    shipper_canada_post_vendor_config_definitions-required_in_response:
+      required:
+      - customer_number
+      - username
+      - password
+      - contract_id
+      - payment_method
+    shipper_dhl:
+      title: DHL Shipper Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/shipper_dhl_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - dhl
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_dhl_vendor_config'
+      - $ref: '#/components/schemas/shipper_base'
+    shipper_sendle_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required: []
+        required_in_response:
+          required: []
+      properties: {}
+    shipper_dhl_vendor_config_definitions-required_in_response:
+      required:
+      - payment_account_number
+      - payment_country_code
+    shipper_pitney_presort-2:
+      title: Pitney Bowes USPS Presort Shipper
+      allOf:
+      - $ref: '#/components/schemas/shipper_pitney_presort'
+      - $ref: '#/components/schemas/shipper_pitney_presort_definitions-required_in_response'
+    shipper_pitney_merchant_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required: []
+        required_in_response:
+          required: []
+      properties: {}
+    shipper_sendle:
+      title: Sendle Shipper Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/shipper_sendle_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - sendle
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_sendle_vendor_config'
+      - $ref: '#/components/schemas/shipper_base'
+    shipper_pitney_presort_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required: []
+        required_in_response:
+          required: []
+      properties: {}
     shipper_newgistics_vendor_config:
       type: object
       definitions:
@@ -297,6 +868,223 @@ components:
         pb_shipper_id:
           description: Newgistics requires a pitney bowes shipping account
           type: string
+    post_fedex_schedule_pickup:
+      title: Fedex Pickup Request Schema
+      type: object
+      additionalProperties: false
+      properties:
+        close_time:
+          type: string
+        pickup_address_same_as_account:
+          description: 'Deprecated: Indicates whether to use the address associated with the Fedex account, or a different address'
+          type: boolean
+        oversize_package_count:
+          type: integer
+          default: 0
+        package_location:
+          type: string
+          enum:
+          - FRONT
+          - NONE
+          - REAR
+          - SIDE
+        pickup_datetime:
+          type: string
+        pickup_date_type:
+          type: string
+          enum:
+          - SAME_DAY
+          - FUTURE_DAY
+        quantity:
+          type: integer
+        total_weight:
+          description: total weight of packages in pounds (LB)
+          type: number
+        service_category:
+          type: string
+          enum:
+          - SAME_DAY
+          - SAME_DAY_CITY
+          - FEDEX_DISTANCE_DEFERRED
+          - FEDEX_NEXT_DAY_EARLY_MORNING
+          - FEDEX_NEXT_DAY_MID_MORNING
+          - FEDEX_NEXT_DAY_AFTERNOON
+          - FEDEX_NEXT_DAY_END_OF_DAY
+          - FEDEX_NEXT_DAY_FREIGHT
+        carrier_code:
+          description: 'Describes the fedex carrier for the pickup: [''FDXG'' - Fedex Ground, ''FDXE'' - Fedex Express]'
+          type: string
+          enum:
+          - FDXG
+          - FDXE
+        remarks:
+          description: Identifies comments the customer wants to convey to the FedEx courier regarding the package pickup.
+          type: string
+        shipper_id:
+          type: integer
+        warehouse_id:
+          description: warehouse for the pickup address
+          type: integer
+        commodity_description:
+          description: Provides area for any additional commodity description
+          type: string
+        domestic_or_international:
+          description: Describes the country relationship (domestic and/or international) among the shipments being picked up
+          type: string
+          default: DOMESTIC
+          enum:
+          - DOMESTIC
+          - INTERNATIONAL
+      required:
+      - close_time
+      - pickup_datetime
+      - quantity
+      - shipper_id
+      - total_weight
+    shipper_pitney_merchant_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_pitney_merchant_vendor_config_definitions-required_in_response'
+    shipper_amazon-2:
+      title: Amazon Buy Shipping API Shipper
+      allOf:
+      - $ref: '#/components/schemas/shipper_amazon'
+      - $ref: '#/components/schemas/shipper_amazon_definitions-required_in_response'
+    shipper_australia_post_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - account_number
+          - api_key
+          - api_secret
+        required_in_response:
+          required:
+          - account_number
+          - api_key
+          - api_secret
+          - print_as_you_go
+          - easypost_carrier_id
+      description: Australia Post Shipper configuration information
+      properties:
+        account_number:
+          type: string
+        api_key:
+          type: string
+        api_secret:
+          type: string
+        print_as_you_go:
+          type: boolean
+        easypost_carrier_id:
+          description: Australia Post is served via easypost, this is the internal identifier within the easypost system
+          type: string
+    shipper_pitney_vendor_config_definitions-required_in_response:
+      required:
+      - postal_reporting_number
+      - autorefill_config
+    shipper_fedex:
+      title: Fedex Shipper Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/shipper_fedex_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - fedex
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_fedex_vendor_config'
+      - $ref: '#/components/schemas/shipper_base'
+    put_shipper_xdelivery:
+      title: X Delivery Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_shipper_base'
+      - $ref: '#/components/schemas/shipper_xdelivery_vendor_config'
+    shipper_australia_post-2:
+      title: Australia Post via easypost Shipper
+      allOf:
+      - $ref: '#/components/schemas/shipper_australia_post'
+      - $ref: '#/components/schemas/shipper_australia_post_definitions-required_in_response'
+    shipper_endicia:
+      title: Endicia USPS Shipper Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/shipper_endicia_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - endicia
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_endicia_vendor_config'
+      - $ref: '#/components/schemas/shipper_base'
+    shipper_ups:
+      title: UPS Shipper Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/shipper_ups_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - ups
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_ups_vendor_config'
+      - $ref: '#/components/schemas/shipper_base'
+    shipper_base_definitions-required_in_response:
+      required:
+      - _link
+      - archive_date
+      - created
+      - hidden_shipping_methods
+      - id
+      - name
+      - updated
+      - vendor
+      - vendor_config
+    shipper_pitney_merchant_vendor_config_definitions-required_in_response:
+      required: []
+    put_shipper_fedex:
+      title: Fedex Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_shipper_base'
+      - $ref: '#/components/schemas/shipper_fedex_vendor_config'
+    shipper_pitney_vendor_config_definitions-required_to_create:
+      required:
+      - postal_reporting_number
+    shipper_pitney_presort_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_pitney_presort_vendor_config_definitions-required_in_response'
     put_shipper_dhl:
       title: DHL Shipper
       type: object
@@ -304,6 +1092,222 @@ components:
       allOf:
       - $ref: '#/components/schemas/put_shipper_base'
       - $ref: '#/components/schemas/shipper_dhl_vendor_config'
+    post_shipper_endicia:
+      title: Endicia Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_shipper_base'
+      - $ref: '#/components/schemas/shipper_endicia_vendor_config'
+      - $ref: '#/components/schemas/shipper_endicia_vendor_config_definitions-required_to_create'
+    shipper_amazon:
+      title: Amazon Shipper Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/shipper_amazon_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - amazon
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_amazon_vendor_config'
+      - $ref: '#/components/schemas/shipper_base'
+    post_shipper_balance:
+      title: Add shipper balance schema
+      type: object
+      additionalProperties: false
+      properties:
+        amount:
+          type: number
+          format: double
+          minimum: 10
+      required:
+      - amount
+    shipper_fedex-2:
+      title: FedEx Shipper
+      allOf:
+      - $ref: '#/components/schemas/shipper_fedex'
+      - $ref: '#/components/schemas/shipper_fedex_definitions-required_in_response'
+    shipper_canada_post_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - customer_number
+          - username
+          - password
+        required_in_response:
+          required:
+          - customer_number
+          - username
+          - password
+          - contract_id
+          - payment_method
+      description: Canada Post Shipper configuration information
+      properties:
+        customer_number:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        contract_id:
+          type: boolean
+        payment_method:
+          type: string
+          enum:
+          - Account
+          - CreditCard
+          default: Account
+    shipper_australia_post:
+      title: Australia Post Shipper Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/shipper_australia_post_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - australia_post
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_australia_post_vendor_config'
+      - $ref: '#/components/schemas/shipper_base'
+    put_shipper_ups:
+      title: UPS Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_shipper_base'
+      - $ref: '#/components/schemas/shipper_ups_vendor_config'
+    shipper_canada_post_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_canada_post_vendor_config_definitions-required_in_response'
+    put_shipper_amazon:
+      title: Amazon Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_shipper_base'
+      - $ref: '#/components/schemas/shipper_amazon_vendor_config'
+    shipper_endicia_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - account_id
+          - passphrase
+        required_in_response:
+          required:
+          - account_id
+          - web_password
+          - passphrase
+          - is_free
+          - challenge_question
+          - challenge_answer
+      description: Endicia Shipper configuration information
+      properties:
+        account_id:
+          type: string
+        passphrase:
+          type: string
+        challenge_question:
+          type: string
+        challenge_answer:
+          type: string
+        is_free:
+          type: boolean
+          default: false
+        web_password:
+          default: null
+          anyOf:
+          - type: string
+          - type: 'null'
+        confirmation_number:
+          type: string
+    post_shipper_fedex:
+      title: Fedex Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_shipper_base'
+      - $ref: '#/components/schemas/shipper_fedex_vendor_config'
+      - $ref: '#/components/schemas/shipper_fedex_vendor_config_definitions-required_to_create'
+    shipper_fedex_vendor_config_definitions-required_in_response:
+      required:
+      - account_number
+      - child_key
+      - child_secret
+      - smart_post_hub
+      - use_metric_units
+    shipper_endicia_vendor_config_definitions-required_in_response:
+      required:
+      - account_id
+      - web_password
+      - passphrase
+      - is_free
+      - challenge_question
+      - challenge_answer
+    post_shipper_ups:
+      title: UPS Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/post_shipper_base'
+      - $ref: '#/components/schemas/shipper_ups_vendor_config'
+      - $ref: '#/components/schemas/shipper_ups_vendor_config_definitions-required_to_create'
+    shipper_pitney_merchant:
+      title: Pitney Merchant Shipper Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/shipper_pitney_merchant_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - pitney_merchant
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_pitney_merchant_vendor_config'
+      - $ref: '#/components/schemas/shipper_base'
+    ShipperResponse:
+      $ref: '#/components/schemas/one_of_shipper_type'
+    shipper_australia_post_vendor_config_definitions-required_in_response:
+      required:
+      - account_number
+      - api_key
+      - api_secret
+      - print_as_you_go
+      - easypost_carrier_id
+    shipper_pitney_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_pitney_vendor_config_definitions-required_in_response'
     put_shipper_australia_post:
       title: Australia Post Shipper
       type: object
@@ -311,19 +1315,146 @@ components:
       allOf:
       - $ref: '#/components/schemas/put_shipper_base'
       - $ref: '#/components/schemas/shipper_australia_post_vendor_config'
-    shipper_endicia-2:
-      title: Endicia USPS Shipper
+    shipper_australia_post_vendor_config_definitions-required_to_create:
+      required:
+      - account_number
+      - api_key
+      - api_secret
+    shipper_endicia_definitions-required_in_response:
       allOf:
-      - $ref: '#/components/schemas/shipper_endicia'
-      - $ref: '#/components/schemas/shipper_endicia_definitions-required_in_response'
-    post_shipper_australia_post:
-      title: Australia Post Shipper
+      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_endicia_vendor_config_definitions-required_in_response'
+    post_shipper_base:
+      type: object
+      additionalProperties: false
+      properties:
+        vendor:
+          description: The vendor of shipper.
+          type: string
+          enum:
+          - amazon
+          - australia_post
+        hidden_shipping_methods:
+          description: A list of shipping methods per shipper type that can be excluded from retrieved rates
+          items: {}
+          type: array
+        name:
+          description: The display name of this shipper.
+          type: string
+      required:
+      - vendor
+    shipper_pitney_presort_vendor_config_definitions-required_in_response:
+      required: []
+    shipper_canada_post_vendor_config_definitions-required_to_create:
+      required:
+      - customer_number
+      - username
+      - password
+    shipper_dhl_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_dhl_vendor_config_definitions-required_in_response'
+    endicia_account_balance:
+      title: Endicia Account Balance Response Schema
+      type: object
+      additionalProperties: false
+      properties:
+        postage_balance:
+          type: number
+        postage_printed:
+          type: number
+      required:
+      - postage_balance
+      - postage_printed
+    shipper_ups_vendor_config_definitions-required_in_response:
+      required:
+      - access_token
+      - token_type
+      - expires
+      - refresh_token
+      - refresh_token_expires
+      - shipper_number
+      - access_license_key
+      - use_metric_units
+      - cost_center
+      - billing_email
+      - uses_discounted_rates
+    shipper_sendle_vendor_config_definitions-required_in_response:
+      required: []
+    shipper_fedex_vendor_config:
+      type: object
+      definitions:
+        required_to_create:
+          required:
+          - account_number
+          - child_key
+          - child_secret
+        required_in_response:
+          required:
+          - account_number
+          - child_key
+          - child_secret
+          - smart_post_hub
+          - use_metric_units
+      description: Fedex Shipper configuration information
+      properties:
+        account_number:
+          type: string
+        child_key:
+          type: string
+        child_secret:
+          type: string
+        smart_post_hub:
+          type: string
+        use_metric_units:
+          type: boolean
+          default: false
+        has_priority_alert:
+          type: boolean
+    shipper_canada_post:
+      title: Canada Post Shipper Schema
+      type: object
+      definitions:
+        required_in_response:
+          allOf:
+          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
+          - properties:
+              vendor_config:
+                $ref: '#/components/schemas/shipper_canada_post_vendor_config_definitions-required_in_response'
+      allOf:
+      - properties:
+          vendor:
+            type: string
+            enum:
+            - canada_post
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/shipper_canada_post_vendor_config'
+      - $ref: '#/components/schemas/shipper_base'
+    put_shipper_canada_post:
+      title: Canada Post Shipper
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_shipper_base'
+      - $ref: '#/components/schemas/shipper_canada_post_vendor_config'
+    post_shipper_dhl:
+      title: DHL Shipper
       type: object
       additionalProperties: false
       allOf:
       - $ref: '#/components/schemas/post_shipper_base'
-      - $ref: '#/components/schemas/shipper_australia_post_vendor_config'
-      - $ref: '#/components/schemas/shipper_australia_post_vendor_config_definitions-required_to_create'
+      - $ref: '#/components/schemas/shipper_dhl_vendor_config'
+      - $ref: '#/components/schemas/shipper_dhl_vendor_config_definitions-required_to_create'
+    shipper_fedex_vendor_config_definitions-required_to_create:
+      required:
+      - account_number
+      - child_key
+      - child_secret
     update_address:
       title: Update Address Schema
       type: object
@@ -425,1135 +1556,6 @@ components:
           - additional_text
           - suggested
           additionalProperties: false
-    post_shipper_endicia:
-      title: Endicia Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/post_shipper_base'
-      - $ref: '#/components/schemas/shipper_endicia_vendor_config'
-      - $ref: '#/components/schemas/shipper_endicia_vendor_config_definitions-required_to_create'
-    shipper_amazon_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_amazon_vendor_config_definitions-required_in_response'
-    shipper_endicia_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_endicia_vendor_config_definitions-required_in_response'
-    shipper_fedex_vendor_config_definitions-required_to_create:
-      required:
-      - account_number
-      - child_key
-      - child_secret
-    shipper_sendle:
-      title: Sendle Shipper Schema
-      type: object
-      definitions:
-        required_in_response:
-          allOf:
-          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-          - properties:
-              vendor_config:
-                $ref: '#/components/schemas/shipper_sendle_vendor_config_definitions-required_in_response'
-      allOf:
-      - properties:
-          vendor:
-            type: string
-            enum:
-            - sendle
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_sendle_vendor_config'
-      - $ref: '#/components/schemas/shipper_base'
-    shipper_amazon-2:
-      title: Amazon Buy Shipping API Shipper
-      allOf:
-      - $ref: '#/components/schemas/shipper_amazon'
-      - $ref: '#/components/schemas/shipper_amazon_definitions-required_in_response'
-    shipper_amazon_vendor_config_definitions-required_to_create:
-      required: []
-    shipper_australia_post-2:
-      title: Australia Post via easypost Shipper
-      allOf:
-      - $ref: '#/components/schemas/shipper_australia_post'
-      - $ref: '#/components/schemas/shipper_australia_post_definitions-required_in_response'
-    shipper_dhl_vendor_config_definitions-required_to_create:
-      required:
-      - payment_account_number
-      - payment_country_code
-    put_shipper_newgistics:
-      title: Newgistics Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/put_shipper_base'
-      - $ref: '#/components/schemas/shipper_newgistics_vendor_config'
-    pickup:
-      title: Pickup Response
-      type: object
-      additionalProperties: false
-      properties:
-        pickup_address:
-          $ref: '#/components/schemas/update_address'
-        pickup_address_same_as_account:
-          type: boolean
-        pickup_datetime:
-          type: string
-          format: date-time
-        close_time:
-          type: string
-          format: date-time
-        location:
-          type: string
-        pickup_number:
-          type: string
-        cost:
-          anyOf:
-          - type: string
-          - type: number
-          - type: 'null'
-        carrier:
-          type: string
-          enum:
-          - ups
-          - fedex
-        carrier_options:
-          anyOf:
-          - type: object
-          - type: 'null'
-      required:
-      - pickup_number
-      - carrier
-    post_shipper_pitney:
-      title: Pitney Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/post_shipper_base'
-      - $ref: '#/components/schemas/shipper_pitney_vendor_config'
-      - $ref: '#/components/schemas/shipper_pitney_vendor_config_definitions-required_to_create'
-    shipper_australia_post_vendor_config_definitions-required_in_response:
-      required:
-      - account_number
-      - api_key
-      - api_secret
-      - print_as_you_go
-      - easypost_carrier_id
-    shipper_pitney_presort_vendor_config_definitions-required_in_response:
-      required: []
-    shipper_fedex_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_fedex_vendor_config_definitions-required_in_response'
-    shipper_xdelivery_vendor_config:
-      type: object
-      definitions:
-        required_to_create:
-          required:
-          - username
-          - password
-        required_in_response:
-          required:
-          - username
-          - password
-      description: X Delivery formerly Onelive X Shipper configuration information
-      properties:
-        username:
-          type: string
-        password:
-          type: string
-    post_shipper_ups:
-      title: UPS Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/post_shipper_base'
-      - $ref: '#/components/schemas/shipper_ups_vendor_config'
-      - $ref: '#/components/schemas/shipper_ups_vendor_config_definitions-required_to_create'
-    put_shipper_ups:
-      title: UPS Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/put_shipper_base'
-      - $ref: '#/components/schemas/shipper_ups_vendor_config'
-    put_shipper_fedex:
-      title: Fedex Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/put_shipper_base'
-      - $ref: '#/components/schemas/shipper_fedex_vendor_config'
-    shipper_list:
-      type: object
-      properties:
-        limit:
-          type: integer
-        offset:
-          type: integer
-        count:
-          type: integer
-        shipper:
-          type: array
-          items:
-            $ref: '#/components/schemas/any_of_shipper_type'
-      required:
-      - limit
-      - offset
-      - count
-      - shipper
-    put_shipper_base:
-      type: object
-      additionalProperties: false
-      properties:
-        hidden_shipping_methods:
-          description: A list of shipping methods per shipper type that can be excluded from retrieved rates
-          items: {}
-          type: array
-        name:
-          description: The display name of this shipper.
-          type: string
-    shipper_ups_vendor_config_definitions-required_in_response:
-      required:
-      - access_token
-      - token_type
-      - expires
-      - refresh_token
-      - refresh_token_expires
-      - shipper_number
-      - access_license_key
-      - use_metric_units
-      - cost_center
-      - billing_email
-      - uses_discounted_rates
-    post_shipper_dhl:
-      title: DHL Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/post_shipper_base'
-      - $ref: '#/components/schemas/shipper_dhl_vendor_config'
-      - $ref: '#/components/schemas/shipper_dhl_vendor_config_definitions-required_to_create'
-    shipper_amazon_vendor_config_definitions-required_in_response:
-      required:
-      - cart_id
-      - cart_name
-    shipper_canada_post_vendor_config_definitions-required_to_create:
-      required:
-      - customer_number
-      - username
-      - password
-    post_fedex_schedule_pickup:
-      title: Fedex Pickup Request Schema
-      type: object
-      additionalProperties: false
-      properties:
-        close_time:
-          type: string
-        pickup_address_same_as_account:
-          description: 'Deprecated: Indicates whether to use the address associated with the Fedex account, or a different address'
-          type: boolean
-        oversize_package_count:
-          type: integer
-          default: 0
-        package_location:
-          type: string
-          enum:
-          - FRONT
-          - NONE
-          - REAR
-          - SIDE
-        pickup_datetime:
-          type: string
-        pickup_date_type:
-          type: string
-          enum:
-          - SAME_DAY
-          - FUTURE_DAY
-        quantity:
-          type: integer
-        total_weight:
-          description: total weight of packages in pounds (LB)
-          type: number
-        service_category:
-          type: string
-          enum:
-          - SAME_DAY
-          - SAME_DAY_CITY
-          - FEDEX_DISTANCE_DEFERRED
-          - FEDEX_NEXT_DAY_EARLY_MORNING
-          - FEDEX_NEXT_DAY_MID_MORNING
-          - FEDEX_NEXT_DAY_AFTERNOON
-          - FEDEX_NEXT_DAY_END_OF_DAY
-          - FEDEX_NEXT_DAY_FREIGHT
-        carrier_code:
-          description: 'Describes the fedex carrier for the pickup: [''FDXG'' - Fedex Ground, ''FDXE'' - Fedex Express]'
-          type: string
-          enum:
-          - FDXG
-          - FDXE
-        remarks:
-          description: Identifies comments the customer wants to convey to the FedEx courier regarding the package pickup.
-          type: string
-        shipper_id:
-          type: integer
-        warehouse_id:
-          description: warehouse for the pickup address
-          type: integer
-        commodity_description:
-          description: Provides area for any additional commodity description
-          type: string
-        domestic_or_international:
-          description: Describes the country relationship (domestic and/or international) among the shipments being picked up
-          type: string
-          default: DOMESTIC
-          enum:
-          - DOMESTIC
-          - INTERNATIONAL
-      required:
-      - close_time
-      - pickup_datetime
-      - quantity
-      - shipper_id
-      - total_weight
-    shipper_base:
-      title: Shipper Base Schema
-      type: object
-      definitions:
-        required_in_response:
-          required:
-          - _link
-          - archive_date
-          - created
-          - hidden_shipping_methods
-          - id
-          - name
-          - updated
-          - vendor
-          - vendor_config
-      properties:
-        _link:
-          type: string
-          description: A relative link to this shipper
-        name:
-          type: string
-          description: The name of the shipper
-        vendor:
-          type: string
-          description: Short name of the vendor.
-          enum:
-          - amazon
-          - australia_post
-          - canada_post
-          - dhl
-          - endicia
-          - fedex
-          - pitney
-          - pitney_merchant
-          - pitney_presort
-          - sendle
-          - ups
-        hidden_shipping_methods:
-          description: A list of shipping methods per shipper type that can be excluded from retrieved rates
-          items: {}
-          type: array
-        id:
-          type: integer
-          description: The identifier used as the main reference to this shipper.
-          default: 1
-        archive_date:
-          description: If this shipper has been archived, this will contain the datetime that the shipper was archived. Otherwise it will be null.
-          anyOf:
-          - type: string
-          - type: 'null'
-        vendor_config:
-          type: object
-          description: Vendor-specific configuration information.
-    shipper_pitney_merchant-2:
-      title: Pitney Bowes USPS Shipper
-      allOf:
-      - $ref: '#/components/schemas/shipper_pitney_merchant'
-      - $ref: '#/components/schemas/shipper_pitney_merchant_definitions-required_in_response'
-    shipper_dhl_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_dhl_vendor_config_definitions-required_in_response'
-    shipper_endicia_vendor_config_definitions-required_to_create:
-      required:
-      - account_id
-      - passphrase
-    shipper_ups_vendor_config:
-      type: object
-      definitions:
-        required_to_create:
-          required:
-          - access_token
-          - token_type
-          - expires
-          - refresh_token
-          - refresh_token_expires
-        required_in_response:
-          required:
-          - access_token
-          - token_type
-          - expires
-          - refresh_token
-          - refresh_token_expires
-          - shipper_number
-          - access_license_key
-          - use_metric_units
-          - cost_center
-          - billing_email
-          - uses_discounted_rates
-      description: UPS Shipper configuration information
-      properties:
-        access_token:
-          type: string
-        token_type:
-          type: string
-        expires:
-          type: string
-        refresh_token:
-          type: string
-        refresh_token_expires:
-          type: string
-        shipper_number:
-          type: string
-        access_license_key:
-          type: string
-        use_metric_units:
-          type: boolean
-          default: false
-        cost_center:
-          type: string
-        billing_email:
-          type: string
-        uses_discounted_rates:
-          type: boolean
-          default: false
-    shipper_endicia:
-      title: Endicia USPS Shipper Schema
-      type: object
-      definitions:
-        required_in_response:
-          allOf:
-          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-          - properties:
-              vendor_config:
-                $ref: '#/components/schemas/shipper_endicia_vendor_config_definitions-required_in_response'
-      allOf:
-      - properties:
-          vendor:
-            type: string
-            enum:
-            - endicia
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_endicia_vendor_config'
-      - $ref: '#/components/schemas/shipper_base'
-    ShipperResponse:
-      $ref: '#/components/schemas/one_of_shipper_type'
-    shipper_australia_post_vendor_config:
-      type: object
-      definitions:
-        required_to_create:
-          required:
-          - account_number
-          - api_key
-          - api_secret
-        required_in_response:
-          required:
-          - account_number
-          - api_key
-          - api_secret
-          - print_as_you_go
-          - easypost_carrier_id
-      description: Australia Post Shipper configuration information
-      properties:
-        account_number:
-          type: string
-        api_key:
-          type: string
-        api_secret:
-          type: string
-        print_as_you_go:
-          type: boolean
-        easypost_carrier_id:
-          description: Australia Post is served via easypost, this is the internal identifier within the easypost system
-          type: string
-    shipper_pitney_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_pitney_vendor_config_definitions-required_in_response'
-    shipper_sendle_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_sendle_vendor_config_definitions-required_in_response'
-    shipper_pitney_vendor_config_definitions-required_in_response:
-      required:
-      - postal_reporting_number
-      - autorefill_config
-    shipper_fedex_vendor_config:
-      type: object
-      definitions:
-        required_to_create:
-          required:
-          - account_number
-          - child_key
-          - child_secret
-        required_in_response:
-          required:
-          - account_number
-          - child_key
-          - child_secret
-          - smart_post_hub
-          - use_metric_units
-      description: Fedex Shipper configuration information
-      properties:
-        account_number:
-          type: string
-        child_key:
-          type: string
-        child_secret:
-          type: string
-        smart_post_hub:
-          type: string
-        use_metric_units:
-          type: boolean
-          default: false
-        has_priority_alert:
-          type: boolean
-    any_of_shipper_type:
-      anyOf:
-      - $ref: '#/components/schemas/shipper_amazon-2'
-      - $ref: '#/components/schemas/shipper_australia_post-2'
-      - $ref: '#/components/schemas/shipper_canada_post-2'
-      - $ref: '#/components/schemas/shipper_dhl-2'
-      - $ref: '#/components/schemas/shipper_endicia-2'
-      - $ref: '#/components/schemas/shipper_fedex-2'
-      - $ref: '#/components/schemas/shipper_pitney-2'
-      - $ref: '#/components/schemas/shipper_pitney_merchant-2'
-      - $ref: '#/components/schemas/shipper_pitney_presort-2'
-      - $ref: '#/components/schemas/shipper_sendle-2'
-      - $ref: '#/components/schemas/shipper_ups-2'
-    shipper_pitney_merchant:
-      title: Pitney Merchant Shipper Schema
-      type: object
-      definitions:
-        required_in_response:
-          allOf:
-          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-          - properties:
-              vendor_config:
-                $ref: '#/components/schemas/shipper_pitney_merchant_vendor_config_definitions-required_in_response'
-      allOf:
-      - properties:
-          vendor:
-            type: string
-            enum:
-            - pitney_merchant
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_pitney_merchant_vendor_config'
-      - $ref: '#/components/schemas/shipper_base'
-    shipper_fedex_vendor_config_definitions-required_in_response:
-      required:
-      - account_number
-      - child_key
-      - child_secret
-      - smart_post_hub
-      - use_metric_units
-    shipper_endicia_vendor_config_definitions-required_in_response:
-      required:
-      - account_id
-      - web_password
-      - passphrase
-      - is_free
-      - challenge_question
-      - challenge_answer
-    shipper_amazon:
-      title: Amazon Shipper Schema
-      type: object
-      definitions:
-        required_in_response:
-          allOf:
-          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-          - properties:
-              vendor_config:
-                $ref: '#/components/schemas/shipper_amazon_vendor_config_definitions-required_in_response'
-      allOf:
-      - properties:
-          vendor:
-            type: string
-            enum:
-            - amazon
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_amazon_vendor_config'
-      - $ref: '#/components/schemas/shipper_base'
-    shipper_ups_vendor_config_definitions-required_to_create:
-      required:
-      - access_token
-      - token_type
-      - expires
-      - refresh_token
-      - refresh_token_expires
-    shipper_dhl-2:
-      title: DHL Express Shipper
-      allOf:
-      - $ref: '#/components/schemas/shipper_dhl'
-      - $ref: '#/components/schemas/shipper_dhl_definitions-required_in_response'
-    post_shipper_base:
-      type: object
-      additionalProperties: false
-      properties:
-        vendor:
-          description: The vendor of shipper.
-          type: string
-          enum:
-          - amazon
-          - australia_post
-        hidden_shipping_methods:
-          description: A list of shipping methods per shipper type that can be excluded from retrieved rates
-          items: {}
-          type: array
-        name:
-          description: The display name of this shipper.
-          type: string
-      required:
-      - vendor
-    shipper_canada_post_vendor_config_definitions-required_in_response:
-      required:
-      - customer_number
-      - username
-      - password
-      - contract_id
-      - payment_method
-    shipper_base_definitions-required_in_response:
-      required:
-      - _link
-      - archive_date
-      - created
-      - hidden_shipping_methods
-      - id
-      - name
-      - updated
-      - vendor
-      - vendor_config
-    put_shipper_pitney:
-      title: Pitney Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/put_shipper_base'
-      - $ref: '#/components/schemas/shipper_pitney_vendor_config'
-    shipper_pitney_vendor_config:
-      type: object
-      definitions:
-        required_to_create:
-          required:
-          - postal_reporting_number
-        required_in_response:
-          required:
-          - postal_reporting_number
-          - autorefill_config
-      description: Pitney Shipper configuration information
-      properties:
-        postal_reporting_number:
-          description: Identifying number from Pitney Bowes, also referred to as PB-SHIPPER-ID
-          type: string
-        autorefill_config:
-          type: object
-    shipper_sendle-2:
-      title: Sendle Shipper
-      allOf:
-      - $ref: '#/components/schemas/shipper_sendle'
-      - $ref: '#/components/schemas/shipper_sendle_definitions-required_in_response'
-    put_shipper_xdelivery:
-      title: X Delivery Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/put_shipper_base'
-      - $ref: '#/components/schemas/shipper_xdelivery_vendor_config'
-    shipper_pitney_merchant_vendor_config:
-      type: object
-      definitions:
-        required_to_create:
-          required: []
-        required_in_response:
-          required: []
-      properties: {}
-    shipper_pitney_presort_vendor_config:
-      type: object
-      definitions:
-        required_to_create:
-          required: []
-        required_in_response:
-          required: []
-      properties: {}
-    shipper_pitney_presort-2:
-      title: Pitney Bowes USPS Presort Shipper
-      allOf:
-      - $ref: '#/components/schemas/shipper_pitney_presort'
-      - $ref: '#/components/schemas/shipper_pitney_presort_definitions-required_in_response'
-    shipper_canada_post_vendor_config:
-      type: object
-      definitions:
-        required_to_create:
-          required:
-          - customer_number
-          - username
-          - password
-        required_in_response:
-          required:
-          - customer_number
-          - username
-          - password
-          - contract_id
-          - payment_method
-      description: Canada Post Shipper configuration information
-      properties:
-        customer_number:
-          type: string
-        username:
-          type: string
-        password:
-          type: string
-        contract_id:
-          type: boolean
-        payment_method:
-          type: string
-          enum:
-          - Account
-          - CreditCard
-          default: Account
-    post_shipper_amazon:
-      title: Amazon Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/post_shipper_base'
-      - $ref: '#/components/schemas/shipper_amazon_vendor_config'
-      - $ref: '#/components/schemas/shipper_amazon_vendor_config_definitions-required_to_create'
-    shipper_sendle_vendor_config_definitions-required_in_response:
-      required: []
-    shipper_dhl:
-      title: DHL Shipper Schema
-      type: object
-      definitions:
-        required_in_response:
-          allOf:
-          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-          - properties:
-              vendor_config:
-                $ref: '#/components/schemas/shipper_dhl_vendor_config_definitions-required_in_response'
-      allOf:
-      - properties:
-          vendor:
-            type: string
-            enum:
-            - dhl
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_dhl_vendor_config'
-      - $ref: '#/components/schemas/shipper_base'
-    shipper_ups_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_ups_vendor_config_definitions-required_in_response'
-    post_ups_schedule_pickup:
-      title: UPS Pickup Request Schema
-      type: object
-      additionalProperties: false
-      properties:
-        shipper_id:
-          type: integer
-        close_time:
-          type: string
-        overweight_packages:
-          type: boolean
-          default: false
-        pickup_address_same_as_account:
-          type: boolean
-        pickup_datetime:
-          type: string
-          format: date-time
-        pickup_pieces:
-          type: array
-          items:
-            type: object
-            additionalProperties: false
-            properties:
-              container_type:
-                description: '[''01'' - package, ''02'' - letter, ''03'' - pallet]'
-                type: string
-                enum:
-                - '01'
-                - '02'
-                - '03'
-              destination_country:
-                description: destination country covered in this package pickup request
-                type: string
-              service_type:
-                description: service type of the packages being picked up
-                type: string
-              quantity:
-                description: number of packages in this pickup request, one request per service type, destination country, and container type combination
-                type: integer
-            required:
-            - service_type
-            - quantity
-            - destination_country
-            - container_type
-        shipper_country:
-          type: string
-        warehouse_id:
-          description: warehouse for the pickup address
-          type: integer
-      required:
-      - close_time
-      - pickup_address_same_as_account
-      - pickup_datetime
-      - pickup_pieces
-      - shipper_id
-      - warehouse_id
-    shipper_amazon_vendor_config:
-      type: object
-      definitions:
-        required_to_create:
-          required: []
-        required_in_response:
-          required:
-          - cart_id
-          - cart_name
-      description: Amazon Shipper configuration information
-      properties:
-        cart_id:
-          type: string
-          description: Amazon Cart id in Ordoro
-        cart_name:
-          type: string
-          description: Amazon Cart name in Ordoro
-    shipper_ups:
-      title: UPS Shipper Schema
-      type: object
-      definitions:
-        required_in_response:
-          allOf:
-          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-          - properties:
-              vendor_config:
-                $ref: '#/components/schemas/shipper_ups_vendor_config_definitions-required_in_response'
-      allOf:
-      - properties:
-          vendor:
-            type: string
-            enum:
-            - ups
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_ups_vendor_config'
-      - $ref: '#/components/schemas/shipper_base'
-    shipper_pitney:
-      title: Pitney Shipper Schema
-      type: object
-      definitions:
-        required_in_response:
-          allOf:
-          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-          - properties:
-              vendor_config:
-                $ref: '#/components/schemas/shipper_pitney_vendor_config_definitions-required_in_response'
-      allOf:
-      - properties:
-          vendor:
-            type: string
-            enum:
-            - pitney
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_pitney_vendor_config'
-      - $ref: '#/components/schemas/shipper_base'
-    shipper_pitney-2:
-      title: Pitney Bowes USPS Shipper
-      allOf:
-      - $ref: '#/components/schemas/shipper_pitney'
-      - $ref: '#/components/schemas/shipper_pitney_definitions-required_in_response'
-    put_shipper_amazon:
-      title: Amazon Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/put_shipper_base'
-      - $ref: '#/components/schemas/shipper_amazon_vendor_config'
-    shipper_australia_post_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_australia_post_vendor_config_definitions-required_in_response'
-    shipper_pitney_presort_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_pitney_presort_vendor_config_definitions-required_in_response'
-    shipper_dhl_vendor_config_definitions-required_in_response:
-      required:
-      - payment_account_number
-      - payment_country_code
-    one_of_shipper_type:
-      oneOf:
-      - $ref: '#/components/schemas/shipper_amazon-2'
-      - $ref: '#/components/schemas/shipper_australia_post-2'
-      - $ref: '#/components/schemas/shipper_canada_post-2'
-      - $ref: '#/components/schemas/shipper_dhl-2'
-      - $ref: '#/components/schemas/shipper_endicia-2'
-      - $ref: '#/components/schemas/shipper_fedex-2'
-      - $ref: '#/components/schemas/shipper_pitney-2'
-      - $ref: '#/components/schemas/shipper_pitney_merchant-2'
-      - $ref: '#/components/schemas/shipper_pitney_presort-2'
-      - $ref: '#/components/schemas/shipper_sendle-2'
-      - $ref: '#/components/schemas/shipper_ups-2'
-    shipper_canada_post_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_canada_post_vendor_config_definitions-required_in_response'
-    shipper_canada_post:
-      title: Canada Post Shipper Schema
-      type: object
-      definitions:
-        required_in_response:
-          allOf:
-          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-          - properties:
-              vendor_config:
-                $ref: '#/components/schemas/shipper_canada_post_vendor_config_definitions-required_in_response'
-      allOf:
-      - properties:
-          vendor:
-            type: string
-            enum:
-            - canada_post
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_canada_post_vendor_config'
-      - $ref: '#/components/schemas/shipper_base'
-    shipper_pitney_merchant_vendor_config_definitions-required_in_response:
-      required: []
-    shipper_canada_post-2:
-      title: Canada Post Shipper
-      allOf:
-      - $ref: '#/components/schemas/shipper_canada_post'
-      - $ref: '#/components/schemas/shipper_canada_post_definitions-required_in_response'
-    shipper_pitney_merchant_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_pitney_merchant_vendor_config_definitions-required_in_response'
-    post_shipper_balance:
-      title: Add shipper balance schema
-      type: object
-      additionalProperties: false
-      properties:
-        amount:
-          type: number
-          format: double
-          minimum: 10
-      required:
-      - amount
-    shipper_australia_post:
-      title: Australia Post Shipper Schema
-      type: object
-      definitions:
-        required_in_response:
-          allOf:
-          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-          - properties:
-              vendor_config:
-                $ref: '#/components/schemas/shipper_australia_post_vendor_config_definitions-required_in_response'
-      allOf:
-      - properties:
-          vendor:
-            type: string
-            enum:
-            - australia_post
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_australia_post_vendor_config'
-      - $ref: '#/components/schemas/shipper_base'
-    post_shipper_canada_post:
-      title: Canada Post Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/post_shipper_base'
-      - $ref: '#/components/schemas/shipper_canada_post_vendor_config'
-      - $ref: '#/components/schemas/shipper_canada_post_vendor_config_definitions-required_to_create'
-    shipper_australia_post_vendor_config_definitions-required_to_create:
-      required:
-      - account_number
-      - api_key
-      - api_secret
-    shipper_fedex-2:
-      title: FedEx Shipper
-      allOf:
-      - $ref: '#/components/schemas/shipper_fedex'
-      - $ref: '#/components/schemas/shipper_fedex_definitions-required_in_response'
-    endicia_account_balance:
-      title: Endicia Account Balance Response Schema
-      type: object
-      additionalProperties: false
-      properties:
-        postage_balance:
-          type: number
-        postage_printed:
-          type: number
-      required:
-      - postage_balance
-      - postage_printed
-    shipper_pitney_presort:
-      title: Pitney Bowes USPS Presort Shipper Schema
-      type: object
-      definitions:
-        required_in_response:
-          allOf:
-          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-          - properties:
-              vendor_config:
-                $ref: '#/components/schemas/shipper_pitney_presort_vendor_config_definitions-required_in_response'
-      allOf:
-      - properties:
-          vendor:
-            type: string
-            enum:
-            - pitney_presort
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_pitney_presort_vendor_config'
-      - $ref: '#/components/schemas/shipper_base'
-    shipper_dhl_vendor_config:
-      type: object
-      definitions:
-        required_to_create:
-          required:
-          - payment_account_number
-          - payment_country_code
-        required_in_response:
-          required:
-          - payment_account_number
-          - payment_country_code
-      description: DHL Shipper configuration information
-      properties:
-        payment_account_number:
-          type: string
-        payment_country_code:
-          type: string
-    shipper_endicia_vendor_config:
-      type: object
-      definitions:
-        required_to_create:
-          required:
-          - account_id
-          - passphrase
-        required_in_response:
-          required:
-          - account_id
-          - web_password
-          - passphrase
-          - is_free
-          - challenge_question
-          - challenge_answer
-      description: Endicia Shipper configuration information
-      properties:
-        account_id:
-          type: string
-        passphrase:
-          type: string
-        challenge_question:
-          type: string
-        challenge_answer:
-          type: string
-        is_free:
-          type: boolean
-          default: false
-        web_password:
-          default: null
-          anyOf:
-          - type: string
-          - type: 'null'
-        confirmation_number:
-          type: string
-    shipper_sendle_vendor_config:
-      type: object
-      definitions:
-        required_to_create:
-          required: []
-        required_in_response:
-          required: []
-      properties: {}
-    put_shipper_canada_post:
-      title: Canada Post Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/put_shipper_base'
-      - $ref: '#/components/schemas/shipper_canada_post_vendor_config'
-    shipper_fedex:
-      title: Fedex Shipper Schema
-      type: object
-      definitions:
-        required_in_response:
-          allOf:
-          - $ref: '#/components/schemas/shipper_base_definitions-required_in_response'
-          - properties:
-              vendor_config:
-                $ref: '#/components/schemas/shipper_fedex_vendor_config_definitions-required_in_response'
-      allOf:
-      - properties:
-          vendor:
-            type: string
-            enum:
-            - fedex
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/shipper_fedex_vendor_config'
-      - $ref: '#/components/schemas/shipper_base'
-    post_shipper_fedex:
-      title: Fedex Shipper
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/post_shipper_base'
-      - $ref: '#/components/schemas/shipper_fedex_vendor_config'
-      - $ref: '#/components/schemas/shipper_fedex_vendor_config_definitions-required_to_create'
-    shipper_ups-2:
-      title: UPS Shipper
-      allOf:
-      - $ref: '#/components/schemas/shipper_ups'
-      - $ref: '#/components/schemas/shipper_ups_definitions-required_in_response'
-    shipper_pitney_vendor_config_definitions-required_to_create:
-      required:
-      - postal_reporting_number
   parameters:
     searchParam:
       name: search

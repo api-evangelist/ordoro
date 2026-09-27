@@ -13,15 +13,19 @@ description: 'Ordoro is a multi-channel order management and ecommerce logistics
 type: Index
 deliveryModel:
   model: saas
-  open_source: false
+  license_evidence:
+    not_product:
+    - ordoro/api-examples
+  open_source: unknown
   commercial: true
   callable_host: true
   label: Hosted service · you call their endpoint
-  confidence: high
+  confidence: low
   source:
   - openapi
   - pricing
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: paid
@@ -38,7 +42,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ordoro.png
 tags:
 - Order Management
-- Inventory Management
+- Inventory
 - Shipping
 - Dropshipping
 - E-Commerce

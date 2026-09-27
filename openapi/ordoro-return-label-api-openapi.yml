@@ -242,6 +242,12 @@ paths:
       deprecated: false
 components:
   schemas:
+    default:
+      title: default
+      enum:
+      - desktop
+      - thermal
+      type: string
     rotation:
       title: rotation
       enum:
@@ -251,12 +257,6 @@ components:
       - 270
       type: integer
       example: 0
-    default:
-      title: default
-      enum:
-      - desktop
-      - thermal
-      type: string
     orientation:
       title: orientation
       enum:

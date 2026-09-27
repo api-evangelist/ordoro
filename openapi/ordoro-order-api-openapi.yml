@@ -2378,21 +2378,6 @@ paths:
           headers: {}
 components:
   parameters:
-    limitParam:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
-    searchParam:
-      name: search
-      in: query
-      description: ''
-      schema:
-        type: string
     orderNumberPath:
       description: Unique identifier for an Order that includes a cart index prefix
       name: order_number
@@ -2409,179 +2394,165 @@ components:
         type: integer
         default: 0
         minimum: 0
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
   schemas:
-    shipping_info:
-      title: Shipping Info Schema
+    put_order_warehouse:
+      title: Update Warehouse on an Order
+      type: object
+      additionalProperties: false
+      properties:
+        warehouse_id:
+          type: integer
+        skip_cache:
+          type: boolean
+          default: false
+          description: Updates the order but does not add it to the Elasticsearch cache. Used internally during initial order processing. This will probably go away in the future.
+      required:
+      - warehouse_id
+    post_order_dropship:
+      title: Order dropship request schema
       type: object
       properties:
-        delivery_confirmation:
-          description: delivery or signature confirmation requested to the carrier at the time of label creation. Should be of type string.
-        tracking_number:
-          anyOf:
-          - type: string
-          - type: 'null'
-        package_tracking:
-          anyOf:
-          - type: string
-          - type: 'null'
-        tracking_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-        cost:
-          type: number
-        transaction_fee:
-          type: number
-        link:
-          type: string
+        supplier_id:
+          type: integer
         shipping_method:
           anyOf:
           - type: string
           - type: 'null'
-        display_shipping_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-        ship_date:
+        shipping_account:
+          type: string
+        shipping_carrier:
+          type: string
+        instructions:
+          type: string
+        show_images_email:
+          type: boolean
+          default: false
+        show_images_packing_list:
+          type: boolean
+          default: false
+        show_price:
+          type: boolean
+          default: false
+        show_ship_to_email:
+          type: boolean
+          default: false
+        packing_list_id:
+          type: integer
+        override_shipping_mappings:
+          type: boolean
+          default: false
+      required:
+      - supplier_id
+    put_order:
+      title: Order Update Schema
+      type: object
+      additionalProperties: false
+      properties:
+        notes_from_customer:
+          description: Customer notes
+          type: string
+        internal_notes:
+          description: Staff notes
+          type: string
+        batch_reference_id:
+          description: Batch ID
+          type: string
+        ship_by_date:
+          description: The date the order must be shipped by
           format: date-time
           anyOf:
-          - type: string
           - type: 'null'
-        has_label:
-          type: boolean
-        has_additional_docs:
-          type: boolean
-        created_date:
+          - type: string
+        deliver_by_date:
+          description: The date the order must be delivered by
+          format: date-time
+          anyOf:
+          - type: 'null'
+          - type: string
+    v3_tag:
+      title: V3 Tag Schema
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
           type: string
-        carrier_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-        carrier:
-          properties:
-            id:
-              type: integer
-            link:
-              type: string
-          anyOf:
-          - type: object
-          - type: 'null'
-        estimated_delivery_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-        box_shape:
-          anyOf:
-          - type: string
-          - type: 'null'
-        length:
-          description: 'deprecated: Length in inches, see packages'
-          anyOf:
-          - type: number
-          - type: 'null'
-        width:
-          description: 'deprecated: Width in inches, see packages'
-          anyOf:
-          - type: number
-          - type: 'null'
-        height:
-          description: 'deprecated: Height in inches, see packages'
-          anyOf:
-          - type: number
-          - type: 'null'
-        insurance:
-          description: Insurance data if Ordoro discounted Shipsurance is used
-          anyOf:
-          - type: object
-          - type: 'null'
-        insured_value:
-          description: value of the package if it was insured using Ordoro discounted Shipsurance
-          anyOf:
-          - type: number
-          - type: 'null'
-        customs_info:
-          items:
-            type: object
-            additionalProperties: false
-            properties:
-              country:
-                anyOf:
-                - type: string
-                - type: 'null'
-              description:
-                anyOf:
-                - type: string
-                - type: 'null'
-              quantity:
-                anyOf:
-                - type: integer
-                - type: 'null'
-              value:
-                description: Dollar value of customs line
-                format: double
-                anyOf:
-                - type: number
-                - type: 'null'
-              weight:
-                description: Weight of customs line in ounces
-                anyOf:
-                - type: number
-                - type: 'null'
-          anyOf:
-          - type: array
-          - type: 'null'
-        ship_from:
-          description: optionally exists if a ship_from address was used to create a label or tracking
-          $ref: '#/components/schemas/address'
-        reference_number:
-          description: reference number sent to the carrier for the shipment
-          anyOf:
-          - type: string
-          - type: 'null'
-        return_to:
-          $ref: '#/components/schemas/address'
-        ship_to:
-          description: optionally exists if a ship_to address was used to create a label or tracking
-          $ref: '#/components/schemas/address'
-        status:
-          description: tracking status if available from USPS carrier
-          anyOf:
-          - type: string
-          - type: 'null'
-        carrier_updated_date:
-          description: the last date that the carrier updated the tracking status, currently only used for USPS shipments
-          anyOf:
-          - type: string
-          - type: 'null'
+        color:
+          type: string
+      required:
+      - id
+      - name
+      - color
+    tag:
+      title: Tag Schema
+      type: object
+      properties:
+        color:
+          type: string
+        text:
+          type: string
+        name:
+          type: string
+        link:
+          type: string
+        id:
+          type: integer
+      required:
+      - color
+      - text
+      - link
+      - id
+    shipment_preset:
+      title: Order Presets Response Schema
+      type: object
+      additionalProperties: false
+      properties:
         presets:
           type: array
           items:
             type: integer
-        packages:
+      required:
+      - presets
+    tags:
+      title: Post Order Tag Response
+      type: array
+      items:
+        $ref: '#/components/schemas/tag'
+    get_v3_tag_list:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: GET Tag List Schema
+      properties:
+        limit:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+        offset:
+          type: integer
+          default: 0
+        id:
+          type: array
           items:
-            type: object
-          anyOf:
-          - type: array
-          - type: 'null'
-        packing_list_id:
-          description: id of packing list profile template used to create this label
-          anyOf:
-          - type: integer
-          - type: 'null'
-        print_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-        label_image_link:
-          anyOf:
-          - type: string
-          - type: 'null'
-        void:
-          type: boolean
-        zone:
-          anyOf:
-          - type: string
-          - type: 'null'
+            type: integer
+      additionalProperties: false
+      anyOf:
+      - type: object
+      - type: 'null'
     v1_order_line_product:
       title: Core API Order Line Product Schema
       type: object
@@ -2647,545 +2618,6 @@ components:
       required:
       - sku
       - name
-    post_order_split:
-      title: Split Order Schema
-      type: object
-      additionalProperties: false
-      properties:
-        split_orders:
-          type: array
-          minItems: 2
-          items:
-            type: object
-            properties:
-              lines:
-                type: array
-                minItems: 1
-                items:
-                  $ref: '#/components/schemas/order_split_line'
-      required:
-      - split_orders
-    parent_order:
-      title: Parent Order Schema
-      type: object
-      additionalProperties: false
-      properties:
-        order_number:
-          type: string
-        order_placed_date:
-          type: string
-        created_date:
-          type: string
-        updated_date:
-          type: string
-        status:
-          type: string
-        shippability:
-          type: string
-        shipping_address:
-          $ref: '#/components/schemas/address'
-        billing_address:
-          $ref: '#/components/schemas/address'
-        alternate_ship_from_address:
-          oneOf:
-          - $ref: '#/components/schemas/address'
-          - type: 'null'
-        lines:
-          type: array
-          items:
-            type: object
-            properties:
-              quantity:
-                type: integer
-              item_price:
-                type: number
-              supplier_price:
-                anyOf:
-                - type: number
-                - type: 'null'
-              sku:
-                type: string
-              product_name:
-                type: string
-              order_line_product_name:
-                type: string
-              product_link:
-                type: string
-              shippability:
-                type: object
-                properties:
-                  shippability:
-                    type: string
-                  supplier_id:
-                    anyOf:
-                    - type: number
-                    - type: 'null'
-                  is_dropship:
-                    type: boolean
-              details:
-                anyOf:
-                - type: string
-                - type: 'null'
-            required:
-            - quantity
-            - item_price
-            - supplier_price
-            - product_name
-            - product_link
-            - sku
-            - shippability
-            - details
-        notes_from_customer:
-          anyOf:
-          - type: string
-          - type: 'null'
-        internal_notes:
-          anyOf:
-          - type: string
-          - type: 'null'
-        requested_shipping_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-        sales_channel:
-          type: object
-          properties:
-            id:
-              type: integer
-            link:
-              type: string
-        comments:
-          type: array
-          items:
-            type: object
-            properties:
-              date:
-                type: string
-              text:
-                type: string
-              user:
-                type: string
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/tag'
-        financial:
-          $ref: '#/components/schemas/order_financial'
-        link:
-          type: string
-        child_order_numbers:
-          type: array
-          items:
-            type: string
-        ready:
-          type: boolean
-      required:
-      - billing_address
-      - shipping_address
-      - ready
-    post_order_line:
-      title: POST Order Line Request Schema
-      type: object
-      additionalProperties: false
-      properties:
-        quantity:
-          type: integer
-          default: 1
-        item_price:
-          type: number
-        total_price:
-          type: number
-        discount_amount:
-          type: number
-        product_name:
-          type: string
-        product_serial_numbers:
-          type: array
-          items:
-            type: string
-        sku:
-          type: string
-        details:
-          type: string
-        sales_channel_location_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-        cart_orderitem_id:
-          type: string
-        cart_order_id:
-          type: string
-        cart_shipment_id:
-          type: string
-      required:
-      - sku
-    order_financial:
-      title: Order Financial Schema
-      type: object
-      additionalProperties: false
-      properties:
-        credit_card_issuer:
-          anyOf:
-          - type: string
-          - type: 'null'
-        discount_amount:
-          description: Not calculated
-          anyOf:
-          - type: number
-          - type: 'null'
-        product_amount:
-          description: Not calculated
-          anyOf:
-          - type: number
-          - type: 'null'
-        shipping_amount:
-          description: Not calculated
-          anyOf:
-          - type: number
-          - type: 'null'
-        tax_amount:
-          description: Not calculated
-          anyOf:
-          - type: number
-          - type: 'null'
-        grand_total:
-          description: Not calculated
-          anyOf:
-          - type: number
-          - type: 'null'
-    put_order_line:
-      title: Update Order Line Schema
-      type: object
-      additionalProperties: false
-      properties:
-        quantity:
-          type: integer
-        item_price:
-          type: number
-        total_price:
-          type: number
-        discount_amount:
-          type: number
-        details:
-          anyOf:
-          - type: string
-          - type: 'null'
-        product_serial_numbers:
-          type: array
-          items:
-            type: string
-    update_address:
-      title: Update Address Schema
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-        company:
-          anyOf:
-          - type: string
-          - type: 'null'
-        street1:
-          anyOf:
-          - type: string
-          - type: 'null'
-        street2:
-          anyOf:
-          - type: string
-          - type: 'null'
-        city:
-          anyOf:
-          - type: string
-          - type: 'null'
-        state:
-          anyOf:
-          - type: string
-          - type: 'null'
-        zip:
-          anyOf:
-          - type: string
-          - type: 'null'
-        country:
-          anyOf:
-          - type: string
-          - type: 'null'
-        email:
-          anyOf:
-          - type: string
-          - type: 'null'
-        phone:
-          anyOf:
-          - type: string
-          - type: 'null'
-        validate:
-          type: boolean
-        set_revision_lock:
-          type: boolean
-        validation:
-          title: Validation status of an Address
-          type: object
-          properties:
-            status:
-              type: string
-              enum:
-              - unvalidated
-              - validated
-              - warning
-              - error
-            suggested:
-              type: array
-              items:
-                title: Suggested Address
-                type: object
-                additionalProperties: false
-                properties:
-                  is_commercial:
-                    default: false
-                    anyOf:
-                    - type: boolean
-                    - type: 'null'
-                  street1:
-                    type: string
-                  street2:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-                  city:
-                    type: string
-                  state:
-                    type: string
-                  zip:
-                    type: string
-                  country_code:
-                    type: string
-                required:
-                - city
-                - state
-                - zip
-                - street1
-            additional_text:
-              anyOf:
-              - type: string
-              - type: 'null'
-            is_error:
-              type: boolean
-          required:
-          - additional_text
-          - suggested
-          additionalProperties: false
-    get_v3_tag_list:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: GET Tag List Schema
-      properties:
-        limit:
-          type: integer
-          default: 10
-          minimum: 1
-          maximum: 100
-        offset:
-          type: integer
-          default: 0
-        id:
-          type: array
-          items:
-            type: integer
-      additionalProperties: false
-      anyOf:
-      - type: object
-      - type: 'null'
-    tags:
-      title: Post Order Tag Response
-      type: array
-      items:
-        $ref: '#/components/schemas/tag'
-    put_order_shipping_info:
-      title: Shipping Info Request Schema
-      additionalProperties: false
-      type: object
-      properties:
-        tracking_number:
-          type: string
-        package_tracking:
-          type: string
-        cost:
-          type: number
-        ship_date:
-          type: string
-          format: date-time
-        display_shipping_method:
-          type: string
-        shipping_cost:
-          type: number
-        shipping_method:
-          type: string
-        carrier_name:
-          type: string
-        insured_value:
-          type: number
-        notify_bill_to:
-          type: boolean
-          default: false
-        notify_ship_to:
-          type: boolean
-          default: false
-        notify_cart:
-          type: boolean
-          default: false
-        tracking_url:
-          type: string
-        zone:
-          anyOf:
-          - type: string
-          - type: 'null'
-      required:
-      - tracking_number
-      - ship_date
-      - carrier_name
-    post_order_v1:
-      title: Core API Order Schema
-      type: object
-      additionalProperties: false
-      properties:
-        cart:
-          description: id for cart
-          anyOf:
-          - type: integer
-          - type: 'null'
-        order_id:
-          description: User defined identifier for an order. Will be prepended with a cart or sales channel index after creation
-          type: string
-        cart_order_id:
-          description: distinct order id from cart or marketplace, useful when syncing tracking information back from Ordoro
-          type: string
-        warehouse_id:
-          type: integer
-        order_date:
-          format: date-time
-          type: string
-        deliver_by_date:
-          format: date-time
-          type: string
-        ship_by_date:
-          format: date-time
-          type: string
-        status:
-          type: string
-          enum:
-          - awaiting_fulfillment
-          - shipped
-        shipping_type:
-          type: string
-        notes_from_customer:
-          type: string
-        internal_notes:
-          type: string
-        product_amount:
-          type: number
-        shipping_amount:
-          type: number
-        tax_amount:
-          type: number
-        grand_total:
-          type: number
-        discount_amount:
-          type: number
-        cart_shipment_id:
-          type: string
-        credit_card_issuer:
-          type: string
-        tags:
-          type: array
-          items:
-            type: object
-            properties:
-              color:
-                type: string
-              text:
-                type: string
-        billing_address:
-          $ref: '#/components/schemas/v1_address'
-        shipping_address:
-          $ref: '#/components/schemas/v1_address'
-        alternate_ship_from_address:
-          $ref: '#/components/schemas/v1_address'
-        lines:
-          type: array
-          items:
-            title: Core API Order Line Schema
-            type: object
-            properties:
-              cart_orderitem_id:
-                type: string
-              product_name:
-                type: string
-              item_price:
-                description: single item price, will not display in app, for calculated value in app use total_price
-                type: number
-              quantity:
-                type: integer
-              selected_option:
-                type: string
-              total_price:
-                description: total calculated value for item
-                type: number
-              tax_lines:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    amount:
-                      type: number
-                    rate:
-                      type: number
-              product:
-                $ref: '#/components/schemas/v1_order_line_product'
-        additional_cart_info:
-          type: object
-          properties:
-            is_prime:
-              type: boolean
-      required:
-      - billing_address
-      - shipping_address
-      - order_id
-      - lines
-    comment:
-      title: Comment Schema
-      type: object
-      additionalProperties: false
-      properties:
-        user:
-          type: string
-        date:
-          type: string
-          format: date-time
-        text:
-          type: string
-    v3_tag_list:
-      title: Tag List Schema
-      type: object
-      properties:
-        count:
-          type: integer
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/v3_tag'
-        limit:
-          type: integer
-          default: 10
-        offset:
-          type: integer
-          default: 0
-      required:
-      - count
-      - tag
-      - limit
-      - offset
     order:
       title: Order Schema
       type: object
@@ -3416,6 +2848,736 @@ components:
       required:
       - billing_address
       - shipping_address
+    post_comment:
+      title: Create a Comment Schema
+      type: object
+      additionalProperties: false
+      properties:
+        comment:
+          type: string
+      required:
+      - comment
+    parent_order:
+      title: Parent Order Schema
+      type: object
+      additionalProperties: false
+      properties:
+        order_number:
+          type: string
+        order_placed_date:
+          type: string
+        created_date:
+          type: string
+        updated_date:
+          type: string
+        status:
+          type: string
+        shippability:
+          type: string
+        shipping_address:
+          $ref: '#/components/schemas/address'
+        billing_address:
+          $ref: '#/components/schemas/address'
+        alternate_ship_from_address:
+          oneOf:
+          - $ref: '#/components/schemas/address'
+          - type: 'null'
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              quantity:
+                type: integer
+              item_price:
+                type: number
+              supplier_price:
+                anyOf:
+                - type: number
+                - type: 'null'
+              sku:
+                type: string
+              product_name:
+                type: string
+              order_line_product_name:
+                type: string
+              product_link:
+                type: string
+              shippability:
+                type: object
+                properties:
+                  shippability:
+                    type: string
+                  supplier_id:
+                    anyOf:
+                    - type: number
+                    - type: 'null'
+                  is_dropship:
+                    type: boolean
+              details:
+                anyOf:
+                - type: string
+                - type: 'null'
+            required:
+            - quantity
+            - item_price
+            - supplier_price
+            - product_name
+            - product_link
+            - sku
+            - shippability
+            - details
+        notes_from_customer:
+          anyOf:
+          - type: string
+          - type: 'null'
+        internal_notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+        requested_shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        sales_channel:
+          type: object
+          properties:
+            id:
+              type: integer
+            link:
+              type: string
+        comments:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+              text:
+                type: string
+              user:
+                type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/tag'
+        financial:
+          $ref: '#/components/schemas/order_financial'
+        link:
+          type: string
+        child_order_numbers:
+          type: array
+          items:
+            type: string
+        ready:
+          type: boolean
+      required:
+      - billing_address
+      - shipping_address
+      - ready
+    shipping_info:
+      title: Shipping Info Schema
+      type: object
+      properties:
+        delivery_confirmation:
+          description: delivery or signature confirmation requested to the carrier at the time of label creation. Should be of type string.
+        tracking_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+        package_tracking:
+          anyOf:
+          - type: string
+          - type: 'null'
+        tracking_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cost:
+          type: number
+        transaction_fee:
+          type: number
+        link:
+          type: string
+        shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        display_shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        ship_date:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        has_label:
+          type: boolean
+        has_additional_docs:
+          type: boolean
+        created_date:
+          type: string
+        carrier_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+        carrier:
+          properties:
+            id:
+              type: integer
+            link:
+              type: string
+          anyOf:
+          - type: object
+          - type: 'null'
+        estimated_delivery_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+        box_shape:
+          anyOf:
+          - type: string
+          - type: 'null'
+        length:
+          description: 'deprecated: Length in inches, see packages'
+          anyOf:
+          - type: number
+          - type: 'null'
+        width:
+          description: 'deprecated: Width in inches, see packages'
+          anyOf:
+          - type: number
+          - type: 'null'
+        height:
+          description: 'deprecated: Height in inches, see packages'
+          anyOf:
+          - type: number
+          - type: 'null'
+        insurance:
+          description: Insurance data if Ordoro discounted Shipsurance is used
+          anyOf:
+          - type: object
+          - type: 'null'
+        insured_value:
+          description: value of the package if it was insured using Ordoro discounted Shipsurance
+          anyOf:
+          - type: number
+          - type: 'null'
+        customs_info:
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              country:
+                anyOf:
+                - type: string
+                - type: 'null'
+              description:
+                anyOf:
+                - type: string
+                - type: 'null'
+              quantity:
+                anyOf:
+                - type: integer
+                - type: 'null'
+              value:
+                description: Dollar value of customs line
+                format: double
+                anyOf:
+                - type: number
+                - type: 'null'
+              weight:
+                description: Weight of customs line in ounces
+                anyOf:
+                - type: number
+                - type: 'null'
+          anyOf:
+          - type: array
+          - type: 'null'
+        ship_from:
+          description: optionally exists if a ship_from address was used to create a label or tracking
+          $ref: '#/components/schemas/address'
+        reference_number:
+          description: reference number sent to the carrier for the shipment
+          anyOf:
+          - type: string
+          - type: 'null'
+        return_to:
+          $ref: '#/components/schemas/address'
+        ship_to:
+          description: optionally exists if a ship_to address was used to create a label or tracking
+          $ref: '#/components/schemas/address'
+        status:
+          description: tracking status if available from USPS carrier
+          anyOf:
+          - type: string
+          - type: 'null'
+        carrier_updated_date:
+          description: the last date that the carrier updated the tracking status, currently only used for USPS shipments
+          anyOf:
+          - type: string
+          - type: 'null'
+        presets:
+          type: array
+          items:
+            type: integer
+        packages:
+          items:
+            type: object
+          anyOf:
+          - type: array
+          - type: 'null'
+        packing_list_id:
+          description: id of packing list profile template used to create this label
+          anyOf:
+          - type: integer
+          - type: 'null'
+        print_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+        label_image_link:
+          anyOf:
+          - type: string
+          - type: 'null'
+        void:
+          type: boolean
+        zone:
+          anyOf:
+          - type: string
+          - type: 'null'
+    comment:
+      title: Comment Schema
+      type: object
+      additionalProperties: false
+      properties:
+        user:
+          type: string
+        date:
+          type: string
+          format: date-time
+        text:
+          type: string
+    post_order_line:
+      title: POST Order Line Request Schema
+      type: object
+      additionalProperties: false
+      properties:
+        quantity:
+          type: integer
+          default: 1
+        item_price:
+          type: number
+        total_price:
+          type: number
+        discount_amount:
+          type: number
+        product_name:
+          type: string
+        product_serial_numbers:
+          type: array
+          items:
+            type: string
+        sku:
+          type: string
+        details:
+          type: string
+        sales_channel_location_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+        cart_orderitem_id:
+          type: string
+        cart_order_id:
+          type: string
+        cart_shipment_id:
+          type: string
+      required:
+      - sku
+    order_counts:
+      title: Get Order Counts Response Schema
+      type: object
+      properties:
+        all:
+          type: integer
+        awaiting_fulfillment:
+          type: integer
+        cancelled:
+          type: integer
+        dropshipment_requested:
+          type: integer
+        unprinted_shipped:
+          type: integer
+        shipped:
+          type: integer
+      required:
+      - all
+      - awaiting_fulfillment
+      - cancelled
+      - dropshipment_requested
+      - unprinted_shipped
+      - shipped
+      additionalProperties: false
+    dropshipping_info:
+      title: Dropshipping Info Schema
+      type: object
+      additionalProperties: false
+      properties:
+        supplier:
+          type: object
+          properties:
+            id:
+              type: integer
+            link:
+              type: string
+        requested_date:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        show_ship_to_email:
+          type: boolean
+        show_price:
+          type: boolean
+        requested_shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        requested_shipping_carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+        requested_shipping_account:
+          anyOf:
+          - type: string
+          - type: 'null'
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+    order_financial:
+      title: Order Financial Schema
+      type: object
+      additionalProperties: false
+      properties:
+        credit_card_issuer:
+          anyOf:
+          - type: string
+          - type: 'null'
+        discount_amount:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+        product_amount:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+        shipping_amount:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+        tax_amount:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+        grand_total:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+    v1_address:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        reference_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        _link:
+          anyOf:
+          - type: string
+          - type: 'null'
+        _linkaddresscreatedtaskstatus:
+          anyOf:
+          - type: string
+          - type: 'null'
+        validation:
+          properties:
+            is_error:
+              type: boolean
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  city:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  zip:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  street1:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  is_commercial:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  state:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  country_code:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+          anyOf:
+          - type: object
+          - type: 'null'
+    v3_tag_list:
+      title: Tag List Schema
+      type: object
+      properties:
+        count:
+          type: integer
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_tag'
+        limit:
+          type: integer
+          default: 10
+        offset:
+          type: integer
+          default: 0
+      required:
+      - count
+      - tag
+      - limit
+      - offset
+    post_order_split:
+      title: Split Order Schema
+      type: object
+      additionalProperties: false
+      properties:
+        split_orders:
+          type: array
+          minItems: 2
+          items:
+            type: object
+            properties:
+              lines:
+                type: array
+                minItems: 1
+                items:
+                  $ref: '#/components/schemas/order_split_line'
+      required:
+      - split_orders
+    post_order_v1:
+      title: Core API Order Schema
+      type: object
+      additionalProperties: false
+      properties:
+        cart:
+          description: id for cart
+          anyOf:
+          - type: integer
+          - type: 'null'
+        order_id:
+          description: User defined identifier for an order. Will be prepended with a cart or sales channel index after creation
+          type: string
+        cart_order_id:
+          description: distinct order id from cart or marketplace, useful when syncing tracking information back from Ordoro
+          type: string
+        warehouse_id:
+          type: integer
+        order_date:
+          format: date-time
+          type: string
+        deliver_by_date:
+          format: date-time
+          type: string
+        ship_by_date:
+          format: date-time
+          type: string
+        status:
+          type: string
+          enum:
+          - awaiting_fulfillment
+          - shipped
+        shipping_type:
+          type: string
+        notes_from_customer:
+          type: string
+        internal_notes:
+          type: string
+        product_amount:
+          type: number
+        shipping_amount:
+          type: number
+        tax_amount:
+          type: number
+        grand_total:
+          type: number
+        discount_amount:
+          type: number
+        cart_shipment_id:
+          type: string
+        credit_card_issuer:
+          type: string
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              color:
+                type: string
+              text:
+                type: string
+        billing_address:
+          $ref: '#/components/schemas/v1_address'
+        shipping_address:
+          $ref: '#/components/schemas/v1_address'
+        alternate_ship_from_address:
+          $ref: '#/components/schemas/v1_address'
+        lines:
+          type: array
+          items:
+            title: Core API Order Line Schema
+            type: object
+            properties:
+              cart_orderitem_id:
+                type: string
+              product_name:
+                type: string
+              item_price:
+                description: single item price, will not display in app, for calculated value in app use total_price
+                type: number
+              quantity:
+                type: integer
+              selected_option:
+                type: string
+              total_price:
+                description: total calculated value for item
+                type: number
+              tax_lines:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    amount:
+                      type: number
+                    rate:
+                      type: number
+              product:
+                $ref: '#/components/schemas/v1_order_line_product'
+        additional_cart_info:
+          type: object
+          properties:
+            is_prime:
+              type: boolean
+      required:
+      - billing_address
+      - shipping_address
+      - order_id
+      - lines
+    split_order:
+      title: Split Order Response Schema
+      type: array
+      minItems: 2
+      uniqueItems: true
+      items:
+        type: string
+    put_order_line:
+      title: Update Order Line Schema
+      type: object
+      additionalProperties: false
+      properties:
+        quantity:
+          type: integer
+        item_price:
+          type: number
+        total_price:
+          type: number
+        discount_amount:
+          type: number
+        details:
+          anyOf:
+          - type: string
+          - type: 'null'
+        product_serial_numbers:
+          type: array
+          items:
+            type: string
     order_split_line:
       title: Order Split Line Schema
       type: object
@@ -3429,15 +3591,67 @@ components:
       required:
       - line_id
       - quantity
-    put_v3_tag:
-      title: Update a Tag
-      type: object
+    put_order_shipping_info:
+      title: Shipping Info Request Schema
       additionalProperties: false
+      type: object
       properties:
-        name:
+        tracking_number:
           type: string
-        color:
+        package_tracking:
           type: string
+        cost:
+          type: number
+        ship_date:
+          type: string
+          format: date-time
+        display_shipping_method:
+          type: string
+        shipping_cost:
+          type: number
+        shipping_method:
+          type: string
+        carrier_name:
+          type: string
+        insured_value:
+          type: number
+        notify_bill_to:
+          type: boolean
+          default: false
+        notify_ship_to:
+          type: boolean
+          default: false
+        notify_cart:
+          type: boolean
+          default: false
+        tracking_url:
+          type: string
+        zone:
+          anyOf:
+          - type: string
+          - type: 'null'
+      required:
+      - tracking_number
+      - ship_date
+      - carrier_name
+    order_list:
+      type: object
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        count:
+          type: integer
+        order:
+          type: array
+          items:
+            $ref: '#/components/schemas/order'
+      required:
+      - limit
+      - offset
+      - count
+      - order
     address:
       title: Address Schema
       type: object
@@ -3570,117 +3784,11 @@ components:
       - country
       - email
       - phone
-    post_order_dropship:
-      title: Order dropship request schema
-      type: object
-      properties:
-        supplier_id:
-          type: integer
-        shipping_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-        shipping_account:
-          type: string
-        shipping_carrier:
-          type: string
-        instructions:
-          type: string
-        show_images_email:
-          type: boolean
-          default: false
-        show_images_packing_list:
-          type: boolean
-          default: false
-        show_price:
-          type: boolean
-          default: false
-        show_ship_to_email:
-          type: boolean
-          default: false
-        packing_list_id:
-          type: integer
-        override_shipping_mappings:
-          type: boolean
-          default: false
-      required:
-      - supplier_id
-    order_list:
-      type: object
-      properties:
-        limit:
-          type: integer
-        offset:
-          type: integer
-        count:
-          type: integer
-        order:
-          type: array
-          items:
-            $ref: '#/components/schemas/order'
-      required:
-      - limit
-      - offset
-      - count
-      - order
-    tag:
-      title: Tag Schema
-      type: object
-      properties:
-        color:
-          type: string
-        text:
-          type: string
-        name:
-          type: string
-        link:
-          type: string
-        id:
-          type: integer
-      required:
-      - color
-      - text
-      - link
-      - id
-    post_comment:
-      title: Create a Comment Schema
+    update_address:
+      title: Update Address Schema
       type: object
       additionalProperties: false
       properties:
-        comment:
-          type: string
-      required:
-      - comment
-    v3_tag:
-      title: V3 Tag Schema
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        color:
-          type: string
-      required:
-      - id
-      - name
-      - color
-    shipment_preset:
-      title: Order Presets Response Schema
-      type: object
-      additionalProperties: false
-      properties:
-        presets:
-          type: array
-          items:
-            type: integer
-      required:
-      - presets
-    v1_address:
-      type: object
-      properties:
-        id:
-          type: number
         name:
           anyOf:
           - type: string
@@ -3721,34 +3829,21 @@ components:
           anyOf:
           - type: string
           - type: 'null'
-        fax:
-          anyOf:
-          - type: string
-          - type: 'null'
-        reference_number:
-          anyOf:
-          - type: string
-          - type: 'null'
-        cart_address_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-        _link:
-          anyOf:
-          - type: string
-          - type: 'null'
-        _linkaddresscreatedtaskstatus:
-          anyOf:
-          - type: string
-          - type: 'null'
+        validate:
+          type: boolean
+        set_revision_lock:
+          type: boolean
         validation:
+          title: Validation status of an Address
+          type: object
           properties:
-            is_error:
-              type: boolean
-            additional_text:
-              anyOf:
-              - type: string
-              - type: 'null'
+            status:
+              type: string
+              enum:
+              - unvalidated
+              - validated
+              - warning
+              - error
             suggested:
               type: array
               items:
@@ -3756,141 +3851,46 @@ components:
                 type: object
                 additionalProperties: false
                 properties:
-                  city:
+                  is_commercial:
+                    default: false
                     anyOf:
-                    - type: string
-                    - type: 'null'
-                  zip:
-                    anyOf:
-                    - type: string
+                    - type: boolean
                     - type: 'null'
                   street1:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
+                    type: string
                   street2:
                     anyOf:
                     - type: string
                     - type: 'null'
-                  is_commercial:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
+                  city:
+                    type: string
                   state:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
+                    type: string
+                  zip:
+                    type: string
                   country_code:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-          anyOf:
-          - type: object
-          - type: 'null'
-    dropshipping_info:
-      title: Dropshipping Info Schema
+                    type: string
+                required:
+                - city
+                - state
+                - zip
+                - street1
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+            is_error:
+              type: boolean
+          required:
+          - additional_text
+          - suggested
+          additionalProperties: false
+    put_v3_tag:
+      title: Update a Tag
       type: object
       additionalProperties: false
       properties:
-        supplier:
-          type: object
-          properties:
-            id:
-              type: integer
-            link:
-              type: string
-        requested_date:
-          format: date-time
-          anyOf:
-          - type: string
-          - type: 'null'
-        show_ship_to_email:
-          type: boolean
-        show_price:
-          type: boolean
-        requested_shipping_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-        requested_shipping_carrier:
-          anyOf:
-          - type: string
-          - type: 'null'
-        requested_shipping_account:
-          anyOf:
-          - type: string
-          - type: 'null'
-        instructions:
-          anyOf:
-          - type: string
-          - type: 'null'
-    put_order:
-      title: Order Update Schema
-      type: object
-      additionalProperties: false
-      properties:
-        notes_from_customer:
-          description: Customer notes
+        name:
           type: string
-        internal_notes:
-          description: Staff notes
+        color:
           type: string
-        batch_reference_id:
-          description: Batch ID
-          type: string
-        ship_by_date:
-          description: The date the order must be shipped by
-          format: date-time
-          anyOf:
-          - type: 'null'
-          - type: string
-        deliver_by_date:
-          description: The date the order must be delivered by
-          format: date-time
-          anyOf:
-          - type: 'null'
-          - type: string
-    put_order_warehouse:
-      title: Update Warehouse on an Order
-      type: object
-      additionalProperties: false
-      properties:
-        warehouse_id:
-          type: integer
-        skip_cache:
-          type: boolean
-          default: false
-          description: Updates the order but does not add it to the Elasticsearch cache. Used internally during initial order processing. This will probably go away in the future.
-      required:
-      - warehouse_id
-    split_order:
-      title: Split Order Response Schema
-      type: array
-      minItems: 2
-      uniqueItems: true
-      items:
-        type: string
-    order_counts:
-      title: Get Order Counts Response Schema
-      type: object
-      properties:
-        all:
-          type: integer
-        awaiting_fulfillment:
-          type: integer
-        cancelled:
-          type: integer
-        dropshipment_requested:
-          type: integer
-        unprinted_shipped:
-          type: integer
-        shipped:
-          type: integer
-      required:
-      - all
-      - awaiting_fulfillment
-      - cancelled
-      - dropshipment_requested
-      - unprinted_shipped
-      - shipped
-      additionalProperties: false

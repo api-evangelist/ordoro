@@ -125,6 +125,44 @@ paths:
       deprecated: false
 components:
   schemas:
+    post_user:
+      title: Create User Schema
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          description: Full Name
+          type: string
+          maxLength: 60
+        email:
+          description: Email Address
+          type: string
+          maxLength: 75
+          format: email
+        password:
+          description: Password
+          type: string
+          minLength: 8
+          maxLength: 128
+        warehouse_ids:
+          description: Assigned Warehouses
+          type: array
+          items:
+            type: number
+      required:
+      - email
+    user_list:
+      type: object
+      properties:
+        count:
+          type: integer
+        user:
+          type: array
+          items:
+            $ref: '#/components/schemas/user'
+      required:
+      - count
+      - user
     user:
       title: User Schema
       additionalProperties: false
@@ -172,32 +210,6 @@ components:
       - date_joined
       - permissions
       - settings
-    post_user:
-      title: Create User Schema
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          description: Full Name
-          type: string
-          maxLength: 60
-        email:
-          description: Email Address
-          type: string
-          maxLength: 75
-          format: email
-        password:
-          description: Password
-          type: string
-          minLength: 8
-          maxLength: 128
-        warehouse_ids:
-          description: Assigned Warehouses
-          type: array
-          items:
-            type: number
-      required:
-      - email
     put_user:
       title: User Update Schema
       type: object
@@ -345,15 +357,3 @@ components:
           description: Settings
           type: object
           additionalProperties: true
-    user_list:
-      type: object
-      properties:
-        count:
-          type: integer
-        user:
-          type: array
-          items:
-            $ref: '#/components/schemas/user'
-      required:
-      - count
-      - user

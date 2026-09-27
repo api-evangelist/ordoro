@@ -95,15 +95,6 @@ components:
       description: ''
       schema:
         type: string
-    limitParam:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
     offsetParam:
       in: query
       name: offset
@@ -113,3 +104,12 @@ components:
         type: integer
         default: 0
         minimum: 0
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10

@@ -243,40 +243,34 @@ paths:
                 $ref: '#/components/schemas/supplier_shipping_method_map'
       deprecated: false
 components:
-  parameters:
-    supplierPath:
-      name: supplier_id
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
-    limitParam:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
-    offsetParam:
-      in: query
-      name: offset
-      required: false
-      description: ''
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    searchParam:
-      name: search
-      in: query
-      description: ''
-      schema:
-        type: string
   schemas:
+    post_supplier_shipping_method:
+      title: Add a shipping method to a mapped supplier method
+      type: object
+      additionalProperties: false
+      properties:
+        active:
+          type: boolean
+        requested_shipping_method:
+          description: The requested shipping method on an Order to be mapped to a determinate shipping method
+          default: ''
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_method:
+          description: 'For FBA, must be one of the following: [''Expedited'', ''Priority'', ''Standard'']'
+          type: string
+        mapped_shipping_account:
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+      required:
+      - mapped_shipping_method
+      - requested_shipping_method
     post_supplier:
       title: POST Supplier Schema
       type: object
@@ -337,53 +331,11 @@ components:
           anyOf:
           - type: integer
           - type: 'null'
-    supplier_shipping_method_map:
-      title: Supplier shipping method map
-      type: object
-      additionalProperties: false
-      properties:
-        active:
-          description: Toggle to enable use of this shipping method map
-          type: boolean
-        created:
-          description: The date this was created
-          type: string
-        id:
-          description: internal reference identifier for the supplier shipping method map
-          type: integer
-        requested_shipping_method:
-          default: ''
-          description: User defined requested shipping method on an Order to be mapped to a determinate shipping method
-          anyOf:
-          - type: string
-          - type: 'null'
-        mapped_shipping_method:
-          description: 'FBA defined shipping methods will only be one of the following: [''Expedited'', ''Priority'', ''Standard'']. All others can be freeform to suit the supplier'
-          type: string
-        mapped_shipping_account:
-          anyOf:
-          - type: string
-          - type: 'null'
-        mapped_shipping_carrier:
-          anyOf:
-          - type: string
-          - type: 'null'
-        supplier_id:
-          description: Integer indicating the supplier for which this mapping is tied.
-          type: integer
-        updated:
-          description: The latest updated date
-          type: string
-      required:
-      - active
-      - created
-      - id
-      - requested_shipping_method
-      - mapped_shipping_method
-      - mapped_shipping_account
-      - mapped_shipping_carrier
-      - supplier_id
-      - updated
+    supplier_shipping_method_map_list:
+      title: Supplier Shipping Method Map List Schema
+      type: array
+      items:
+        $ref: '#/components/schemas/supplier_shipping_method_map'
     supplier:
       additionalProperties: false
       properties:
@@ -449,6 +401,71 @@ components:
       - vendor_config
       title: Supplier Schema
       type: object
+    address_lite:
+      title: Address Schema
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          example: Jimmy McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          example: Hamlin, Hamlin & McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 100 Constitution Ave
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Albuquerque
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '87109'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: slippin-jimmy@saul-good.man
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        revision_locked_fields:
+          type: array
     put_supplier_shipping_method:
       title: Update a shipping method mapped to a supplier method
       type: object
@@ -470,11 +487,53 @@ components:
           anyOf:
           - type: string
           - type: 'null'
-    supplier_shipping_method_map_list:
-      title: Supplier Shipping Method Map List Schema
-      type: array
-      items:
-        $ref: '#/components/schemas/supplier_shipping_method_map'
+    supplier_shipping_method_map:
+      title: Supplier shipping method map
+      type: object
+      additionalProperties: false
+      properties:
+        active:
+          description: Toggle to enable use of this shipping method map
+          type: boolean
+        created:
+          description: The date this was created
+          type: string
+        id:
+          description: internal reference identifier for the supplier shipping method map
+          type: integer
+        requested_shipping_method:
+          default: ''
+          description: User defined requested shipping method on an Order to be mapped to a determinate shipping method
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_method:
+          description: 'FBA defined shipping methods will only be one of the following: [''Expedited'', ''Priority'', ''Standard'']. All others can be freeform to suit the supplier'
+          type: string
+        mapped_shipping_account:
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+        supplier_id:
+          description: Integer indicating the supplier for which this mapping is tied.
+          type: integer
+        updated:
+          description: The latest updated date
+          type: string
+      required:
+      - active
+      - created
+      - id
+      - requested_shipping_method
+      - mapped_shipping_method
+      - mapped_shipping_account
+      - mapped_shipping_carrier
+      - supplier_id
+      - updated
     address:
       title: Address Schema
       type: object
@@ -607,98 +666,6 @@ components:
       - country
       - email
       - phone
-    post_supplier_shipping_method:
-      title: Add a shipping method to a mapped supplier method
-      type: object
-      additionalProperties: false
-      properties:
-        active:
-          type: boolean
-        requested_shipping_method:
-          description: The requested shipping method on an Order to be mapped to a determinate shipping method
-          default: ''
-          anyOf:
-          - type: string
-          - type: 'null'
-        mapped_shipping_method:
-          description: 'For FBA, must be one of the following: [''Expedited'', ''Priority'', ''Standard'']'
-          type: string
-        mapped_shipping_account:
-          anyOf:
-          - type: string
-          - type: 'null'
-        mapped_shipping_carrier:
-          anyOf:
-          - type: string
-          - type: 'null'
-      required:
-      - mapped_shipping_method
-      - requested_shipping_method
-    address_lite:
-      title: Address Schema
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          example: Jimmy McGill
-          anyOf:
-          - type: string
-          - type: 'null'
-        company:
-          example: Hamlin, Hamlin & McGill
-          anyOf:
-          - type: string
-          - type: 'null'
-        street1:
-          example: 100 Constitution Ave
-          anyOf:
-          - type: string
-          - type: 'null'
-        street2:
-          anyOf:
-          - type: string
-          - type: 'null'
-        city:
-          example: Albuquerque
-          anyOf:
-          - type: string
-          - type: 'null'
-        state:
-          example: NM
-          anyOf:
-          - type: string
-          - type: 'null'
-        zip:
-          example: '87109'
-          anyOf:
-          - type: string
-          - type: 'null'
-        country:
-          example: US
-          anyOf:
-          - type: string
-          - type: 'null'
-        email:
-          example: slippin-jimmy@saul-good.man
-          anyOf:
-          - type: string
-          - type: 'null'
-        phone:
-          example: 555-867-5309
-          anyOf:
-          - type: string
-          - type: 'null'
-        fax:
-          anyOf:
-          - type: string
-          - type: 'null'
-        cart_address_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-        revision_locked_fields:
-          type: array
     supplier_list:
       title: Supplier List Schema
       type: object
@@ -720,3 +687,36 @@ components:
       - supplier
       - limit
       - offset
+  parameters:
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    supplierPath:
+      name: supplier_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string

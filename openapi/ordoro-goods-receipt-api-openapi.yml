@@ -219,39 +219,6 @@ paths:
               $ref: '#/components/schemas/put_goods_receipt_item'
       deprecated: false
 components:
-  parameters:
-    limitParam:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
-    goodsReceiptIDPath:
-      name: goods_receipt_id
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
-    offsetParam:
-      in: query
-      name: offset
-      required: false
-      description: ''
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    searchParam:
-      name: search
-      in: query
-      description: ''
-      schema:
-        type: string
   schemas:
     post_goods_receipt:
       title: Post Goods Receipt Schema
@@ -269,15 +236,17 @@ components:
       required:
       - po_id
       - received_lines
-    put_goods_receipt_item:
-      title: Put Goods Receipt Item Schema
+    put_goods_receipt:
+      title: Put Goods Receipt Schema
       type: object
       additionalProperties: false
       properties:
-        quantity:
-          type: number
-      required:
-      - quantity
+        goods_receipt_id:
+          type: string
+        received_lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/goods_receipt_item'
     status:
       title: status
       enum:
@@ -287,6 +256,41 @@ components:
       - received
       - all
       type: string
+    v3_tag:
+      title: V3 Tag Schema
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        color:
+          type: string
+      required:
+      - id
+      - name
+      - color
+    post_comment:
+      title: Create a Comment Schema
+      type: object
+      additionalProperties: false
+      properties:
+        comment:
+          type: string
+      required:
+      - comment
+    comment:
+      title: Comment Schema
+      type: object
+      additionalProperties: false
+      properties:
+        user:
+          type: string
+        date:
+          type: string
+          format: date-time
+        text:
+          type: string
     product_base:
       title: Product Schema
       type: object
@@ -414,18 +418,18 @@ components:
           anyOf:
           - type: string
           - type: 'null'
-    comment:
-      title: Comment Schema
+    goods_receipt_item:
+      title: Goods Receipt Item Schema
       type: object
       additionalProperties: false
       properties:
-        user:
-          type: string
-        date:
-          type: string
-          format: date-time
-        text:
-          type: string
+        po_item_id:
+          type: integer
+        quantity:
+          type: number
+      required:
+      - po_item_id
+      - quantity
     goods_receipt:
       title: Goods Receipt Schema
       type: object
@@ -487,49 +491,45 @@ components:
       - offset
       - count
       - goods_receipt
-    post_comment:
-      title: Create a Comment Schema
+    put_goods_receipt_item:
+      title: Put Goods Receipt Item Schema
       type: object
       additionalProperties: false
       properties:
-        comment:
-          type: string
-      required:
-      - comment
-    put_goods_receipt:
-      title: Put Goods Receipt Schema
-      type: object
-      additionalProperties: false
-      properties:
-        goods_receipt_id:
-          type: string
-        received_lines:
-          type: array
-          items:
-            $ref: '#/components/schemas/goods_receipt_item'
-    goods_receipt_item:
-      title: Goods Receipt Item Schema
-      type: object
-      additionalProperties: false
-      properties:
-        po_item_id:
-          type: integer
         quantity:
           type: number
       required:
-      - po_item_id
       - quantity
-    v3_tag:
-      title: V3 Tag Schema
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        color:
-          type: string
-      required:
-      - id
-      - name
-      - color
+  parameters:
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    goodsReceiptIDPath:
+      name: goods_receipt_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string

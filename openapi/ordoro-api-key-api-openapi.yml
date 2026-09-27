@@ -127,6 +127,13 @@ paths:
       deprecated: false
 components:
   schemas:
+    put_api_key:
+      title: Update API Key
+      type: object
+      properties:
+        name:
+          type: string
+      additionalProperties: false
     api_key_list:
       title: API Key List Schema
       type: object
@@ -182,13 +189,6 @@ components:
       - updated
       - company_id
       - user_id
-    put_api_key:
-      title: Update API Key
-      type: object
-      properties:
-        name:
-          type: string
-      additionalProperties: false
     post_api_key:
       title: Create API Key
       type: object

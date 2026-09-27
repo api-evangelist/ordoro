@@ -266,6 +266,15 @@ paths:
           headers: {}
 components:
   parameters:
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
     limitParam:
       in: query
       name: limit
@@ -281,16 +290,251 @@ components:
       description: ''
       schema:
         type: string
-    offsetParam:
-      in: query
-      name: offset
-      required: false
-      description: ''
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
   schemas:
+    address:
+      title: Address Schema
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        name:
+          example: Jimmy McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          example: Hamlin, Hamlin & McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 100 Constitution Ave
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Albuquerque
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '87109'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: slippin-jimmy@saul-good.man
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        revision_locked_fields:
+          type: array
+        validation:
+          title: Validation status of an Address
+          properties:
+            status:
+              type: string
+              enum:
+              - unvalidated
+              - validated
+              - warning
+              - error
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  is_commercial:
+                    default: false
+                    anyOf:
+                    - type: boolean
+                    - type: 'null'
+                  street1:
+                    type: string
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  zip:
+                    type: string
+                  country_code:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - city
+                - state
+                - zip
+                - street1
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+          required:
+          - status
+          - additional_text
+          - suggested
+          additionalProperties: false
+          anyOf:
+          - type: object
+          - type: 'null'
+      required:
+      - name
+      - company
+      - street1
+      - street2
+      - city
+      - state
+      - zip
+      - country
+      - email
+      - phone
+    return_order:
+      title: Return Order Schema
+      type: object
+      properties:
+        reference_id:
+          type: string
+        original_order_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+        status:
+          type: string
+        customer_address:
+          $ref: '#/components/schemas/address'
+        return_to_address:
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/address'
+        warehouse_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+        customer_notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+        internal_notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+        has_shipping_info:
+          type: boolean
+        label_infos:
+          type: array
+          items:
+            type: integer
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              line_id:
+                type: integer
+              sku:
+                type: string
+              product_name:
+                type: string
+              product_serial_numbers:
+                type: array
+                items:
+                  type: string
+              code:
+                oneOf:
+                - type: 'null'
+                - $ref: '#/components/schemas/return_order_code'
+              restock_warehouse_id:
+                anyOf:
+                - type: integer
+                - type: 'null'
+              line_notes:
+                anyOf:
+                - type: string
+                - type: 'null'
+              total_price:
+                type: number
+              expected_quantity:
+                type: number
+              received_quantity:
+                type: number
+              restocked_quantity:
+                type: number
+            required:
+            - line_id
+            - sku
+            - product_name
+            - code
+            - restock_warehouse_id
+            - line_notes
+            - total_price
+            - expected_quantity
+            - received_quantity
+            - restocked_quantity
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/comment'
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_tag'
+        created_date:
+          type: string
+        shipping_infos:
+          type: array
+          items:
+            $ref: '#/components/schemas/shipping_info'
+        updated_date:
+          type: string
+    v3_tag:
+      title: V3 Tag Schema
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        color:
+          type: string
+      required:
+      - id
+      - name
+      - color
     shipping_info:
       title: Shipping Info Schema
       type: object
@@ -463,6 +707,40 @@ components:
           anyOf:
           - type: string
           - type: 'null'
+    return_order_list:
+      type: object
+      properties:
+        limit:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+        offset:
+          type: integer
+          default: 0
+        count:
+          type: integer
+        return_order:
+          type: array
+          items:
+            $ref: '#/components/schemas/return_order'
+      required:
+      - limit
+      - offset
+      - count
+      - return_order
+    comment:
+      title: Comment Schema
+      type: object
+      additionalProperties: false
+      properties:
+        user:
+          type: string
+        date:
+          type: string
+          format: date-time
+        text:
+          type: string
     v1_address:
       type: object
       properties:
@@ -574,277 +852,6 @@ components:
           anyOf:
           - type: object
           - type: 'null'
-    get_v3_tag_list:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: GET Tag List Schema
-      properties:
-        limit:
-          type: integer
-          default: 10
-          minimum: 1
-          maximum: 100
-        offset:
-          type: integer
-          default: 0
-        id:
-          type: array
-          items:
-            type: integer
-      additionalProperties: false
-      anyOf:
-      - type: object
-      - type: 'null'
-    return_order:
-      title: Return Order Schema
-      type: object
-      properties:
-        reference_id:
-          type: string
-        original_order_number:
-          anyOf:
-          - type: string
-          - type: 'null'
-        status:
-          type: string
-        customer_address:
-          $ref: '#/components/schemas/address'
-        return_to_address:
-          oneOf:
-          - type: 'null'
-          - $ref: '#/components/schemas/address'
-        warehouse_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-        customer_notes:
-          anyOf:
-          - type: string
-          - type: 'null'
-        internal_notes:
-          anyOf:
-          - type: string
-          - type: 'null'
-        has_shipping_info:
-          type: boolean
-        label_infos:
-          type: array
-          items:
-            type: integer
-        lines:
-          type: array
-          items:
-            type: object
-            properties:
-              line_id:
-                type: integer
-              sku:
-                type: string
-              product_name:
-                type: string
-              product_serial_numbers:
-                type: array
-                items:
-                  type: string
-              code:
-                oneOf:
-                - type: 'null'
-                - $ref: '#/components/schemas/return_order_code'
-              restock_warehouse_id:
-                anyOf:
-                - type: integer
-                - type: 'null'
-              line_notes:
-                anyOf:
-                - type: string
-                - type: 'null'
-              total_price:
-                type: number
-              expected_quantity:
-                type: number
-              received_quantity:
-                type: number
-              restocked_quantity:
-                type: number
-            required:
-            - line_id
-            - sku
-            - product_name
-            - code
-            - restock_warehouse_id
-            - line_notes
-            - total_price
-            - expected_quantity
-            - received_quantity
-            - restocked_quantity
-        comments:
-          type: array
-          items:
-            $ref: '#/components/schemas/comment'
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/v3_tag'
-        created_date:
-          type: string
-        shipping_infos:
-          type: array
-          items:
-            $ref: '#/components/schemas/shipping_info'
-        updated_date:
-          type: string
-    put_v3_tag:
-      title: Update a Tag
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          type: string
-        color:
-          type: string
-    address:
-      title: Address Schema
-      type: object
-      additionalProperties: false
-      properties:
-        id:
-          type: integer
-        name:
-          example: Jimmy McGill
-          anyOf:
-          - type: string
-          - type: 'null'
-        company:
-          example: Hamlin, Hamlin & McGill
-          anyOf:
-          - type: string
-          - type: 'null'
-        street1:
-          example: 100 Constitution Ave
-          anyOf:
-          - type: string
-          - type: 'null'
-        street2:
-          anyOf:
-          - type: string
-          - type: 'null'
-        city:
-          example: Albuquerque
-          anyOf:
-          - type: string
-          - type: 'null'
-        state:
-          example: NM
-          anyOf:
-          - type: string
-          - type: 'null'
-        zip:
-          example: '87109'
-          anyOf:
-          - type: string
-          - type: 'null'
-        country:
-          example: US
-          anyOf:
-          - type: string
-          - type: 'null'
-        email:
-          example: slippin-jimmy@saul-good.man
-          anyOf:
-          - type: string
-          - type: 'null'
-        phone:
-          example: 555-867-5309
-          anyOf:
-          - type: string
-          - type: 'null'
-        fax:
-          anyOf:
-          - type: string
-          - type: 'null'
-        cart_address_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-        revision_locked_fields:
-          type: array
-        validation:
-          title: Validation status of an Address
-          properties:
-            status:
-              type: string
-              enum:
-              - unvalidated
-              - validated
-              - warning
-              - error
-            suggested:
-              type: array
-              items:
-                title: Suggested Address
-                type: object
-                additionalProperties: false
-                properties:
-                  is_commercial:
-                    default: false
-                    anyOf:
-                    - type: boolean
-                    - type: 'null'
-                  street1:
-                    type: string
-                  street2:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-                  city:
-                    type: string
-                  state:
-                    type: string
-                  zip:
-                    type: string
-                  country_code:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-                required:
-                - city
-                - state
-                - zip
-                - street1
-            additional_text:
-              anyOf:
-              - type: string
-              - type: 'null'
-          required:
-          - status
-          - additional_text
-          - suggested
-          additionalProperties: false
-          anyOf:
-          - type: object
-          - type: 'null'
-      required:
-      - name
-      - company
-      - street1
-      - street2
-      - city
-      - state
-      - zip
-      - country
-      - email
-      - phone
-    comment:
-      title: Comment Schema
-      type: object
-      additionalProperties: false
-      properties:
-        user:
-          type: string
-        date:
-          type: string
-          format: date-time
-        text:
-          type: string
     v3_tag_list:
       title: Tag List Schema
       type: object
@@ -866,6 +873,17 @@ components:
       - tag
       - limit
       - offset
+    return_order_code:
+      title: Return Order Code Schema
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+      required:
+      - code
+      - description
     post_return_order:
       title: Create a Return Order
       type: object
@@ -898,8 +916,9 @@ components:
       - reference_id
       - customer_address
       - lines
-    return_order_list:
-      type: object
+    get_v3_tag_list:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: GET Tag List Schema
       properties:
         limit:
           type: integer
@@ -909,39 +928,20 @@ components:
         offset:
           type: integer
           default: 0
-        count:
-          type: integer
-        return_order:
+        id:
           type: array
           items:
-            $ref: '#/components/schemas/return_order'
-      required:
-      - limit
-      - offset
-      - count
-      - return_order
-    return_order_code:
-      title: Return Order Code Schema
+            type: integer
+      additionalProperties: false
+      anyOf:
+      - type: object
+      - type: 'null'
+    put_v3_tag:
+      title: Update a Tag
       type: object
+      additionalProperties: false
       properties:
-        code:
-          type: string
-        description:
-          type: string
-      required:
-      - code
-      - description
-    v3_tag:
-      title: V3 Tag Schema
-      type: object
-      properties:
-        id:
-          type: integer
         name:
           type: string
         color:
           type: string
-      required:
-      - id
-      - name
-      - color

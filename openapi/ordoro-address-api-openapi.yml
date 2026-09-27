@@ -224,32 +224,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/order'
 components:
-  parameters:
-    orderNumberPath:
-      description: Unique identifier for an Order that includes a cart index prefix
-      name: order_number
-      schema:
-        type: string
-      in: path
-      required: true
-    limitParam:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
-    offsetParam:
-      in: query
-      name: offset
-      required: false
-      description: ''
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
   schemas:
     order:
       title: Order Schema
@@ -481,6 +455,151 @@ components:
       required:
       - billing_address
       - shipping_address
+    put_order_warehouse:
+      title: Update Warehouse on an Order
+      type: object
+      additionalProperties: false
+      properties:
+        warehouse_id:
+          type: integer
+        skip_cache:
+          type: boolean
+          default: false
+          description: Updates the order but does not add it to the Elasticsearch cache. Used internally during initial order processing. This will probably go away in the future.
+      required:
+      - warehouse_id
+    address:
+      title: Address Schema
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        name:
+          example: Jimmy McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          example: Hamlin, Hamlin & McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 100 Constitution Ave
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Albuquerque
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '87109'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: slippin-jimmy@saul-good.man
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        revision_locked_fields:
+          type: array
+        validation:
+          title: Validation status of an Address
+          properties:
+            status:
+              type: string
+              enum:
+              - unvalidated
+              - validated
+              - warning
+              - error
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  is_commercial:
+                    default: false
+                    anyOf:
+                    - type: boolean
+                    - type: 'null'
+                  street1:
+                    type: string
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  zip:
+                    type: string
+                  country_code:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - city
+                - state
+                - zip
+                - street1
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+          required:
+          - status
+          - additional_text
+          - suggested
+          additionalProperties: false
+          anyOf:
+          - type: object
+          - type: 'null'
+      required:
+      - name
+      - company
+      - street1
+      - street2
+      - city
+      - state
+      - zip
+      - country
+      - email
+      - phone
     shipping_info:
       title: Shipping Info Schema
       type: object
@@ -653,6 +772,25 @@ components:
           anyOf:
           - type: string
           - type: 'null'
+    tag:
+      title: Tag Schema
+      type: object
+      properties:
+        color:
+          type: string
+        text:
+          type: string
+        name:
+          type: string
+        link:
+          type: string
+        id:
+          type: integer
+      required:
+      - color
+      - text
+      - link
+      - id
     dropshipping_info:
       title: Dropshipping Info Schema
       type: object
@@ -690,6 +828,63 @@ components:
           anyOf:
           - type: string
           - type: 'null'
+    order_financial:
+      title: Order Financial Schema
+      type: object
+      additionalProperties: false
+      properties:
+        credit_card_issuer:
+          anyOf:
+          - type: string
+          - type: 'null'
+        discount_amount:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+        product_amount:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+        shipping_amount:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+        tax_amount:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+        grand_total:
+          description: Not calculated
+          anyOf:
+          - type: number
+          - type: 'null'
+    address_list:
+      title: Address List Schema
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 35
+        limit:
+          type: integer
+          default: 1
+        offset:
+          type: integer
+          default: 0
+          example: 0
+        address:
+          type: array
+          items:
+            $ref: '#/components/schemas/address'
+      required:
+      - count
+      - limit
+      - offset
+      - address
     update_address:
       title: Update Address Schema
       type: object
@@ -791,224 +986,29 @@ components:
           - additional_text
           - suggested
           additionalProperties: false
-    put_order_warehouse:
-      title: Update Warehouse on an Order
-      type: object
-      additionalProperties: false
-      properties:
-        warehouse_id:
-          type: integer
-        skip_cache:
-          type: boolean
-          default: false
-          description: Updates the order but does not add it to the Elasticsearch cache. Used internally during initial order processing. This will probably go away in the future.
-      required:
-      - warehouse_id
-    address:
-      title: Address Schema
-      type: object
-      additionalProperties: false
-      properties:
-        id:
-          type: integer
-        name:
-          example: Jimmy McGill
-          anyOf:
-          - type: string
-          - type: 'null'
-        company:
-          example: Hamlin, Hamlin & McGill
-          anyOf:
-          - type: string
-          - type: 'null'
-        street1:
-          example: 100 Constitution Ave
-          anyOf:
-          - type: string
-          - type: 'null'
-        street2:
-          anyOf:
-          - type: string
-          - type: 'null'
-        city:
-          example: Albuquerque
-          anyOf:
-          - type: string
-          - type: 'null'
-        state:
-          example: NM
-          anyOf:
-          - type: string
-          - type: 'null'
-        zip:
-          example: '87109'
-          anyOf:
-          - type: string
-          - type: 'null'
-        country:
-          example: US
-          anyOf:
-          - type: string
-          - type: 'null'
-        email:
-          example: slippin-jimmy@saul-good.man
-          anyOf:
-          - type: string
-          - type: 'null'
-        phone:
-          example: 555-867-5309
-          anyOf:
-          - type: string
-          - type: 'null'
-        fax:
-          anyOf:
-          - type: string
-          - type: 'null'
-        cart_address_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-        revision_locked_fields:
-          type: array
-        validation:
-          title: Validation status of an Address
-          properties:
-            status:
-              type: string
-              enum:
-              - unvalidated
-              - validated
-              - warning
-              - error
-            suggested:
-              type: array
-              items:
-                title: Suggested Address
-                type: object
-                additionalProperties: false
-                properties:
-                  is_commercial:
-                    default: false
-                    anyOf:
-                    - type: boolean
-                    - type: 'null'
-                  street1:
-                    type: string
-                  street2:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-                  city:
-                    type: string
-                  state:
-                    type: string
-                  zip:
-                    type: string
-                  country_code:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-                required:
-                - city
-                - state
-                - zip
-                - street1
-            additional_text:
-              anyOf:
-              - type: string
-              - type: 'null'
-          required:
-          - status
-          - additional_text
-          - suggested
-          additionalProperties: false
-          anyOf:
-          - type: object
-          - type: 'null'
-      required:
-      - name
-      - company
-      - street1
-      - street2
-      - city
-      - state
-      - zip
-      - country
-      - email
-      - phone
-    order_financial:
-      title: Order Financial Schema
-      type: object
-      additionalProperties: false
-      properties:
-        credit_card_issuer:
-          anyOf:
-          - type: string
-          - type: 'null'
-        discount_amount:
-          description: Not calculated
-          anyOf:
-          - type: number
-          - type: 'null'
-        product_amount:
-          description: Not calculated
-          anyOf:
-          - type: number
-          - type: 'null'
-        shipping_amount:
-          description: Not calculated
-          anyOf:
-          - type: number
-          - type: 'null'
-        tax_amount:
-          description: Not calculated
-          anyOf:
-          - type: number
-          - type: 'null'
-        grand_total:
-          description: Not calculated
-          anyOf:
-          - type: number
-          - type: 'null'
-    tag:
-      title: Tag Schema
-      type: object
-      properties:
-        color:
-          type: string
-        text:
-          type: string
-        name:
-          type: string
-        link:
-          type: string
-        id:
-          type: integer
-      required:
-      - color
-      - text
-      - link
-      - id
-    address_list:
-      title: Address List Schema
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 35
-        limit:
-          type: integer
-          default: 1
-        offset:
-          type: integer
-          default: 0
-          example: 0
-        address:
-          type: array
-          items:
-            $ref: '#/components/schemas/address'
-      required:
-      - count
-      - limit
-      - offset
-      - address
+  parameters:
+    orderNumberPath:
+      description: Unique identifier for an Order that includes a cart index prefix
+      name: order_number
+      schema:
+        type: string
+      in: path
+      required: true
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10

@@ -181,15 +181,6 @@ paths:
           description: response OK
 components:
   parameters:
-    limitParam:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
     orderNumberPath:
       description: Unique identifier for an Order that includes a cart index prefix
       name: order_number
@@ -206,21 +197,21 @@ components:
         type: integer
         default: 0
         minimum: 0
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
   schemas:
     tags:
       title: Post Order Tag Response
       type: array
       items:
         $ref: '#/components/schemas/tag'
-    put_tag:
-      title: Update Tag Schema
-      type: object
-      properties:
-        color:
-          type: string
-        text:
-          type: string
-      additionalProperties: false
     tag_list:
       title: Tag List Schema
       type: object
@@ -261,6 +252,15 @@ components:
       - text
       - link
       - id
+    put_tag:
+      title: Update Tag Schema
+      type: object
+      properties:
+        color:
+          type: string
+        text:
+          type: string
+      additionalProperties: false
     post_tag:
       title: Create Tag Schema
       type: object

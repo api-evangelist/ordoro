@@ -231,20 +231,655 @@ paths:
       - Return Order Label
 components:
   schemas:
-    tax_info:
-      title: Tax Info Schema
+    customs_line:
+      title: Customs Line Schema
       type: object
       additionalProperties: false
       properties:
-        tax_id_number:
+        country:
           type: string
-        tax_id_type:
+        description:
           type: string
-        tax_issuer_country:
+        quantity:
+          type: integer
+        value:
+          description: Dollar value of customs line
+          format: double
+          type: number
+        weight:
+          description: Weight of customs line in ounces
+          type: number
+        harmonization_code:
+          description: The 6 character international nomenclature for the classification of products
+          type: string
+        sku:
+          type: string
+        unit_of_measure:
+          type: string
+        url:
+          type: string
+        harmonization_code_country:
+          description: The country of harmonization_code
           type: string
       required:
-      - tax_id_number
-      - tax_id_type
+      - description
+      - quantity
+      - value
+      - weight
+      - country
+    ShippingInfoResponse:
+      $ref: '#/components/schemas/shipping_info'
+    hazmat_item:
+      title: Hazmat Item Schema
+      type: object
+      additionalProperties: false
+      properties:
+        additional_description:
+          type: string
+        class_division_number:
+          type: string
+        commodity_regulated_level_code:
+          type: string
+          enum:
+          - EQ
+          - FR
+          - LR
+          - LQ
+        emergency_contact:
+          type: string
+        emergency_phone:
+          type: string
+        hazard_label_required:
+          type: string
+        id_number:
+          type: string
+        packaging_instruction_code:
+          type: string
+        packaging_group_type:
+          type: string
+          enum:
+          - null
+          - ''
+          - I
+          - II
+          - III
+        packaging_type:
+          type: string
+        packaging_type_quantity:
+          type: string
+        proper_shipping_name:
+          type: string
+        quantity:
+          type: string
+        regulation_set:
+          type: string
+          enum:
+          - ADR
+          - CFR
+          - IATA
+          - TDG
+        reportable_quantity:
+          type: string
+        sub_risk_class:
+          type: string
+        technical_name:
+          type: string
+        transport_category:
+          description: A category that ranges from 0 to 4 in the ADR regulation set which indicates the amount of points assigned to a dangerous goods package to be in compliance with the fully regulated vehicle load exemption (ADR 1.1.3.6)
+          type: string
+          enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+        transportation_mode:
+          type: string
+          enum:
+          - Cargo Aircraft Only
+          - Ground
+          - Highway
+          - Passenger Aircraft
+        tunnel_restriction_code:
+          description: A No restriction for hazardous goods; B Prohibited for the transport of hazardous substances which could cause a very large explosion; C The same restriction as for B, plus hazardous goods which could cause a large explosion or the extensive release of toxic substances; D The same restrictions as for C plus hazardous goods which could cause a large fire; E Prohibited for the transport of all hazardous substances. There are some exceptions for certain radioactive substances, clinical waste and samples.
+          type: string
+          enum:
+          - (B)
+          - (B/D)
+          - (B/E)
+          - (C)
+          - (C/D)
+          - (C/E)
+          - (D)
+          - (D/E)
+          - (E)
+        uom:
+          type: string
+      required:
+      - commodity_regulated_level_code
+      - regulation_set
+      - transportation_mode
+    address:
+      title: Address Schema
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        name:
+          example: Jimmy McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          example: Hamlin, Hamlin & McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 100 Constitution Ave
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Albuquerque
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '87109'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: slippin-jimmy@saul-good.man
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        revision_locked_fields:
+          type: array
+        validation:
+          title: Validation status of an Address
+          properties:
+            status:
+              type: string
+              enum:
+              - unvalidated
+              - validated
+              - warning
+              - error
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  is_commercial:
+                    default: false
+                    anyOf:
+                    - type: boolean
+                    - type: 'null'
+                  street1:
+                    type: string
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  zip:
+                    type: string
+                  country_code:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                required:
+                - city
+                - state
+                - zip
+                - street1
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+          required:
+          - status
+          - additional_text
+          - suggested
+          additionalProperties: false
+          anyOf:
+          - type: object
+          - type: 'null'
+      required:
+      - name
+      - company
+      - street1
+      - street2
+      - city
+      - state
+      - zip
+      - country
+      - email
+      - phone
+    post_ups_label:
+      title: UPS Label Request Schema
+      type: object
+      additionalProperties: false
+      properties:
+        additional_handling:
+          type: boolean
+        certificate_origin:
+          default: false
+          type: boolean
+        customs_info:
+          items:
+            $ref: '#/components/schemas/customs_line'
+          type: array
+        delivery_confirmation:
+          description: '[''0'' - None, ''1'' - Confirm, ''2'' - Signature, ''3'' - Adult Signature, ''4'' - USPS for use with Mail Innovations]'
+          type: string
+        direct_delivery:
+          type: boolean
+        dry_ice_regulation_set:
+          description: indicates dry ice shipment option [CFR = For HazMat regulated by US Dept of Transportation within the U.S. or ground shipments to Canada, IATA = For Worldwide Air movement]
+          type: string
+        insurance_type:
+          type: string
+        insured_value:
+          default: 0
+          type: number
+        notify_bill_to:
+          default: false
+          type: boolean
+        notify_ship_to:
+          default: false
+          type: boolean
+        box_shape:
+          description: ups box options [01 - UPS Letter, 02 - Customer Supplied Package, 03 - Tube, 04 - PAK, 2a - Small Express Box, 2b - Medium Express Box, 2c - Large Express Box, 24 - UPS 25KG Box, 25 - UPS 10KG Box]
+          type: string
+        declared_value:
+          description: Package level declared value for UPS
+          type: number
+        description:
+          description: Package level description, required for return shipments
+          type: string
+        dry_ice_weight:
+          description: Dry ice weight in ounces, required for dry ice shipments
+          type: number
+        height:
+          description: Height in inches
+          type: number
+        length:
+          description: Length in inches
+          type: number
+        weight:
+          description: weight of the package in ounces
+          type: number
+        width:
+          description: Width in inches
+          type: number
+        packages:
+          type: array
+          maxItems: 200
+          items:
+            additionalProperties: false
+            type: object
+            properties:
+              additional_handling:
+                type: boolean
+              box_shape:
+                description: ups box options [01 - UPS Letter, 02 - Customer Supplied Package, 03 - Tube, 04 - PAK, 2a - Small Express Box, 2b - Medium Express Box, 2c - Large Express Box, 24 - UPS 25KG Box, 25 - UPS 10KG Box]
+                type: string
+              declared_value:
+                description: Package level declared value for UPS
+                type: number
+              description:
+                description: Package level description, required for return shipments
+                type: string
+              dry_ice_regulation_set:
+                description: indicates dry ice shipment option [CFR = For HazMat regulated by US Dept of Transportation within the U.S. or ground shipments to Canada, IATA = For Worldwide Air movement]
+                type: string
+              dry_ice_weight:
+                description: Dry ice weight in ounces, required for dry ice shipments
+                type: number
+              hazmat_items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/hazmat_item'
+              height:
+                description: Height in inches
+                type: number
+              length:
+                description: Length in inches
+                type: number
+              reference_number:
+                description: Package level reference, not always necessarily a number
+                type: string
+              weight:
+                description: weight of the package in ounces
+                type: number
+              width:
+                description: Width in inches
+                type: number
+            required:
+            - box_shape
+        package_bill_type:
+          description: 'required for shoptimeintransit rates: document, non-document, wwef pallet, or domestic pallet. describes the contents of the package.'
+          type: string
+          enum:
+          - '02'
+          - '03'
+          - '04'
+          - '07'
+        packing_list_id:
+          description: id for packing list for profile template associated with this label
+          type: integer
+        payment_type:
+          default: BillShipper
+          description: payor for the shipment [BillShipper, BillReceiver, BillThirdParty]
+          type: string
+        payment_account:
+          description: account number for payment type
+          type: string
+        payment_zip:
+          description: 'postal code of the payor, required for payment_type: BillThirdParty'
+          type: string
+        payment_country:
+          description: '2 character country code of the payor, required for payment_type: BillThirdParty'
+          type: string
+        duties_payment_type:
+          default: BillShipper
+          description: payor for the shipment [BillShipper, BillReceiver, BillThirdParty]
+          type: string
+        duties_payment_account:
+          description: account number for payment type
+          type: string
+        duties_payment_zip:
+          description: 'postal code of the payor, required for payment_type: BillThirdParty'
+          type: string
+        duties_payment_country:
+          description: '2 character country code of the payor, required for payment_type: BillThirdParty'
+          type: string
+        purchase_order_number:
+          description: Customs level purchase order number reference
+          type: string
+        reason_for_export:
+          type: string
+        receiver_tax_info:
+          $ref: '#/components/schemas/tax_info'
+        recipient_address_is_residential:
+          type: boolean
+        reference_number:
+          description: Customer supplied internal reference for the order
+          type: string
+        return:
+          type: boolean
+        saturday_delivery:
+          default: false
+          type: boolean
+        sender_tax_info:
+          $ref: '#/components/schemas/tax_info'
+        shipper_id:
+          type: integer
+        shipper_type:
+          type: string
+        shipping_method:
+          description: 'options: [''01'' - Next Day, ''02'' - Second Day, ''03'' - Ground, ''07'' - Worldwide Express, ''08'' - Worldwide Expedited, ''11'' - Standard, ''12'' - Three Day Select, ''13'' - Next Day Air Saver, ''14'' - Next Day AM, ''54'' - Worldwide Express Plus, ''59'' - Second Day AM, ''65'' - Saver, ''92'' - SurePost Less Than 1 lb, ''93'' - SurePost Greater Than 1lb, ''94'' - SurePost BPM, ''95'' - SurePost Media; The following service types are used with UPS Mail Innovations: ''M2'' - USPS First Class Mail, ''M3'' - USPS Priority Mail, ''M4'' - Expedited Mail Innovations, ''M5'' - Priority Mail Innovations, ''M6'' - Economy Mail Innovations]'
+          type: string
+        shipper_release:
+          type: boolean
+        shipper_return_to_address:
+          $ref: '#/components/schemas/v1_address'
+        ship_from:
+          description: The ship_from address is used as the originating address of the rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        ship_to:
+          description: The to address is used as the destination address of a return order rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        reference_id:
+          description: Identifier for a Return Order
+          type: string
+        usps_endorsement:
+          description: Required for UPS Mail Innovations shipments
+          type: string
+        warehouse_id:
+          description: Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.
+          type: integer
+        cost_center:
+          description: The Cost Center code for UPS Mail Innovations shipments
+          type: string
+          maxLength: 30
+      required:
+      - shipper_id
+      - shipping_method
+    post_easypost_label:
+      additionalProperties: false
+      properties:
+        box_shape:
+          type: string
+        customs_info:
+          items:
+            $ref: '#/components/schemas/customs_line'
+          type: array
+        delivery_confirmation:
+          type: string
+        insurance_type:
+          type: string
+        insured_value:
+          type: number
+        notify_bill_to:
+          default: false
+          type: boolean
+        notify_ship_to:
+          default: false
+          type: boolean
+        packages:
+          items:
+            additionalProperties: false
+            properties:
+              additional_handling:
+                type: boolean
+              box_shape:
+                type: string
+              height:
+                description: Height in inches
+                type: number
+              length:
+                description: Length in inches
+                type: number
+              reference_number:
+                description: Package level reference, not always necessarily a number
+                type: string
+              reference:
+                description: Package level reference, not always necessarily a number
+                type: string
+              weight:
+                description: weight of the package in ounces
+                type: number
+              width:
+                description: Width in inches
+                type: number
+            type: object
+          maxItems: 200
+          type: array
+        packing_list_id:
+          description: id for packing list for profile template associated with this label
+          type: integer
+        reason_for_export:
+          type: string
+        reference_id:
+          description: Identifier for a Return Order
+          type: string
+        reference_number:
+          description: Package level reference, not always necessarily a number
+          type: string
+        return:
+          type: boolean
+        service_token:
+          description: token for rate type received for a specific shipment, required if shipment_id is included
+          type: string
+        ship_date:
+          type: string
+        ship_from:
+          description: The ship_from address is used as the originating address of the rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        ship_to:
+          description: The to address is used as the destination address of a return order rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        shipment_id:
+          description: id of shipment created by easypost
+          type: string
+        shipper_id:
+          type: integer
+        shipping_method:
+          description: 'Service type: unused if shipment_id and service_token are present.'
+          type: string
+      required:
+      - shipper_id
+      - packages
+      title: Easypost POST Label Request Schema
+      type: object
+    v1_address:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        reference_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        _link:
+          anyOf:
+          - type: string
+          - type: 'null'
+        _linkaddresscreatedtaskstatus:
+          anyOf:
+          - type: string
+          - type: 'null'
+        validation:
+          properties:
+            is_error:
+              type: boolean
+            additional_text:
+              anyOf:
+              - type: string
+              - type: 'null'
+            suggested:
+              type: array
+              items:
+                title: Suggested Address
+                type: object
+                additionalProperties: false
+                properties:
+                  city:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  zip:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  street1:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  street2:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  is_commercial:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  state:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+                  country_code:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+          anyOf:
+          - type: object
+          - type: 'null'
     post_endicia_label:
       title: Endicia Label Request
       type: object
@@ -373,98 +1008,354 @@ components:
       required:
       - shipper_id
       - shipping_method
-    ShippingInfoResponse:
-      $ref: '#/components/schemas/shipping_info'
-    hazmat_item:
-      title: Hazmat Item Schema
+    post_dhl_label:
+      title: DHL Label Request schema
       type: object
       additionalProperties: false
       properties:
-        additional_description:
-          type: string
-        class_division_number:
-          type: string
-        commodity_regulated_level_code:
-          type: string
-          enum:
-          - EQ
-          - FR
-          - LR
-          - LQ
-        emergency_contact:
-          type: string
-        emergency_phone:
-          type: string
-        hazard_label_required:
-          type: string
-        id_number:
-          type: string
-        packaging_instruction_code:
-          type: string
-        packaging_group_type:
+        shipper_id:
+          type: integer
+        weight:
+          description: Weight in ounces
+          type: number
+        length:
+          description: Length in inches
+          type: integer
+        width:
+          description: Width in inches
+          type: integer
+        height:
+          description: Height in inches
+          type: integer
+        box_shape:
+          description: optional box type [FLY=Flyer/Smalls - pieces that are too small, thin or light to be sorted on a standard conveyor, or for which it makes sense to group pieces into larger units for sort purposes. COY=Parcels/Conveyables - pieces that can be handled onto a system, less than 31.5 kg and up to 60*60*120cm. NCY=Non-conveyables - Pieces that cannot on their own be sorted on standard conveyor. PAL=Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. DBL=Double Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. BOX=Parcels that are conveyable have the shape of a box. Up to 70kg.]
           type: string
           enum:
-          - null
-          - ''
-          - I
-          - II
-          - III
-        packaging_type:
+          - FLY
+          - COY
+          - NCY
+          - PAL
+          - DBL
+          - BOX
+        packages:
+          maxItems: 1
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              weight:
+                description: Weight in ounces
+                type: number
+              length:
+                description: Length in inches
+                type: number
+              width:
+                description: Width in inches
+                type: number
+              height:
+                description: Height in inches
+                type: number
+              declared_value:
+                description: Package Level Declared Value for Dutiable International Shipments
+                type: number
+              box_shape:
+                description: optional box type [FLY=Flyer/Smalls - pieces that are too small, thin or light to be sorted on a standard conveyor, or for which it makes sense to group pieces into larger units for sort purposes. COY=Parcels/Conveyables - pieces that can be handled onto a system, less than 31.5 kg and up to 60*60*120cm. NCY=Non-conveyables - Pieces that cannot on their own be sorted on standard conveyor. PAL=Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. DBL=Double Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. BOX=Parcels that are conveyable have the shape of a box. Up to 70kg.]
+                type: string
+                enum:
+                - FLY
+                - COY
+                - NCY
+                - PAL
+                - DBL
+                - BOX
+            required:
+            - length
+            - width
+            - height
+            - weight
+        packing_list_id:
+          description: id for packing list for profile template associated with this label
+          type: integer
+        customs_info:
+          items:
+            $ref: '#/components/schemas/customs_line'
+          type: array
+        reason_for_export:
+          description: '[P - Permanent, T - Temporary, R - Re-Export] It is required for dutiable shipment.'
           type: string
-        packaging_type_quantity:
+          default: P
+        reason_for_export_explanation:
           type: string
-        proper_shipping_name:
-          type: string
-        quantity:
-          type: string
-        regulation_set:
+        declared_value:
+          description: Shipment Level Declared Value for Dutiable International Shipments
+          type: number
+        insured_value:
+          type: number
+        insurance_type:
           type: string
           enum:
-          - ADR
-          - CFR
-          - IATA
-          - TDG
-        reportable_quantity:
+          - dhl
+        shipping_method:
+          $ref: '#/components/schemas/dhl_service_types'
+        notify_bill_to:
+          type: boolean
+          default: false
+        notify_ship_to:
+          type: boolean
+          default: false
+        ship_date:
           type: string
-        sub_risk_class:
+          format: date-time
+        pickup:
+          description: pickup date time to schedule for the carrier
           type: string
-        technical_name:
-          type: string
-        transport_category:
-          description: A category that ranges from 0 to 4 in the ADR regulation set which indicates the amount of points assigned to a dangerous goods package to be in compliance with the fully regulated vehicle load exemption (ADR 1.1.3.6)
-          type: string
-          enum:
-          - '0'
-          - '1'
-          - '2'
-          - '3'
-          - '4'
-        transportation_mode:
+          format: date-time
+        signature_service:
+          description: signature service option. Signature services are included in international shipments. Use `SX` for no signature required
           type: string
           enum:
-          - Cargo Aircraft Only
-          - Ground
-          - Highway
-          - Passenger Aircraft
-        tunnel_restriction_code:
-          description: A No restriction for hazardous goods; B Prohibited for the transport of hazardous substances which could cause a very large explosion; C The same restriction as for B, plus hazardous goods which could cause a large explosion or the extensive release of toxic substances; D The same restrictions as for C plus hazardous goods which could cause a large fire; E Prohibited for the transport of all hazardous substances. There are some exceptions for certain radioactive substances, clinical waste and samples.
+          - SX
+        nonstandard_day:
+          description: options are [AA - Saturday Delivery, AB - Saturday Pickup, AC - Holiday Delivery, AD - Holiday Pickup, AG - Domestic Saturday Delivery]
           type: string
           enum:
-          - (B)
-          - (B/D)
-          - (B/E)
-          - (C)
-          - (C/D)
-          - (C/E)
-          - (D)
-          - (D/E)
-          - (E)
-        uom:
+          - AA
+          - AB
+          - AC
+          - AD
+          - AG
+        nonstandard_contents:
+          description: options are [HB - Lithium Ion PI965 Section II, HC - Dry Ice UN1845, HD - Lithium Ion PI965-966 Section II, HE - Dangerous Goods, HG - Perishable Cargo, HH - Excepted Quantity, HI - Spill Cleaning, HK - Consumer Commodities, HL - Limited Quantities ADR, HM - Lithium Metal PI969 Section II, HN - ADR Load Exemption, HV - Lithium Ion PI967-Section II, HW - Lithium Metal PI970-Section II, HY - Biological UN3373]
           type: string
+          enum:
+          - HB
+          - HC
+          - HD
+          - HE
+          - HG
+          - HH
+          - HI
+          - HK
+          - HL
+          - HM
+          - HN
+          - HV
+          - HW
+          - HY
+        is_dutiable:
+          type: boolean
+          default: true
+        federal_tax_id:
+          description: Mandatory for domestic shipment of country code = BR
+          type: string
+          maxLength: 20
+        state_tax_id:
+          description: Mandatory for domestic shipment of country code = BR
+          type: string
+          maxLength: 20
+        duty_payment_type:
+          type: string
+          description: Duties may be paid via Shipper [S], Recipient [R], or Third Party [T]
+          default: R
+          enum:
+          - S
+          - R
+          - T
+        reference_id:
+          description: Identifier for a Return Order
+          type: string
+        reference_number:
+          type: string
+        sender_tax_info:
+          type: object
+          additionalProperties: false
+          properties:
+            tax_id_number:
+              type: string
+            tax_id_type:
+              type: string
+            tax_issuer_country:
+              type: string
+          required:
+          - tax_id_number
+          - tax_id_type
+          - tax_issuer_country
+        receiver_tax_info:
+          type: object
+          additionalProperties: false
+          properties:
+            tax_id_number:
+              type: string
+            tax_id_type:
+              type: string
+            tax_issuer_country:
+              type: string
+          required:
+          - tax_id_number
+          - tax_id_type
+          - tax_issuer_country
+        ship_from:
+          description: The ship_from address is used as the originating address of the rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        ship_to:
+          description: The to address is used as the destination address of a return order rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        return:
+          type: boolean
+          default: false
+        warehouse_id:
+          description: Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.
+          type: integer
+        shipping_payment_type:
+          type: string
+          description: Shipping may be paid via Shipper [S], Recipient [R], or Third Party [T]
+          default: S
+          enum:
+          - S
+          - R
+          - T
+        shipping_payment_account:
+          type: string
+          description: Shipment bill to account
+        duty_payment_account:
+          type: string
+          description: Duty bill to account
+        foreign_trade_regulation:
+          type: string
+          description: Foreign trade regulation code
+          enum:
+          - 30.2(d)(2)
+          - '30.36'
+          - 30.37(a)
+          - 30.37(b)
+          - 30.37(e)
+          - 30.37(f)
+          - 30.37(g)
+          - 30.37(h)
+          - 30.37(i)
+          - 30.37(k)
+          - 30.37(o)
+          - 30.37(q)
+          - 30.37(r)
+          - '30.39'
+          - 30.40(a)
+          - 30.40(b)
+          - 30.40(c)
+          - 30.40(d)
+        internal_transaction_number:
+          type: string
+          description: Internal transaction number provided by the US Customs AES System
+          minLength: 14
+          maxLength: 14
       required:
-      - commodity_regulated_level_code
-      - regulation_set
-      - transportation_mode
+      - shipper_id
+      - shipping_method
+    post_canada_post_label:
+      title: Canada Post Label Request Schema
+      type: object
+      additionalProperties: false
+      properties:
+        shipper_type:
+          description: unused with maryann carrier implementation
+          type: string
+        shipper_id:
+          type: integer
+        shipping_method:
+          description: Domestic - [DOM.RP - Regular Parcel, DOM.EP - Expedited Parcel, DOM.XP - Xpresspost, DOM.PC - Priority], USA - [USA.PW.ENV - Priority Worldwide Envelope USA, USA.PW.PAK - Priority Worldwide pak USA, USA.PW.PARCEL - Priority Worldwide Parcel USA, USA.XP - Xpresspost USA, USA.EP - Expedited Parcel USA, USA.SP.AIR - Small Packet USA Air, USA.TP - Tracked Packet - USA], International - [INT.IP.AIR - International Parcel Air, INT.IP.SURF International Parcel Surface, INT.PW.ENV - Priority Worldwide Envelope Int'l, INT.PW.PAK - Priority Worldwide pak Int'l, INT.PW.PARCEL - Priority Worldwide parcel Int'l, INT.XP - Xpresspost International, INT.SP.AIR - Small Packet International Air, INT.SP.SURF - Small Packet International Surface, INT.TP - Tracked Packet - International]
+          type: string
+        notify_bill_to:
+          type: boolean
+          default: false
+        notify_ship_to:
+          type: boolean
+          default: false
+        packages:
+          type: array
+          maxItems: 1
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              box_shape:
+                type: string
+                enum:
+                - Parcel
+                - Tube
+              length:
+                description: Length in inches
+                type: number
+              width:
+                description: Width in inches
+                type: number
+              height:
+                description: Height in inches
+                type: number
+              weight:
+                description: Currently not used, Order weight is used instead. Weight in ounces.
+                type: number
+            required:
+            - box_shape
+        packing_list_id:
+          description: id for packing list for profile template associated with this label
+          type: integer
+        reference_id:
+          description: Identifier for a Return Order
+          type: string
+        reference_number:
+          description: Customer supplied internal reference for the order
+          type: string
+        reason_for_export:
+          type: string
+          enum:
+          - SOG
+          - DOC
+          - SAM
+          - REP
+          - OTH
+        nondelivery_option:
+          type: string
+          enum:
+          - RASE
+          - RTS
+          - ABAN
+        delivery_confirmation:
+          type: string
+          enum:
+          - SO
+          - PA18
+          - PA19
+        service_option:
+          type: string
+        insurance_type:
+          type: string
+          enum:
+          - canada_post
+        insured_value:
+          type: number
+          default: 0
+        invoice_number:
+          description: 'Used for customs information: If required by customs at the destination, the commercial invoice number.'
+          type: string
+          maxLength: 10
+        customs_info:
+          type: array
+          items:
+            $ref: '#/components/schemas/customs_line'
+        ship_from:
+          description: The ship_from address is used as the originating address of the rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        ship_to:
+          description: The to address is used as the destination address of a return order rate and label request.
+          $ref: '#/components/schemas/v1_address'
+        return:
+          type: boolean
+        warehouse_id:
+          description: Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.
+          type: integer
+      required:
+      - shipper_id
+      - shipping_method
     dhl_service_types:
       title: DHL Express Global Product Code service types
       description: 'options: [0 - LOGISTICS SERVICES, 1 - DOMESTIC EXPRESS 12:00, 2 - B2C, 3 - B2C, 4 - JETLINE, 5 - SPRINTLINE, 7 - EXPRESS EASY, 8 - EXPRESS EASY, 9 - EUROPACK, A - AUTO REVERSALS, B - BREAKBULK EXPRESS, C - MEDICAL EXPRESS, D - EXPRESS WORLDWIDE, E - EXPRESS 9:00, F - FREIGHT WORLDWIDE, G - DOMESTIC ECONOMY SELECT, H - ECONOMY SELECT, I - DOMESTIC EXPRESS 9:00, J - JUMBO BOX, K - EXPRESS 9:00, L - EXPRESS 10:30, M - EXPRESS 10:30, N - DOMESTIC EXPRESS, O - DOMESTIC EXPRESS 10:30, P - EXPRESS WORLDWIDE, Q - MEDICAL EXPRESS, R - GLOBALMAIL BUSINESS, S - SAME DAY, T - EXPRESS 12:00, U - EXPRESS WORLDWIDE, V - EUROPACK, W - ECONOMY SELECT, X - EXPRESS ENVELOPE, Y - EXPRESS 12:00, Z - Destination Charges]'
@@ -505,427 +1396,20 @@ components:
       - X
       - Y
       - Z
-    post_dhl_ecommerce_label:
-      title: DHL eCommerce Label Request schema
+    tax_info:
+      title: Tax Info Schema
       type: object
       additionalProperties: false
       properties:
-        shipper_id:
-          type: integer
-        packages:
-          maxItems: 1
-          type: array
-          items:
-            type: object
-            additionalProperties: false
-            properties:
-              weight:
-                description: Weight in ounces
-                type: number
-              length:
-                description: Length in inches
-                type: number
-              width:
-                description: Width in inches
-                type: number
-              height:
-                description: Height in inches
-                type: number
-              declared_value:
-                type: number
-              description:
-                type: string
-              box_shape:
-                description: ignored
-                type: string
-            required:
-            - length
-            - width
-            - height
-            - weight
-            - description
-        packing_list_id:
-          description: id for packing list for profile template associated with this label
-          type: integer
-        dangerous_goods:
+        tax_id_number:
           type: string
-        delivery_confirmation:
-          enum:
-          - DELCON
-          - SIGCON
+        tax_id_type:
           type: string
-        service_endorsement:
-          description: 1 - Address Service Requested; 2 - Forwarding Service Requested; 3 - Change Service Requested; 4 - Return Service Requested
-          type: string
-          enum:
-          - '1'
-          - '2'
-          - '3'
-          - '4'
-        customs_info:
-          items:
-            $ref: '#/components/schemas/customs_line'
-          type: array
-        declared_value:
-          type: number
-        insured_value:
-          type: number
-        insurance_type:
-          type: string
-          enum:
-          - dhl_ecommerce
-        shipping_method:
-          type: string
-        notify_bill_to:
-          type: boolean
-          default: false
-        notify_ship_to:
-          type: boolean
-          default: false
-        reference_id:
-          description: Identifier for a Return Order (RMA)
-          type: string
-        reference_number:
-          type: string
-        ship_date:
-          type: string
-          format: date-time
-        receiver_tax_info:
-          $ref: '#/components/schemas/tax_info'
-        ship_from:
-          description: The ship_from address is used as the originating address of the rate and label request.
-          $ref: '#/components/schemas/v1_address'
-        ship_to:
-          description: The to address is used as the destination address of a return order rate and label request.
-          $ref: '#/components/schemas/v1_address'
-        return:
-          type: boolean
-          default: false
-        return_reason:
-          description: reason for return if return is true
+        tax_issuer_country:
           type: string
       required:
-      - shipper_id
-      - shipping_method
-    shipping_info:
-      title: Shipping Info Schema
-      type: object
-      properties:
-        delivery_confirmation:
-          description: delivery or signature confirmation requested to the carrier at the time of label creation. Should be of type string.
-        tracking_number:
-          anyOf:
-          - type: string
-          - type: 'null'
-        package_tracking:
-          anyOf:
-          - type: string
-          - type: 'null'
-        tracking_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-        cost:
-          type: number
-        transaction_fee:
-          type: number
-        link:
-          type: string
-        shipping_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-        display_shipping_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-        ship_date:
-          format: date-time
-          anyOf:
-          - type: string
-          - type: 'null'
-        has_label:
-          type: boolean
-        has_additional_docs:
-          type: boolean
-        created_date:
-          type: string
-        carrier_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-        carrier:
-          properties:
-            id:
-              type: integer
-            link:
-              type: string
-          anyOf:
-          - type: object
-          - type: 'null'
-        estimated_delivery_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-        box_shape:
-          anyOf:
-          - type: string
-          - type: 'null'
-        length:
-          description: 'deprecated: Length in inches, see packages'
-          anyOf:
-          - type: number
-          - type: 'null'
-        width:
-          description: 'deprecated: Width in inches, see packages'
-          anyOf:
-          - type: number
-          - type: 'null'
-        height:
-          description: 'deprecated: Height in inches, see packages'
-          anyOf:
-          - type: number
-          - type: 'null'
-        insurance:
-          description: Insurance data if Ordoro discounted Shipsurance is used
-          anyOf:
-          - type: object
-          - type: 'null'
-        insured_value:
-          description: value of the package if it was insured using Ordoro discounted Shipsurance
-          anyOf:
-          - type: number
-          - type: 'null'
-        customs_info:
-          items:
-            type: object
-            additionalProperties: false
-            properties:
-              country:
-                anyOf:
-                - type: string
-                - type: 'null'
-              description:
-                anyOf:
-                - type: string
-                - type: 'null'
-              quantity:
-                anyOf:
-                - type: integer
-                - type: 'null'
-              value:
-                description: Dollar value of customs line
-                format: double
-                anyOf:
-                - type: number
-                - type: 'null'
-              weight:
-                description: Weight of customs line in ounces
-                anyOf:
-                - type: number
-                - type: 'null'
-          anyOf:
-          - type: array
-          - type: 'null'
-        ship_from:
-          description: optionally exists if a ship_from address was used to create a label or tracking
-          $ref: '#/components/schemas/address'
-        reference_number:
-          description: reference number sent to the carrier for the shipment
-          anyOf:
-          - type: string
-          - type: 'null'
-        return_to:
-          $ref: '#/components/schemas/address'
-        ship_to:
-          description: optionally exists if a ship_to address was used to create a label or tracking
-          $ref: '#/components/schemas/address'
-        status:
-          description: tracking status if available from USPS carrier
-          anyOf:
-          - type: string
-          - type: 'null'
-        carrier_updated_date:
-          description: the last date that the carrier updated the tracking status, currently only used for USPS shipments
-          anyOf:
-          - type: string
-          - type: 'null'
-        presets:
-          type: array
-          items:
-            type: integer
-        packages:
-          items:
-            type: object
-          anyOf:
-          - type: array
-          - type: 'null'
-        packing_list_id:
-          description: id of packing list profile template used to create this label
-          anyOf:
-          - type: integer
-          - type: 'null'
-        print_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-        label_image_link:
-          anyOf:
-          - type: string
-          - type: 'null'
-        void:
-          type: boolean
-        zone:
-          anyOf:
-          - type: string
-          - type: 'null'
-    v1_address:
-      type: object
-      properties:
-        id:
-          type: number
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-        company:
-          anyOf:
-          - type: string
-          - type: 'null'
-        street1:
-          anyOf:
-          - type: string
-          - type: 'null'
-        street2:
-          anyOf:
-          - type: string
-          - type: 'null'
-        city:
-          anyOf:
-          - type: string
-          - type: 'null'
-        state:
-          anyOf:
-          - type: string
-          - type: 'null'
-        zip:
-          anyOf:
-          - type: string
-          - type: 'null'
-        country:
-          anyOf:
-          - type: string
-          - type: 'null'
-        email:
-          anyOf:
-          - type: string
-          - type: 'null'
-        phone:
-          anyOf:
-          - type: string
-          - type: 'null'
-        fax:
-          anyOf:
-          - type: string
-          - type: 'null'
-        reference_number:
-          anyOf:
-          - type: string
-          - type: 'null'
-        cart_address_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-        _link:
-          anyOf:
-          - type: string
-          - type: 'null'
-        _linkaddresscreatedtaskstatus:
-          anyOf:
-          - type: string
-          - type: 'null'
-        validation:
-          properties:
-            is_error:
-              type: boolean
-            additional_text:
-              anyOf:
-              - type: string
-              - type: 'null'
-            suggested:
-              type: array
-              items:
-                title: Suggested Address
-                type: object
-                additionalProperties: false
-                properties:
-                  city:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-                  zip:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-                  street1:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-                  street2:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-                  is_commercial:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-                  state:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-                  country_code:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-          anyOf:
-          - type: object
-          - type: 'null'
-    customs_line:
-      title: Customs Line Schema
-      type: object
-      additionalProperties: false
-      properties:
-        country:
-          type: string
-        description:
-          type: string
-        quantity:
-          type: integer
-        value:
-          description: Dollar value of customs line
-          format: double
-          type: number
-        weight:
-          description: Weight of customs line in ounces
-          type: number
-        harmonization_code:
-          description: The 6 character international nomenclature for the classification of products
-          type: string
-        sku:
-          type: string
-        unit_of_measure:
-          type: string
-        url:
-          type: string
-        harmonization_code_country:
-          description: The country of harmonization_code
-          type: string
-      required:
-      - description
-      - quantity
-      - value
-      - weight
-      - country
+      - tax_id_number
+      - tax_id_type
     post_pitney_label:
       title: Pitney Label Request Schema
       additionalProperties: false
@@ -1308,35 +1792,185 @@ components:
       required:
       - shipper_id
       - shipping_method
-    post_dhl_label:
-      title: DHL Label Request schema
+    shipping_info:
+      title: Shipping Info Schema
+      type: object
+      properties:
+        delivery_confirmation:
+          description: delivery or signature confirmation requested to the carrier at the time of label creation. Should be of type string.
+        tracking_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+        package_tracking:
+          anyOf:
+          - type: string
+          - type: 'null'
+        tracking_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cost:
+          type: number
+        transaction_fee:
+          type: number
+        link:
+          type: string
+        shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        display_shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        ship_date:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        has_label:
+          type: boolean
+        has_additional_docs:
+          type: boolean
+        created_date:
+          type: string
+        carrier_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+        carrier:
+          properties:
+            id:
+              type: integer
+            link:
+              type: string
+          anyOf:
+          - type: object
+          - type: 'null'
+        estimated_delivery_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+        box_shape:
+          anyOf:
+          - type: string
+          - type: 'null'
+        length:
+          description: 'deprecated: Length in inches, see packages'
+          anyOf:
+          - type: number
+          - type: 'null'
+        width:
+          description: 'deprecated: Width in inches, see packages'
+          anyOf:
+          - type: number
+          - type: 'null'
+        height:
+          description: 'deprecated: Height in inches, see packages'
+          anyOf:
+          - type: number
+          - type: 'null'
+        insurance:
+          description: Insurance data if Ordoro discounted Shipsurance is used
+          anyOf:
+          - type: object
+          - type: 'null'
+        insured_value:
+          description: value of the package if it was insured using Ordoro discounted Shipsurance
+          anyOf:
+          - type: number
+          - type: 'null'
+        customs_info:
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              country:
+                anyOf:
+                - type: string
+                - type: 'null'
+              description:
+                anyOf:
+                - type: string
+                - type: 'null'
+              quantity:
+                anyOf:
+                - type: integer
+                - type: 'null'
+              value:
+                description: Dollar value of customs line
+                format: double
+                anyOf:
+                - type: number
+                - type: 'null'
+              weight:
+                description: Weight of customs line in ounces
+                anyOf:
+                - type: number
+                - type: 'null'
+          anyOf:
+          - type: array
+          - type: 'null'
+        ship_from:
+          description: optionally exists if a ship_from address was used to create a label or tracking
+          $ref: '#/components/schemas/address'
+        reference_number:
+          description: reference number sent to the carrier for the shipment
+          anyOf:
+          - type: string
+          - type: 'null'
+        return_to:
+          $ref: '#/components/schemas/address'
+        ship_to:
+          description: optionally exists if a ship_to address was used to create a label or tracking
+          $ref: '#/components/schemas/address'
+        status:
+          description: tracking status if available from USPS carrier
+          anyOf:
+          - type: string
+          - type: 'null'
+        carrier_updated_date:
+          description: the last date that the carrier updated the tracking status, currently only used for USPS shipments
+          anyOf:
+          - type: string
+          - type: 'null'
+        presets:
+          type: array
+          items:
+            type: integer
+        packages:
+          items:
+            type: object
+          anyOf:
+          - type: array
+          - type: 'null'
+        packing_list_id:
+          description: id of packing list profile template used to create this label
+          anyOf:
+          - type: integer
+          - type: 'null'
+        print_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+        label_image_link:
+          anyOf:
+          - type: string
+          - type: 'null'
+        void:
+          type: boolean
+        zone:
+          anyOf:
+          - type: string
+          - type: 'null'
+    post_dhl_ecommerce_label:
+      title: DHL eCommerce Label Request schema
       type: object
       additionalProperties: false
       properties:
         shipper_id:
           type: integer
-        weight:
-          description: Weight in ounces
-          type: number
-        length:
-          description: Length in inches
-          type: integer
-        width:
-          description: Width in inches
-          type: integer
-        height:
-          description: Height in inches
-          type: integer
-        box_shape:
-          description: optional box type [FLY=Flyer/Smalls - pieces that are too small, thin or light to be sorted on a standard conveyor, or for which it makes sense to group pieces into larger units for sort purposes. COY=Parcels/Conveyables - pieces that can be handled onto a system, less than 31.5 kg and up to 60*60*120cm. NCY=Non-conveyables - Pieces that cannot on their own be sorted on standard conveyor. PAL=Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. DBL=Double Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. BOX=Parcels that are conveyable have the shape of a box. Up to 70kg.]
-          type: string
-          enum:
-          - FLY
-          - COY
-          - NCY
-          - PAL
-          - DBL
-          - BOX
         packages:
           maxItems: 1
           type: array
@@ -1357,144 +1991,66 @@ components:
                 description: Height in inches
                 type: number
               declared_value:
-                description: Package Level Declared Value for Dutiable International Shipments
                 type: number
-              box_shape:
-                description: optional box type [FLY=Flyer/Smalls - pieces that are too small, thin or light to be sorted on a standard conveyor, or for which it makes sense to group pieces into larger units for sort purposes. COY=Parcels/Conveyables - pieces that can be handled onto a system, less than 31.5 kg and up to 60*60*120cm. NCY=Non-conveyables - Pieces that cannot on their own be sorted on standard conveyor. PAL=Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. DBL=Double Pallets - large, irregular or heavy pieces, Palletized with weight upto 1000 KG. BOX=Parcels that are conveyable have the shape of a box. Up to 70kg.]
+              description:
                 type: string
-                enum:
-                - FLY
-                - COY
-                - NCY
-                - PAL
-                - DBL
-                - BOX
+              box_shape:
+                description: ignored
+                type: string
             required:
             - length
             - width
             - height
             - weight
+            - description
         packing_list_id:
           description: id for packing list for profile template associated with this label
           type: integer
+        dangerous_goods:
+          type: string
+        delivery_confirmation:
+          enum:
+          - DELCON
+          - SIGCON
+          type: string
+        service_endorsement:
+          description: 1 - Address Service Requested; 2 - Forwarding Service Requested; 3 - Change Service Requested; 4 - Return Service Requested
+          type: string
+          enum:
+          - '1'
+          - '2'
+          - '3'
+          - '4'
         customs_info:
           items:
             $ref: '#/components/schemas/customs_line'
           type: array
-        reason_for_export:
-          description: '[P - Permanent, T - Temporary, R - Re-Export] It is required for dutiable shipment.'
-          type: string
-          default: P
-        reason_for_export_explanation:
-          type: string
         declared_value:
-          description: Shipment Level Declared Value for Dutiable International Shipments
           type: number
         insured_value:
           type: number
         insurance_type:
           type: string
           enum:
-          - dhl
+          - dhl_ecommerce
         shipping_method:
-          $ref: '#/components/schemas/dhl_service_types'
+          type: string
         notify_bill_to:
           type: boolean
           default: false
         notify_ship_to:
           type: boolean
           default: false
-        ship_date:
-          type: string
-          format: date-time
-        pickup:
-          description: pickup date time to schedule for the carrier
-          type: string
-          format: date-time
-        signature_service:
-          description: signature service option. Signature services are included in international shipments. Use `SX` for no signature required
-          type: string
-          enum:
-          - SX
-        nonstandard_day:
-          description: options are [AA - Saturday Delivery, AB - Saturday Pickup, AC - Holiday Delivery, AD - Holiday Pickup, AG - Domestic Saturday Delivery]
-          type: string
-          enum:
-          - AA
-          - AB
-          - AC
-          - AD
-          - AG
-        nonstandard_contents:
-          description: options are [HB - Lithium Ion PI965 Section II, HC - Dry Ice UN1845, HD - Lithium Ion PI965-966 Section II, HE - Dangerous Goods, HG - Perishable Cargo, HH - Excepted Quantity, HI - Spill Cleaning, HK - Consumer Commodities, HL - Limited Quantities ADR, HM - Lithium Metal PI969 Section II, HN - ADR Load Exemption, HV - Lithium Ion PI967-Section II, HW - Lithium Metal PI970-Section II, HY - Biological UN3373]
-          type: string
-          enum:
-          - HB
-          - HC
-          - HD
-          - HE
-          - HG
-          - HH
-          - HI
-          - HK
-          - HL
-          - HM
-          - HN
-          - HV
-          - HW
-          - HY
-        is_dutiable:
-          type: boolean
-          default: true
-        federal_tax_id:
-          description: Mandatory for domestic shipment of country code = BR
-          type: string
-          maxLength: 20
-        state_tax_id:
-          description: Mandatory for domestic shipment of country code = BR
-          type: string
-          maxLength: 20
-        duty_payment_type:
-          type: string
-          description: Duties may be paid via Shipper [S], Recipient [R], or Third Party [T]
-          default: R
-          enum:
-          - S
-          - R
-          - T
         reference_id:
-          description: Identifier for a Return Order
+          description: Identifier for a Return Order (RMA)
           type: string
         reference_number:
           type: string
-        sender_tax_info:
-          type: object
-          additionalProperties: false
-          properties:
-            tax_id_number:
-              type: string
-            tax_id_type:
-              type: string
-            tax_issuer_country:
-              type: string
-          required:
-          - tax_id_number
-          - tax_id_type
-          - tax_issuer_country
+        ship_date:
+          type: string
+          format: date-time
         receiver_tax_info:
-          type: object
-          additionalProperties: false
-          properties:
-            tax_id_number:
-              type: string
-            tax_id_type:
-              type: string
-            tax_issuer_country:
-              type: string
-          required:
-          - tax_id_number
-          - tax_id_type
-          - tax_issuer_country
+          $ref: '#/components/schemas/tax_info'
         ship_from:
           description: The ship_from address is used as the originating address of the rate and label request.
           $ref: '#/components/schemas/v1_address'
@@ -1504,374 +2060,9 @@ components:
         return:
           type: boolean
           default: false
-        warehouse_id:
-          description: Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.
-          type: integer
-        shipping_payment_type:
+        return_reason:
+          description: reason for return if return is true
           type: string
-          description: Shipping may be paid via Shipper [S], Recipient [R], or Third Party [T]
-          default: S
-          enum:
-          - S
-          - R
-          - T
-        shipping_payment_account:
-          type: string
-          description: Shipment bill to account
-        duty_payment_account:
-          type: string
-          description: Duty bill to account
-        foreign_trade_regulation:
-          type: string
-          description: Foreign trade regulation code
-          enum:
-          - 30.2(d)(2)
-          - '30.36'
-          - 30.37(a)
-          - 30.37(b)
-          - 30.37(e)
-          - 30.37(f)
-          - 30.37(g)
-          - 30.37(h)
-          - 30.37(i)
-          - 30.37(k)
-          - 30.37(o)
-          - 30.37(q)
-          - 30.37(r)
-          - '30.39'
-          - 30.40(a)
-          - 30.40(b)
-          - 30.40(c)
-          - 30.40(d)
-        internal_transaction_number:
-          type: string
-          description: Internal transaction number provided by the US Customs AES System
-          minLength: 14
-          maxLength: 14
-      required:
-      - shipper_id
-      - shipping_method
-    post_easypost_label:
-      additionalProperties: false
-      properties:
-        box_shape:
-          type: string
-        customs_info:
-          items:
-            $ref: '#/components/schemas/customs_line'
-          type: array
-        delivery_confirmation:
-          type: string
-        insurance_type:
-          type: string
-        insured_value:
-          type: number
-        notify_bill_to:
-          default: false
-          type: boolean
-        notify_ship_to:
-          default: false
-          type: boolean
-        packages:
-          items:
-            additionalProperties: false
-            properties:
-              additional_handling:
-                type: boolean
-              box_shape:
-                type: string
-              height:
-                description: Height in inches
-                type: number
-              length:
-                description: Length in inches
-                type: number
-              reference_number:
-                description: Package level reference, not always necessarily a number
-                type: string
-              reference:
-                description: Package level reference, not always necessarily a number
-                type: string
-              weight:
-                description: weight of the package in ounces
-                type: number
-              width:
-                description: Width in inches
-                type: number
-            type: object
-          maxItems: 200
-          type: array
-        packing_list_id:
-          description: id for packing list for profile template associated with this label
-          type: integer
-        reason_for_export:
-          type: string
-        reference_id:
-          description: Identifier for a Return Order
-          type: string
-        reference_number:
-          description: Package level reference, not always necessarily a number
-          type: string
-        return:
-          type: boolean
-        service_token:
-          description: token for rate type received for a specific shipment, required if shipment_id is included
-          type: string
-        ship_date:
-          type: string
-        ship_from:
-          description: The ship_from address is used as the originating address of the rate and label request.
-          $ref: '#/components/schemas/v1_address'
-        ship_to:
-          description: The to address is used as the destination address of a return order rate and label request.
-          $ref: '#/components/schemas/v1_address'
-        shipment_id:
-          description: id of shipment created by easypost
-          type: string
-        shipper_id:
-          type: integer
-        shipping_method:
-          description: 'Service type: unused if shipment_id and service_token are present.'
-          type: string
-      required:
-      - shipper_id
-      - packages
-      title: Easypost POST Label Request Schema
-      type: object
-    address:
-      title: Address Schema
-      type: object
-      additionalProperties: false
-      properties:
-        id:
-          type: integer
-        name:
-          example: Jimmy McGill
-          anyOf:
-          - type: string
-          - type: 'null'
-        company:
-          example: Hamlin, Hamlin & McGill
-          anyOf:
-          - type: string
-          - type: 'null'
-        street1:
-          example: 100 Constitution Ave
-          anyOf:
-          - type: string
-          - type: 'null'
-        street2:
-          anyOf:
-          - type: string
-          - type: 'null'
-        city:
-          example: Albuquerque
-          anyOf:
-          - type: string
-          - type: 'null'
-        state:
-          example: NM
-          anyOf:
-          - type: string
-          - type: 'null'
-        zip:
-          example: '87109'
-          anyOf:
-          - type: string
-          - type: 'null'
-        country:
-          example: US
-          anyOf:
-          - type: string
-          - type: 'null'
-        email:
-          example: slippin-jimmy@saul-good.man
-          anyOf:
-          - type: string
-          - type: 'null'
-        phone:
-          example: 555-867-5309
-          anyOf:
-          - type: string
-          - type: 'null'
-        fax:
-          anyOf:
-          - type: string
-          - type: 'null'
-        cart_address_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-        revision_locked_fields:
-          type: array
-        validation:
-          title: Validation status of an Address
-          properties:
-            status:
-              type: string
-              enum:
-              - unvalidated
-              - validated
-              - warning
-              - error
-            suggested:
-              type: array
-              items:
-                title: Suggested Address
-                type: object
-                additionalProperties: false
-                properties:
-                  is_commercial:
-                    default: false
-                    anyOf:
-                    - type: boolean
-                    - type: 'null'
-                  street1:
-                    type: string
-                  street2:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-                  city:
-                    type: string
-                  state:
-                    type: string
-                  zip:
-                    type: string
-                  country_code:
-                    anyOf:
-                    - type: string
-                    - type: 'null'
-                required:
-                - city
-                - state
-                - zip
-                - street1
-            additional_text:
-              anyOf:
-              - type: string
-              - type: 'null'
-          required:
-          - status
-          - additional_text
-          - suggested
-          additionalProperties: false
-          anyOf:
-          - type: object
-          - type: 'null'
-      required:
-      - name
-      - company
-      - street1
-      - street2
-      - city
-      - state
-      - zip
-      - country
-      - email
-      - phone
-    post_canada_post_label:
-      title: Canada Post Label Request Schema
-      type: object
-      additionalProperties: false
-      properties:
-        shipper_type:
-          description: unused with maryann carrier implementation
-          type: string
-        shipper_id:
-          type: integer
-        shipping_method:
-          description: Domestic - [DOM.RP - Regular Parcel, DOM.EP - Expedited Parcel, DOM.XP - Xpresspost, DOM.PC - Priority], USA - [USA.PW.ENV - Priority Worldwide Envelope USA, USA.PW.PAK - Priority Worldwide pak USA, USA.PW.PARCEL - Priority Worldwide Parcel USA, USA.XP - Xpresspost USA, USA.EP - Expedited Parcel USA, USA.SP.AIR - Small Packet USA Air, USA.TP - Tracked Packet - USA], International - [INT.IP.AIR - International Parcel Air, INT.IP.SURF International Parcel Surface, INT.PW.ENV - Priority Worldwide Envelope Int'l, INT.PW.PAK - Priority Worldwide pak Int'l, INT.PW.PARCEL - Priority Worldwide parcel Int'l, INT.XP - Xpresspost International, INT.SP.AIR - Small Packet International Air, INT.SP.SURF - Small Packet International Surface, INT.TP - Tracked Packet - International]
-          type: string
-        notify_bill_to:
-          type: boolean
-          default: false
-        notify_ship_to:
-          type: boolean
-          default: false
-        packages:
-          type: array
-          maxItems: 1
-          items:
-            type: object
-            additionalProperties: false
-            properties:
-              box_shape:
-                type: string
-                enum:
-                - Parcel
-                - Tube
-              length:
-                description: Length in inches
-                type: number
-              width:
-                description: Width in inches
-                type: number
-              height:
-                description: Height in inches
-                type: number
-              weight:
-                description: Currently not used, Order weight is used instead. Weight in ounces.
-                type: number
-            required:
-            - box_shape
-        packing_list_id:
-          description: id for packing list for profile template associated with this label
-          type: integer
-        reference_id:
-          description: Identifier for a Return Order
-          type: string
-        reference_number:
-          description: Customer supplied internal reference for the order
-          type: string
-        reason_for_export:
-          type: string
-          enum:
-          - SOG
-          - DOC
-          - SAM
-          - REP
-          - OTH
-        nondelivery_option:
-          type: string
-          enum:
-          - RASE
-          - RTS
-          - ABAN
-        delivery_confirmation:
-          type: string
-          enum:
-          - SO
-          - PA18
-          - PA19
-        service_option:
-          type: string
-        insurance_type:
-          type: string
-          enum:
-          - canada_post
-        insured_value:
-          type: number
-          default: 0
-        invoice_number:
-          description: 'Used for customs information: If required by customs at the destination, the commercial invoice number.'
-          type: string
-          maxLength: 10
-        customs_info:
-          type: array
-          items:
-            $ref: '#/components/schemas/customs_line'
-        ship_from:
-          description: The ship_from address is used as the originating address of the rate and label request.
-          $ref: '#/components/schemas/v1_address'
-        ship_to:
-          description: The to address is used as the destination address of a return order rate and label request.
-          $ref: '#/components/schemas/v1_address'
-        return:
-          type: boolean
-        warehouse_id:
-          description: Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.
-          type: integer
       required:
       - shipper_id
       - shipping_method
@@ -1894,197 +2085,6 @@ components:
       - EMI
       - PMI
       - UGA
-    post_ups_label:
-      title: UPS Label Request Schema
-      type: object
-      additionalProperties: false
-      properties:
-        additional_handling:
-          type: boolean
-        certificate_origin:
-          default: false
-          type: boolean
-        customs_info:
-          items:
-            $ref: '#/components/schemas/customs_line'
-          type: array
-        delivery_confirmation:
-          description: '[''0'' - None, ''1'' - Confirm, ''2'' - Signature, ''3'' - Adult Signature, ''4'' - USPS for use with Mail Innovations]'
-          type: string
-        direct_delivery:
-          type: boolean
-        dry_ice_regulation_set:
-          description: indicates dry ice shipment option [CFR = For HazMat regulated by US Dept of Transportation within the U.S. or ground shipments to Canada, IATA = For Worldwide Air movement]
-          type: string
-        insurance_type:
-          type: string
-        insured_value:
-          default: 0
-          type: number
-        notify_bill_to:
-          default: false
-          type: boolean
-        notify_ship_to:
-          default: false
-          type: boolean
-        box_shape:
-          description: ups box options [01 - UPS Letter, 02 - Customer Supplied Package, 03 - Tube, 04 - PAK, 2a - Small Express Box, 2b - Medium Express Box, 2c - Large Express Box, 24 - UPS 25KG Box, 25 - UPS 10KG Box]
-          type: string
-        declared_value:
-          description: Package level declared value for UPS
-          type: number
-        description:
-          description: Package level description, required for return shipments
-          type: string
-        dry_ice_weight:
-          description: Dry ice weight in ounces, required for dry ice shipments
-          type: number
-        height:
-          description: Height in inches
-          type: number
-        length:
-          description: Length in inches
-          type: number
-        weight:
-          description: weight of the package in ounces
-          type: number
-        width:
-          description: Width in inches
-          type: number
-        packages:
-          type: array
-          maxItems: 200
-          items:
-            additionalProperties: false
-            type: object
-            properties:
-              additional_handling:
-                type: boolean
-              box_shape:
-                description: ups box options [01 - UPS Letter, 02 - Customer Supplied Package, 03 - Tube, 04 - PAK, 2a - Small Express Box, 2b - Medium Express Box, 2c - Large Express Box, 24 - UPS 25KG Box, 25 - UPS 10KG Box]
-                type: string
-              declared_value:
-                description: Package level declared value for UPS
-                type: number
-              description:
-                description: Package level description, required for return shipments
-                type: string
-              dry_ice_regulation_set:
-                description: indicates dry ice shipment option [CFR = For HazMat regulated by US Dept of Transportation within the U.S. or ground shipments to Canada, IATA = For Worldwide Air movement]
-                type: string
-              dry_ice_weight:
-                description: Dry ice weight in ounces, required for dry ice shipments
-                type: number
-              hazmat_items:
-                type: array
-                items:
-                  $ref: '#/components/schemas/hazmat_item'
-              height:
-                description: Height in inches
-                type: number
-              length:
-                description: Length in inches
-                type: number
-              reference_number:
-                description: Package level reference, not always necessarily a number
-                type: string
-              weight:
-                description: weight of the package in ounces
-                type: number
-              width:
-                description: Width in inches
-                type: number
-            required:
-            - box_shape
-        package_bill_type:
-          description: 'required for shoptimeintransit rates: document, non-document, wwef pallet, or domestic pallet. describes the contents of the package.'
-          type: string
-          enum:
-          - '02'
-          - '03'
-          - '04'
-          - '07'
-        packing_list_id:
-          description: id for packing list for profile template associated with this label
-          type: integer
-        payment_type:
-          default: BillShipper
-          description: payor for the shipment [BillShipper, BillReceiver, BillThirdParty]
-          type: string
-        payment_account:
-          description: account number for payment type
-          type: string
-        payment_zip:
-          description: 'postal code of the payor, required for payment_type: BillThirdParty'
-          type: string
-        payment_country:
-          description: '2 character country code of the payor, required for payment_type: BillThirdParty'
-          type: string
-        duties_payment_type:
-          default: BillShipper
-          description: payor for the shipment [BillShipper, BillReceiver, BillThirdParty]
-          type: string
-        duties_payment_account:
-          description: account number for payment type
-          type: string
-        duties_payment_zip:
-          description: 'postal code of the payor, required for payment_type: BillThirdParty'
-          type: string
-        duties_payment_country:
-          description: '2 character country code of the payor, required for payment_type: BillThirdParty'
-          type: string
-        purchase_order_number:
-          description: Customs level purchase order number reference
-          type: string
-        reason_for_export:
-          type: string
-        receiver_tax_info:
-          $ref: '#/components/schemas/tax_info'
-        recipient_address_is_residential:
-          type: boolean
-        reference_number:
-          description: Customer supplied internal reference for the order
-          type: string
-        return:
-          type: boolean
-        saturday_delivery:
-          default: false
-          type: boolean
-        sender_tax_info:
-          $ref: '#/components/schemas/tax_info'
-        shipper_id:
-          type: integer
-        shipper_type:
-          type: string
-        shipping_method:
-          description: 'options: [''01'' - Next Day, ''02'' - Second Day, ''03'' - Ground, ''07'' - Worldwide Express, ''08'' - Worldwide Expedited, ''11'' - Standard, ''12'' - Three Day Select, ''13'' - Next Day Air Saver, ''14'' - Next Day AM, ''54'' - Worldwide Express Plus, ''59'' - Second Day AM, ''65'' - Saver, ''92'' - SurePost Less Than 1 lb, ''93'' - SurePost Greater Than 1lb, ''94'' - SurePost BPM, ''95'' - SurePost Media; The following service types are used with UPS Mail Innovations: ''M2'' - USPS First Class Mail, ''M3'' - USPS Priority Mail, ''M4'' - Expedited Mail Innovations, ''M5'' - Priority Mail Innovations, ''M6'' - Economy Mail Innovations]'
-          type: string
-        shipper_release:
-          type: boolean
-        shipper_return_to_address:
-          $ref: '#/components/schemas/v1_address'
-        ship_from:
-          description: The ship_from address is used as the originating address of the rate and label request.
-          $ref: '#/components/schemas/v1_address'
-        ship_to:
-          description: The to address is used as the destination address of a return order rate and label request.
-          $ref: '#/components/schemas/v1_address'
-        reference_id:
-          description: Identifier for a Return Order
-          type: string
-        usps_endorsement:
-          description: Required for UPS Mail Innovations shipments
-          type: string
-        warehouse_id:
-          description: Currently ignored. Previously used for updating a warehouse for the ship_from address on an order.
-          type: integer
-        cost_center:
-          description: The Cost Center code for UPS Mail Innovations shipments
-          type: string
-          maxLength: 30
-      required:
-      - shipper_id
-      - shipping_method
   parameters:
     orderNumberPath:
       description: Unique identifier for an Order that includes a cart index prefix

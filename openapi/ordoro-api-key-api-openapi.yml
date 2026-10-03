@@ -155,6 +155,15 @@ components:
       - limit
       - offset
       - api_key
+    post_api_key:
+      title: Create API Key
+      type: object
+      properties:
+        name:
+          type: string
+      additionalProperties: false
+      required:
+      - name
     api_key:
       title: API Key Schema
       type: object
@@ -189,12 +198,3 @@ components:
       - updated
       - company_id
       - user_id
-    post_api_key:
-      title: Create API Key
-      type: object
-      properties:
-        name:
-          type: string
-      additionalProperties: false
-      required:
-      - name

@@ -144,32 +144,9 @@ paths:
               - $ref: '#/components/schemas/put_integration_stripe'
       deprecated: false
 components:
-  parameters:
-    offsetParam:
-      in: query
-      name: offset
-      required: false
-      description: ''
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    limitParam:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
-    searchParam:
-      name: search
-      in: query
-      description: ''
-      schema:
-        type: string
   schemas:
+    IntegrationStripeNewRequest:
+      $ref: '#/components/schemas/post_integration_stripe'
     post_integration_stripe:
       title: Stripe Integration
       type: object
@@ -177,6 +154,29 @@ components:
       allOf:
       - $ref: '#/components/schemas/post_integration_base'
       - $ref: '#/components/schemas/integration_stripe_vendor_config'
+    integration_stripe_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/integration_stripe_vendor_config'
+    put_integration_quickbooks:
+      title: Update QuickBooks Integration
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_integration_base'
+      - $ref: '#/components/schemas/integration_quickbooks_vendor_config'
+    vendor:
+      title: vendor
+      enum:
+      - quickbooks
+      - stripe
+      type: string
+    any_of_integration_type:
+      anyOf:
+      - $ref: '#/components/schemas/integration_quickbooks-2'
+      - $ref: '#/components/schemas/integration_stripe-2'
     integration_quickbooks:
       title: QuickBooks Integration Schema
       type: object
@@ -201,12 +201,14 @@ components:
           vendor_config:
             $ref: '#/components/schemas/integration_quickbooks_vendor_config'
       - $ref: '#/components/schemas/integration_base'
-    vendor:
-      title: vendor
-      enum:
-      - quickbooks
-      - stripe
-      type: string
+    integration_quickbooks_definitions-required_in_response:
+      allOf:
+      - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
+      - properties:
+          vendor_config:
+            $ref: '#/components/schemas/integration_quickbooks_vendor_config'
+    IntegrationQuickBooksNewRequest:
+      $ref: '#/components/schemas/post_integration_quickbooks'
     integration_stripe_vendor_config:
       type: object
       properties:
@@ -217,6 +219,66 @@ components:
       required:
       - stripe_user_id
       - refresh_token
+    put_integration_stripe:
+      title: Update Stripe Integration
+      type: object
+      additionalProperties: false
+      allOf:
+      - $ref: '#/components/schemas/put_integration_base'
+      - $ref: '#/components/schemas/integration_stripe_vendor_config'
+    type:
+      title: type
+      enum:
+      - financial
+      - payment
+      type: string
+    integration_quickbooks_vendor_config:
+      type: object
+      properties:
+        access_token:
+          type: string
+        access_token_expiration:
+          type: string
+        refresh_token:
+          type: string
+        realm_id:
+          type: string
+        refresh_token_expiration:
+          type: string
+      required:
+      - access_token
+      - access_token_expiration
+      - refresh_token
+      - refresh_token_expiration
+      - realm_id
+    integration_stripe-2:
+      title: Stripe Integration
+      allOf:
+      - $ref: '#/components/schemas/integration_stripe'
+      - $ref: '#/components/schemas/integration_stripe_definitions-required_in_response'
+    integration_quickbooks-2:
+      title: QuickBooks Integration
+      allOf:
+      - $ref: '#/components/schemas/integration_quickbooks'
+      - $ref: '#/components/schemas/integration_quickbooks_definitions-required_in_response'
+    one_of_integration_type:
+      oneOf:
+      - $ref: '#/components/schemas/integration_quickbooks-2'
+      - $ref: '#/components/schemas/integration_stripe-2'
+    post_integration_base:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          description: A unique name for the integration
+          type: string
+        vendor:
+          description: The type of integration.
+          type: string
+          enum:
+          - quickbooks
+      required:
+      - vendor
     integration_base_definitions-required_in_response:
       required:
       - name
@@ -226,6 +288,25 @@ components:
       - id
       - archived_date
       - vendor_config
+    integration_list:
+      type: object
+      title: Integration list schema
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        count:
+          type: integer
+        integration:
+          type: array
+          items:
+            $ref: '#/components/schemas/any_of_integration_type'
+      required:
+      - limit
+      - offset
+      - count
+      - order
     integration_stripe:
       title: Stripe Integration Schema
       type: object
@@ -250,19 +331,16 @@ components:
           vendor_config:
             $ref: '#/components/schemas/integration_stripe_vendor_config'
       - $ref: '#/components/schemas/integration_base'
-    put_integration_stripe:
-      title: Update Stripe Integration
+    put_integration_base:
       type: object
       additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/put_integration_base'
-      - $ref: '#/components/schemas/integration_stripe_vendor_config'
-    integration_stripe_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/integration_stripe_vendor_config'
+      properties:
+        name:
+          description: The display name of this cart.
+          type: string
+        archived_date:
+          description: date of the integration to be archived
+          type: string
     integration_base:
       title: Integration Base Schema
       type: object
@@ -306,21 +384,6 @@ components:
         vendor_config:
           type: object
           description: Vendor-specific configuration information.
-    any_of_integration_type:
-      anyOf:
-      - $ref: '#/components/schemas/integration_quickbooks-2'
-      - $ref: '#/components/schemas/integration_stripe-2'
-    IntegrationQuickBooksNewRequest:
-      $ref: '#/components/schemas/post_integration_quickbooks'
-    one_of_integration_type:
-      oneOf:
-      - $ref: '#/components/schemas/integration_quickbooks-2'
-      - $ref: '#/components/schemas/integration_stripe-2'
-    integration_quickbooks-2:
-      title: QuickBooks Integration
-      allOf:
-      - $ref: '#/components/schemas/integration_quickbooks'
-      - $ref: '#/components/schemas/integration_quickbooks_definitions-required_in_response'
     post_integration_quickbooks:
       title: QuickBooks Integration
       type: object
@@ -328,91 +391,28 @@ components:
       allOf:
       - $ref: '#/components/schemas/post_integration_base'
       - $ref: '#/components/schemas/integration_quickbooks_vendor_config'
-    integration_quickbooks_vendor_config:
-      type: object
-      properties:
-        access_token:
-          type: string
-        access_token_expiration:
-          type: string
-        refresh_token:
-          type: string
-        realm_id:
-          type: string
-        refresh_token_expiration:
-          type: string
-      required:
-      - access_token
-      - access_token_expiration
-      - refresh_token
-      - refresh_token_expiration
-      - realm_id
-    integration_list:
-      type: object
-      title: Integration list schema
-      properties:
-        limit:
-          type: integer
-        offset:
-          type: integer
-        count:
-          type: integer
-        integration:
-          type: array
-          items:
-            $ref: '#/components/schemas/any_of_integration_type'
-      required:
-      - limit
-      - offset
-      - count
-      - order
-    put_integration_base:
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          description: The display name of this cart.
-          type: string
-        archived_date:
-          description: date of the integration to be archived
-          type: string
-    IntegrationStripeNewRequest:
-      $ref: '#/components/schemas/post_integration_stripe'
-    type:
-      title: type
-      enum:
-      - financial
-      - payment
-      type: string
-    integration_stripe-2:
-      title: Stripe Integration
-      allOf:
-      - $ref: '#/components/schemas/integration_stripe'
-      - $ref: '#/components/schemas/integration_stripe_definitions-required_in_response'
-    put_integration_quickbooks:
-      title: Update QuickBooks Integration
-      type: object
-      additionalProperties: false
-      allOf:
-      - $ref: '#/components/schemas/put_integration_base'
-      - $ref: '#/components/schemas/integration_quickbooks_vendor_config'
-    integration_quickbooks_definitions-required_in_response:
-      allOf:
-      - $ref: '#/components/schemas/integration_base_definitions-required_in_response'
-      - properties:
-          vendor_config:
-            $ref: '#/components/schemas/integration_quickbooks_vendor_config'
-    post_integration_base:
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          description: A unique name for the integration
-          type: string
-        vendor:
-          description: The type of integration.
-          type: string
-          enum:
-          - quickbooks
-      required:
-      - vendor
+  parameters:
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0

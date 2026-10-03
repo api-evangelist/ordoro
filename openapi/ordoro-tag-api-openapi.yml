@@ -180,6 +180,73 @@ paths:
         '200':
           description: response OK
 components:
+  schemas:
+    tag:
+      title: Tag Schema
+      type: object
+      properties:
+        color:
+          type: string
+        text:
+          type: string
+        name:
+          type: string
+        link:
+          type: string
+        id:
+          type: integer
+      required:
+      - color
+      - text
+      - link
+      - id
+    tag_list:
+      title: Tag List Schema
+      type: object
+      properties:
+        count:
+          type: integer
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/tag'
+        limit:
+          type: integer
+          default: 10
+        offset:
+          type: integer
+          default: 0
+      required:
+      - count
+      - tag
+      - limit
+      - offset
+    put_tag:
+      title: Update Tag Schema
+      type: object
+      properties:
+        color:
+          type: string
+        text:
+          type: string
+      additionalProperties: false
+    tags:
+      title: Post Order Tag Response
+      type: array
+      items:
+        $ref: '#/components/schemas/tag'
+    post_tag:
+      title: Create Tag Schema
+      type: object
+      properties:
+        color:
+          type: string
+        text:
+          type: string
+      additionalProperties: false
+      required:
+      - color
+      - text
   parameters:
     orderNumberPath:
       description: Unique identifier for an Order that includes a cart index prefix
@@ -206,70 +273,3 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-  schemas:
-    tags:
-      title: Post Order Tag Response
-      type: array
-      items:
-        $ref: '#/components/schemas/tag'
-    tag_list:
-      title: Tag List Schema
-      type: object
-      properties:
-        count:
-          type: integer
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/tag'
-        limit:
-          type: integer
-          default: 10
-        offset:
-          type: integer
-          default: 0
-      required:
-      - count
-      - tag
-      - limit
-      - offset
-    tag:
-      title: Tag Schema
-      type: object
-      properties:
-        color:
-          type: string
-        text:
-          type: string
-        name:
-          type: string
-        link:
-          type: string
-        id:
-          type: integer
-      required:
-      - color
-      - text
-      - link
-      - id
-    put_tag:
-      title: Update Tag Schema
-      type: object
-      properties:
-        color:
-          type: string
-        text:
-          type: string
-      additionalProperties: false
-    post_tag:
-      title: Create Tag Schema
-      type: object
-      properties:
-        color:
-          type: string
-        text:
-          type: string
-      additionalProperties: false
-      required:
-      - color
-      - text

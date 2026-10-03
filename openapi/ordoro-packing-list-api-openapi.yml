@@ -144,53 +144,18 @@ paths:
                 $ref: '#/components/schemas/packing_list'
       deprecated: false
 components:
-  parameters:
-    offsetParam:
-      in: query
-      name: offset
-      required: false
-      description: ''
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    limitParam:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
-    packingListIDPath:
-      name: packing_list_id
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
-    searchParam:
-      name: search
-      in: query
-      description: ''
-      schema:
-        type: string
   schemas:
-    packing_list:
-      title: Packing List Schema
+    post_packing_list:
+      title: Put Packing List Schema
       type: object
       additionalProperties: false
       properties:
-        id:
-          type: integer
-        company_id:
-          type: integer
         name:
           type: string
-        is_default:
-          type: boolean
+        branded_tracking:
+          anyOf:
+          - type: object
+          - type: 'null'
         custom_text:
           type: string
         email:
@@ -201,8 +166,6 @@ components:
           type: string
         footer:
           type: string
-        logo_hash:
-          type: string
         return_email_subject:
           type: string
         return_email_content:
@@ -211,36 +174,19 @@ components:
           type: string
         customer_notes_label:
           type: string
-        archived_date:
+        is_default:
+          type: boolean
+        logo_hash:
           type: string
-        created:
-          type: string
-          format: date-time
-        updated:
-          type: string
-          format: date-time
-        _linklogo:
-          type: string
-        _link:
-          type: string
-    packing_list_list:
-      type: object
-      properties:
-        limit:
-          type: integer
-        offset:
-          type: integer
-        count:
-          type: integer
-        packing_list:
-          type: array
-          items:
-            $ref: '#/components/schemas/packing_list'
+        logo:
+          type: object
+          properties:
+            data:
+              type: string
+            mime_type:
+              type: string
       required:
-      - limit
-      - offset
-      - count
-      - packing_list
+      - name
     put_packing_list:
       title: Put Packing List Schema
       type: object
@@ -316,17 +262,37 @@ components:
           required:
           - data
           - mime_type
-    post_packing_list:
-      title: Put Packing List Schema
+    packing_list_list:
+      type: object
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        count:
+          type: integer
+        packing_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/packing_list'
+      required:
+      - limit
+      - offset
+      - count
+      - packing_list
+    packing_list:
+      title: Packing List Schema
       type: object
       additionalProperties: false
       properties:
+        id:
+          type: integer
+        company_id:
+          type: integer
         name:
           type: string
-        branded_tracking:
-          anyOf:
-          - type: object
-          - type: 'null'
+        is_default:
+          type: boolean
         custom_text:
           type: string
         email:
@@ -337,6 +303,8 @@ components:
           type: string
         footer:
           type: string
+        logo_hash:
+          type: string
         return_email_subject:
           type: string
         return_email_content:
@@ -345,16 +313,48 @@ components:
           type: string
         customer_notes_label:
           type: string
-        is_default:
-          type: boolean
-        logo_hash:
+        archived_date:
           type: string
-        logo:
-          type: object
-          properties:
-            data:
-              type: string
-            mime_type:
-              type: string
-      required:
-      - name
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        _linklogo:
+          type: string
+        _link:
+          type: string
+  parameters:
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
+    packingListIDPath:
+      name: packing_list_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10

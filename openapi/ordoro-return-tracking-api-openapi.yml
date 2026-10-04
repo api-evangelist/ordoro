@@ -89,6 +89,15 @@ paths:
       deprecated: false
 components:
   parameters:
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
     searchParam:
       name: search
       in: query
@@ -104,12 +113,3 @@ components:
         type: integer
         default: 0
         minimum: 0
-    limitParam:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10

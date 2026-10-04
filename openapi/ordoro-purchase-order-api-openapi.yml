@@ -596,29 +596,84 @@ paths:
                 $ref: '#/components/schemas/purchase_order'
 components:
   schemas:
-    post_v3_tag:
-      title: Create a Tag
+    goods_receipt:
+      title: Goods Receipt Schema
       type: object
       additionalProperties: false
       properties:
+        status:
+          type: string
+        po_id:
+          type: string
+        po_status:
+          type: string
+        goods_receipt_id:
+          type: string
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        received:
+          type: string
+          format: date-time
+        _link:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              po_item_id:
+                type: string
+              quantity:
+                type: integer
+              _link:
+                type: string
+              product:
+                $ref: '#/components/schemas/product_base'
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/comment'
+    post_purchase_order_item:
+      title: Create a Purchase Order Item
+      type: object
+      additionalProperties: false
+      properties:
+        sku:
+          type: string
+        quantity:
+          type: integer
+        unit_price:
+          type: number
+        discount_amount:
+          type: number
+      required:
+      - sku
+    v3_tag:
+      title: V3 Tag Schema
+      type: object
+      properties:
+        id:
+          type: integer
         name:
           type: string
         color:
           type: string
       required:
+      - id
       - name
       - color
-    comment:
-      title: Comment Schema
-      type: object
+    post_purchase_order_goods_receipt:
+      title: Create Purchase Order Goods Receipt
       additionalProperties: false
+      type: object
       properties:
-        user:
-          type: string
-        date:
-          type: string
-          format: date-time
-        text:
+        goods_receipt_id:
           type: string
     supplier:
       additionalProperties: false
@@ -685,204 +740,43 @@ components:
       - vendor_config
       title: Supplier Schema
       type: object
-    post_buy_more:
-      title: Buy More Products Request Schema
-      type: object
-      additionalProperties: false
-      properties:
-        warehouse:
-          type: integer
-        quantity:
-          type: integer
-        unit_price:
-          type: number
-        discount_amount:
-          type: number
-        po_id:
-          type: string
-      required:
-      - warehouse
-      - quantity
-    put_purchase_order:
-      title: Update a Purchase Order
-      type: object
-      additionalProperties: false
-      properties:
-        warehouse:
-          type: string
-        supplier:
-          type: string
-        po_id:
-          type: string
-        shipping_method:
-          type: string
-        instructions:
-          type: string
-        sent:
-          type: string
-          format: date-time
-        estimated_delivery_date:
-          type: string
-          format: date-time
-        payment_method:
-          type: string
-        discount_amount:
-          type: number
-        shipping_amount:
-          type: number
-        tax_amount:
-          type: number
-    put_purchase_order_item:
-      title: Update a Purchase Order Item
-      type: object
-      additionalProperties: false
-      properties:
-        quantity:
-          type: integer
-        unit_price:
-          type: number
-        discount_amount:
-          type: number
-    post_purchase_order:
-      title: Buy More Products Request Schema
-      type: object
-      additionalProperties: false
-      properties:
-        supplier_id:
-          type: integer
-        warehouse_id:
-          type: integer
-        po_id:
-          type: string
-        shipping_method:
-          type: string
-        payment_method:
-          type: string
-        instructions:
-          type: string
-        estimated_delivery_date:
-          type: string
-        shipping_amount:
-          type: number
-        tax_amount:
-          type: number
-        discount_amount:
-          type: number
-        items:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/purchase_order_item'
-      required:
-      - supplier_id
-    post_purchase_order_item:
-      title: Create a Purchase Order Item
-      type: object
-      additionalProperties: false
-      properties:
-        sku:
-          type: string
-        quantity:
-          type: integer
-        unit_price:
-          type: number
-        discount_amount:
-          type: number
-      required:
-      - sku
-    post_purchase_order_goods_receipt:
-      title: Create Purchase Order Goods Receipt
-      additionalProperties: false
-      type: object
-      properties:
-        goods_receipt_id:
-          type: string
-    supplier_shipping_method_map:
-      title: Supplier shipping method map
-      type: object
-      additionalProperties: false
-      properties:
-        active:
-          description: Toggle to enable use of this shipping method map
-          type: boolean
-        created:
-          description: The date this was created
-          type: string
-        id:
-          description: internal reference identifier for the supplier shipping method map
-          type: integer
-        requested_shipping_method:
-          default: ''
-          description: User defined requested shipping method on an Order to be mapped to a determinate shipping method
-          anyOf:
-          - type: string
-          - type: 'null'
-        mapped_shipping_method:
-          description: 'FBA defined shipping methods will only be one of the following: [''Expedited'', ''Priority'', ''Standard'']. All others can be freeform to suit the supplier'
-          type: string
-        mapped_shipping_account:
-          anyOf:
-          - type: string
-          - type: 'null'
-        mapped_shipping_carrier:
-          anyOf:
-          - type: string
-          - type: 'null'
-        supplier_id:
-          description: Integer indicating the supplier for which this mapping is tied.
-          type: integer
-        updated:
-          description: The latest updated date
-          type: string
-      required:
-      - active
-      - created
-      - id
-      - requested_shipping_method
-      - mapped_shipping_method
-      - mapped_shipping_account
-      - mapped_shipping_carrier
-      - supplier_id
-      - updated
-    purchase_order_list:
-      title: Purchase Order List Response schema
-      type: object
-      properties:
-        limit:
-          type: integer
-          example: 1
-        offset:
-          type: integer
-          example: 0
-        count:
-          type: integer
-          example: 46
-        purchase_order:
-          type: array
-          items:
-            $ref: '#/components/schemas/purchase_order'
-    goods_receipt:
-      title: Goods Receipt Schema
+    purchase_order:
+      title: Purchase Order Schema
       type: object
       additionalProperties: false
       properties:
         status:
           type: string
+        company_id:
+          type: integer
         po_id:
           type: string
-        po_status:
+        shipping_method:
           type: string
-        goods_receipt_id:
+        payment_method:
           type: string
+        instructions:
+          type: string
+        sent:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        estimated_delivery_date:
+          type: string
+          format: date-time
         created:
           type: string
           format: date-time
         updated:
           type: string
           format: date-time
-        received:
-          type: string
-          format: date-time
+        shipping_amount:
+          type: number
+        tax_amount:
+          type: number
+        discount_amount:
+          type: number
         _link:
           type: string
         items:
@@ -892,230 +786,58 @@ components:
             properties:
               id:
                 type: integer
-              po_item_id:
-                type: string
               quantity:
                 type: integer
+              unit_price:
+                type: number
+              discount_amount:
+                type: number
               _link:
                 type: string
               product:
-                $ref: '#/components/schemas/product_base'
+                allOf:
+                - $ref: '#/components/schemas/product_base'
+                - properties:
+                    supplier:
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        sku:
+                          type: string
+                        price:
+                          type: number
+                        unit_price:
+                          type: number
+                    warehouse:
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        location_in_warehouse:
+                          type: string
+              to_be_shipped:
+                type: number
+              available_on_hand:
+                type: number
+              quantity_received:
+                type: integer
+        supplier:
+          type: object
+          $ref: '#/components/schemas/supplier'
+        warehouse:
+          type: object
+          $ref: '#/components/schemas/warehouse'
         comments:
           type: array
           items:
             $ref: '#/components/schemas/comment'
-    v3_tag_list:
-      title: Tag List Schema
-      type: object
-      properties:
-        count:
-          type: integer
-        tag:
+        goods_receipts:
           type: array
           items:
-            $ref: '#/components/schemas/v3_tag'
-        limit:
-          type: integer
-          default: 10
-        offset:
-          type: integer
-          default: 0
-      required:
-      - count
-      - tag
-      - limit
-      - offset
-    PurchaseOrderSort:
-      title: purchase_order_sort
-      enum:
-      - status
-      - -status
-      - po_id
-      - -po_id
-      - updated
-      - -updated
-      - supplier
-      - -supplier
-      - ship_to
-      - -ship_to
-      - estimated_delivery_date
-      - -estimated_delivery_date
-      type: string
-    product_base:
-      title: Product Schema
-      type: object
-      additionalProperties: false
-      properties:
-        type:
-          type: string
-          example: Tangible
-        cost:
-          type: number
-          example: 4.95
-        id:
-          type: integer
-          example: 19551105
-        company_id:
-          type: integer
-          example: 1985
-        name:
-          type: string
-          example: Flux Capacitor
-        sku:
-          type: string
-          example: outa-time
-        taxable:
-          type: string
-        weight:
-          type: number
-          example: 1.21
-        length:
-          type: integer
-          example: 12
-        width:
-          type: integer
-          example: 4
-        height:
-          type: integer
-          example: 8
-        price:
-          type: number
-          example: 19.55
-        customer_text:
-          anyOf:
-          - type: string
-          - type: 'null'
-        internal_notes:
-          example: Be sure to include the complimentary almanac
-          anyOf:
-          - type: string
-          - type: 'null'
-        total_on_hand:
-          type: number
-        category:
-          type: string
-          example: misc-timetravel
-        is_kit_parent:
-          type: boolean
-          example: false
-        archive_date:
-          format: date-time
-          anyOf:
-          - type: string
-          - type: 'null'
-        hs_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-        country_of_origin:
-          example: US
-          anyOf:
-          - type: string
-          - type: 'null'
-        customs_description:
-          anyOf:
-          - type: string
-          - type: 'null'
-        created:
-          type: string
-          format: date-time
-          example: '2015-10-26T15:44:17.993588-06:00'
-        updated:
-          type: string
-          format: date-time
-          example: '2020-01-01T17:54:05.158248-06:00'
-        upc:
-          example: '847509005811'
-          anyOf:
-          - type: string
-          - type: 'null'
-        asin:
-          example: B07WXJHZ1L
-          anyOf:
-          - type: string
-          - type: 'null'
-        image_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-        default_image_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-        _link:
-          anyOf:
-          - type: string
-          - type: 'null'
+            $ref: '#/components/schemas/goods_receipt'
         tags:
           type: array
           items:
             $ref: '#/components/schemas/v3_tag'
-        total_committed:
-          type: number
-        total_available:
-          type: number
-        total_allocated:
-          type: number
-        total_unallocated:
-          type: number
-        po_total_committed:
-          type: number
-        fulfillment_type:
-          enum:
-          - in_house
-          - dropshippable
-          - automatically_dropshipped
-          anyOf:
-          - type: string
-          - type: 'null'
-    post_comment:
-      title: Create a Comment Schema
-      type: object
-      additionalProperties: false
-      properties:
-        comment:
-          type: string
-      required:
-      - comment
-    v3_tag:
-      title: V3 Tag Schema
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        color:
-          type: string
-      required:
-      - id
-      - name
-      - color
-    warehouse:
-      title: Warehouse Schema
-      additionalProperties: false
-      type: object
-      properties:
-        _link:
-          type: string
-        id:
-          type: integer
-        address:
-          $ref: '#/components/schemas/address'
-        cart:
-          anyOf:
-          - type: string
-          - type: 'null'
-        is_configured_for_shipping:
-          type: boolean
-        is_default_location:
-          type: boolean
-      required:
-      - id
-      - address
-      - cart
-      - is_configured_for_shipping
-      - is_default_location
     address:
       title: Address Schema
       type: object
@@ -1248,114 +970,172 @@ components:
       - country
       - email
       - phone
-    PurchaseOrderStatus:
-      title: purchase_order_status
-      enum:
-      - unsent
-      - sent
-      - partial
-      - received
-      - cancelled
-      - all
-      type: string
-    purchase_order:
-      title: Purchase Order Schema
+    product_base:
+      title: Product Schema
       type: object
       additionalProperties: false
       properties:
-        status:
+        type:
           type: string
+          example: Tangible
+        cost:
+          type: number
+          example: 4.95
+        id:
+          type: integer
+          example: 19551105
         company_id:
           type: integer
-        po_id:
+          example: 1985
+        name:
           type: string
-        shipping_method:
+          example: Flux Capacitor
+        sku:
           type: string
-        payment_method:
+          example: outa-time
+        taxable:
           type: string
-        instructions:
+        weight:
+          type: number
+          example: 1.21
+        length:
+          type: integer
+          example: 12
+        width:
+          type: integer
+          example: 4
+        height:
+          type: integer
+          example: 8
+        price:
+          type: number
+          example: 19.55
+        customer_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+        internal_notes:
+          example: Be sure to include the complimentary almanac
+          anyOf:
+          - type: string
+          - type: 'null'
+        total_on_hand:
+          type: number
+        category:
           type: string
-        sent:
+          example: misc-timetravel
+        is_kit_parent:
+          type: boolean
+          example: false
+        archive_date:
           format: date-time
           anyOf:
           - type: string
           - type: 'null'
-        estimated_delivery_date:
-          type: string
-          format: date-time
+        hs_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+        country_of_origin:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        customs_description:
+          anyOf:
+          - type: string
+          - type: 'null'
         created:
           type: string
           format: date-time
+          example: '2015-10-26T15:44:17.993588-06:00'
         updated:
           type: string
           format: date-time
-        shipping_amount:
-          type: number
-        tax_amount:
-          type: number
-        discount_amount:
-          type: number
+          example: '2020-01-01T17:54:05.158248-06:00'
+        upc:
+          example: '847509005811'
+          anyOf:
+          - type: string
+          - type: 'null'
+        asin:
+          example: B07WXJHZ1L
+          anyOf:
+          - type: string
+          - type: 'null'
+        image_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+        default_image_id:
+          anyOf:
+          - type: string
+          - type: 'null'
         _link:
-          type: string
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              quantity:
-                type: integer
-              unit_price:
-                type: number
-              discount_amount:
-                type: number
-              _link:
-                type: string
-              product:
-                allOf:
-                - $ref: '#/components/schemas/product_base'
-                - properties:
-                    supplier:
-                      type: object
-                      additionalProperties: false
-                      properties:
-                        sku:
-                          type: string
-                        price:
-                          type: number
-                        unit_price:
-                          type: number
-                    warehouse:
-                      type: object
-                      additionalProperties: false
-                      properties:
-                        location_in_warehouse:
-                          type: string
-              to_be_shipped:
-                type: number
-              available_on_hand:
-                type: number
-              quantity_received:
-                type: integer
-        supplier:
-          type: object
-          $ref: '#/components/schemas/supplier'
-        warehouse:
-          type: object
-          $ref: '#/components/schemas/warehouse'
-        comments:
-          type: array
-          items:
-            $ref: '#/components/schemas/comment'
-        goods_receipts:
-          type: array
-          items:
-            $ref: '#/components/schemas/goods_receipt'
+          anyOf:
+          - type: string
+          - type: 'null'
         tags:
           type: array
           items:
             $ref: '#/components/schemas/v3_tag'
+        total_committed:
+          type: number
+        total_available:
+          type: number
+        total_allocated:
+          type: number
+        total_unallocated:
+          type: number
+        po_total_committed:
+          type: number
+        fulfillment_type:
+          enum:
+          - in_house
+          - dropshippable
+          - automatically_dropshipped
+          anyOf:
+          - type: string
+          - type: 'null'
+    purchase_order_item:
+      title: Purchase Order Item Schema
+      type: object
+      additionalProperties: false
+      properties:
+        sku:
+          type: string
+        quantity:
+          type: integer
+        unit_price:
+          type: number
+        discount_amount:
+          type: number
+      required:
+      - sku
+      - quantity
+    put_purchase_order_item:
+      title: Update a Purchase Order Item
+      type: object
+      additionalProperties: false
+      properties:
+        quantity:
+          type: integer
+        unit_price:
+          type: number
+        discount_amount:
+          type: number
+    post_v3_tag:
+      title: Create a Tag
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        color:
+          type: string
+      required:
+      - name
+      - color
     purchase_order_counts:
       title: Purchase Order Counts Response Schema
       additionalProperties: false
@@ -1380,6 +1160,169 @@ components:
       - partial
       - received
       - cancelled
+    post_purchase_order:
+      title: Buy More Products Request Schema
+      type: object
+      additionalProperties: false
+      properties:
+        supplier_id:
+          type: integer
+        warehouse_id:
+          type: integer
+        po_id:
+          type: string
+        shipping_method:
+          type: string
+        payment_method:
+          type: string
+        instructions:
+          type: string
+        estimated_delivery_date:
+          type: string
+        shipping_amount:
+          type: number
+        tax_amount:
+          type: number
+        discount_amount:
+          type: number
+        items:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/purchase_order_item'
+      required:
+      - supplier_id
+    put_purchase_order:
+      title: Update a Purchase Order
+      type: object
+      additionalProperties: false
+      properties:
+        warehouse:
+          type: string
+        supplier:
+          type: string
+        po_id:
+          type: string
+        shipping_method:
+          type: string
+        instructions:
+          type: string
+        sent:
+          type: string
+          format: date-time
+        estimated_delivery_date:
+          type: string
+          format: date-time
+        payment_method:
+          type: string
+        discount_amount:
+          type: number
+        shipping_amount:
+          type: number
+        tax_amount:
+          type: number
+    v3_tag_list:
+      title: Tag List Schema
+      type: object
+      properties:
+        count:
+          type: integer
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_tag'
+        limit:
+          type: integer
+          default: 10
+        offset:
+          type: integer
+          default: 0
+      required:
+      - count
+      - tag
+      - limit
+      - offset
+    purchase_order_list:
+      title: Purchase Order List Response schema
+      type: object
+      properties:
+        limit:
+          type: integer
+          example: 1
+        offset:
+          type: integer
+          example: 0
+        count:
+          type: integer
+          example: 46
+        purchase_order:
+          type: array
+          items:
+            $ref: '#/components/schemas/purchase_order'
+    warehouse:
+      title: Warehouse Schema
+      additionalProperties: false
+      type: object
+      properties:
+        _link:
+          type: string
+        id:
+          type: integer
+        address:
+          $ref: '#/components/schemas/address'
+        cart:
+          anyOf:
+          - type: string
+          - type: 'null'
+        is_configured_for_shipping:
+          type: boolean
+        is_default_location:
+          type: boolean
+      required:
+      - id
+      - address
+      - cart
+      - is_configured_for_shipping
+      - is_default_location
+    comment:
+      title: Comment Schema
+      type: object
+      additionalProperties: false
+      properties:
+        user:
+          type: string
+        date:
+          type: string
+          format: date-time
+        text:
+          type: string
+    post_comment:
+      title: Create a Comment Schema
+      type: object
+      additionalProperties: false
+      properties:
+        comment:
+          type: string
+      required:
+      - comment
+    post_buy_more:
+      title: Buy More Products Request Schema
+      type: object
+      additionalProperties: false
+      properties:
+        warehouse:
+          type: integer
+        quantity:
+          type: integer
+        unit_price:
+          type: number
+        discount_amount:
+          type: number
+        po_id:
+          type: string
+      required:
+      - warehouse
+      - quantity
     put_v3_tag:
       title: Update a Tag
       type: object
@@ -1389,29 +1332,80 @@ components:
           type: string
         color:
           type: string
-    purchase_order_item:
-      title: Purchase Order Item Schema
+    PurchaseOrderSort:
+      title: purchase_order_sort
+      enum:
+      - status
+      - -status
+      - po_id
+      - -po_id
+      - updated
+      - -updated
+      - supplier
+      - -supplier
+      - ship_to
+      - -ship_to
+      - estimated_delivery_date
+      - -estimated_delivery_date
+      type: string
+    PurchaseOrderStatus:
+      title: purchase_order_status
+      enum:
+      - unsent
+      - sent
+      - partial
+      - received
+      - cancelled
+      - all
+      type: string
+    supplier_shipping_method_map:
+      title: Supplier shipping method map
       type: object
       additionalProperties: false
       properties:
-        sku:
+        active:
+          description: Toggle to enable use of this shipping method map
+          type: boolean
+        created:
+          description: The date this was created
           type: string
-        quantity:
+        id:
+          description: internal reference identifier for the supplier shipping method map
           type: integer
-        unit_price:
-          type: number
-        discount_amount:
-          type: number
+        requested_shipping_method:
+          default: ''
+          description: User defined requested shipping method on an Order to be mapped to a determinate shipping method
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_method:
+          description: 'FBA defined shipping methods will only be one of the following: [''Expedited'', ''Priority'', ''Standard'']. All others can be freeform to suit the supplier'
+          type: string
+        mapped_shipping_account:
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+        supplier_id:
+          description: Integer indicating the supplier for which this mapping is tied.
+          type: integer
+        updated:
+          description: The latest updated date
+          type: string
       required:
-      - sku
-      - quantity
+      - active
+      - created
+      - id
+      - requested_shipping_method
+      - mapped_shipping_method
+      - mapped_shipping_account
+      - mapped_shipping_carrier
+      - supplier_id
+      - updated
   parameters:
-    searchParam:
-      name: search
-      in: query
-      description: ''
-      schema:
-        type: string
     limitParam:
       in: query
       name: limit
@@ -1421,22 +1415,6 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-    poidPath:
-      name: po_id
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
-    supplierPath:
-      name: supplier_id
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
     offsetParam:
       in: query
       name: offset
@@ -1448,6 +1426,28 @@ components:
         minimum: 0
     skuPath:
       name: sku
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
+    supplierPath:
+      name: supplier_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    poidPath:
+      name: po_id
       in: path
       description: ''
       required: true

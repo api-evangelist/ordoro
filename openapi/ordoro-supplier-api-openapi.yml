@@ -243,7 +243,304 @@ paths:
                 $ref: '#/components/schemas/supplier_shipping_method_map'
       deprecated: false
 components:
+  parameters:
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    supplierPath:
+      name: supplier_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
   schemas:
+    supplier_list:
+      title: Supplier List Schema
+      type: object
+      properties:
+        count:
+          type: integer
+        supplier:
+          type: array
+          items:
+            $ref: '#/components/schemas/supplier'
+        limit:
+          type: integer
+          default: 10
+        offset:
+          type: integer
+          default: 0
+      required:
+      - count
+      - supplier
+      - limit
+      - offset
+    post_supplier_shipping_method:
+      title: Add a shipping method to a mapped supplier method
+      type: object
+      additionalProperties: false
+      properties:
+        active:
+          type: boolean
+        requested_shipping_method:
+          description: The requested shipping method on an Order to be mapped to a determinate shipping method
+          default: ''
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_method:
+          description: 'For FBA, must be one of the following: [''Expedited'', ''Priority'', ''Standard'']'
+          type: string
+        mapped_shipping_account:
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+      required:
+      - mapped_shipping_method
+      - requested_shipping_method
+    put_supplier_shipping_method:
+      title: Update a shipping method mapped to a supplier method
+      type: object
+      additionalProperties: false
+      properties:
+        active:
+          type: boolean
+        requested_shipping_method:
+          description: The requested shipping method on an Order to be mapped to a determinate shipping method
+          type: string
+        mapped_shipping_method:
+          description: 'For FBA, must be one of the following: [''Expedited'', ''Priority'', ''Standard'']'
+          type: string
+        mapped_shipping_account:
+          anyOf:
+          - type: string
+          - type: 'null'
+        mapped_shipping_carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+    supplier:
+      additionalProperties: false
+      properties:
+        _link:
+          type: string
+        address:
+          $ref: '#/components/schemas/address'
+        archive_date:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        automatically_show_ship_to_email:
+          type: boolean
+        automatically_show_supplier_price:
+          type: boolean
+        company_id:
+          type: integer
+        created:
+          format: date-time
+          type: string
+        default_shipping_account:
+          type: string
+        default_shipping_carrier:
+          type: string
+        default_shipping_method:
+          type: string
+        dropship_prefer_cart_order_line_names:
+          type: integer
+        dropshipment_routing_address:
+          type: string
+        dropshipment_routing_channel:
+          type: string
+        id:
+          type: integer
+        po_routing_address:
+          type: string
+        po_routing_channel:
+          type: string
+        shipping_method_maps:
+          items:
+            $ref: '#/components/schemas/supplier_shipping_method_map'
+          type: array
+        updated:
+          format: date-time
+          type: string
+        vendor_config:
+          type: object
+        warehouse_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+      required:
+      - id
+      - company_id
+      - warehouse_id
+      - created
+      - updated
+      - archive_date
+      - automatically_show_supplier_price
+      - dropship_prefer_cart_order_line_names
+      - address
+      - vendor_config
+      title: Supplier Schema
+      type: object
+    post_supplier:
+      title: POST Supplier Schema
+      type: object
+      unevaluatedProperties: false
+      allOf:
+      - $ref: '#/components/schemas/address_lite'
+      - required:
+        - company
+      properties:
+        automatically_show_images_email:
+          type: boolean
+          default: false
+        automatically_show_images_packing_list:
+          type: boolean
+          default: false
+        automatically_show_ship_to_email:
+          type: boolean
+          default: false
+        automatically_show_supplier_price:
+          type: boolean
+          default: false
+        dropship_prefer_cart_order_line_names:
+          type: boolean
+          default: true
+        default_shipping_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+        default_shipping_account:
+          anyOf:
+          - type: string
+          - type: 'null'
+        default_shipping_carrier:
+          anyOf:
+          - type: string
+          - type: 'null'
+        dropshipment_routing_address:
+          anyOf:
+          - type: string
+          - type: 'null'
+        dropshipment_routing_channel:
+          default: email
+          enum:
+          - no_communication
+          - email
+          type: string
+        po_routing_address:
+          anyOf:
+          - type: string
+          - type: 'null'
+        po_routing_channel:
+          default: email
+          enum:
+          - no_communication
+          - email
+          type: string
+        warehouse_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+    supplier_shipping_method_map_list:
+      title: Supplier Shipping Method Map List Schema
+      type: array
+      items:
+        $ref: '#/components/schemas/supplier_shipping_method_map'
+    address_lite:
+      title: Address Schema
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          example: Jimmy McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        company:
+          example: Hamlin, Hamlin & McGill
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 100 Constitution Ave
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Albuquerque
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '87109'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: slippin-jimmy@saul-good.man
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+        fax:
+          anyOf:
+          - type: string
+          - type: 'null'
+        cart_address_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+        revision_locked_fields:
+          type: array
     address:
       title: Address Schema
       type: object
@@ -376,270 +673,6 @@ components:
       - country
       - email
       - phone
-    post_supplier:
-      title: POST Supplier Schema
-      type: object
-      unevaluatedProperties: false
-      allOf:
-      - $ref: '#/components/schemas/address_lite'
-      - required:
-        - company
-      properties:
-        automatically_show_images_email:
-          type: boolean
-          default: false
-        automatically_show_images_packing_list:
-          type: boolean
-          default: false
-        automatically_show_ship_to_email:
-          type: boolean
-          default: false
-        automatically_show_supplier_price:
-          type: boolean
-          default: false
-        dropship_prefer_cart_order_line_names:
-          type: boolean
-          default: true
-        default_shipping_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-        default_shipping_account:
-          anyOf:
-          - type: string
-          - type: 'null'
-        default_shipping_carrier:
-          anyOf:
-          - type: string
-          - type: 'null'
-        dropshipment_routing_address:
-          anyOf:
-          - type: string
-          - type: 'null'
-        dropshipment_routing_channel:
-          default: email
-          enum:
-          - no_communication
-          - email
-          type: string
-        po_routing_address:
-          anyOf:
-          - type: string
-          - type: 'null'
-        po_routing_channel:
-          default: email
-          enum:
-          - no_communication
-          - email
-          type: string
-        warehouse_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-    post_supplier_shipping_method:
-      title: Add a shipping method to a mapped supplier method
-      type: object
-      additionalProperties: false
-      properties:
-        active:
-          type: boolean
-        requested_shipping_method:
-          description: The requested shipping method on an Order to be mapped to a determinate shipping method
-          default: ''
-          anyOf:
-          - type: string
-          - type: 'null'
-        mapped_shipping_method:
-          description: 'For FBA, must be one of the following: [''Expedited'', ''Priority'', ''Standard'']'
-          type: string
-        mapped_shipping_account:
-          anyOf:
-          - type: string
-          - type: 'null'
-        mapped_shipping_carrier:
-          anyOf:
-          - type: string
-          - type: 'null'
-      required:
-      - mapped_shipping_method
-      - requested_shipping_method
-    put_supplier_shipping_method:
-      title: Update a shipping method mapped to a supplier method
-      type: object
-      additionalProperties: false
-      properties:
-        active:
-          type: boolean
-        requested_shipping_method:
-          description: The requested shipping method on an Order to be mapped to a determinate shipping method
-          type: string
-        mapped_shipping_method:
-          description: 'For FBA, must be one of the following: [''Expedited'', ''Priority'', ''Standard'']'
-          type: string
-        mapped_shipping_account:
-          anyOf:
-          - type: string
-          - type: 'null'
-        mapped_shipping_carrier:
-          anyOf:
-          - type: string
-          - type: 'null'
-    supplier:
-      additionalProperties: false
-      properties:
-        _link:
-          type: string
-        address:
-          $ref: '#/components/schemas/address'
-        archive_date:
-          format: date-time
-          anyOf:
-          - type: string
-          - type: 'null'
-        automatically_show_ship_to_email:
-          type: boolean
-        automatically_show_supplier_price:
-          type: boolean
-        company_id:
-          type: integer
-        created:
-          format: date-time
-          type: string
-        default_shipping_account:
-          type: string
-        default_shipping_carrier:
-          type: string
-        default_shipping_method:
-          type: string
-        dropship_prefer_cart_order_line_names:
-          type: integer
-        dropshipment_routing_address:
-          type: string
-        dropshipment_routing_channel:
-          type: string
-        id:
-          type: integer
-        po_routing_address:
-          type: string
-        po_routing_channel:
-          type: string
-        shipping_method_maps:
-          items:
-            $ref: '#/components/schemas/supplier_shipping_method_map'
-          type: array
-        updated:
-          format: date-time
-          type: string
-        vendor_config:
-          type: object
-        warehouse_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-      required:
-      - id
-      - company_id
-      - warehouse_id
-      - created
-      - updated
-      - archive_date
-      - automatically_show_supplier_price
-      - dropship_prefer_cart_order_line_names
-      - address
-      - vendor_config
-      title: Supplier Schema
-      type: object
-    supplier_list:
-      title: Supplier List Schema
-      type: object
-      properties:
-        count:
-          type: integer
-        supplier:
-          type: array
-          items:
-            $ref: '#/components/schemas/supplier'
-        limit:
-          type: integer
-          default: 10
-        offset:
-          type: integer
-          default: 0
-      required:
-      - count
-      - supplier
-      - limit
-      - offset
-    address_lite:
-      title: Address Schema
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          example: Jimmy McGill
-          anyOf:
-          - type: string
-          - type: 'null'
-        company:
-          example: Hamlin, Hamlin & McGill
-          anyOf:
-          - type: string
-          - type: 'null'
-        street1:
-          example: 100 Constitution Ave
-          anyOf:
-          - type: string
-          - type: 'null'
-        street2:
-          anyOf:
-          - type: string
-          - type: 'null'
-        city:
-          example: Albuquerque
-          anyOf:
-          - type: string
-          - type: 'null'
-        state:
-          example: NM
-          anyOf:
-          - type: string
-          - type: 'null'
-        zip:
-          example: '87109'
-          anyOf:
-          - type: string
-          - type: 'null'
-        country:
-          example: US
-          anyOf:
-          - type: string
-          - type: 'null'
-        email:
-          example: slippin-jimmy@saul-good.man
-          anyOf:
-          - type: string
-          - type: 'null'
-        phone:
-          example: 555-867-5309
-          anyOf:
-          - type: string
-          - type: 'null'
-        fax:
-          anyOf:
-          - type: string
-          - type: 'null'
-        cart_address_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-        revision_locked_fields:
-          type: array
-    supplier_shipping_method_map_list:
-      title: Supplier Shipping Method Map List Schema
-      type: array
-      items:
-        $ref: '#/components/schemas/supplier_shipping_method_map'
     supplier_shipping_method_map:
       title: Supplier shipping method map
       type: object
@@ -687,36 +720,3 @@ components:
       - mapped_shipping_carrier
       - supplier_id
       - updated
-  parameters:
-    searchParam:
-      name: search
-      in: query
-      description: ''
-      schema:
-        type: string
-    supplierPath:
-      name: supplier_id
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
-    offsetParam:
-      in: query
-      name: offset
-      required: false
-      description: ''
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    limitParam:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10

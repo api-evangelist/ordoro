@@ -421,6 +421,47 @@ paths:
       deprecated: false
 components:
   schemas:
+    v3_tag:
+      title: V3 Tag Schema
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        color:
+          type: string
+      required:
+      - id
+      - name
+      - color
+    post_manufacturing_order_line_finish:
+      title: Finish a quantity of a Manufacturing Order Line
+      type: object
+      additionalProperties: false
+      properties:
+        amount:
+          type: integer
+      required:
+      - amount
+    put_manufacturing_order:
+      title: Update a Manufacturing Order
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+          enum:
+          - initiated
+          - active
+          - finished
+          - cancelled
+        manufacturer_notes:
+          type: string
+        internal_notes:
+          type: string
+        warehouse_id:
+          type: integer
     post_v3_tag:
       title: Create a Tag
       type: object
@@ -433,15 +474,84 @@ components:
       required:
       - name
       - color
-    post_manufacturing_order_line_finish:
-      title: Finish a quantity of a Manufacturing Order Line
+    v3_tag_list:
+      title: Tag List Schema
+      type: object
+      properties:
+        count:
+          type: integer
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/v3_tag'
+        limit:
+          type: integer
+          default: 10
+        offset:
+          type: integer
+          default: 0
+      required:
+      - count
+      - tag
+      - limit
+      - offset
+    post_manufacturing_order:
+      title: Create a Manufacturing Order
       type: object
       additionalProperties: false
       properties:
-        amount:
+        reference_id:
+          type: string
+        warehouse_id:
           type: integer
+        manufacturer_notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+        internal_notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+        lines:
+          type: array
+          items:
+            type: object
+            properties:
+              sku:
+                type: string
+              requested_quantity:
+                type: number
+              manufacturer_notes:
+                anyOf:
+                - type: string
+                - type: 'null'
+              internal_notes:
+                anyOf:
+                - type: string
+                - type: 'null'
+            required:
+            - sku
       required:
-      - amount
+      - reference_id
+    ManufacturingOrderStatus:
+      title: manufacturing_order_status
+      enum:
+      - cancelled
+      - initiated
+      - active
+      - finished
+      type: string
+    get_manufacturing_order_count:
+      type: object
+      additionalProperties: false
+      properties:
+        group_by:
+          type: array
+          items:
+            type: string
+            enum:
+            - warehouse_id
+            - status
     comment:
       title: Comment Schema
       type: object
@@ -454,14 +564,6 @@ components:
           format: date-time
         text:
           type: string
-    ManufacturingOrderStatus:
-      title: manufacturing_order_status
-      enum:
-      - cancelled
-      - initiated
-      - active
-      - finished
-      type: string
     manufacturing_order_list:
       type: object
       properties:
@@ -480,6 +582,15 @@ components:
       - offset
       - count
       - manufacturing_order
+    put_v3_tag:
+      title: Update a Tag
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        color:
+          type: string
     manufacturing_order:
       title: Manufacturing Order Schema
       type: object
@@ -559,6 +670,19 @@ components:
       - tags
       - created_date
       - updated_date
+    ManufacturingOrderSort:
+      title: manufacturing_order_sort
+      enum:
+      - reference_id
+      - -reference_id
+      - status
+      - -status
+      - warehouse_name
+      - -warehouse_name
+      - created_date
+      - -created_date
+      - updated_date
+      - -updated_date
     put_manufacturing_order_line:
       title: Update a Manufacturing Order Line
       type: object
@@ -576,94 +700,6 @@ components:
           anyOf:
           - type: string
           - type: 'null'
-    post_manufacturing_order:
-      title: Create a Manufacturing Order
-      type: object
-      additionalProperties: false
-      properties:
-        reference_id:
-          type: string
-        warehouse_id:
-          type: integer
-        manufacturer_notes:
-          anyOf:
-          - type: string
-          - type: 'null'
-        internal_notes:
-          anyOf:
-          - type: string
-          - type: 'null'
-        lines:
-          type: array
-          items:
-            type: object
-            properties:
-              sku:
-                type: string
-              requested_quantity:
-                type: number
-              manufacturer_notes:
-                anyOf:
-                - type: string
-                - type: 'null'
-              internal_notes:
-                anyOf:
-                - type: string
-                - type: 'null'
-            required:
-            - sku
-      required:
-      - reference_id
-    get_manufacturing_order_count:
-      type: object
-      additionalProperties: false
-      properties:
-        group_by:
-          type: array
-          items:
-            type: string
-            enum:
-            - warehouse_id
-            - status
-    put_manufacturing_order:
-      title: Update a Manufacturing Order
-      type: object
-      additionalProperties: false
-      properties:
-        status:
-          type: string
-          enum:
-          - initiated
-          - active
-          - finished
-          - cancelled
-        manufacturer_notes:
-          type: string
-        internal_notes:
-          type: string
-        warehouse_id:
-          type: integer
-    v3_tag_list:
-      title: Tag List Schema
-      type: object
-      properties:
-        count:
-          type: integer
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/v3_tag'
-        limit:
-          type: integer
-          default: 10
-        offset:
-          type: integer
-          default: 0
-      required:
-      - count
-      - tag
-      - limit
-      - offset
     post_manufacturing_order_line:
       title: Add a Manufacturing Order Line
       type: object
@@ -683,57 +719,7 @@ components:
           - type: 'null'
       required:
       - sku
-    v3_tag:
-      title: V3 Tag Schema
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        color:
-          type: string
-      required:
-      - id
-      - name
-      - color
-    ManufacturingOrderSort:
-      title: manufacturing_order_sort
-      enum:
-      - reference_id
-      - -reference_id
-      - status
-      - -status
-      - warehouse_name
-      - -warehouse_name
-      - created_date
-      - -created_date
-      - updated_date
-      - -updated_date
-    put_v3_tag:
-      title: Update a Tag
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          type: string
-        color:
-          type: string
   parameters:
-    searchParam:
-      name: search
-      in: query
-      description: ''
-      schema:
-        type: string
-    goodsReceiptIDPath:
-      name: goods_receipt_id
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
     limitParam:
       in: query
       name: limit
@@ -752,3 +738,17 @@ components:
         type: integer
         default: 0
         minimum: 0
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
+    goodsReceiptIDPath:
+      name: goods_receipt_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string

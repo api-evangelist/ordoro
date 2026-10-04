@@ -58,19 +58,6 @@ paths:
                 $ref: '#/components/schemas/balance'
 components:
   schemas:
-    post_account_ledger:
-      title: Ledger Request Schema
-      type: object
-      additionalProperties: false
-      properties:
-        amount:
-          type: number
-          format: double
-        description:
-          type: string
-      required:
-      - amount
-      - description
     balance:
       title: Account Balance Response Schema
       additionalProperties: false
@@ -90,3 +77,16 @@ components:
           type: string
       required:
       - balance
+    post_account_ledger:
+      title: Ledger Request Schema
+      type: object
+      additionalProperties: false
+      properties:
+        amount:
+          type: number
+          format: double
+        description:
+          type: string
+      required:
+      - amount
+      - description

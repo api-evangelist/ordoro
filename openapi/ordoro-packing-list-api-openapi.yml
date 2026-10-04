@@ -144,7 +144,103 @@ paths:
                 $ref: '#/components/schemas/packing_list'
       deprecated: false
 components:
+  parameters:
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      description: ''
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    packingListIDPath:
+      name: packing_list_id
+      in: path
+      description: ''
+      required: true
+      style: simple
+      schema:
+        type: string
+    searchParam:
+      name: search
+      in: query
+      description: ''
+      schema:
+        type: string
   schemas:
+    packing_list:
+      title: Packing List Schema
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        company_id:
+          type: integer
+        name:
+          type: string
+        is_default:
+          type: boolean
+        custom_text:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        website:
+          type: string
+        footer:
+          type: string
+        logo_hash:
+          type: string
+        return_email_subject:
+          type: string
+        return_email_content:
+          type: string
+        ship_from_alias_name:
+          type: string
+        customer_notes_label:
+          type: string
+        archived_date:
+          type: string
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        _linklogo:
+          type: string
+        _link:
+          type: string
+    packing_list_list:
+      type: object
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        count:
+          type: integer
+        packing_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/packing_list'
+      required:
+      - limit
+      - offset
+      - count
+      - packing_list
     post_packing_list:
       title: Put Packing List Schema
       type: object
@@ -262,99 +358,3 @@ components:
           required:
           - data
           - mime_type
-    packing_list_list:
-      type: object
-      properties:
-        limit:
-          type: integer
-        offset:
-          type: integer
-        count:
-          type: integer
-        packing_list:
-          type: array
-          items:
-            $ref: '#/components/schemas/packing_list'
-      required:
-      - limit
-      - offset
-      - count
-      - packing_list
-    packing_list:
-      title: Packing List Schema
-      type: object
-      additionalProperties: false
-      properties:
-        id:
-          type: integer
-        company_id:
-          type: integer
-        name:
-          type: string
-        is_default:
-          type: boolean
-        custom_text:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-        website:
-          type: string
-        footer:
-          type: string
-        logo_hash:
-          type: string
-        return_email_subject:
-          type: string
-        return_email_content:
-          type: string
-        ship_from_alias_name:
-          type: string
-        customer_notes_label:
-          type: string
-        archived_date:
-          type: string
-        created:
-          type: string
-          format: date-time
-        updated:
-          type: string
-          format: date-time
-        _linklogo:
-          type: string
-        _link:
-          type: string
-  parameters:
-    searchParam:
-      name: search
-      in: query
-      description: ''
-      schema:
-        type: string
-    packingListIDPath:
-      name: packing_list_id
-      in: path
-      description: ''
-      required: true
-      style: simple
-      schema:
-        type: string
-    offsetParam:
-      in: query
-      name: offset
-      required: false
-      description: ''
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    limitParam:
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10

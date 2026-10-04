@@ -130,6 +130,37 @@ paths:
       deprecated: false
 components:
   schemas:
+    warehouseSort:
+      title: Warehouse Sort
+      enum:
+      - name
+      - -name
+      type: string
+    warehouse:
+      title: Warehouse Schema
+      additionalProperties: false
+      type: object
+      properties:
+        _link:
+          type: string
+        id:
+          type: integer
+        address:
+          $ref: '#/components/schemas/address'
+        cart:
+          anyOf:
+          - type: string
+          - type: 'null'
+        is_configured_for_shipping:
+          type: boolean
+        is_default_location:
+          type: boolean
+      required:
+      - id
+      - address
+      - cart
+      - is_configured_for_shipping
+      - is_default_location
     put_warehouse:
       title: Post Warehouse Schema
       type: object
@@ -138,14 +169,75 @@ components:
       - properties:
           cart_id:
             type: integer
-    post_warehouse:
-      title: Post Warehouse Schema
+    warehouse_list:
       type: object
-      allOf:
-      - $ref: '#/components/schemas/warehouse_address'
-      - properties:
-          cart_id:
-            type: integer
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        count:
+          type: integer
+        warehouse:
+          type: array
+          items:
+            $ref: '#/components/schemas/warehouse'
+      required:
+      - limit
+      - offset
+      - count
+      - warehouse
+    warehouse_address:
+      title: Warehouse Address Schema
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          example: Hangar 51
+          anyOf:
+          - type: string
+          - type: 'null'
+        street1:
+          example: 123 Secret Street
+          anyOf:
+          - type: string
+          - type: 'null'
+        street2:
+          anyOf:
+          - type: string
+          - type: 'null'
+        city:
+          example: Roswell
+          anyOf:
+          - type: string
+          - type: 'null'
+        state:
+          example: NM
+          anyOf:
+          - type: string
+          - type: 'null'
+        zip:
+          example: '88201'
+          anyOf:
+          - type: string
+          - type: 'null'
+        country:
+          example: US
+          anyOf:
+          - type: string
+          - type: 'null'
+        email:
+          example: indiana@drjones.com
+          anyOf:
+          - type: string
+          - type: 'null'
+        phone:
+          example: 555-867-5309
+          anyOf:
+          - type: string
+          - type: 'null'
+      required:
+      - name
     address:
       title: Address Schema
       type: object
@@ -278,113 +370,24 @@ components:
       - country
       - email
       - phone
-    warehouse_address:
-      title: Warehouse Address Schema
+    post_warehouse:
+      title: Post Warehouse Schema
       type: object
-      additionalProperties: false
-      properties:
-        name:
-          example: Hangar 51
-          anyOf:
-          - type: string
-          - type: 'null'
-        street1:
-          example: 123 Secret Street
-          anyOf:
-          - type: string
-          - type: 'null'
-        street2:
-          anyOf:
-          - type: string
-          - type: 'null'
-        city:
-          example: Roswell
-          anyOf:
-          - type: string
-          - type: 'null'
-        state:
-          example: NM
-          anyOf:
-          - type: string
-          - type: 'null'
-        zip:
-          example: '88201'
-          anyOf:
-          - type: string
-          - type: 'null'
-        country:
-          example: US
-          anyOf:
-          - type: string
-          - type: 'null'
-        email:
-          example: indiana@drjones.com
-          anyOf:
-          - type: string
-          - type: 'null'
-        phone:
-          example: 555-867-5309
-          anyOf:
-          - type: string
-          - type: 'null'
-      required:
-      - name
-    warehouseSort:
-      title: Warehouse Sort
-      enum:
-      - name
-      - -name
-      type: string
-    warehouse_list:
-      type: object
-      properties:
-        limit:
-          type: integer
-        offset:
-          type: integer
-        count:
-          type: integer
-        warehouse:
-          type: array
-          items:
-            $ref: '#/components/schemas/warehouse'
-      required:
-      - limit
-      - offset
-      - count
-      - warehouse
-    warehouse:
-      title: Warehouse Schema
-      additionalProperties: false
-      type: object
-      properties:
-        _link:
-          type: string
-        id:
-          type: integer
-        address:
-          $ref: '#/components/schemas/address'
-        cart:
-          anyOf:
-          - type: string
-          - type: 'null'
-        is_configured_for_shipping:
-          type: boolean
-        is_default_location:
-          type: boolean
-      required:
-      - id
-      - address
-      - cart
-      - is_configured_for_shipping
-      - is_default_location
+      allOf:
+      - $ref: '#/components/schemas/warehouse_address'
+      - properties:
+          cart_id:
+            type: integer
   parameters:
-    searchParam:
-      name: search
+    limitParam:
       in: query
-      description: ''
+      name: limit
+      required: false
       schema:
-        type: string
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
     offsetParam:
       in: query
       name: offset
@@ -402,12 +405,9 @@ components:
       style: simple
       schema:
         type: string
-    limitParam:
+    searchParam:
+      name: search
       in: query
-      name: limit
-      required: false
+      description: ''
       schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
+        type: string

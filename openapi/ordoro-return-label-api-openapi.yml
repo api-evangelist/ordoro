@@ -242,6 +242,20 @@ paths:
       deprecated: false
 components:
   schemas:
+    type2:
+      title: type2
+      enum:
+      - single_page
+      - additional_docs
+      - multi_page
+      - canada_pdf
+      type: string
+    orientation:
+      title: orientation
+      enum:
+      - portrait
+      - landscape
+      type: string
     rotation:
       title: rotation
       enum:
@@ -256,18 +270,4 @@ components:
       enum:
       - desktop
       - thermal
-      type: string
-    orientation:
-      title: orientation
-      enum:
-      - portrait
-      - landscape
-      type: string
-    type2:
-      title: type2
-      enum:
-      - single_page
-      - additional_docs
-      - multi_page
-      - canada_pdf
       type: string

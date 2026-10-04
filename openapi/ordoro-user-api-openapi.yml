@@ -125,6 +125,53 @@ paths:
       deprecated: false
 components:
   schemas:
+    user:
+      title: User Schema
+      additionalProperties: false
+      type: object
+      properties:
+        _link:
+          type: string
+        id:
+          type: integer
+        company_id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        is_active:
+          type: boolean
+        is_api_user:
+          type: boolean
+        last_login:
+          type: string
+          format: date-time
+        date_joined:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        email_verified:
+          format: date-time
+          anyOf:
+          - type: string
+          - type: 'null'
+        permissions:
+          type: object
+        settings:
+          type: object
+      required:
+      - id
+      - company_id
+      - name
+      - email
+      - is_active
+      - is_api_user
+      - last_login
+      - date_joined
+      - permissions
+      - settings
     user_list:
       type: object
       properties:
@@ -310,50 +357,3 @@ components:
             type: number
       required:
       - email
-    user:
-      title: User Schema
-      additionalProperties: false
-      type: object
-      properties:
-        _link:
-          type: string
-        id:
-          type: integer
-        company_id:
-          type: integer
-        name:
-          type: string
-        email:
-          type: string
-        is_active:
-          type: boolean
-        is_api_user:
-          type: boolean
-        last_login:
-          type: string
-          format: date-time
-        date_joined:
-          format: date-time
-          anyOf:
-          - type: string
-          - type: 'null'
-        email_verified:
-          format: date-time
-          anyOf:
-          - type: string
-          - type: 'null'
-        permissions:
-          type: object
-        settings:
-          type: object
-      required:
-      - id
-      - company_id
-      - name
-      - email
-      - is_active
-      - is_api_user
-      - last_login
-      - date_joined
-      - permissions
-      - settings

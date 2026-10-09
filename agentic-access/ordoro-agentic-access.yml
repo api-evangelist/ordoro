@@ -1,18 +1,27 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/ordoro-ordoro-api-openapi.yml
+source: openapi/ordoro-address-api-openapi.yml, openapi/ordoro-api-key-api-openapi.yml, openapi/ordoro-authenticated-api-openapi.yml,
+  openapi/ordoro-cart-api-openapi.yml, openapi/ordoro-company-api-openapi.yml, openapi/ordoro-goods-receipt-api-openapi.yml,
+  openapi/ordoro-integration-api-openapi.yml, openapi/ordoro-label-api-openapi.yml, openapi/ordoro-manufacturing-order-api-openapi.yml,
+  openapi/ordoro-order-api-openapi.yml, openapi/ordoro-packing-list-api-openapi.yml, openapi/ordoro-postage-account-api-openapi.yml,
+  openapi/ordoro-product-api-openapi.yml, openapi/ordoro-purchase-order-api-openapi.yml, openapi/ordoro-rate-api-openapi.yml,
+  openapi/ordoro-return-label-api-openapi.yml, openapi/ordoro-return-order-api-openapi.yml,
+  openapi/ordoro-return-order-label-api-openapi.yml, openapi/ordoro-return-order-rate-api-openapi.yml,
+  openapi/ordoro-return-tracking-api-openapi.yml, openapi/ordoro-rule-api-openapi.yml, openapi/ordoro-shipper-api-openapi.yml,
+  openapi/ordoro-supplier-api-openapi.yml, openapi/ordoro-tag-api-openapi.yml, openapi/ordoro-tracking-api-openapi.yml,
+  openapi/ordoro-user-api-openapi.yml, openapi/ordoro-warehouse-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 243
+  operations: 249
   by_action_class:
-    connected: 79
-    acting: 164
+    connected: 103
+    acting: 146
   by_consequence:
-    read: 79
+    read: 103
     write: 54
-    physical: 106
+    physical: 88
     safety-critical: 4
   human_in_the_loop_required: 4
 operations:
@@ -62,6 +71,60 @@ operations:
     audience: null
     token:
       max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/billing_address
+  method: put
+  operationId: OrderBillingAddressByOrderNumber_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/shipping_address
+  method: put
+  operationId: OrderShippingAddressByOrderNumber_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/warehouse
+  method: put
+  operationId: OrderWarehouseByOrderNumber_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
     escalation:
       human-in-the-loop: conditional
       triggers:
@@ -488,6 +551,1066 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /v3/order/{order_number}/label
+  method: delete
+  operationId: deleteV3OrderByOrderNumberLabel
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/label/endicia
+  method: post
+  operationId: OrderByOrderNumberLabelEndicia_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/label/fedex
+  method: post
+  operationId: OrderByOrderNumberLabelFedEx_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/label/pitney
+  method: post
+  operationId: OrderByOrderNumberLabelPitney_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/label/ups
+  method: post
+  operationId: OrderByOrderNumberLabelUPS_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/label/australia_post
+  method: post
+  operationId: OrderByOrderNumberLabelAustraliaPost_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/label/canada_post
+  method: post
+  operationId: OrderByOrderNumberLabelCanadaPost_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/label/dhl
+  method: post
+  operationId: OrderByOrderNumberLabelDHL_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/label/dhl_ecommerce
+  method: post
+  operationId: OrderByOrderNumberLabelDHL_Ecommerce_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/label
+  method: get
+  operationId: V3Label_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/manufacturing_order
+  method: get
+  operationId: ManufacturingOrder_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/manufacturing_order
+  method: post
+  operationId: ManufacturingOrder_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/manufacturing_order/{reference_id}
+  method: get
+  operationId: ManufacturingOrderByRefId_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/manufacturing_order/{reference_id}
+  method: put
+  operationId: ManufacturingOrderByRefId_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/manufacturing_order/counts
+  method: get
+  operationId: ManufacturingOrderCounts_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/manufacturing_order/tag
+  method: post
+  operationId: ManufacturingOrderTags_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/manufacturing_order/tag
+  method: get
+  operationId: ManufacturingOrderTags_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/manufacturing_order/tag/{name}
+  method: get
+  operationId: ManufacturingOrderTag_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/manufacturing_order/tag/{name}
+  method: put
+  operationId: ManufacturingOrderTags_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/manufacturing_order/tag/{name}
+  method: delete
+  operationId: ManufacturingOrderTags_DELETE
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/manufacturing_order/{reference_id}/tag/{tag_name}
+  method: post
+  operationId: ManufacturingOrderTagPO_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/manufacturing_order/{reference_id}/tag/{tag_name}
+  method: delete
+  operationId: ManufacturingOrderTagPO_DELETE
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/manufacturing_order/{reference_id}/comment
+  method: post
+  operationId: ManufacturingOrderCommentByMoId_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/manufacturing_order/{reference_id}/comment
+  method: get
+  operationId: ManufacturingOrderCommentByMoId_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/manufacturing_order/{reference_id}/line
+  method: post
+  operationId: ManufacturingOrderLine_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/manufacturing_order/{reference_id}/line/{manufacturing_order_line_id}
+  method: put
+  operationId: ManufacturingOrderLine_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/manufacturing_order/{reference_id}/line/{manufacturing_order_line_id}
+  method: delete
+  operationId: ManufacturingOrderLine_DELETE
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/manufacturing_order/{reference_id}/line/{manufacturing_order_line_id}/finish
+  method: post
+  operationId: ManufacturingOrderLineFinished_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/counts
+  method: get
+  operationId: OrderCounts_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/parent/{parent_order_number}
+  method: get
+  operationId: OrderParentByParentOrderNumber_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order
+  method: get
+  operationId: Order_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order
+  method: post
+  operationId: Order_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}
+  method: get
+  operationId: OrderByOrderNumber_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/{order_number}
+  method: put
+  operationId: OrderByOrderNumber_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/cancel
+  method: post
+  operationId: OrderCancelByOrderNumber_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/uncancel
+  method: post
+  operationId: OrderUncancelByOrderNumber_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/financial
+  method: put
+  operationId: OrderFinancialByOrderNumber_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/shipping_info
+  method: delete
+  operationId: OrderShippingInfoByOrderNumber_DELETE
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/shipping_info
+  method: put
+  operationId: OrderShippingInfoByOrderNumber_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/shipping_info
+  method: post
+  operationId: OrderShippingInfoByOrderNumber_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/mark_as_printed
+  method: post
+  operationId: OrderMarkAsPrintedByOrderNumber_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/shipment_preset/{preset_id}
+  method: post
+  operationId: OrderShipmentPresetByOrderNumberAndPresetId_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v3/order/{order_number}/shipment_preset/{preset_id}
+  method: delete
+  operationId: OrderShipmentPresetByOrderNumberAndPresetId_DELETE
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v3/order/{order_number}/return_preset/{preset_id}
+  method: post
+  operationId: OrderReturnPresetByOrderNumberAndPresetId_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v3/order/{order_number}/return_preset/{preset_id}
+  method: delete
+  operationId: OrderReturnPresetByOrderNumberAndPresetId_DELETE
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v3/order/{order_number}/split
+  method: post
+  operationId: OrderSplitByOrderNumber_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/mark_as_shipped
+  method: post
+  operationId: OrderMarkAsShippedByOrderNumber_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/mark_as_dropshipped
+  method: post
+  operationId: OrderMarkAsDropshippedByOrderNumber_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/dropship
+  method: get
+  operationId: OrderDropshipByOrderNumber_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/{order_number}/dropship
+  method: post
+  operationId: OrderDropshipByOrderNumber_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/process_dropshipments
+  method: post
+  operationId: OrderProcessDropshipmentsByOrderNumber_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/billing_address
+  method: put
+  operationId: OrderBillingAddressByOrderNumber_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/shipping_address
+  method: put
+  operationId: OrderShippingAddressByOrderNumber_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/warehouse
+  method: put
+  operationId: OrderWarehouseByOrderNumber_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/comment
+  method: post
+  operationId: OrderCommentByOrderNumber_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/comment
+  method: get
+  operationId: OrderCommentByOrderNumber_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/{order_number}/line
+  method: post
+  operationId: OrderLineByOrderNumber_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/line/{order_line_id}
+  method: put
+  operationId: OrderLineByOrderNumberAndOrderLineId_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/line/{order_line_id}
+  method: delete
+  operationId: OrderLineByOrderNumberAndOrderLineId_DELETE
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/tag/{tag_id}
+  method: post
+  operationId: OrderbyOrderNumberAndTagByID_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/tag/{tag_id}
+  method: delete
+  operationId: OrderbyOrderNumberAndTagByID_DELETE
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/tag
+  method: get
+  operationId: ReturnOrderTag_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/tag
+  method: post
+  operationId: ReturnOrderTag_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/tag/{tagNamePath}
+  method: get
+  operationId: ReturnOrderTagWithName_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/tag/{tagNamePath}
+  method: put
+  operationId: ReturnOrderTag_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/tag/{tagNamePath}
+  method: delete
+  operationId: ReturnOrderTag_DELETE
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /packing_list/
   method: get
   operationId: PackingList_GET
@@ -559,6 +1682,32 @@ operations:
 - path: /packing_list/{packing_list_id}/make_default/
   method: post
   operationId: PackingListMakeDefaultByPackingListId_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/account/balance
+  method: get
+  operationId: V3AccountBalance_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/account/add_funds
+  method: post
+  operationId: V3AccountAddFunds_GET
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -1060,267 +2209,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v3/manufacturing_order
-  method: get
-  operationId: ManufacturingOrder_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/manufacturing_order
+- path: /product/{sku}/buy/{supplier_id}/
   method: post
-  operationId: ManufacturingOrder_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/manufacturing_order/{reference_id}
-  method: get
-  operationId: ManufacturingOrderByRefId_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/manufacturing_order/{reference_id}
-  method: put
-  operationId: ManufacturingOrderByRefId_PUT
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/manufacturing_order/counts
-  method: get
-  operationId: ManufacturingOrderCounts_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/manufacturing_order/tag
-  method: post
-  operationId: ManufacturingOrderTags_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/manufacturing_order/tag
-  method: get
-  operationId: ManufacturingOrderTags_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/manufacturing_order/tag/{name}
-  method: get
-  operationId: ManufacturingOrderTag_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/manufacturing_order/tag/{name}
-  method: put
-  operationId: ManufacturingOrderTags_PUT
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/manufacturing_order/tag/{name}
-  method: delete
-  operationId: ManufacturingOrderTags_DELETE
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/manufacturing_order/{reference_id}/tag/{tag_name}
-  method: post
-  operationId: ManufacturingOrderTagPO_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/manufacturing_order/{reference_id}/tag/{tag_name}
-  method: delete
-  operationId: ManufacturingOrderTagPO_DELETE
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/manufacturing_order/{reference_id}/comment
-  method: post
-  operationId: ManufacturingOrderCommentByMoId_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/manufacturing_order/{reference_id}/comment
-  method: get
-  operationId: ManufacturingOrderCommentByMoId_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/manufacturing_order/{reference_id}/line
-  method: post
-  operationId: ManufacturingOrderLine_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/manufacturing_order/{reference_id}/line/{manufacturing_order_line_id}
-  method: put
-  operationId: ManufacturingOrderLine_PUT
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/manufacturing_order/{reference_id}/line/{manufacturing_order_line_id}
-  method: delete
-  operationId: ManufacturingOrderLine_DELETE
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/manufacturing_order/{reference_id}/line/{manufacturing_order_line_id}/finish
-  method: post
-  operationId: ManufacturingOrderLineFinished_POST
+  operationId: ProductBuyBySkuAndSupplierId_POST
   x-agentic-access:
     action-class: acting
     consequence: physical
@@ -1658,6 +2549,96 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /v3/order/{order_number}/rate/amazon
+  method: post
+  operationId: OrderbyOrderNumberRateAmazon_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/{order_number}/rate/australia_post
+  method: post
+  operationId: OrderbyOrderNumberRateAmazon_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/{order_number}/rate/canada_post
+  method: post
+  operationId: OrderbyOrderNumberRateCanadaPost_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/{order_number}/rate/dhl
+  method: post
+  operationId: OrderbyOrderNumberRateDHL_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/{order_number}/rate/dhl_ecommerce
+  method: post
+  operationId: OrderbyOrderNumberRateDHL_Ecommerce_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/{order_number}/rate/endicia
+  method: post
+  operationId: OrderbyOrderNumberRateEndicia_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/{order_number}/rate/fedex
+  method: post
+  operationId: OrderbyOrderNumberRateFedex_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/{order_number}/rate/pitney
+  method: post
+  operationId: OrderbyOrderNumberRatePitney_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/order/{order_number}/rate/ups
+  method: post
+  operationId: OrderbyOrderNumberRateUPS_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /return_label/
   method: get
   operationId: ReturnLabel_GET
@@ -1681,6 +2662,258 @@ operations:
 - path: /return_label/{label_id}/raw/
   method: get
   operationId: ReturnLabelRawByLabelId_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order
+  method: get
+  operationId: Return_Order_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order
+  method: post
+  operationId: Return_Order_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/return_order/tag
+  method: get
+  operationId: ReturnOrderTag_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/tag
+  method: post
+  operationId: ReturnOrderTag_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/return_order/tag/{tagNamePath}
+  method: get
+  operationId: ReturnOrderTagWithName_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/tag/{tagNamePath}
+  method: put
+  operationId: ReturnOrderTag_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/return_order/tag/{tagNamePath}
+  method: delete
+  operationId: ReturnOrderTag_DELETE
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/return_order/label/australia_post
+  method: post
+  operationId: ReturnOrderLabelAustraliaPost_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/label/canada_post
+  method: post
+  operationId: ReturnOrderLabelCanadaPost_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/label/dhl
+  method: post
+  operationId: ReturnOrderLabelDHL_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/label/dhl_ecommerce
+  method: post
+  operationId: ReturnOrderLabelDHL_Ecommerce_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/label/endicia
+  method: post
+  operationId: ReturnOrderLabelEndicia_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/label/fedex
+  method: post
+  operationId: ReturnOrderLabelFedex_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/label/pitney
+  method: post
+  operationId: ReturnOrderLabelPitney_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/label/ups
+  method: post
+  operationId: ReturnOrderLabelUPS_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/rate/australia_post
+  method: post
+  operationId: ReturnOrderRateAustraliaPost_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/rate/canada_post
+  method: post
+  operationId: ReturnOrderRateCanadaPost_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/rate/dhl
+  method: post
+  operationId: ReturnOrderRateDHL_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/rate/endicia
+  method: post
+  operationId: ReturnOrderRateEndicia_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/rate/fedex
+  method: post
+  operationId: ReturnOrderRateFedex_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/rate/pitney
+  method: post
+  operationId: ReturnOrderRateUSPS_POST
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/return_order/rate/ups
+  method: post
+  operationId: ReturnOrderRateUPS_POST
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -1868,6 +3101,70 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /v3/shipper/{shipper_id}/balance
+  method: get
+  operationId: V3ShipperByIDBalance_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/shipper/{shipper_id}/balance
+  method: post
+  operationId: postV3ShipperByShipperIdBalance
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/pickup/ups
+  method: post
+  operationId: PickupUPS_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/pickup/fedex
+  method: post
+  operationId: PickupUPS_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /supplier/
   method: get
   operationId: Supplier_GET
@@ -1995,6 +3292,116 @@ operations:
 - path: /supplier/{supplier_id}/shipping_methods/{shipping_method_map_id}/
   method: put
   operationId: SupplierShippingMethodsBySupplierId_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/tag/{tag_id}
+  method: post
+  operationId: OrderbyOrderNumberAndTagByID_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/order/{order_number}/tag/{tag_id}
+  method: delete
+  operationId: OrderbyOrderNumberAndTagByID_DELETE
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/tag
+  method: get
+  operationId: V3Tag_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/tag
+  method: post
+  operationId: V3Tag_POST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/tag/{tag_id}
+  method: get
+  operationId: V3TagById_GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/tag/{tag_id}
+  method: put
+  operationId: V3TagById_PUT
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v3/tag/{tag_id}
+  method: delete
+  operationId: V3TagById_DELETE
   x-agentic-access:
     action-class: acting
     consequence: physical
@@ -2154,1486 +3561,6 @@ operations:
     audience: null
     token:
       max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/counts
-  method: get
-  operationId: OrderCounts_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/order/parent/{parent_order_number}
-  method: get
-  operationId: OrderParentByParentOrderNumber_POST
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/order
-  method: get
-  operationId: Order_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/order
-  method: post
-  operationId: Order_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}
-  method: get
-  operationId: OrderByOrderNumber_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/order/{order_number}
-  method: put
-  operationId: OrderByOrderNumber_PUT
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/cancel
-  method: post
-  operationId: OrderCancelByOrderNumber_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/uncancel
-  method: post
-  operationId: OrderUncancelByOrderNumber_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/financial
-  method: put
-  operationId: OrderFinancialByOrderNumber_PUT
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/shipping_info
-  method: delete
-  operationId: OrderShippingInfoByOrderNumber_DELETE
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/shipping_info
-  method: put
-  operationId: OrderShippingInfoByOrderNumber_PUT
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/shipping_info
-  method: post
-  operationId: OrderShippingInfoByOrderNumber_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/mark_as_printed
-  method: post
-  operationId: OrderMarkAsPrintedByOrderNumber_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/shipment_preset/{preset_id}
-  method: post
-  operationId: OrderShipmentPresetByOrderNumberAndPresetId_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: safety-critical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 120
-      exchange: true
-      purpose-required: true
-      proof-of-possession: true
-    escalation:
-      human-in-the-loop: required
-    audit: required
-- path: /v3/order/{order_number}/shipment_preset/{preset_id}
-  method: delete
-  operationId: OrderShipmentPresetByOrderNumberAndPresetId_DELETE
-  x-agentic-access:
-    action-class: acting
-    consequence: safety-critical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 120
-      exchange: true
-      purpose-required: true
-      proof-of-possession: true
-    escalation:
-      human-in-the-loop: required
-    audit: required
-- path: /v3/order/{order_number}/return_preset/{preset_id}
-  method: post
-  operationId: OrderReturnPresetByOrderNumberAndPresetId_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: safety-critical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 120
-      exchange: true
-      purpose-required: true
-      proof-of-possession: true
-    escalation:
-      human-in-the-loop: required
-    audit: required
-- path: /v3/order/{order_number}/return_preset/{preset_id}
-  method: delete
-  operationId: OrderReturnPresetByOrderNumberAndPresetId_DELETE
-  x-agentic-access:
-    action-class: acting
-    consequence: safety-critical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 120
-      exchange: true
-      purpose-required: true
-      proof-of-possession: true
-    escalation:
-      human-in-the-loop: required
-    audit: required
-- path: /v3/order/{order_number}/split
-  method: post
-  operationId: OrderSplitByOrderNumber_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/label
-  method: delete
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/label/endicia
-  method: post
-  operationId: OrderByOrderNumberLabelEndicia_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/label/fedex
-  method: post
-  operationId: OrderByOrderNumberLabelFedEx_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/label/pitney
-  method: post
-  operationId: OrderByOrderNumberLabelPitney_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/label/ups
-  method: post
-  operationId: OrderByOrderNumberLabelUPS_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/label/australia_post
-  method: post
-  operationId: OrderByOrderNumberLabelAustraliaPost_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/label/canada_post
-  method: post
-  operationId: OrderByOrderNumberLabelCanadaPost_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/label/dhl
-  method: post
-  operationId: OrderByOrderNumberLabelDHL_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/label/dhl_ecommerce
-  method: post
-  operationId: OrderByOrderNumberLabelDHL_Ecommerce_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/mark_as_shipped
-  method: post
-  operationId: OrderMarkAsShippedByOrderNumber_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/mark_as_dropshipped
-  method: post
-  operationId: OrderMarkAsDropshippedByOrderNumber_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/dropship
-  method: get
-  operationId: OrderDropshipByOrderNumber_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/order/{order_number}/dropship
-  method: post
-  operationId: OrderDropshipByOrderNumber_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/process_dropshipments
-  method: post
-  operationId: OrderProcessDropshipmentsByOrderNumber_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/billing_address
-  method: put
-  operationId: OrderBillingAddressByOrderNumber_PUT
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/shipping_address
-  method: put
-  operationId: OrderShippingAddressByOrderNumber_PUT
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/warehouse
-  method: put
-  operationId: OrderWarehouseByOrderNumber_PUT
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/comment
-  method: post
-  operationId: OrderCommentByOrderNumber_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/comment
-  method: get
-  operationId: OrderCommentByOrderNumber_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/order/{order_number}/line
-  method: post
-  operationId: OrderLineByOrderNumber_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/line/{order_line_id}
-  method: put
-  operationId: OrderLineByOrderNumberAndOrderLineId_PUT
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/line/{order_line_id}
-  method: delete
-  operationId: OrderLineByOrderNumberAndOrderLineId_DELETE
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/rate/amazon
-  method: post
-  operationId: OrderbyOrderNumberRateAmazon_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/rate/australia_post
-  method: post
-  operationId: OrderbyOrderNumberRateAmazon_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/rate/canada_post
-  method: post
-  operationId: OrderbyOrderNumberRateCanadaPost_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/rate/dhl
-  method: post
-  operationId: OrderbyOrderNumberRateDHL_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/rate/dhl_ecommerce
-  method: post
-  operationId: OrderbyOrderNumberRateDHL_Ecommerce_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/rate/endicia
-  method: post
-  operationId: OrderbyOrderNumberRateEndicia_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/rate/fedex
-  method: post
-  operationId: OrderbyOrderNumberRateFedex_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/rate/pitney
-  method: post
-  operationId: OrderbyOrderNumberRatePitney_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/rate/ups
-  method: post
-  operationId: OrderbyOrderNumberRateUPS_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/tag/{tag_id}
-  method: post
-  operationId: OrderbyOrderNumberAndTagByID_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/{order_number}/tag/{tag_id}
-  method: delete
-  operationId: OrderbyOrderNumberAndTagByID_DELETE
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/tag
-  method: get
-  operationId: ReturnOrderTag_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/order/tag
-  method: post
-  operationId: ReturnOrderTag_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/tag/{tagNamePath}
-  method: get
-  operationId: ReturnOrderTagWithName_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/order/tag/{tagNamePath}
-  method: put
-  operationId: ReturnOrderTag_PUT
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/order/tag/{tagNamePath}
-  method: delete
-  operationId: ReturnOrderTag_DELETE
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order
-  method: get
-  operationId: Return_Order_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/return_order
-  method: post
-  operationId: Return_Order_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/tag
-  method: get
-  operationId: ReturnOrderTag_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/return_order/tag
-  method: post
-  operationId: ReturnOrderTag_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/tag/{tagNamePath}
-  method: get
-  operationId: ReturnOrderTagWithName_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/return_order/tag/{tagNamePath}
-  method: put
-  operationId: ReturnOrderTag_PUT
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/tag/{tagNamePath}
-  method: delete
-  operationId: ReturnOrderTag_DELETE
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/label/australia_post
-  method: post
-  operationId: ReturnOrderLabelAustraliaPost_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/label/canada_post
-  method: post
-  operationId: ReturnOrderLabelCanadaPost_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/label/dhl
-  method: post
-  operationId: ReturnOrderLabelDHL_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/label/dhl_ecommerce
-  method: post
-  operationId: ReturnOrderLabelDHL_Ecommerce_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/label/endicia
-  method: post
-  operationId: ReturnOrderLabelEndicia_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/label/fedex
-  method: post
-  operationId: ReturnOrderLabelFedex_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/label/pitney
-  method: post
-  operationId: ReturnOrderLabelPitney_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/label/ups
-  method: post
-  operationId: ReturnOrderLabelUPS_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/rate/australia_post
-  method: post
-  operationId: ReturnOrderRateAustraliaPost_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/rate/canada_post
-  method: post
-  operationId: ReturnOrderRateCanadaPost_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/rate/dhl
-  method: post
-  operationId: ReturnOrderRateDHL_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/rate/endicia
-  method: post
-  operationId: ReturnOrderRateEndicia_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/rate/fedex
-  method: post
-  operationId: ReturnOrderRateFedex_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/rate/pitney
-  method: post
-  operationId: ReturnOrderRateUSPS_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/return_order/rate/ups
-  method: post
-  operationId: ReturnOrderRateUPS_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/tag
-  method: get
-  operationId: V3Tag_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/tag
-  method: post
-  operationId: V3Tag_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/tag/{tag_id}
-  method: get
-  operationId: V3TagById_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/tag/{tag_id}
-  method: put
-  operationId: V3TagById_PUT
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/tag/{tag_id}
-  method: delete
-  operationId: V3TagById_DELETE
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/label
-  method: get
-  operationId: V3Label_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/account/balance
-  method: get
-  operationId: V3AccountBalance_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/account/add_funds
-  method: post
-  operationId: V3AccountAddFunds_GET
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/shipper/{shipper_id}/balance
-  method: get
-  operationId: V3ShipperByIDBalance_GET
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/shipper/{shipper_id}/balance
-  method: post
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/pickup/ups
-  method: post
-  operationId: PickupUPS_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v3/pickup/fedex
-  method: post
-  operationId: PickupUPS_POST
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
     escalation:
       human-in-the-loop: conditional
       triggers:

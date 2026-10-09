@@ -74,3 +74,67 @@ plans:
   period: month
   unit: plan
   included_quota: Custom Amount of Monthly Dropshipments, Supplier Feeds, Vendor Portals
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  units: []
+  plans:
+  - name: Shipping Essential
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Shipping Advanced
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Shipping Premium
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Inventory Advanced
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Inventory Premium
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Dropshipping Advanced
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Dropshipping Premium
+    access: other
+    model: unstated
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month

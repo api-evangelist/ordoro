@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/ordoro/integrations
 - https://n8n.io/integrations/ordoro/
@@ -7,10 +7,40 @@ source:
 - https://monid.ai/tools/ordoro
 checked:
 - https://composio.dev/toolkits/ordoro
+- https://github.com/meltano/hub
 - https://monid.ai/tools/ordoro
 - https://n8n.io/integrations/ordoro/
 - https://zapier.com/apps/ordoro/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: Meltano
+  partner: meltano
+  partner_match: aggregator
+  type: marketplace
+  marketplace: meltano-hub
+  channel: elt-connector
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://hub.meltano.com/extractors/tap-ordoro--hotgluexyz
+  category: null
+  contract_reference:
+    register: Meltano Hub (github.com/meltano/hub _data/meltano extractors + loaders)
+    spec_file: null
+    role: elt-connector:meltano-hub
+    registered_name: Ordoro
+    matched_domain: ordoro.com
+    matched_by: domain
+    detected_by: sweep-data-integration.py
+    detected: '2026-10-18'
+    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
+    plugins:
+    - tap-ordoro--hotgluexyz
+    maintenance_status:
+    - active
+    quality:
+    - gold
+    builder: 'community (Meltano Hub variant maintainers: hotgluexyz)'
+  detected_by: sweep-data-integration.py
+  first_seen: '2026-10-18'
 templates: []
